@@ -6,13 +6,9 @@ pip install excelbird
 
 > **A front-end framework for Excel that can do magical things.**
 
-**The problem:** With traditional tools, scripting Excel is tedious for two reasons:
-1. **Layout**: You must refer to actual cell locations in your code, and tell them each what to do.
-2. **Cell References**: The most important feature of a spreadsheet - the ability to see how calculations were made - is not available to you when scripting.
+Layout and styling is as easy as building an HTML page. You don't have to tell cells where to go.
 
-**With excelbird:**
-1. Layout and styling is as easy as building an HTML page. You don't have to tell cells where to go.
-2. A dataframe library where all calculations are lazily evaluated as formulas and cell references at write time.
+A dataframe library where all calculations are lazily evaluated as formulas and cell references at write time.
 
 #
 
@@ -63,8 +59,4 @@ pip install excelbird
 # Examples
 
 
-<img src="https://i.imgur.com/Cx1yVN3.png" width="350">
-
-![]()
-
-![]()
+Examples coming soon!

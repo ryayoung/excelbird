@@ -82,16 +82,6 @@ class Cell(HasId, HasBorder, CanDoMath):
         self.autofit = autofit
         self.center = center
 
-        for attr in [
-            'value', 'id', 'align_x', 'align_y',
-            'wrap', 'size', 'bold', 'italic',
-            'color', 'num_fmt', 'fill_color', 'auto_color_font',
-            'auto_shade_font', 'col_width', 'row_height', 'merge',
-            'expr', 'func', 'autofit', 'center',
-        ]:
-            setattr(self, attr, eval(attr))
-
-
         self.init_border(
             border,
             border_top,
@@ -219,7 +209,7 @@ class Cell(HasId, HasBorder, CanDoMath):
         if self.col_width is not None:
             self.loc.column_dimensions.width = self.col_width
 
-        if self.autofit is True:
+        if self.autofit is True and self.col_width is None:
             curr = self.loc.column_dimensions.width
             new = autofit_algorithm(self.value)
             if new > curr:

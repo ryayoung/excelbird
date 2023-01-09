@@ -137,6 +137,7 @@ class Expr:
 
         Mutates inplace: `self`
         """
+        from excelbird.function import _DelayedFunc
         for key, val in self.refs.items():
             try:
                 ref = container[container.key_to_idx(key)]
@@ -146,7 +147,7 @@ class Expr:
                 except (KeyError, IndexError):
                     ref = global_headers.get(key, None)
 
-            if ref is not None:
+            if ref is not None and not isinstance(ref, (_DelayedFunc, Expr)):
                 self.refs[key] = ref
         
         return self.refs_resolved()
