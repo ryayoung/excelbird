@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>excelbird.core.cell &mdash; excelbird 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> excelbird
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">excelbird</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">excelbird.core.cell</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for excelbird.core.cell</h1><div class="highlight"><pre>
+<span></span><span class="c1"># External</span>
+<span class="kn">from</span> <span class="nn">pandas</span> <span class="kn">import</span> <span class="n">Series</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">copy</span><span class="p">,</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">openpyxl.styles</span> <span class="kn">import</span> <span class="n">Font</span><span class="p">,</span> <span class="n">PatternFill</span><span class="p">,</span> <span class="n">Alignment</span><span class="p">,</span> <span class="n">Border</span><span class="p">,</span> <span class="n">Side</span>
+<span class="kn">from</span> <span class="nn">openpyxl.styles.colors</span> <span class="kn">import</span> <span class="n">Color</span>
+<span class="kn">from</span> <span class="nn">openpyxl.utils</span> <span class="kn">import</span> <span class="n">FORMULAE</span>
+<span class="c1"># Internal main</span>
+<span class="kn">from</span> <span class="nn">excelbird.globals</span> <span class="kn">import</span> <span class="n">force_valid_references</span>
+<span class="kn">from</span> <span class="nn">excelbird.base_types</span> <span class="kn">import</span> <span class="n">HasId</span><span class="p">,</span> <span class="n">HasBorder</span><span class="p">,</span> <span class="n">Style</span><span class="p">,</span> <span class="n">Loc</span><span class="p">,</span> <span class="n">Gap</span>
+<span class="kn">from</span> <span class="nn">excelbird.util</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">autofit_algorithm</span><span class="p">,</span>
+    <span class="n">get_dimensions</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">excelbird.color_algorithms</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">color_is_light</span><span class="p">,</span>
+    <span class="n">get_alt_shade</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">excelbird.exceptions</span> <span class="kn">import</span> <span class="n">AlreadyWrittenError</span><span class="p">,</span> <span class="n">CellReferenceError</span>
+<span class="kn">from</span> <span class="nn">excelbird.math</span> <span class="kn">import</span> <span class="n">CanDoMath</span>
+<span class="kn">from</span> <span class="nn">excelbird.expression</span> <span class="kn">import</span> <span class="n">Expr</span>
+<span class="kn">from</span> <span class="nn">excelbird.function</span> <span class="kn">import</span> <span class="n">_DelayedFunc</span>
+
+<span class="n">cell_reference_warning_issued</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="Cell"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell">[docs]</a><span class="k">class</span> <span class="nc">Cell</span><span class="p">(</span><span class="n">HasId</span><span class="p">,</span> <span class="n">HasBorder</span><span class="p">,</span> <span class="n">CanDoMath</span><span class="p">):</span>
+    <span class="n">dimensions</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">elem_type</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">:</span> <span class="n">Any</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">align_x</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">align_y</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">center</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># center align horizontal and vertical</span>
+        <span class="n">wrap</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># font size</span>
+        <span class="n">bold</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">italic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">num_fmt</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">fill_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">auto_color_font</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">auto_shade_font</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+
+        <span class="n">border_left</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">border_right</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">border_top</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">border_bottom</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">border</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># MUST be last border attr set</span>
+
+        <span class="n">col_width</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># finds the cell&#39;s column and adjust it</span>
+        <span class="n">row_height</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># finds the cell&#39;s row and adjusts it</span>
+        <span class="n">merge</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># (y, x) counts of how many merges. Ex: (0, 1) merges cell with right adjacent</span>
+        <span class="n">expr</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">func</span><span class="p">:</span> <span class="nb">list</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">autofit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">cell_style</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">written</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;align_x&#39;</span><span class="p">,</span> <span class="s1">&#39;align_y&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;wrap&#39;</span><span class="p">,</span> <span class="s1">&#39;size&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="s1">&#39;italic&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;color&#39;</span><span class="p">,</span> <span class="s1">&#39;num_fmt&#39;</span><span class="p">,</span> <span class="s1">&#39;fill_color&#39;</span><span class="p">,</span> <span class="s1">&#39;auto_color_font&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;auto_shade_font&#39;</span><span class="p">,</span> <span class="s1">&#39;col_width&#39;</span><span class="p">,</span> <span class="s1">&#39;row_height&#39;</span><span class="p">,</span> <span class="s1">&#39;merge&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;expr&#39;</span><span class="p">,</span> <span class="s1">&#39;func&#39;</span><span class="p">,</span> <span class="s1">&#39;autofit&#39;</span><span class="p">,</span> <span class="s1">&#39;center&#39;</span><span class="p">,</span>
+        <span class="p">]:</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="nb">eval</span><span class="p">(</span><span class="n">attr</span><span class="p">))</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">written</span> <span class="o">=</span> <span class="kc">False</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">init_border</span><span class="p">(</span>
+            <span class="n">border</span><span class="p">,</span>
+            <span class="n">border_top</span><span class="p">,</span>
+            <span class="n">border_right</span><span class="p">,</span>
+            <span class="n">border_bottom</span><span class="p">,</span>
+            <span class="n">border_left</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">inherit_style_without_override</span><span class="p">(</span><span class="n">cell_style</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">Cell</span><span class="p">):</span>
+            <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">cell</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;loc&quot;</span><span class="p">]</span>
+            <span class="p">}</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">new_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="p">(</span><span class="n">Expr</span><span class="p">,</span> <span class="n">_DelayedFunc</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Can&#39;t pass expression or function as a Cell&#39;s `value`. &quot;</span>
+                <span class="s2">&quot;Instead, use the expression/function by itself, and pass any &quot;</span>
+                <span class="s2">&quot;Cell styling as a dict to `cell_style`.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">loc</span> <span class="o">=</span> <span class="kc">None</span>
+    
+    <span class="k">def</span> <span class="nf">_write</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">written</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">AlreadyWrittenError</span><span class="p">(</span>
+                <span class="s2">&quot;Excelbird objects can only be written to a workbook once. This is &quot;</span>
+                <span class="s2">&quot;because when `.write()` is called on a `Book`, the state of each of its elements &quot;</span>
+                <span class="s2">&quot;changes: expressions are evaluated, series headers are inserted as actual cells, &quot;</span>
+                <span class="s2">&quot;and cells with references are filled with the string locations of their references. &quot;</span>
+                <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Support for repeated writes is possible, but hasn&#39;t been implemented yet.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;=&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">func_value</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">title_str</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">expr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">expr_value</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s2">&quot;UNKNOWN&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="s2">&quot;=&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">title_str</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+        
+        <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Tried to place a cell with no location&quot;</span>
+
+        <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">x</span>
+        <span class="n">cell</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">cell</span>
+        <span class="n">cell</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_fmt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">number_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_fmt</span>
+
+        <span class="n">align</span><span class="p">,</span> <span class="n">font</span><span class="p">,</span> <span class="n">fill</span><span class="p">,</span> <span class="n">border</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{},</span> <span class="p">{},</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">center</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">align</span><span class="p">[</span><span class="s2">&quot;horizontal&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
+            <span class="n">align</span><span class="p">[</span><span class="s2">&quot;vertical&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;center&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">align</span><span class="p">[</span><span class="s2">&quot;horizontal&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_x</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">align</span><span class="p">[</span><span class="s2">&quot;vertical&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">align_y</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">align</span><span class="p">[</span><span class="s2">&quot;wrap_text&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wrap</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">font</span><span class="p">[</span><span class="s2">&quot;size&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">font</span><span class="p">[</span><span class="s2">&quot;bold&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bold</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">italic</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">font</span><span class="p">[</span><span class="s2">&quot;italic&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">italic</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">font</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_color_font</span> <span class="ow">is</span> <span class="kc">True</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">color_is_light</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_color</span><span class="p">):</span>
+                    <span class="n">font</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;FFFFFF&quot;</span>  <span class="c1"># white</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_shade_font</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_color</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">auto_shade_font</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+                    <span class="n">font</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_alt_shade</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_color</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_shade_font</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># print(self.value + f&quot;: {&#39; &#39; * (10 - len(self.value))}&quot;, end=&quot;&quot;)</span>
+                    <span class="n">font</span><span class="p">[</span><span class="s2">&quot;color&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_alt_shade</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_color</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fill_color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">fill</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;patternType&quot;</span><span class="p">:</span> <span class="s2">&quot;solid&quot;</span><span class="p">,</span> <span class="s2">&quot;fgColor&quot;</span><span class="p">:</span> <span class="n">Color</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fill_color</span><span class="p">)}</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_top</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">border</span><span class="p">[</span><span class="s2">&quot;top&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Side</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_top</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_right</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">border</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Side</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_right</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_bottom</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">border</span><span class="p">[</span><span class="s2">&quot;bottom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Side</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_bottom</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">border_left</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">border</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Side</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">border_left</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">font</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">font</span> <span class="o">=</span> <span class="n">Font</span><span class="p">(</span><span class="o">**</span><span class="n">font</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">fill</span> <span class="o">=</span> <span class="n">PatternFill</span><span class="p">(</span><span class="o">**</span><span class="n">fill</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">border</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">border</span> <span class="o">=</span> <span class="n">Border</span><span class="p">(</span><span class="o">**</span><span class="n">border</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">align</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">cell</span><span class="o">.</span><span class="n">alignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">(</span><span class="o">**</span><span class="n">align</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">end_row</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">y</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">end_column</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">x</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">merge</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">ws</span><span class="o">.</span><span class="n">merge_cells</span><span class="p">(</span>
+                <span class="n">start_row</span><span class="o">=</span><span class="n">y</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">start_column</span><span class="o">=</span><span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                <span class="n">end_row</span><span class="o">=</span><span class="n">end_row</span><span class="p">,</span>
+                <span class="n">end_column</span><span class="o">=</span><span class="n">end_column</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_width</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">column_dimensions</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">col_width</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">autofit</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">curr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">column_dimensions</span><span class="o">.</span><span class="n">width</span>
+            <span class="n">new</span> <span class="o">=</span> <span class="n">autofit_algorithm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">new</span> <span class="o">&gt;</span> <span class="n">curr</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">column_dimensions</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">new</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_height</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">row_dimensions</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">row_height</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">written</span> <span class="o">=</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Cell.set_loc"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.set_loc">[docs]</a>    <span class="k">def</span> <span class="nf">set_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">loc</span><span class="p">:</span> <span class="n">Loc</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loc</span> <span class="o">=</span> <span class="n">loc</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="si">}</span><span class="s2">)&quot;</span>
+
+<div class="viewcode-block" id="Cell.eval_func"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.eval_func">[docs]</a>    <span class="k">def</span> <span class="nf">eval_func</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+        <span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">elems</span> <span class="o">=</span> <span class="n">func</span>
+
+        <span class="k">def</span> <span class="nf">format_element</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">get_dimensions</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">cell_range</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">range</span><span class="p">()</span><span class="o">.</span><span class="n">expr</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_expr</span><span class="p">(</span><span class="n">cell_range</span><span class="p">)</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">loc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">full_str</span>
+            
+            <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">expr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_expr</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_func</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">func</span><span class="p">)</span>
+            
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">format_element</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">elems</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">FORMULAE</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;_xlfn.&quot;</span> <span class="o">+</span> <span class="n">name</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">(</span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span></div>
+
+    
+<div class="viewcode-block" id="Cell.eval_expr"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.eval_expr">[docs]</a>    <span class="k">def</span> <span class="nf">eval_expr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">expr</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+        <span class="k">def</span> <span class="nf">format_element</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="n">Cell</span><span class="p">):</span>
+                <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">loc</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">loc</span><span class="o">.</span><span class="n">full_str</span>
+            
+            <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">expr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_expr</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
+            
+            <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">func</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_func</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">func</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">global</span> <span class="n">cell_reference_warning_issued</span><span class="p">,</span> <span class="n">force_valid_references</span>
+            
+                <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">cell_reference_warning_issued</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span>
+                            <span class="s2">&quot;Warning: A cell in your book is trying to reference a cell which &quot;</span>
+                            <span class="s2">&quot;won&#39;t be placed in the book. The missing cell&#39;s value has been applied &quot;</span>
+                            <span class="s2">&quot;as a hardcoded value in the valid cell&#39;s expression.&quot;</span>
+                        <span class="p">)</span>
+                        <span class="n">cell_reference_warning_issued</span> <span class="o">=</span> <span class="kc">True</span>
+
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                        <span class="n">quote_stripped_val</span> <span class="o">=</span> <span class="n">elem</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">quote_stripped_val</span><span class="si">}</span><span class="s1">&quot;&#39;</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">elem</span><span class="o">.</span><span class="n">value</span>
+                
+                <span class="k">if</span> <span class="n">cell_reference_warning_issued</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">force_valid_references</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                    <span class="n">CellReferenceError</span><span class="o">.</span><span class="n">issue_warning</span><span class="p">()</span>
+                    <span class="n">cell_reference_warning_issued</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="n">CellReferenceError</span><span class="p">()</span>
+
+                <span class="k">return</span> <span class="s2">&quot;UNKNOWN&quot;</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="n">format_element</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">expr</span><span class="p">]</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">res</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;(&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="n">res</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;)&quot;</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Cell.expr_value"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.expr_value">[docs]</a>    <span class="k">def</span> <span class="nf">expr_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">expr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">expr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_expr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">expr</span><span class="p">)</span>
+        <span class="n">expr</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">removeprefix</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">expr</span></div>
+
+<div class="viewcode-block" id="Cell.func_value"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.func_value">[docs]</a>    <span class="k">def</span> <span class="nf">func_value</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Cell.ref"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.ref">[docs]</a>    <span class="k">def</span> <span class="nf">ref</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inherit_style</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">inherit_style</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">self_dict</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">self_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;_border&quot;</span><span class="p">:</span>
+                    <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;border&quot;</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;_id&quot;</span><span class="p">,</span> <span class="s2">&quot;loc&quot;</span><span class="p">,</span> <span class="s2">&quot;expr&quot;</span><span class="p">,</span> <span class="s2">&quot;func&quot;</span><span class="p">]:</span>
+                    <span class="n">kwargs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">return</span> <span class="n">Cell</span><span class="p">(</span><span class="n">expr</span><span class="o">=</span><span class="p">[</span><span class="bp">self</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Cell.resolve_expressions"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.resolve_expressions">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_expressions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Cell.resolve_gaps"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.resolve_gaps">[docs]</a>    <span class="k">def</span> <span class="nf">resolve_gaps</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Cell.inherit_style_without_override"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.inherit_style_without_override">[docs]</a>    <span class="k">def</span> <span class="nf">inherit_style_without_override</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_style</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="n">Style</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">new_style</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">new_style</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">shape</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">()</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">width</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">height</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    
+<div class="viewcode-block" id="Cell.explode_all_lists_tuples"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.explode_all_lists_tuples">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">explode_all_lists_tuples</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Convert iterables to cells.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            [Cell(1), [2, 3], Cell(4)]</span>
+<span class="sd">            -&gt; [Cell(1), Cell(2), Cell(3), Cell(4)]</span>
+
+<span class="sd">            [Cell(1), [Cell(2), Cell(3)], Cell(4)]</span>
+<span class="sd">            -&gt; [Cell(1), Cell(2), Cell(3), Cell(4)]</span>
+
+<span class="sd">        Mutates inplace: `container`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="nb">all</span><span class="p">(</span>
+                    <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span>
+                    <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">Gap</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">elem</span>
+                <span class="p">):</span>
+                    <span class="n">series</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">series</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="bp">cls</span><span class="p">):</span>
+                            <span class="n">container</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">container</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="bp">cls</span><span class="p">(</span><span class="n">value</span><span class="p">))</span></div>
+    
+<div class="viewcode-block" id="Cell.convert_all_values"><a class="viewcode-back" href="../../../excelbird.core.html#excelbird.core.cell.Cell.convert_all_values">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">convert_all_values</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">container</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts non-iterable values to cells.</span>
+
+<span class="sd">        Mutates inplace: `container`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">container</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">))</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span> <span class="p">(</span><span class="n">Gap</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)):</span>
+                <span class="n">container</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span></div></div>
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ryan Young.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

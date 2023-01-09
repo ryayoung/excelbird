@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>excelbird package &mdash; excelbird 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> excelbird
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">excelbird package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-excelbird.base_types">excelbird.base_types module</a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.DotDict"><code class="docutils literal notranslate"><span class="pre">DotDict</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Gap"><code class="docutils literal notranslate"><span class="pre">Gap</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.Gap.convert_all_to_frames"><code class="docutils literal notranslate"><span class="pre">Gap.convert_all_to_frames()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Gap.explode_all_to_values"><code class="docutils literal notranslate"><span class="pre">Gap.explode_all_to_values()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Gap.explode_all_to_vecs"><code class="docutils literal notranslate"><span class="pre">Gap.explode_all_to_vecs()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Gap.fill_val"><code class="docutils literal notranslate"><span class="pre">Gap.fill_val</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Gap.height"><code class="docutils literal notranslate"><span class="pre">Gap.height</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Gap.ref"><code class="docutils literal notranslate"><span class="pre">Gap.ref()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Gap.width"><code class="docutils literal notranslate"><span class="pre">Gap.width</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.base_types.HasBorder"><code class="docutils literal notranslate"><span class="pre">HasBorder</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.HasBorder.border"><code class="docutils literal notranslate"><span class="pre">HasBorder.border</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.HasBorder.border_bottom"><code class="docutils literal notranslate"><span class="pre">HasBorder.border_bottom</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.HasBorder.border_left"><code class="docutils literal notranslate"><span class="pre">HasBorder.border_left</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.HasBorder.border_right"><code class="docutils literal notranslate"><span class="pre">HasBorder.border_right</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.HasBorder.border_top"><code class="docutils literal notranslate"><span class="pre">HasBorder.border_top</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.HasBorder.default"><code class="docutils literal notranslate"><span class="pre">HasBorder.default</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.HasBorder.init_border"><code class="docutils literal notranslate"><span class="pre">HasBorder.init_border()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.HasBorder.parse_arg"><code class="docutils literal notranslate"><span class="pre">HasBorder.parse_arg()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.base_types.HasHeader"><code class="docutils literal notranslate"><span class="pre">HasHeader</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.HasHeader.header"><code class="docutils literal notranslate"><span class="pre">HasHeader.header</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.HasHeader.set_header"><code class="docutils literal notranslate"><span class="pre">HasHeader.set_header()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.base_types.HasHelp"><code class="docutils literal notranslate"><span class="pre">HasHelp</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.HasHelp.help"><code class="docutils literal notranslate"><span class="pre">HasHelp.help()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.base_types.HasId"><code class="docutils literal notranslate"><span class="pre">HasId</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.HasId.id"><code class="docutils literal notranslate"><span class="pre">HasId.id</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.HasId.set_id"><code class="docutils literal notranslate"><span class="pre">HasId.set_id()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.base_types.I"><code class="docutils literal notranslate"><span class="pre">I</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.ImpliedType"><code class="docutils literal notranslate"><span class="pre">ImpliedType</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.ImpliedType.astype"><code class="docutils literal notranslate"><span class="pre">ImpliedType.astype()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.ImpliedType.resolve_all_in_container"><code class="docutils literal notranslate"><span class="pre">ImpliedType.resolve_all_in_container()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.base_types.ListIndexableById"><code class="docutils literal notranslate"><span class="pre">ListIndexableById</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.ListIndexableById.insert"><code class="docutils literal notranslate"><span class="pre">ListIndexableById.insert()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.ListIndexableById.key_to_idx"><code class="docutils literal notranslate"><span class="pre">ListIndexableById.key_to_idx()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.base_types.Loc"><code class="docutils literal notranslate"><span class="pre">Loc</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.Loc.cell"><code class="docutils literal notranslate"><span class="pre">Loc.cell</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Loc.cell_str"><code class="docutils literal notranslate"><span class="pre">Loc.cell_str</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Loc.col_letter"><code class="docutils literal notranslate"><span class="pre">Loc.col_letter</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Loc.column_dimensions"><code class="docutils literal notranslate"><span class="pre">Loc.column_dimensions</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Loc.full_str"><code class="docutils literal notranslate"><span class="pre">Loc.full_str</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Loc.row_dimensions"><code class="docutils literal notranslate"><span class="pre">Loc.row_dimensions</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.base_types.Loc.title_str"><code class="docutils literal notranslate"><span class="pre">Loc.title_str</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.base_types.Style"><code class="docutils literal notranslate"><span class="pre">Style</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.base_types.Style.help"><code class="docutils literal notranslate"><span class="pre">Style.help()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-excelbird.color_algorithms">excelbird.color_algorithms module</a><ul>
+<li><a class="reference internal" href="#excelbird.color_algorithms.color_is_light"><code class="docutils literal notranslate"><span class="pre">color_is_light()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.color_algorithms.get_alt_shade"><code class="docutils literal notranslate"><span class="pre">get_alt_shade()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.color_algorithms.hex_to_rgb"><code class="docutils literal notranslate"><span class="pre">hex_to_rgb()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.color_algorithms.lightness_coef"><code class="docutils literal notranslate"><span class="pre">lightness_coef()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.color_algorithms.luma_rgb"><code class="docutils literal notranslate"><span class="pre">luma_rgb()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.color_algorithms.weighted_euclidean_norm_rgb"><code class="docutils literal notranslate"><span class="pre">weighted_euclidean_norm_rgb()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-excelbird.colors">excelbird.colors module</a></li>
+<li><a class="reference internal" href="#module-excelbird.exceptions">excelbird.exceptions module</a><ul>
+<li><a class="reference internal" href="#excelbird.exceptions.AlreadyWrittenError"><code class="docutils literal notranslate"><span class="pre">AlreadyWrittenError</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.exceptions.AutoOpenFileError"><code class="docutils literal notranslate"><span class="pre">AutoOpenFileError</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.exceptions.CellReferenceError"><code class="docutils literal notranslate"><span class="pre">CellReferenceError</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.exceptions.CellReferenceError.default_msg"><code class="docutils literal notranslate"><span class="pre">CellReferenceError.default_msg</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.exceptions.CellReferenceError.issue_warning"><code class="docutils literal notranslate"><span class="pre">CellReferenceError.issue_warning()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.exceptions.ExpressionResolutionError"><code class="docutils literal notranslate"><span class="pre">ExpressionResolutionError</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.exceptions.ExpressionResolutionError.default_msg"><code class="docutils literal notranslate"><span class="pre">ExpressionResolutionError.default_msg</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.exceptions.InvalidSheetName"><code class="docutils literal notranslate"><span class="pre">InvalidSheetName</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-excelbird.expression">excelbird.expression module</a><ul>
+<li><a class="reference internal" href="#excelbird.expression.Expr"><code class="docutils literal notranslate"><span class="pre">Expr</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.expression.Expr.attempt_to_resolve"><code class="docutils literal notranslate"><span class="pre">Expr.attempt_to_resolve()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.expression.Expr.eval"><code class="docutils literal notranslate"><span class="pre">Expr.eval()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.expression.Expr.ref"><code class="docutils literal notranslate"><span class="pre">Expr.ref()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.expression.Expr.refs_resolved"><code class="docutils literal notranslate"><span class="pre">Expr.refs_resolved()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.expression.Expr.resolve_container_recursive"><code class="docutils literal notranslate"><span class="pre">Expr.resolve_container_recursive()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.expression.Expr.set_use_ref_for_container_recursive"><code class="docutils literal notranslate"><span class="pre">Expr.set_use_ref_for_container_recursive()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-excelbird.function">excelbird.function module</a><ul>
+<li><a class="reference internal" href="#excelbird.function.fun"><code class="docutils literal notranslate"><span class="pre">fun()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-excelbird.globals">excelbird.globals module</a></li>
+<li><a class="reference internal" href="#module-excelbird.math">excelbird.math module</a><ul>
+<li><a class="reference internal" href="#excelbird.math.CanDoMath"><code class="docutils literal notranslate"><span class="pre">CanDoMath</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.math.elem_math"><code class="docutils literal notranslate"><span class="pre">elem_math()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-excelbird.schema">excelbird.schema module</a><ul>
+<li><a class="reference internal" href="#excelbird.schema.Column"><code class="docutils literal notranslate"><span class="pre">Column</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.schema.Column.input"><code class="docutils literal notranslate"><span class="pre">Column.input</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Column.output"><code class="docutils literal notranslate"><span class="pre">Column.output</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.schema.Schema"><code class="docutils literal notranslate"><span class="pre">Schema</span></code></a><ul>
+<li><a class="reference internal" href="#excelbird.schema.Schema.apply"><code class="docutils literal notranslate"><span class="pre">Schema.apply()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.copy"><code class="docutils literal notranslate"><span class="pre">Schema.copy()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.inputs"><code class="docutils literal notranslate"><span class="pre">Schema.inputs()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.outputs"><code class="docutils literal notranslate"><span class="pre">Schema.outputs()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.rename"><code class="docutils literal notranslate"><span class="pre">Schema.rename()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.rename_inputs_to_vars"><code class="docutils literal notranslate"><span class="pre">Schema.rename_inputs_to_vars()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.rename_vars_to_outputs"><code class="docutils literal notranslate"><span class="pre">Schema.rename_vars_to_outputs()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.reset_inputs"><code class="docutils literal notranslate"><span class="pre">Schema.reset_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.reset_outputs"><code class="docutils literal notranslate"><span class="pre">Schema.reset_outputs()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.select_inputs"><code class="docutils literal notranslate"><span class="pre">Schema.select_inputs()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.select_outputs"><code class="docutils literal notranslate"><span class="pre">Schema.select_outputs()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.schema.Schema.update"><code class="docutils literal notranslate"><span class="pre">Schema.update()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#excelbird.schema.SchemaError"><code class="docutils literal notranslate"><span class="pre">SchemaError</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-excelbird.styles">excelbird.styles module</a></li>
+<li><a class="reference internal" href="#module-excelbird.util">excelbird.util module</a><ul>
+<li><a class="reference internal" href="#excelbird.util.autofit_algorithm"><code class="docutils literal notranslate"><span class="pre">autofit_algorithm()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.capture_args_by_type"><code class="docutils literal notranslate"><span class="pre">capture_args_by_type()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.capture_kwargs_by_type"><code class="docutils literal notranslate"><span class="pre">capture_kwargs_by_type()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.combine_args_and_children_to_list"><code class="docutils literal notranslate"><span class="pre">combine_args_and_children_to_list()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.convert_all_to_type"><code class="docutils literal notranslate"><span class="pre">convert_all_to_type()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.convert_sibling_types"><code class="docutils literal notranslate"><span class="pre">convert_sibling_types()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.datetime_cols_to_dates"><code class="docutils literal notranslate"><span class="pre">datetime_cols_to_dates()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.ensure_value_is_not_number"><code class="docutils literal notranslate"><span class="pre">ensure_value_is_not_number()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.ensure_value_is_number"><code class="docutils literal notranslate"><span class="pre">ensure_value_is_number()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.get_dimensions"><code class="docutils literal notranslate"><span class="pre">get_dimensions()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.get_idx"><code class="docutils literal notranslate"><span class="pre">get_idx()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.init_container"><code class="docutils literal notranslate"><span class="pre">init_container()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.init_from_same_dimension_type"><code class="docutils literal notranslate"><span class="pre">init_from_same_dimension_type()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.is_notebook"><code class="docutils literal notranslate"><span class="pre">is_notebook()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.mark_all_cells_as_written_recursive"><code class="docutils literal notranslate"><span class="pre">mark_all_cells_as_written_recursive()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.move_dict_args_to_other_dict"><code class="docutils literal notranslate"><span class="pre">move_dict_args_to_other_dict()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.move_remaining_kwargs_to_dict"><code class="docutils literal notranslate"><span class="pre">move_remaining_kwargs_to_dict()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.pass_attr_to_children"><code class="docutils literal notranslate"><span class="pre">pass_attr_to_children()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.pass_attr_without_override"><code class="docutils literal notranslate"><span class="pre">pass_attr_without_override()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.pass_dict_to_children"><code class="docutils literal notranslate"><span class="pre">pass_dict_to_children()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.pass_dict_without_override"><code class="docutils literal notranslate"><span class="pre">pass_dict_without_override()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.require_each_element_to_be_cls_type"><code class="docutils literal notranslate"><span class="pre">require_each_element_to_be_cls_type()</span></code></a></li>
+<li><a class="reference internal" href="#excelbird.util.to_date"><code class="docutils literal notranslate"><span class="pre">to_date()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-excelbird">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">excelbird</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">excelbird package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/excelbird.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="excelbird-package">
+<h1>excelbird package<a class="headerlink" href="#excelbird-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="excelbird.core.html">excelbird.core package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="excelbird.core.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="excelbird.core.html#module-excelbird.core.book">excelbird.core.book module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="excelbird.core.html#excelbird.core.book.Book"><code class="docutils literal notranslate"><span class="pre">Book</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.book.Book.elem_type"><code class="docutils literal notranslate"><span class="pre">Book.elem_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.book.Book.format_args"><code class="docutils literal notranslate"><span class="pre">Book.format_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.book.Book.move_kwargs_to_args"><code class="docutils literal notranslate"><span class="pre">Book.move_kwargs_to_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.book.Book.open_excel_file"><code class="docutils literal notranslate"><span class="pre">Book.open_excel_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.book.Book.save_close_currently_open_excel_file"><code class="docutils literal notranslate"><span class="pre">Book.save_close_currently_open_excel_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.book.Book.set_loc"><code class="docutils literal notranslate"><span class="pre">Book.set_loc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.book.Book.try_to_import_xlwings"><code class="docutils literal notranslate"><span class="pre">Book.try_to_import_xlwings()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.book.Book.write"><code class="docutils literal notranslate"><span class="pre">Book.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="excelbird.core.html#module-excelbird.core.cell">excelbird.core.cell module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell"><code class="docutils literal notranslate"><span class="pre">Cell</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.convert_all_values"><code class="docutils literal notranslate"><span class="pre">Cell.convert_all_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.dimensions"><code class="docutils literal notranslate"><span class="pre">Cell.dimensions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.elem_type"><code class="docutils literal notranslate"><span class="pre">Cell.elem_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.eval_expr"><code class="docutils literal notranslate"><span class="pre">Cell.eval_expr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.eval_func"><code class="docutils literal notranslate"><span class="pre">Cell.eval_func()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.explode_all_lists_tuples"><code class="docutils literal notranslate"><span class="pre">Cell.explode_all_lists_tuples()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.expr_value"><code class="docutils literal notranslate"><span class="pre">Cell.expr_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.func_value"><code class="docutils literal notranslate"><span class="pre">Cell.func_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.height"><code class="docutils literal notranslate"><span class="pre">Cell.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.inherit_style_without_override"><code class="docutils literal notranslate"><span class="pre">Cell.inherit_style_without_override()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.ref"><code class="docutils literal notranslate"><span class="pre">Cell.ref()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.resolve_expressions"><code class="docutils literal notranslate"><span class="pre">Cell.resolve_expressions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.resolve_gaps"><code class="docutils literal notranslate"><span class="pre">Cell.resolve_gaps()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.set_loc"><code class="docutils literal notranslate"><span class="pre">Cell.set_loc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.shape"><code class="docutils literal notranslate"><span class="pre">Cell.shape</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.cell.Cell.width"><code class="docutils literal notranslate"><span class="pre">Cell.width</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="excelbird.core.html#module-excelbird.core.frame">excelbird.core.frame module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.HFrame"><code class="docutils literal notranslate"><span class="pre">HFrame</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.HFrame.apply_table_format_to_worksheet"><code class="docutils literal notranslate"><span class="pre">HFrame.apply_table_format_to_worksheet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.HFrame.elem_type"><code class="docutils literal notranslate"><span class="pre">HFrame.elem_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.HFrame.format_headers_for_table_format"><code class="docutils literal notranslate"><span class="pre">HFrame.format_headers_for_table_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.HFrame.gap_size"><code class="docutils literal notranslate"><span class="pre">HFrame.gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.HFrame.height"><code class="docutils literal notranslate"><span class="pre">HFrame.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.HFrame.sibling_type"><code class="docutils literal notranslate"><span class="pre">HFrame.sibling_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.HFrame.width"><code class="docutils literal notranslate"><span class="pre">HFrame.width</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.VFrame"><code class="docutils literal notranslate"><span class="pre">VFrame</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.VFrame.elem_type"><code class="docutils literal notranslate"><span class="pre">VFrame.elem_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.VFrame.gap_size"><code class="docutils literal notranslate"><span class="pre">VFrame.gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.VFrame.height"><code class="docutils literal notranslate"><span class="pre">VFrame.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.VFrame.sibling_type"><code class="docutils literal notranslate"><span class="pre">VFrame.sibling_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.frame.VFrame.width"><code class="docutils literal notranslate"><span class="pre">VFrame.width</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="excelbird.core.html#module-excelbird.core.sheet">excelbird.core.sheet module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="excelbird.core.html#excelbird.core.sheet.Sheet"><code class="docutils literal notranslate"><span class="pre">Sheet</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.sheet.Sheet.move_kwargs_to_args"><code class="docutils literal notranslate"><span class="pre">Sheet.move_kwargs_to_args()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="excelbird.core.html#module-excelbird.core.stack">excelbird.core.stack module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.HStack"><code class="docutils literal notranslate"><span class="pre">HStack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.HStack.elem_type"><code class="docutils literal notranslate"><span class="pre">HStack.elem_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.HStack.gap_size"><code class="docutils literal notranslate"><span class="pre">HStack.gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.HStack.height"><code class="docutils literal notranslate"><span class="pre">HStack.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.HStack.sibling_type"><code class="docutils literal notranslate"><span class="pre">HStack.sibling_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.HStack.width"><code class="docutils literal notranslate"><span class="pre">HStack.width</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.VStack"><code class="docutils literal notranslate"><span class="pre">VStack</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.VStack.elem_type"><code class="docutils literal notranslate"><span class="pre">VStack.elem_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.VStack.gap_size"><code class="docutils literal notranslate"><span class="pre">VStack.gap_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.VStack.height"><code class="docutils literal notranslate"><span class="pre">VStack.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.VStack.sibling_type"><code class="docutils literal notranslate"><span class="pre">VStack.sibling_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.stack.VStack.width"><code class="docutils literal notranslate"><span class="pre">VStack.width</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="excelbird.core.html#module-excelbird.core.vec">excelbird.core.vec module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="excelbird.core.html#excelbird.core.vec.Col"><code class="docutils literal notranslate"><span class="pre">Col</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.vec.Col.height"><code class="docutils literal notranslate"><span class="pre">Col.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.vec.Col.sibling_type"><code class="docutils literal notranslate"><span class="pre">Col.sibling_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.vec.Col.width"><code class="docutils literal notranslate"><span class="pre">Col.width</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="excelbird.core.html#excelbird.core.vec.Row"><code class="docutils literal notranslate"><span class="pre">Row</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.vec.Row.height"><code class="docutils literal notranslate"><span class="pre">Row.height</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.vec.Row.sibling_type"><code class="docutils literal notranslate"><span class="pre">Row.sibling_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="excelbird.core.html#excelbird.core.vec.Row.width"><code class="docutils literal notranslate"><span class="pre">Row.width</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="excelbird.core.html#module-excelbird.core">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-excelbird.base_types">
+<span id="excelbird-base-types-module"></span><h2>excelbird.base_types module<a class="headerlink" href="#module-excelbird.base_types" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.DotDict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">DotDict</span></span><a class="reference internal" href="_modules/excelbird/base_types.html#DotDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.DotDict" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.Gap">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">Gap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#Gap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.Gap" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.Gap.convert_all_to_frames">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert_all_to_frames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/base_types.html#Gap.convert_all_to_frames"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.Gap.convert_all_to_frames" title="Permalink to this definition"></a></dt>
+<dd><p>Given a container, replace each Gap with a frame of vectors of cells.
+<cite>vec_length</cite> sets the length of each resulting vector.</p>
+<p>Mutates inplace: <cite>container</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.Gap.explode_all_to_values">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">explode_all_to_values</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">val_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/base_types.html#Gap.explode_all_to_values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.Gap.explode_all_to_values" title="Permalink to this definition"></a></dt>
+<dd><p>Given a container, explode each Gap to <cite>val_type</cite>
+with the gap’s fill_val</p>
+<p>Mutates inplace: <cite>container</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.Gap.explode_all_to_vecs">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">explode_all_to_vecs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vec_length</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/base_types.html#Gap.explode_all_to_vecs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.Gap.explode_all_to_vecs" title="Permalink to this definition"></a></dt>
+<dd><p>Given a container, explode each Gap to vectors of vec_type filled with
+<cite>val_type</cite> with the Gap’s fill_val</p>
+<p>Mutates inplace: <cite>container</cite></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Gap.fill_val">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fill_val</span></span><a class="headerlink" href="#excelbird.base_types.Gap.fill_val" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Gap.height">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">height</span></span><a class="headerlink" href="#excelbird.base_types.Gap.height" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.Gap.ref">
+<span class="sig-name descname"><span class="pre">ref</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#Gap.ref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.Gap.ref" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Gap.width">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">width</span></span><a class="headerlink" href="#excelbird.base_types.Gap.width" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.HasBorder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">HasBorder</span></span><a class="reference internal" href="_modules/excelbird/base_types.html#HasBorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.HasBorder" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Child class is responsible for making sure each instance
+has variable, ‘border_x’ for each side.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.HasBorder.border">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">border</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#excelbird.base_types.HasBorder.border" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.HasBorder.border_bottom">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">border_bottom</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#excelbird.base_types.HasBorder.border_bottom" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.HasBorder.border_left">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">border_left</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#excelbird.base_types.HasBorder.border_left" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.HasBorder.border_right">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">border_right</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#excelbird.base_types.HasBorder.border_right" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.HasBorder.border_top">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">border_top</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#excelbird.base_types.HasBorder.border_top" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="excelbird.base_types.HasBorder.default">
+<span class="sig-name descname"><span class="pre">default</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[None,</span> <span class="pre">None,</span> <span class="pre">None,</span> <span class="pre">None]</span></em><a class="headerlink" href="#excelbird.base_types.HasBorder.default" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.HasBorder.init_border">
+<span class="sig-name descname"><span class="pre">init_border</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">border</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">right</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/base_types.html#HasBorder.init_border"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.HasBorder.init_border" title="Permalink to this definition"></a></dt>
+<dd><p>Processes the full border and individual sides, where
+individual sides take priority only if they are not None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.HasBorder.parse_arg">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">parse_arg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/excelbird/base_types.html#HasBorder.parse_arg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.HasBorder.parse_arg" title="Permalink to this definition"></a></dt>
+<dd><p>Designed to mimic CSS border logic. Returns a 4-element tuple
+describing the border of 4 sides, in the order: top, right, bottom,
+left. Elements can either be None, False, or a string representing weight.</p>
+<p>Arguments of True will default to ‘thin’ border</p>
+<dl class="simple">
+<dt>Example arguments to outputs:</dt><dd><dl class="simple">
+<dt>True or ‘thin’:</dt><dd><p>(‘thin’, ‘thin’, ‘thin’, ‘thin’)</p>
+</dd>
+<dt>(‘thin’, False):</dt><dd><p>(‘thin’, False, ‘thin’, False)</p>
+</dd>
+<dt>(‘thick’, ‘thick’, ‘thick’):</dt><dd><p>(‘thick’, ‘thick’, ‘thick’, False)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.HasHeader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">HasHeader</span></span><a class="reference internal" href="_modules/excelbird/base_types.html#HasHeader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.HasHeader" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Has an header property which, when set, inserts a reference to
+self in <cite>global_headers</cite>.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.HasHeader.header">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">header</span></span><a class="headerlink" href="#excelbird.base_types.HasHeader.header" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.HasHeader.set_header">
+<span class="sig-name descname"><span class="pre">set_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#HasHeader.set_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.HasHeader.set_header" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.HasHelp">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">HasHelp</span></span><a class="reference internal" href="_modules/excelbird/base_types.html#HasHelp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.HasHelp" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.HasHelp.help">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">doc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#HasHelp.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.HasHelp.help" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.HasId">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">HasId</span></span><a class="reference internal" href="_modules/excelbird/base_types.html#HasId"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.HasId" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Has an id property which, when set, inserts a reference to
+self in <cite>global_ids</cite>.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.HasId.id">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#excelbird.base_types.HasId.id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.HasId.set_id">
+<span class="sig-name descname"><span class="pre">set_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#HasId.set_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.HasId.set_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.I">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">I</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#I"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.I" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#excelbird.base_types.ImpliedType" title="excelbird.base_types.ImpliedType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImpliedType</span></code></a></p>
+<p>Shorthand for <cite>ImpliedType</cite></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.ImpliedType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">ImpliedType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#ImpliedType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.ImpliedType" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Short for ‘Implied’ type. Serves as a temporary container to store arguments
+to later resolve to a desired type</p>
+<dl class="simple">
+<dt>Once created, an <cite>I</cite> cannot:</dt><dd><p>be modified
+be used in expressions/functions
+have its elements/attributes referenced</p>
+</dd>
+<dt>until it is either:</dt><dd><p>passed as an element to a parent container
+resolved by passing a type to its <cite>resolve_to()</cite> function</p>
+</dd>
+</dl>
+<p>Main purpose (other than for conciseness) is to let you swap parent container types
+without having to refactor element types. For instance, if your code looks like:</p>
+<blockquote>
+<div><p>HFrame(Col(…), Col(…))</p>
+</div></blockquote>
+<p>and you want to change HFrame to VFrame, you would have to track down every Col element
+and refactor it to a Row. Instead:</p>
+<blockquote>
+<div><p>HFrame(I(…), I(…)) easily refactors to: VFrame(I(…), I(…))</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.ImpliedType.astype">
+<span class="sig-name descname"><span class="pre">astype</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/excelbird/base_types.html#ImpliedType.astype"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.ImpliedType.astype" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.ImpliedType.resolve_all_in_container">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resolve_all_in_container</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#ImpliedType.resolve_all_in_container"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.ImpliedType.resolve_all_in_container" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.ListIndexableById">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">ListIndexableById</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#ListIndexableById"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.ListIndexableById" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<p>A simple child class of list that can accept an <cite>id</cite> string as a
+key to access elements.</p>
+<p>Each element MUST have an <cite>id</cite> property itself, before trying to
+access elements.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.ListIndexableById.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/base_types.html#ListIndexableById.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.ListIndexableById.insert" title="Permalink to this definition"></a></dt>
+<dd><p>Insert object before index.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.ListIndexableById.key_to_idx">
+<span class="sig-name descname"><span class="pre">key_to_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/excelbird/base_types.html#ListIndexableById.key_to_idx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.ListIndexableById.key_to_idx" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.Loc">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">Loc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">TLoc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/base_types.html#Loc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.Loc" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">Loc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ws</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Worksheet</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Stores y-x coordinates (ZERO-BASED) of a cell in Excel.
+Takes arguments in the order, <cite>y</cite>, <cite>x</cite>.
+—
+Can be constructed from:</p>
+<blockquote>
+<div><p>String name of a cell in Excel: “B5”
+Another Loc
+2-element iterable of ints (y, x)
+Keywords, ‘y’ and ‘x’
+2 positionals (y and x)</p>
+</div></blockquote>
+<p>Conversion to string (<cite>str(my_loc)</cite>) will return an Excel cell location “C7”</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Loc.cell">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cell</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#excelbird.base_types.Loc.cell" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Loc.cell_str">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">cell_str</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#excelbird.base_types.Loc.cell_str" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Loc.col_letter">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">col_letter</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#excelbird.base_types.Loc.col_letter" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Loc.column_dimensions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">column_dimensions</span></span><a class="headerlink" href="#excelbird.base_types.Loc.column_dimensions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Loc.full_str">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">full_str</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#excelbird.base_types.Loc.full_str" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Loc.row_dimensions">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">row_dimensions</span></span><a class="headerlink" href="#excelbird.base_types.Loc.row_dimensions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="excelbird.base_types.Loc.title_str">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">title_str</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#excelbird.base_types.Loc.title_str" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.base_types.Style">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.base_types.</span></span><span class="sig-name descname"><span class="pre">Style</span></span><a class="reference internal" href="_modules/excelbird/base_types.html#Style"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.Style" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#excelbird.base_types.DotDict" title="excelbird.base_types.DotDict"><code class="xref py py-class docutils literal notranslate"><span class="pre">DotDict</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.base_types.Style.help">
+<span class="sig-name descname"><span class="pre">help</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/base_types.html#Style.help"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.base_types.Style.help" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-excelbird.color_algorithms">
+<span id="excelbird-color-algorithms-module"></span><h2>excelbird.color_algorithms module<a class="headerlink" href="#module-excelbird.color_algorithms" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.color_algorithms.color_is_light">
+<span class="sig-prename descclassname"><span class="pre">excelbird.color_algorithms.</span></span><span class="sig-name descname"><span class="pre">color_is_light</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hex_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/excelbird/color_algorithms.html#color_is_light"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.color_algorithms.color_is_light" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.color_algorithms.get_alt_shade">
+<span class="sig-prename descclassname"><span class="pre">excelbird.color_algorithms.</span></span><span class="sig-name descname"><span class="pre">get_alt_shade</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shade_coef</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.4</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/excelbird/color_algorithms.html#get_alt_shade"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.color_algorithms.get_alt_shade" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.color_algorithms.hex_to_rgb">
+<span class="sig-prename descclassname"><span class="pre">excelbird.color_algorithms.</span></span><span class="sig-name descname"><span class="pre">hex_to_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hex_string</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/excelbird/color_algorithms.html#hex_to_rgb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.color_algorithms.hex_to_rgb" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.color_algorithms.lightness_coef">
+<span class="sig-prename descclassname"><span class="pre">excelbird.color_algorithms.</span></span><span class="sig-name descname"><span class="pre">lightness_coef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hex_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/excelbird/color_algorithms.html#lightness_coef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.color_algorithms.lightness_coef" title="Permalink to this definition"></a></dt>
+<dd><p>Luma handles lighter colors better, while weighted euclidean
+norm handles darker colors better. Start with weighted euclidean
+norm, and if the color is medium to light, switch to luma</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.color_algorithms.luma_rgb">
+<span class="sig-prename descclassname"><span class="pre">excelbird.color_algorithms.</span></span><span class="sig-name descname"><span class="pre">luma_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rgb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/excelbird/color_algorithms.html#luma_rgb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.color_algorithms.luma_rgb" title="Permalink to this definition"></a></dt>
+<dd><p>Luma of rgb vector / 255</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.color_algorithms.weighted_euclidean_norm_rgb">
+<span class="sig-prename descclassname"><span class="pre">excelbird.color_algorithms.</span></span><span class="sig-name descname"><span class="pre">weighted_euclidean_norm_rgb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rgb</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/excelbird/color_algorithms.html#weighted_euclidean_norm_rgb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.color_algorithms.weighted_euclidean_norm_rgb" title="Permalink to this definition"></a></dt>
+<dd><p>Dear programmer: I have no idea how this works, but it determines
+how ‘light’ a color is.</p>
+<p>Returns: float between 0 and 1</p>
+</dd></dl>
+
+</section>
+<section id="module-excelbird.colors">
+<span id="excelbird-colors-module"></span><h2>excelbird.colors module<a class="headerlink" href="#module-excelbird.colors" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-excelbird.exceptions">
+<span id="excelbird-exceptions-module"></span><h2>excelbird.exceptions module<a class="headerlink" href="#module-excelbird.exceptions" title="Permalink to this heading"></a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="excelbird.exceptions.AlreadyWrittenError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.exceptions.</span></span><span class="sig-name descname"><span class="pre">AlreadyWrittenError</span></span><a class="reference internal" href="_modules/excelbird/exceptions.html#AlreadyWrittenError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.exceptions.AlreadyWrittenError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>An object can only be written once!</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="excelbird.exceptions.AutoOpenFileError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.exceptions.</span></span><span class="sig-name descname"><span class="pre">AutoOpenFileError</span></span><a class="reference internal" href="_modules/excelbird/exceptions.html#AutoOpenFileError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.exceptions.AutoOpenFileError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>For issues encountered when using <cite>auto_open=True</cite> in a Book.
+Common issues include:</p>
+<blockquote>
+<div><p>Not having Xlwings installed
+Trouble accessing file, usually caused by it being in OneDrive</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="excelbird.exceptions.CellReferenceError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.exceptions.</span></span><span class="sig-name descname"><span class="pre">CellReferenceError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/exceptions.html#CellReferenceError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.exceptions.CellReferenceError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="excelbird.exceptions.CellReferenceError.default_msg">
+<span class="sig-name descname"><span class="pre">default_msg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&quot;\nOne</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">cells</span> <span class="pre">in</span> <span class="pre">your</span> <span class="pre">book</span> <span class="pre">is</span> <span class="pre">trying</span> <span class="pre">to</span> <span class="pre">reference</span> <span class="pre">a</span> <span class="pre">cell</span> <span class="pre">that</span> <span class="pre">isn't</span> <span class="pre">being\nplaced</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">book.</span> <span class="pre">This</span> <span class="pre">would</span> <span class="pre">be</span> <span class="pre">fine</span> <span class="pre">if</span> <span class="pre">the</span> <span class="pre">missing</span> <span class="pre">cell</span> <span class="pre">contained</span> <span class="pre">references\nto</span> <span class="pre">cells</span> <span class="pre">that</span> <span class="pre">eventually</span> <span class="pre">trace</span> <span class="pre">back</span> <span class="pre">to</span> <span class="pre">valid</span> <span class="pre">cells</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">book,</span> <span class="pre">or</span> <span class="pre">if</span> <span class="pre">it</span> <span class="pre">had</span> <span class="pre">a</span> <span class="pre">value\nof</span> <span class="pre">its</span> <span class="pre">own.</span> <span class="pre">In</span> <span class="pre">that</span> <span class="pre">case,</span> <span class="pre">the</span> <span class="pre">expression</span> <span class="pre">or</span> <span class="pre">value</span> <span class="pre">stored</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">missing</span> <span class="pre">cell</span> <span class="pre">would</span> <span class="pre">be\ninherited</span> <span class="pre">by</span> <span class="pre">those</span> <span class="pre">who</span> <span class="pre">were</span> <span class="pre">referencing</span> <span class="pre">it.</span> <span class="pre">The</span> <span class="pre">value</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">missing</span> <span class="pre">cell</span> <span class="pre">is</span> <span class="pre">None.\nWhy</span> <span class="pre">was</span> <span class="pre">it</span> <span class="pre">referenced?\n&quot;</span></em><a class="headerlink" href="#excelbird.exceptions.CellReferenceError.default_msg" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.exceptions.CellReferenceError.issue_warning">
+<span class="sig-name descname"><span class="pre">issue_warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/exceptions.html#CellReferenceError.issue_warning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.exceptions.CellReferenceError.issue_warning" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="excelbird.exceptions.ExpressionResolutionError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.exceptions.</span></span><span class="sig-name descname"><span class="pre">ExpressionResolutionError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/exceptions.html#ExpressionResolutionError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.exceptions.ExpressionResolutionError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="excelbird.exceptions.ExpressionResolutionError.default_msg">
+<span class="sig-name descname"><span class="pre">default_msg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\nOne</span> <span class="pre">or</span> <span class="pre">more</span> <span class="pre">expressions</span> <span class="pre">could</span> <span class="pre">not</span> <span class="pre">be</span> <span class="pre">resolved.\nAs</span> <span class="pre">a</span> <span class="pre">reminder,</span> <span class="pre">expression</span> <span class="pre">strings</span> <span class="pre">should</span> <span class="pre">reference</span> <span class="pre">elements</span> <span class="pre">inside\nsquare</span> <span class="pre">brackets</span> <span class="pre">with</span> <span class="pre">no</span> <span class="pre">quotes,</span> <span class="pre">like:</span> <span class="pre">{&quot;[some_col]</span> <span class="pre">+</span> <span class="pre">[other_col]&quot;}</span> <span class="pre">or</span> <span class="pre">{&quot;[1]</span> <span class="pre">+</span> <span class="pre">99&quot;}.\n\nThe</span> <span class="pre">value</span> <span class="pre">inside</span> <span class="pre">the</span> <span class="pre">brackets</span> <span class="pre">must</span> <span class="pre">contain</span> <span class="pre">one</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">following:\n</span>&#160;&#160;&#160; <span class="pre">-</span> <span class="pre">A</span> <span class="pre">valid</span> <span class="pre">index</span> <span class="pre">of</span> <span class="pre">an</span> <span class="pre">element</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">parent</span> <span class="pre">container\n</span>&#160;&#160;&#160; <span class="pre">-</span> <span class="pre">The</span> <span class="pre">`id`</span> <span class="pre">of</span> <span class="pre">any</span> <span class="pre">element</span> <span class="pre">defined</span> <span class="pre">globally\n</span>&#160;&#160;&#160; <span class="pre">-</span> <span class="pre">The</span> <span class="pre">`header`</span> <span class="pre">of</span> <span class="pre">any</span> <span class="pre">Col</span> <span class="pre">or</span> <span class="pre">Row</span> <span class="pre">defined</span> <span class="pre">globally\n'</span></em><a class="headerlink" href="#excelbird.exceptions.ExpressionResolutionError.default_msg" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="excelbird.exceptions.InvalidSheetName">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.exceptions.</span></span><span class="sig-name descname"><span class="pre">InvalidSheetName</span></span><a class="reference internal" href="_modules/excelbird/exceptions.html#InvalidSheetName"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.exceptions.InvalidSheetName" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-excelbird.expression">
+<span id="excelbird-expression-module"></span><h2>excelbird.expression module<a class="headerlink" href="#module-excelbird.expression" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.expression.Expr">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.expression.</span></span><span class="sig-name descname"><span class="pre">Expr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">expr_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">set</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#excelbird.base_types.Style" title="excelbird.base_types.Style"><span class="pre">excelbird.base_types.Style</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#excelbird.base_types.Style" title="excelbird.base_types.Style"><span class="pre">excelbird.base_types.Style</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#excelbird.base_types.Style" title="excelbird.base_types.Style"><span class="pre">excelbird.base_types.Style</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/expression.html#Expr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.expression.Expr" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<section id="expression">
+<h3>Expression<a class="headerlink" href="#expression" title="Permalink to this heading"></a></h3>
+<p>Reference elements in parent container by name or index in a string
+expression. Immediately upon instantiating and Expr, all references
+enclosed in square brackets are parsed out and stored in a dictionary,
+where all values are None. The parent container of an Expr is responsible
+for resolving each of these keys by filling them with their corresponding
+element in the layout, and then evaluating.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.expression.Expr.attempt_to_resolve">
+<span class="sig-name descname"><span class="pre">attempt_to_resolve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/excelbird/expression.html#Expr.attempt_to_resolve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.expression.Expr.attempt_to_resolve" title="Permalink to this definition"></a></dt>
+<dd><p>Given a container, attempt to resolve all refs</p>
+<dl class="simple">
+<dt>A valid reference might be:</dt><dd><p>An integer index of an item in the container
+A string id in <cite>global_ids</cite></p>
+</dd>
+</dl>
+<p>Returns True if a match was found for each reference</p>
+<p>Mutates inplace: <cite>self</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.expression.Expr.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/expression.html#Expr.eval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.expression.Expr.eval" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.expression.Expr.ref">
+<span class="sig-name descname"><span class="pre">ref</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/expression.html#Expr.ref"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.expression.Expr.ref" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.expression.Expr.refs_resolved">
+<span class="sig-name descname"><span class="pre">refs_resolved</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/excelbird/expression.html#Expr.refs_resolved"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.expression.Expr.refs_resolved" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.expression.Expr.resolve_container_recursive">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">resolve_container_recursive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/excelbird/expression.html#Expr.resolve_container_recursive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.expression.Expr.resolve_container_recursive" title="Permalink to this definition"></a></dt>
+<dd><p>For each Expr element, try to resolve its references. If all references
+were resolved, it’s replaced with its evaluated form.</p>
+<p>Returns True if all expressions in the container were resolved</p>
+<p>Mutates inplace: <cite>container</cite></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.expression.Expr.set_use_ref_for_container_recursive">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">set_use_ref_for_container_recursive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/expression.html#Expr.set_use_ref_for_container_recursive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.expression.Expr.set_use_ref_for_container_recursive" title="Permalink to this definition"></a></dt>
+<dd><p>Tells all expressions in a container to use references.
+Mutates inplace: <cite>container</cite></p>
+</dd></dl>
+
+</section>
+</dd></dl>
+
+</section>
+<section id="module-excelbird.function">
+<span id="excelbird-function-module"></span><h2>excelbird.function module<a class="headerlink" href="#module-excelbird.function" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.function.fun">
+<span class="sig-prename descclassname"><span class="pre">excelbird.function.</span></span><span class="sig-name descname"><span class="pre">fun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">res_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cell_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#excelbird.base_types.Style" title="excelbird.base_types.Style"><span class="pre">excelbird.base_types.Style</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#excelbird.base_types.Style" title="excelbird.base_types.Style"><span class="pre">excelbird.base_types.Style</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">table_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#excelbird.base_types.Style" title="excelbird.base_types.Style"><span class="pre">excelbird.base_types.Style</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/excelbird/function.html#fun"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.function.fun" title="Permalink to this definition"></a></dt>
+<dd><p>Create an excel function.
+<cite>name</cite> is the string name of the function in Excel.
+<cite>inner</cite> is the contents to be enclosed inside the parentheses. These can
+be Cells, Vecs, or expressions.
+<cite>res_type</cite> must be either <cite>Cell</cite>, <cite>Row</cite>, or <cite>Col</cite>. This cannot be assumed,
+from the contents of <cite>inner</cite>, because the same type of arguments could be
+used to return either a vector or a Cell. For instance, you might use
+“SUM(col, col)” to return a single cell, whereas you might use “CONCAT(col, col)”
+to return a vector where each cell concatenates two cells from the corresponding
+columns.</p>
+<p>If any of the contents of <cite>inner</cite> are Expr, a _DelayedFunc will be returned,
+which will need to be resolved by its parent container.</p>
+</dd></dl>
+
+</section>
+<section id="module-excelbird.globals">
+<span id="excelbird-globals-module"></span><h2>excelbird.globals module<a class="headerlink" href="#module-excelbird.globals" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-excelbird.math">
+<span id="excelbird-math-module"></span><h2>excelbird.math module<a class="headerlink" href="#module-excelbird.math" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.math.CanDoMath">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.math.</span></span><span class="sig-name descname"><span class="pre">CanDoMath</span></span><a class="reference internal" href="_modules/excelbird/math.html#CanDoMath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.math.CanDoMath" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.math.elem_math">
+<span class="sig-prename descclassname"><span class="pre">excelbird.math.</span></span><span class="sig-name descname"><span class="pre">elem_math</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sign</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/excelbird/math.html#elem_math"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.math.elem_math" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-excelbird.schema">
+<span id="excelbird-schema-module"></span><h2>excelbird.schema module<a class="headerlink" href="#module-excelbird.schema" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.schema.Column">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.schema.</span></span><span class="sig-name descname"><span class="pre">Column</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#excelbird.schema.Column" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="excelbird.schema.Column.input">
+<span class="sig-name descname"><span class="pre">input</span></span><a class="headerlink" href="#excelbird.schema.Column.input" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 0</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="excelbird.schema.Column.output">
+<span class="sig-name descname"><span class="pre">output</span></span><a class="headerlink" href="#excelbird.schema.Column.output" title="Permalink to this definition"></a></dt>
+<dd><p>Alias for field number 1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="excelbird.schema.Schema">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.schema.</span></span><span class="sig-name descname"><span class="pre">Schema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">schemas</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/schema.html#Schema"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<dl class="simple">
+<dt>A subclass of dictionary, designed to hold the schema for imported data.</dt><dd><p>Keys: python-friendly variable names
+Values: tuple: (“Input col name”, “Output col name”)</p>
+</dd>
+</dl>
+<p>Its purpose is to decouple column naming from the user’s workflow.
+For each variable we want to use in our code, we’ll store the following:</p>
+<dl>
+<dt>“Input Col Name”   -&gt;   var_name   -&gt;   “Output Col Name”</dt><dd><blockquote>
+<div><p>^</p>
+</div></blockquote>
+<p>this never changes</p>
+</dd>
+</dl>
+<p>If we define this info ahead of time, our program only ever needs to reference
+the <cite>var_name</cite>. Input data and output format can change freely without breaking our code.</p>
+<p>This class has all the tools needed to convert between naming formats.
+Use <cite>select_inputs()</cite> and/or <cite>read_excel()</cite> when reading input data to <cite>var_name`s.
+`vars_to_outputs()</cite> returns a dict you can use to refactor columns to their output format.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.apply"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.apply" title="Permalink to this definition"></a></dt>
+<dd><p>Filter dataframe to contain only columns that are in schema
+keys, re-orders the columns. Dataframe doesn’t need to have all keys.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">a</span> <span class="pre">shallow</span> <span class="pre">copy</span> <span class="pre">of</span> <span class="pre">D</span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.copy" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.inputs">
+<span class="sig-name descname"><span class="pre">inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.inputs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.outputs">
+<span class="sig-name descname"><span class="pre">outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.outputs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.rename">
+<span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.rename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.rename" title="Permalink to this definition"></a></dt>
+<dd><p>Identify with key</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.rename_inputs_to_vars">
+<span class="sig-name descname"><span class="pre">rename_inputs_to_vars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.rename_inputs_to_vars"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.rename_inputs_to_vars" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.rename_vars_to_outputs">
+<span class="sig-name descname"><span class="pre">rename_vars_to_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.rename_vars_to_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.rename_vars_to_outputs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.reset_inputs">
+<span class="sig-name descname"><span class="pre">reset_inputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.reset_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.reset_inputs" title="Permalink to this definition"></a></dt>
+<dd><p>Sets all inputs with output values. Use this if you’re
+using a previous schema to read in data that was outputted from it</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.reset_outputs">
+<span class="sig-name descname"><span class="pre">reset_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.reset_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.reset_outputs" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.select_inputs">
+<span class="sig-name descname"><span class="pre">select_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.select_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.select_inputs" title="Permalink to this definition"></a></dt>
+<dd><p>Renames desired columns to var names, and selects them.
+If a column isn’t found, an error is raised to help you correct
+your schema.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.select_outputs">
+<span class="sig-name descname"><span class="pre">select_outputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.select_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.select_outputs" title="Permalink to this definition"></a></dt>
+<dd><p>Renames var columns to their output names, and selects them.
+If any columns are missing, an error is raised to remind you to create them.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="excelbird.schema.Schema.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/schema.html#Schema.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.Schema.update" title="Permalink to this definition"></a></dt>
+<dd><p>If passing regular dict or kwargs, create a new Self object
+with the arguments before updating, so the same format is maintained</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="excelbird.schema.SchemaError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">excelbird.schema.</span></span><span class="sig-name descname"><span class="pre">SchemaError</span></span><a class="reference internal" href="_modules/excelbird/schema.html#SchemaError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.schema.SchemaError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-excelbird.styles">
+<span id="excelbird-styles-module"></span><h2>excelbird.styles module<a class="headerlink" href="#module-excelbird.styles" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-excelbird.util">
+<span id="excelbird-util-module"></span><h2>excelbird.util module<a class="headerlink" href="#module-excelbird.util" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.autofit_algorithm">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">autofit_algorithm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#autofit_algorithm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.autofit_algorithm" title="Permalink to this definition"></a></dt>
+<dd><p>Decides column width given string value of a cell</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.capture_args_by_type">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">capture_args_by_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">type</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">type</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/excelbird/util.html#capture_args_by_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.capture_args_by_type" title="Permalink to this definition"></a></dt>
+<dd><p>Enumerate through an iterable’s values that match type(s)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.capture_kwargs_by_type">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">capture_kwargs_by_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">type</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">type</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Generator</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/excelbird/util.html#capture_kwargs_by_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.capture_kwargs_by_type" title="Permalink to this definition"></a></dt>
+<dd><p>Loop through a dictionary’s items that match type(s)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.combine_args_and_children_to_list">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">combine_args_and_children_to_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">children</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#combine_args_and_children_to_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.combine_args_and_children_to_list" title="Permalink to this definition"></a></dt>
+<dd><p>Combines elements passed as positionals with elements passed
+inside <cite>children</cite> into one list.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.convert_all_to_type">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">convert_all_to_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">from_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">type</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#convert_all_to_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.convert_all_to_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.convert_sibling_types">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">convert_sibling_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#convert_sibling_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.convert_sibling_types" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.datetime_cols_to_dates">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">datetime_cols_to_dates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#datetime_cols_to_dates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.datetime_cols_to_dates" title="Permalink to this definition"></a></dt>
+<dd><p>Applies <cite>to_date()</cite> to each column in <cite>df</cite> that has a datetime64[ns] type</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.ensure_value_is_not_number">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">ensure_value_is_not_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#ensure_value_is_not_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.ensure_value_is_not_number" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.ensure_value_is_number">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">ensure_value_is_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#ensure_value_is_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.ensure_value_is_number" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.get_dimensions">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">get_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#get_dimensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.get_dimensions" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.get_idx">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">get_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#get_idx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.get_idx" title="Permalink to this definition"></a></dt>
+<dd><p>Safely call list’s __getitem__ for an index that might not be valid</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.init_container">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">init_container</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/excelbird/util.html#init_container"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.init_container" title="Permalink to this definition"></a></dt>
+<dd><p>A container should finish its initialization by
+calling this function</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.init_from_same_dimension_type">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">init_from_same_dimension_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#init_from_same_dimension_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.init_from_same_dimension_type" title="Permalink to this definition"></a></dt>
+<dd><p>Mutates <cite>instance</cite> inplace, AND returns new args.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.is_notebook">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">is_notebook</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#is_notebook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.is_notebook" title="Permalink to this definition"></a></dt>
+<dd><p>Thank you very much Gustavo Bezerra on Stackoverflow</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.mark_all_cells_as_written_recursive">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">mark_all_cells_as_written_recursive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#mark_all_cells_as_written_recursive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.mark_all_cells_as_written_recursive" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.move_dict_args_to_other_dict">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">move_dict_args_to_other_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#move_dict_args_to_other_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.move_dict_args_to_other_dict" title="Permalink to this definition"></a></dt>
+<dd><p>If any dictionaries are in <cite>container</cite> (likely because they were passed
+as positional arguments), they will be popped from container and their
+key/val pairs safely set to other_dict.</p>
+<dl class="simple">
+<dt>Mutates inplace:</dt><dd><p><cite>container</cite>
+<cite>other_dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.move_remaining_kwargs_to_dict">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">move_remaining_kwargs_to_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">to_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safely</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#move_remaining_kwargs_to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.move_remaining_kwargs_to_dict" title="Permalink to this definition"></a></dt>
+<dd><p>OVERRIDES values in to_dict</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.pass_attr_to_children">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">pass_attr_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#pass_attr_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.pass_attr_to_children" title="Permalink to this definition"></a></dt>
+<dd><p>For each child element whose attribute, <cite>attr_name</cite> is not None,
+set that attribute to the value of the parent’s <cite>attr_name</cite></p>
+<p>Mutates inplace: <cite>container</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.pass_attr_without_override">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">pass_attr_without_override</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elem2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attr_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#pass_attr_without_override"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.pass_attr_without_override" title="Permalink to this definition"></a></dt>
+<dd><p>If elem1 and elem2 have attribute, <cite>attr_name</cite> and that attribute is not None
+for elem1 and IS None for elem2, set elem1’s value for the attribute to elem2</p>
+<dl class="simple">
+<dt>Mutates inplace:</dt><dd><p><cite>elem1</cite>
+<cite>elem2</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.pass_dict_to_children">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">pass_dict_to_children</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#pass_dict_to_children"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.pass_dict_to_children" title="Permalink to this definition"></a></dt>
+<dd><p>Copy each element in a parent container’s <cite>dict_name</cite> to each
+of its children’s <cite>dict_name</cite> if that child hasn’t already set it.
+—
+Container MUST have an attribute called <cite>dict_name</cite>, and that
+attribute MUST be an instance of dictionary.</p>
+<p>Mutates inplace: <cite>container</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.pass_dict_without_override">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">pass_dict_without_override</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elem2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dict_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#pass_dict_without_override"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.pass_dict_without_override" title="Permalink to this definition"></a></dt>
+<dd><p>If elem1 and elem2 have attribute, <cite>dict_name</cite> and that attribute is a dict,
+Safely pass each each element from <cite>elem1</cite>’s <cite>dict_name</cite> to <cite>elem2</cite>’s <cite>dict_name</cite></p>
+<dl class="simple">
+<dt>Mutates inplace:</dt><dd><p><cite>elem1</cite>
+<cite>elem2</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.require_each_element_to_be_cls_type">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">require_each_element_to_be_cls_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#require_each_element_to_be_cls_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.require_each_element_to_be_cls_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="excelbird.util.to_date">
+<span class="sig-prename descclassname"><span class="pre">excelbird.util.</span></span><span class="sig-name descname"><span class="pre">to_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Series</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Series</span></span></span><a class="reference internal" href="_modules/excelbird/util.html#to_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#excelbird.util.to_date" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-excelbird">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-excelbird" title="Permalink to this heading"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ryan Young.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

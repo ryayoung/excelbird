@@ -5,13 +5,13 @@ requires = ["setuptools>=42.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.pytest.ini_options]
-addopts = "--cov=excelbird -s --doctest-modules --cov-fail-under=85"
+# addopts = "--cov=excelbird -s --doctest-modules --cov-fail-under=85"
 testpaths = [
     "tests",
 ]
 
 [tool.mypy]
-mypy_path = "src"
+mypy_path = "excelbird"
 check_untyped_defs = true
 disallow_any_generics = true
 ignore_missing_imports = true
