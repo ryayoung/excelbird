@@ -13,6 +13,8 @@ dist
 *.ai
 *.pkl
 
+!readme_examples.ipynb
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
