@@ -119,6 +119,9 @@ class Expr:
                 if hasattr(res, key):
                     if getattr(res, key) is None:
                         setattr(res, key, val)
+                elif hasattr(res, "cell_style"):
+                    if key not in res.cell_style:
+                        res.cell_style[key] = val
 
         return res
 

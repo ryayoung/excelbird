@@ -8,6 +8,7 @@ from openpyxl.utils import FORMULAE
 # Internal main
 from excelbird.globals import force_valid_references
 from excelbird.base_types import HasId, HasBorder, Style, Loc, Gap
+from excelbird.styles import formats
 from excelbird.util import (
     autofit_algorithm,
     get_dimensions,
@@ -39,6 +40,8 @@ class Cell(HasId, HasBorder, CanDoMath):
         italic: bool | None = None,
         color: str | None = None,
         num_fmt: str | None = None,
+        currency: bool | None = None,
+        ignore_format: bool | None = None,
         fill_color: str | None = None,
         auto_color_font: bool | str | None = None,
         auto_shade_font: bool | float | None = None,
@@ -71,6 +74,8 @@ class Cell(HasId, HasBorder, CanDoMath):
         self.italic = italic
         self.color = color
         self.num_fmt = num_fmt
+        self.currency = currency
+        self.ignore_format = ignore_format
         self.fill_color = fill_color
         self.auto_color_font = auto_color_font
         self.auto_shade_font = auto_shade_font
@@ -139,8 +144,21 @@ class Cell(HasId, HasBorder, CanDoMath):
         cell = self.loc.cell
         cell.value = self.value
 
-        if self.num_fmt is not None:
-            cell.number_format = self.num_fmt
+        if self.ignore_format is not True:
+            if isinstance(self.num_fmt, str):
+                cell.number_format = self.num_fmt
+
+            elif not isinstance(self.value, str):
+                if isinstance(self.value, float):
+                    if self.currency is True:
+                        cell.number_format = formats.accounting_float
+                    else:
+                        cell.number_format = formats.comma_float
+                elif isinstance(self.value, int):
+                    if self.currency is True:
+                        cell.number_format = formats.accounting_int
+                    else:
+                        cell.number_format = formats.comma_int
 
         align, font, fill, border = {}, {}, {}, {}
 
@@ -178,13 +196,14 @@ class Cell(HasId, HasBorder, CanDoMath):
         if self.fill_color is not None:
             fill = {"patternType": "solid", "fgColor": Color(self.fill_color)}
 
-        if isinstance(self.border_top, str):
+        top, right, bottom, left = self.border
+        if isinstance(top, str):
             border["top"] = Side(style=self.border_top)
-        if isinstance(self.border_right, str):
+        if isinstance(right, str):
             border["right"] = Side(style=self.border_right)
-        if isinstance(self.border_bottom, str):
+        if isinstance(bottom, str):
             border["bottom"] = Side(style=self.border_bottom)
-        if isinstance(self.border_left, str):
+        if isinstance(left, str):
             border["left"] = Side(style=self.border_left)
 
         if len(font) > 0:
@@ -317,8 +336,6 @@ class Cell(HasId, HasBorder, CanDoMath):
         if inherit_style is True:
             self_dict = deepcopy(self.__dict__)
             for key, val in self_dict.items():
-                if key == "_border":
-                    key = "border"
                 if key not in kwargs and key not in ["_id", "loc", "expr", "func"]:
                     kwargs[key] = val
         return Cell(expr=[self], **kwargs)
@@ -332,7 +349,11 @@ class Cell(HasId, HasBorder, CanDoMath):
     def inherit_style_without_override(self, new_style: dict | Style | None) -> None:
         if new_style is not None:
             for key, val in new_style.items():
-                if getattr(self, key, None) is None:
+                check_unset = lambda x: x is None
+                if key == "border":
+                    check_unset = lambda x: x == [None, None, None, None]
+
+                if check_unset(getattr(self, key, None)):
                     setattr(self, key, val)
 
     @property

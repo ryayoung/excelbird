@@ -5,7 +5,7 @@ from typing import Any, Iterable
 from excelbird.expression import Expr
 from excelbird.function import _DelayedFunc
 from excelbird.styles import default_table_style
-from excelbird.base_types import Style, Loc, Gap, ImpliedType
+from excelbird.base_types import Style, Loc, Gap, ImpliedType, ListIndexableById, HasId, HasBorder
 from excelbird.util import (
     get_dimensions,
     get_idx,
@@ -30,8 +30,8 @@ from excelbird.core.vec import (
 )
 from excelbird.core.frame import HFrame, VFrame
 
-class _Stack(_Vec):
-    dimensions = None
+class _Stack(ListIndexableById, HasId, HasBorder):
+    sibling_type = None
     elem_type = None
 
     def __init__(
@@ -99,13 +99,6 @@ class _Stack(_Vec):
         if sep is not None:
             insert_separator(self, sep)
 
-        if sep is not None:
-            print("sep is not None")
-            for i, elem in reversed(list(enumerate(self))):
-                if i > 0:
-                    self.insert(i, sep)
-
-    
     def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
         """
         Key -> header OR id, depending on type
@@ -170,39 +163,57 @@ class _Stack(_Vec):
         for elem in self:
             elem._write()
 
-    def raise_no_math_error(self, msg: str | None = None):
-        if msg is None:
-            msg = "Can't do math operations on a Stack"
-        raise ValueError(msg)
-
-    def __add__(self, other):
-        self.raise_no_math_error()
-
     @property
-    def all_widths(self) -> list:
+    def elem_widths(self) -> list:
         return [i.width for i in self if hasattr(i, "width")]
 
     @property
-    def all_heights(self) -> list:
+    def elem_heights(self) -> list:
         return [i.height for i in self if hasattr(i, "height")]
 
     def resolve_gaps(self) -> None:
         Gap.convert_all_to_frames(self, self.__class__.elem_type, self.gap_size)
         for elem in self:
             elem.resolve_gaps()
+    
+    def set_loc(self, loc: Loc) -> None:
+        _Vec.set_loc(self, loc)
+    
+    def apply_border(self) -> None:
+        return _Vec.apply_border(self)
+    
+    def __getitem__(self, key):
+        return _Vec.__getitem__(self, key)
+    
+    def ref(self, inherit_style: bool = False, **kwargs):
+        return _Vec.ref(self, inherit_style, **kwargs)
+    
+    def astype(self, other: type, **kwargs):
+        return _Vec.astype(self, other, **kwargs)
 
 
 class VStack(_Stack, _VerticalVec):
     sibling_type = None # these are set after class declaration
     elem_type = VFrame
 
+    def border_mask(self, top, right, bottom, left) -> Style:
+        return _VerticalVec.border_mask(self, top, right, bottom, left)
+
+    @staticmethod
+    def inc_offset(offset: Loc, elem: Any) -> Loc:
+        offset.y += elem.height
+        return offset
+    
+    def starting_offset(self) -> Loc:
+        return Loc((0,0), self.loc.ws)
+
     @property
     def width(self) -> int:
-        return max(self.all_widths + [0])
+        return max(self.elem_widths + [0])
 
     @property
     def height(self) -> int:
-        return sum(self.all_heights + [0])
+        return sum(self.elem_heights + [0])
     
     @property
     def gap_size(self) -> int:
@@ -213,13 +224,24 @@ class HStack(_Stack, _HorizontalVec):
     sibling_type = None # these are set after class declaration
     elem_type = HFrame
 
+    def border_mask(self, top, right, bottom, left) -> Style:
+        return _HorizontalVec.border_mask(self, top, right, bottom, left)
+
+    @staticmethod
+    def inc_offset(offset: Loc, elem: Any) -> Loc:
+        offset.x += elem.width
+        return offset
+
+    def starting_offset(self) -> Loc:
+        return Loc((0,0), self.loc.ws)
+
     @property
     def width(self) -> int:
-        return sum(self.all_widths + [0])
+        return sum(self.elem_widths + [0])
 
     @property
     def height(self) -> int:
-        return max(self.all_heights + [0])
+        return max(self.elem_heights + [0])
 
     @property
     def gap_size(self) -> int:

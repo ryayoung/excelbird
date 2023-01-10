@@ -31,7 +31,6 @@ class Sheet(VStack):
         children: list | None = None,
         title: str | None = None,
         sep: Any | None = None,
-
         tab_color: str | None = None,
 
         cell_style: Style | dict | None = None,

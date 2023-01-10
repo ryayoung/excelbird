@@ -198,7 +198,8 @@ class HasBorder:
     Child class is responsible for making sure each instance
     has variable, 'border_x' for each side.
     """
-    default = [None, None, None, None]
+    empty = [None, None, None, None]
+    default = 'thin'
 
     def init_border(self, border, top, right, bottom, left) -> None:
         """
@@ -214,69 +215,44 @@ class HasBorder:
             self.border_bottom = bottom
         if left is not None:
             self.border_left = left
+        
+        _ = self.border
 
     @property
-    def border(self) -> tuple:
-        if not hasattr(self, "_border"):
-            self._border = self.__class__.default
-        
-        return self._border
+    def border(self) -> list:
+        for side in ["border_top", "border_right", "border_bottom", "border_left"]:
+            if not hasattr(self, side):
+                setattr(self, side, None)
+            
+        default = self.__class__.default
+            
+        if self.border_top is True:
+            self.border_top = default
+        if self.border_right is True:
+            self.border_right = default
+        if self.border_bottom is True:
+            self.border_bottom = default
+        if self.border_left is True:
+            self.border_left = default
+
+        return [
+            self.border_top,
+            self.border_right,
+            self.border_bottom,
+            self.border_left,
+        ]
 
     @border.setter
-    def border(self, new: tuple) -> None:
-        self._border = self.__class__.parse_arg(new)
-    
-    @property
-    def border_top(self) -> bool | str | None:
-        if not hasattr(self, "_border"):
-            self._border = self.__class__.default
-        return self._border[0]
-    
-    @border_top.setter
-    def border_top(self, new):
-        if not hasattr(self, "_border"):
-            self._border = self.__class__.default
-        self._border[0] = new
-
-    @property
-    def border_right(self) -> bool | str | None:
-        if not hasattr(self, "_border"):
-            self._border = self.__class__.default
-        return self._border[1]
-    
-    @border_right.setter
-    def border_right(self, new):
-        if not hasattr(self, "_border"):
-            self._border = self.__class__.default
-        self._border[1] = new
-
-    @property
-    def border_bottom(self) -> bool | str | None:
-        if not hasattr(self, "_border"):
-            self._border = self.__class__.default
-        return self._border[2]
-    
-    @border_bottom.setter
-    def border_bottom(self, new):
-        if not hasattr(self, "_border"):
-            self._border = self.__class__.default
-        self._border[2] = new
-
-    @property
-    def border_left(self) -> bool | str | None:
-        if not hasattr(self, "_border"):
-            self._border = self.__class__.default
-        return self._border[3]
-    
-    @border_left.setter
-    def border_left(self, new):
-        if not hasattr(self, "_border"):
-            self._border = self.__class__.default
-        self._border[3] = new
+    def border(self, new: list) -> None:
+        top, right, bottom, left = self.__class__.parse_arg(new)
+        self.border_top = top
+        self.border_right = right
+        self.border_bottom = bottom
+        self.border_left = left
     
     @classmethod
     def parse_arg(
-        cls, border: bool | Iterable
+        cls, border: bool | Iterable | None
     ) -> tuple[str | bool, str | bool, str | bool, str | bool]:
         """
         Designed to mimic CSS border logic. Returns a 4-element tuple
@@ -293,13 +269,16 @@ class HasBorder:
             ('thick', 'thick', 'thick'):
                 ('thick', 'thick', 'thick', False)
         """
+        if border is None:
+            return cls.empty
+
         if not isinstance(border, (tuple, list)):
             border = [border]
 
         if isinstance(border, tuple):
             border = list(border)
 
-        border = ["thin" if i is True else i for i in border]
+        border = [cls.default if i is True else i for i in border]
 
         if len(border) == 1:
             border = border * 4
@@ -310,6 +289,28 @@ class HasBorder:
 
         assert len(border) == 4, "Border must be 4 elements"
         return list(border)
+
+    def apply_border(self) -> None:
+        if not hasattr(self, "__len__"):
+            return
+        if len(self) == 0 or self.border == [None, None, None, None]:
+            return
+        
+        first = self[0]
+
+        if len(self) == 1:
+            first.border = self.border
+
+        elif len(self) >= 2:
+            mask = self.border_mask(*self.border)
+            last = self[-1]
+            vecs_in_between = self[1:-1]
+
+            first.border = mask.first
+            last.border = mask.last
+            if len(self) > 2:
+                for vec in vecs_in_between:
+                    vec.border = mask.middle
 
 
 class DotDict(dict):
@@ -338,11 +339,15 @@ class ListIndexableById(list):
         if isinstance(key, int):
             return key
 
-        ids = [i.id if hasattr(i, "id") else None for i in self]
+        ids = [i.id if hasattr(i, "_id") else None for i in self]
         if key in ids:
             return ids.index(key)
-
-        raise KeyError(f"Invalid key, {key}")
+        else:
+            headers = [i.header if hasattr(i, "_header") else None for i in self]
+            if key in headers:
+                return headers.index(key)
+            else:
+                raise KeyError(f"Invalid key, {key}")
 
     def insert(self, index, new) -> None:
         index = self.key_to_idx(index)

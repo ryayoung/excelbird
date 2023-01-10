@@ -137,12 +137,6 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         for key in keys_to_pop:
             kwargs.pop(key)
 
-    def set(self, **kwargs):
-        for key, val in kwargs.items():
-            if hasattr(self, key):
-                setattr(self, key, val)
-        return self
-
     def range(self):
         return self.first_cell >> self.last_cell
 
@@ -158,64 +152,6 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
                 Loc((self.loc.y + offset.y, self.loc.x + offset.x), self.loc.ws)
             )
             offset = self.inc_offset(offset, elem)
-
-    def _write(self) -> None:
-        require_each_element_to_be_cls_type(self)
-
-        self.apply_border()
-
-        for cell in self:
-            cell.inherit_style_without_override(self.cell_style)
-
-        if self.header is not None:
-            ensure_value_is_not_number(self.header)
-            new_header = Cell(self.header)
-
-            new_header.set_loc(self.loc)
-
-            new_header.inherit_style_without_override(self.header_style)
-
-            if (
-                self.cell_style.get("autofit") is True
-                and self.header_style.get("autofit") is not False
-            ):
-                new_header.autofit = True
-            
-            self.insert(0, new_header)
-
-
-        for cell in self:
-            cell._write()
-
-    def apply_border(self) -> None:
-        if len(self) == 0 or self.border == [None, None, None, None]:
-            return
-        
-        first = self[0]
-
-        if len(self) == 1:
-            first.border = self.border
-
-        elif len(self) >= 2:
-            mask = self.border_mask(*self.border)
-            last = self[-1]
-            vecs_in_between = self[1:-1]
-
-            first.border = mask.first
-            last.border = mask.last
-            if len(self) > 2:
-                for vec in vecs_in_between:
-                    vec.border = mask.middle
-
-    def key_to_idx(self, key: str | int) -> int:
-        try:
-            return super().key_to_idx(key)
-        except (KeyError, IndexError):
-            values = [i.value if hasattr(i, "value") else None for i in self]
-            if key in values:
-                return values.index(key)
-
-            raise KeyError(f"Invalid key, {key}")
 
     def __getitem__(self, key):
         if not isinstance(key, list):
@@ -246,8 +182,6 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         if inherit_style is True:
             self_dict = deepcopy(self.__dict__)
             for key, val in self_dict.items():
-                if key == "_border":
-                    key = "border"
                 if key == "_header":
                     key = "header"
                 if key not in new_dict and key not in ["_id", "loc"]:
@@ -286,6 +220,33 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
             return self[-1]
         elif self.__class__.dimensions == 2:
             return self[-1][-1]
+
+    def _write(self) -> None:
+        require_each_element_to_be_cls_type(self)
+
+        self.apply_border()
+
+        for cell in self:
+            cell.inherit_style_without_override(self.cell_style)
+
+        if self.header is not None:
+            ensure_value_is_not_number(self.header)
+            new_header = Cell(self.header)
+
+            new_header.set_loc(self.loc)
+
+            new_header.inherit_style_without_override(self.header_style)
+
+            if (
+                self.cell_style.get("autofit") is True
+                and self.header_style.get("autofit") is not False
+            ):
+                new_header.autofit = True
+            
+            self.insert(0, new_header)
+
+        for cell in self:
+            cell._write()
     
 
 class _HorizontalVec(_Vec):
