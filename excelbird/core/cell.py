@@ -1,4 +1,6 @@
 # External
+import pandas as pd
+import re
 from pandas import Series
 from typing import Any
 from copy import copy, deepcopy
@@ -6,9 +8,12 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.styles.colors import Color
 from openpyxl.utils import FORMULAE
 # Internal main
-from excelbird.globals import force_valid_references
+from excelbird.globals import Globals
 from excelbird.base_types import HasId, HasBorder, Style, Loc, Gap
 from excelbird.styles import formats
+# ---------
+from excelbird.colors import theme
+# ---------
 from excelbird.util import (
     autofit_algorithm,
     get_dimensions,
@@ -33,6 +38,7 @@ class Cell(HasId, HasBorder, CanDoMath):
         id: str | None = None,
         align_x: str | None = None,
         align_y: str | None = None,
+        indent: float | None = None,
         center: bool | None = None,  # center align horizontal and vertical
         wrap: bool | None = None,
         size: int | None = None,  # font size
@@ -59,7 +65,6 @@ class Cell(HasId, HasBorder, CanDoMath):
         func: list | None = None,
         autofit: bool | None = None,
         cell_style: dict | None = None,
-        written: bool = None,
     ) -> None:
         self.written = False
         self.loc = None
@@ -68,6 +73,7 @@ class Cell(HasId, HasBorder, CanDoMath):
         self.id = id
         self.align_x = align_x
         self.align_y = align_y
+        self.indent = indent
         self.wrap = wrap
         self.size = size
         self.bold = bold
@@ -116,7 +122,10 @@ class Cell(HasId, HasBorder, CanDoMath):
 
     def _write(self) -> None:
 
-        assert self.loc is not None, "Tried to place a cell with no location"
+        assert self.loc is not None, (
+            "Excelbird developer error: Somehow, ._write() got called "
+            "on a Cell that doesn't have a location. This is a serious issue!"
+        )
 
         if self.written is True:
             raise AlreadyWrittenError(
@@ -140,25 +149,44 @@ class Cell(HasId, HasBorder, CanDoMath):
         if self.value is None:
             return
 
+        # Remove trailing commas
+        if ", )" in str(self.value):
+            self.value = re.sub(r"(, )(\))", r"\2", self.value)
+        
+        try:
+            if pd.isnull(self.value):
+                return
+        except Exception:
+            # Just making sure pd.isnull doesn't throw, if given a data type it doesn't like
+            pass
+
         y, x = self.loc.y, self.loc.x
         cell = self.loc.cell
         cell.value = self.value
 
-        if self.ignore_format is not True:
-            if isinstance(self.num_fmt, str):
-                cell.number_format = self.num_fmt
+        def get_number_format():
+            if self.ignore_format is True:
+                return
 
-            elif not isinstance(self.value, str):
-                if isinstance(self.value, float):
-                    if self.currency is True:
-                        cell.number_format = formats.accounting_float
-                    else:
-                        cell.number_format = formats.comma_float
-                elif isinstance(self.value, int):
-                    if self.currency is True:
-                        cell.number_format = formats.accounting_int
-                    else:
-                        cell.number_format = formats.comma_int
+            if isinstance(self.num_fmt, str):
+                return self.num_fmt
+
+            if isinstance(self.value, str):
+                return
+
+            if isinstance(self.value, float):
+                if self.currency is True:
+                    return formats.accounting_float
+                return formats.comma_float
+
+            if isinstance(self.value, int):
+                if self.currency is True:
+                    return formats.accounting_int
+                return formats.comma_int
+
+        number_format = get_number_format()
+        if number_format is not None:
+            cell.number_format = number_format
 
         align, font, fill, border = {}, {}, {}, {}
 
@@ -170,6 +198,9 @@ class Cell(HasId, HasBorder, CanDoMath):
             align["horizontal"] = self.align_x
         if self.align_y is not None:
             align["vertical"] = self.align_y
+        
+        if isinstance(self.indent, (int, float)):
+            align["indent"] = self.indent
 
         if self.wrap is not None:
             align["wrap_text"] = self.wrap
@@ -190,21 +221,37 @@ class Cell(HasId, HasBorder, CanDoMath):
                 if isinstance(self.auto_shade_font, float):
                     font["color"] = get_alt_shade(self.fill_color, self.auto_shade_font)
                 else:
-                    # print(self.value + f": {' ' * (10 - len(self.value))}", end="")
                     font["color"] = get_alt_shade(self.fill_color)
 
         if self.fill_color is not None:
             fill = {"patternType": "solid", "fgColor": Color(self.fill_color)}
 
-        top, right, bottom, left = self.border
-        if isinstance(top, str):
-            border["top"] = Side(style=self.border_top)
-        if isinstance(right, str):
-            border["right"] = Side(style=self.border_right)
-        if isinstance(bottom, str):
-            border["bottom"] = Side(style=self.border_bottom)
-        if isinstance(left, str):
-            border["left"] = Side(style=self.border_left)
+        def get_border(border) -> dict:
+            def get_side(side) -> Side:
+                if side is None or side is False or side == (None, None) or side == (False, False):
+                    return None
+                assert isinstance(side, tuple), f"Internal developer error processing border. Border side value, {side} is invalid"
+                if isinstance(side[0], str) and isinstance(side[1], str):
+                    return Side(style=side[0], color=side[1])
+                if isinstance(side[0], str):
+                    return Side(style=side[0])
+                if isinstance(side[1], str):
+                    return Side(style=HasBorder.default_weight, color=side[1])
+                raise ValueError(side)
+
+            res = {}
+            top, right, bottom, left = border
+            if (side_top := get_side(top)) is not None:
+                res["top"] = side_top
+            if (side_right := get_side(right)) is not None:
+                res["right"] = side_right
+            if (side_bottom := get_side(bottom)) is not None:
+                res["bottom"] = side_bottom
+            if (side_left := get_side(left)) is not None:
+                res["left"] = side_left
+            return res
+
+        border = get_border(self.border)
 
         if len(font) > 0:
             cell.font = Font(**font)
@@ -246,11 +293,21 @@ class Cell(HasId, HasBorder, CanDoMath):
         return f"{self.__class__.__name__}({self.value})"
 
     def eval_func(self, func: list) -> str:
-        """ """
+        """
+        New plan for refactoring the function engine:
+            The user will create the function in its exact form,
+            applying parentheses and everything manually. self.func
+            will be stored as a list, where each expression cell is its
+            own element. Run eval_expr on each cell expression, and join
+            the strings together. It's that simple.
+        """
         name, *elems = func
 
         def format_element(elem) -> str:
-            if isinstance(elem, (int, str, float)):
+            if isinstance(elem, str):
+                return '"' + elem + '"'
+
+            if isinstance(elem, (int, float)):
                 return str(elem)
             
             if get_dimensions(elem) > 0:
@@ -265,6 +322,9 @@ class Cell(HasId, HasBorder, CanDoMath):
             
             if elem.func is not None:
                 return self.eval_func(elem.func)
+
+            if elem.value is not None:
+                return str(elem.value)  # Don't put quotes around strings here
             
         res = [format_element(e) for e in elems]
 
@@ -288,7 +348,7 @@ class Cell(HasId, HasBorder, CanDoMath):
             if elem.func is not None:
                 return self.eval_func(elem.func)
             else:
-                global cell_reference_warning_issued, force_valid_references
+                global cell_reference_warning_issued
             
                 if elem.value is not None:
                     if cell_reference_warning_issued is False:
@@ -305,7 +365,7 @@ class Cell(HasId, HasBorder, CanDoMath):
                     else:
                         return str(elem.value)
                 
-                if cell_reference_warning_issued is False and force_valid_references is False:
+                if cell_reference_warning_issued is False and Globals.force_valid_references is False:
                     CellReferenceError.issue_warning()
                     cell_reference_warning_issued = True
                 else:
@@ -330,7 +390,11 @@ class Cell(HasId, HasBorder, CanDoMath):
     def func_value(self) -> str:
         if self.func is None:
             return None
-        return self.eval_func(self.func)
+        try:
+            return self.eval_func(self.func)
+        except Exception:
+            print(self.func)
+            # ['MAX(NETWORKDAYS', Cell(None), Cell(2023-05-31), Cell(None), Cell(())), 0]
 
     def ref(self, inherit_style: bool = False, **kwargs):
         if inherit_style is True:
@@ -370,18 +434,6 @@ class Cell(HasId, HasBorder, CanDoMath):
     
     @classmethod
     def explode_all_lists_tuples(cls, container: list) -> None:
-        """
-        Convert iterables to cells.
-
-        Examples:
-            [Cell(1), [2, 3], Cell(4)]
-            -> [Cell(1), Cell(2), Cell(3), Cell(4)]
-
-            [Cell(1), [Cell(2), Cell(3)], Cell(4)]
-            -> [Cell(1), Cell(2), Cell(3), Cell(4)]
-
-        Mutates inplace: `container`
-        """
         for i, elem in enumerate(container):
             if isinstance(elem, (list, tuple)):
                 if all(
@@ -398,11 +450,6 @@ class Cell(HasId, HasBorder, CanDoMath):
     
     @classmethod
     def convert_all_values(cls, container: list) -> None:
-        """
-        Converts non-iterable values to cells.
-
-        Mutates inplace: `container`
-        """
         for i, elem in enumerate(container):
             if isinstance(elem, (str, int, float)) and not isinstance(elem, (Gap, bool)):
                 container[i] = cls(elem)

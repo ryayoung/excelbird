@@ -2,9 +2,11 @@
 from pandas import Series, DataFrame
 from typing import Any
 # Internal main
+from excelbird.globals import Globals
+from excelbird.exceptions import ExpressionResolutionError
 from excelbird.expression import Expr
 from excelbird.function import _DelayedFunc
-from excelbird.base_types import Style, ImpliedType, Gap
+from excelbird.base_types import Style, ImpliedType, Gap, Loc
 from excelbird.styles import default_table_style
 from excelbird.util import (
     get_idx,
@@ -20,9 +22,9 @@ from excelbird.util import (
 )
 # Internal core
 from excelbird.core.cell import Cell
-from excelbird.core.vec import Col
-from excelbird.core.frame import HFrame
-from excelbird.core.stack import VStack
+from excelbird.core.vec import Col, Row
+from excelbird.core.frame import Frame, VFrame
+from excelbird.core.stack import VStack, Stack
 
 class Sheet(VStack):
     def __init__(
@@ -32,6 +34,9 @@ class Sheet(VStack):
         title: str | None = None,
         sep: Any | None = None,
         tab_color: str | None = None,
+        end_gap: bool | int | dict | Gap | None = None,
+        isolate: bool | None = None,
+        hidden: bool | None = None,
 
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
@@ -50,9 +55,6 @@ class Sheet(VStack):
             new_kwargs.pop("loc")
             for key, val in new_kwargs.items():
                 setattr(self, key, val)
-        
-        if getattr(self, "title", None) is not None and title is None:
-            title = self.title
 
         if cell_style is None: cell_style = dict()
         if header_style is None: header_style = dict()
@@ -60,14 +62,13 @@ class Sheet(VStack):
         elif table_style is True: table_style = default_table_style
 
         move_dict_args_to_other_dict(args, cell_style)
-        self.move_kwargs_to_args(args, kwargs)
         Cell.convert_all_values(args)
 
         frame_type = self.__class__.elem_type
         vec_type = frame_type.elem_type
         ImpliedType.resolve_all_in_container(args, frame_type)
         convert_all_to_type(args, Series, Col)
-        convert_all_to_type(args, DataFrame, HFrame)
+        convert_all_to_type(args, DataFrame, Frame)
         convert_all_to_type(args, set, Expr)
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
@@ -76,6 +77,9 @@ class Sheet(VStack):
             loc=None,
             title=title,
             tab_color=tab_color,
+            end_gap=end_gap,
+            isolate=isolate,
+            hidden=hidden,
             # Dicts that must be passed to children
             cell_style = Style(**cell_style),
             header_style = Style(**header_style),
@@ -84,43 +88,99 @@ class Sheet(VStack):
 
         if sep is not None:
             insert_separator(self, sep)
+
+        if self.isolate is True:
+            self.resolve_all_references()
+            self.resolve_all_references()
+            #     raise ExpressionResolutionError(
+            #         "Couldn't resolve all expression references.\nThis error was raised during the "
+            #         f"creation of sheet, '{self.title}'.\nWhen `isolate=True` for "
+            #         "a sheet, it will try to resolve all of its expression references "
+            #         "immediately after being created, and then clear the global memory of references "
+            #         "so any element created afterwards won't be able to reference them."
+            #     )
+            Globals.clear_references()
+
+    def resolve_all_references(self) -> bool:
+        Expr.set_use_ref_for_container_recursive(self)
+
+        all_resolved = False
+        attempts = 0
+        while not all_resolved and attempts <= 5:
+            all_resolved = True
+            attempts += 1
+            if Expr.resolve_container_recursive(self) is False:
+                all_resolved = False
+            if _DelayedFunc.resolve_container_recursive(self) is False:
+                all_resolved = False
+
+        return all_resolved
+
+    def apply_end_gap(self) -> None:
+        gap = self.end_gap
+        if gap is None or gap is False:
+            return
+
+        if not type(gap) in [bool, int] and not isinstance(gap, Gap) and not isinstance(gap, dict):
+            raise ValueError("end_gap must be bool, int, or Gap")
+        
+        default_size = 25
+        default_color = "FFFFFF"  # white
+
+        if gap is True:
+            gap = Gap(default_size)
+        elif type(gap) == int:
+            gap = Gap(gap)
+        elif isinstance(gap, dict):
+            if "size" in gap:
+                gap = Gap(gap.pop("size"), **gap)
+            else:
+                gap = Gap(default_size, **gap)
+
+        if "fill_color" not in gap.kwargs:
+            gap.kwargs["fill_color"] = default_color
+
+        if "row_multiplier" not in gap.kwargs:
+            gap.kwargs["row_multiplier"] = 3
+
+        size, kwargs = int(gap), gap.kwargs
+        row_multiplier = kwargs.pop("row_multiplier")
+        width, height = self.width, self.height
+        new_elements = []
+        for i, elem in reversed(list(enumerate(self))):
+            new_elements.insert(0, self.pop(i))
+        new_cols = size
+        new_rows = size * row_multiplier
+        full_height = height + new_rows
+        self.append(
+            Stack(
+                VStack(
+                    *new_elements,
+                    VFrame(*[
+                        Row(*[Cell("", **kwargs) for _ in range(width)])
+                        for _ in range(new_rows)
+                    ])
+                ),
+                Frame(*[
+                    Col(*[Cell("", **kwargs) for _ in range(full_height)])
+                    for _ in range(new_cols)
+                ])
+            )
+        )
     
-    def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-        """
-        Key -> header OR id
-        Types:
-            Cell
-            Col
-            pd.Series
-        """
-        keys_to_pop = []
-        for key, val in kwargs.items():
 
-            if isinstance(val, Cell):
-                keys_to_pop.append(key)
-                val.id = key
-                args.append(val)
-
-            elif get_dimensions(val) == 1:
-                keys_to_pop.append(key)
-                val.header = key
-                args.append(val)
-
-            elif isinstance(val, Series):
-                keys_to_pop.append(key)
-                args.append(Col(val, header=key))
-            
-            elif isinstance(val, DataFrame):
-                keys_to_pop.append(key)
-                args.append(HFrame(val, id=key))
-
-        for key in keys_to_pop:
-            kwargs.pop(key)
+    def resolve_gaps(self) -> None:
+        super().resolve_gaps()
+        self.apply_end_gap()
 
     def _write(self) -> None:
 
         if self.tab_color is not None:
             self.loc.ws.sheet_properties.tabColor = self.tab_color
+
+        if self.hidden is True:
+            self.loc.ws.sheet_state = 'hidden'
+
 
         pass_dict_to_children(self, "cell_style")
         pass_dict_to_children(self, "header_style")
@@ -128,3 +188,38 @@ class Sheet(VStack):
 
         for elem in self:
             elem._write()
+
+        if self.isolate is True:
+            Globals.clear_references(self.loc.ws.title)
+
+    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
+    #     """
+    #     Key -> header OR id
+    #     Types:
+    #         Cell
+    #         Col
+    #         pd.Series
+    #     """
+    #     keys_to_pop = []
+    #     for key, val in kwargs.items():
+    #
+    #         if isinstance(val, Cell):
+    #             keys_to_pop.append(key)
+    #             val.id = key
+    #             args.append(val)
+    #
+    #         elif get_dimensions(val) == 1:
+    #             keys_to_pop.append(key)
+    #             val.header = key
+    #             args.append(val)
+    #
+    #         elif isinstance(val, Series):
+    #             keys_to_pop.append(key)
+    #             args.append(Col(val, header=key))
+    #         
+    #         elif isinstance(val, DataFrame):
+    #             keys_to_pop.append(key)
+    #             args.append(Frame(val, id=key))
+    #
+    #     for key in keys_to_pop:
+    #         kwargs.pop(key)

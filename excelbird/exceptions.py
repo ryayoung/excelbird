@@ -28,6 +28,12 @@ The value inside the brackets must contain one of the following:
     - A valid index of an element in the parent container
     - The `id` of any element defined globally
     - The `header` of any Col or Row defined globally
+
+Another possible cause of this error is when setting `isolate=True` to a Sheet.
+When True, the sheet will resolve its own references immediately after creation
+and then clear the global memory of references, meaning any element created before,
+or inside, an isolated sheet cannot be referenced in an Expr by id or header
+after that sheet was created.
 """
     def __init__(self, message: str | None = None):
         if message is None:
@@ -51,7 +57,8 @@ Why was it referenced?
         self.message = message
         super().__init__(self.message)
     
-    def issue_warning(self, message: str | None):
+    @classmethod
+    def issue_warning(cls, message: str | None):
         if message is None:
-            message = self.__class__.default_msg
+            message = cls.default_msg
         print(message)

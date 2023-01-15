@@ -10,7 +10,7 @@ from excelbird.exceptions import (
     InvalidSheetName,
     ExpressionResolutionError,
 )
-from excelbird.globals import global_ids
+from excelbird.globals import Globals
 from excelbird.base_types import Style, Loc, ImpliedType, Gap, HasHelp
 from excelbird.styles import default_table_style
 from excelbird.util import (
@@ -32,8 +32,8 @@ from excelbird.function import _DelayedFunc
 # Internal core
 from excelbird.core.cell import Cell
 from excelbird.core.vec import _Vec, Col
-from excelbird.core.frame import HFrame
-from excelbird.core.stack import HStack
+from excelbird.core.frame import Frame
+from excelbird.core.stack import Stack
 from excelbird.core.sheet import Sheet
 
 
@@ -55,6 +55,8 @@ Call `.place()` to write contents to `path`.
         sep: Any | None = None,
 
         tab_color: str | None = None,
+        end_gap: bool | int | dict | Gap | None = None,
+        isolate: bool | None = None,
 
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
@@ -71,7 +73,7 @@ Call `.place()` to write contents to `path`.
         elif table_style is True: table_style = default_table_style
 
         move_dict_args_to_other_dict(args, cell_style)
-        self.move_kwargs_to_args(args, kwargs)
+        # self.move_kwargs_to_args(args, kwargs)
         ImpliedType.resolve_all_in_container(args, Sheet)
 
         self.format_args(args)
@@ -87,6 +89,8 @@ Call `.place()` to write contents to `path`.
             auto_open = auto_open,
             # Attrs that must be passed to children
             tab_color = tab_color,
+            end_gap = end_gap,
+            isolate = isolate,
             # Dicts that must be passed to children
             cell_style = Style(**cell_style),
             header_style = Style(**header_style),
@@ -108,7 +112,7 @@ Call `.place()` to write contents to `path`.
                 continue
 
             if isinstance(elem, DataFrame):
-                args[i] = elem_type(HFrame(elem))
+                args[i] = elem_type(Frame(elem))
 
             elif isinstance(elem, Series):
                 args[i] = elem_type(Col(elem))
@@ -134,78 +138,18 @@ Call `.place()` to write contents to `path`.
                     if isinstance(elem[0], (Cell, int, str, float)):
                         args[i] = elem_type(Col(*elem))
                     elif isinstance(elem[0], (list, tuple, Series)):
-                        args[i] = elem_type(HFrame(*elem))
+                        args[i] = elem_type(Frame(*elem))
                     else:
-                        args[i] = elem_type(HStack(*elem))
+                        args[i] = elem_type(Stack(*elem))
     
 
-    def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-        """
-        Key -> title
-        Types:
-            Sheet
-            I
-        """
-        elem_type = self.__class__.elem_type
-        keys_to_pop = []
-        for key, val in kwargs.items():
-            if isinstance(val, elem_type):
-                keys_to_pop.append(key)
-                val.title = key
-                args.append(val)
-            
-            elif isinstance(val, ImpliedType):
-                keys_to_pop.append(key)
-                new_sheet = val.astype(elem_type, title=key)
-                args.append(new_sheet)
-            
-            elif isinstance(val, DataFrame):
-                keys_to_pop.append(key)
-                new_sheet = elem_type(HFrame(val), title=key)
-                args.append(new_sheet)
 
-            elif isinstance(val, Series):
-                keys_to_pop.append(key)
-                new_sheet = elem_type(Col(val), title=key)
-                args.append(new_sheet)
-            
-            elif isinstance(val, (_Vec)):
-                keys_to_pop.append(key)
-                new_sheet = elem_type(val, title=key)
-                args.append(new_sheet)
-            
-            elif isinstance(val, Cell):
-                keys_to_pop.append(key)
-                if isinstance(val, Cell):
-                    new_sheet = elem_type(val, title=key)
-                else:
-                    new_sheet = elem_type(Cell(val), title=key)
-                args.append(new_sheet)
-            
-            elif isinstance(val, Gap):
-                keys_to_pop.append(key)
-                if "title" in val.kwargs:
-                    val.kwargs.pop("title")
-                for i in range(val):
-                    args.append(elem_type(title=key, **val.kwargs))
-        
-        for key in keys_to_pop:
-            kwargs.pop(key)
-
-    def write(self) -> None:
-        if self.path is None:
-            raise ValueError("Workbook needs a path")
-        
-        require_each_element_to_be_cls_type(self)
-
-        if self.auto_open == True:
-            self.save_close_currently_open_excel_file()
-
+    def resolve_all_references(self) -> bool:
         Expr.set_use_ref_for_container_recursive(self)
 
         all_resolved = False
         attempts = 0
-        while not all_resolved and attempts <= 30:
+        while not all_resolved and attempts <= 5:
             all_resolved = True
             attempts += 1
             if Expr.resolve_container_recursive(self) is False:
@@ -213,17 +157,29 @@ Call `.place()` to write contents to `path`.
             if _DelayedFunc.resolve_container_recursive(self) is False:
                 all_resolved = False
 
-        if all_resolved is False:
-            raise ExpressionResolutionError()
-        elif attempts > 1:
-            print(f"Took {attempts} attempts to resolve all expressions")
+        return all_resolved
 
+    def write(self) -> None:
+        if self.path is None:
+            raise ValueError("Workbook needs a path")
+
+        require_each_element_to_be_cls_type(self)
+
+        if self.auto_open == True:
+            self.save_close_currently_open_excel_file()
+
+        if self.resolve_all_references() is False:
+            raise ExpressionResolutionError()
+
+        pass_attr_to_children(self, "end_gap")
+        
         for sheet in self:
             sheet.resolve_gaps()
 
         self.set_loc()
 
         pass_attr_to_children(self, "tab_color")
+        pass_attr_to_children(self, "isolate")
         pass_dict_to_children(self, "cell_style")
         pass_dict_to_children(self, "header_style")
         pass_dict_to_children(self, "table_style")
@@ -236,8 +192,9 @@ Call `.place()` to write contents to `path`.
         if self.auto_open == True:
             self.open_excel_file()
 
-        global global_ids
-        global_ids = {}
+        Globals.clear_references()
+        Globals.clear_global_references()
+
     
     def set_loc(self):
         for i, sheet in enumerate(self):
@@ -302,3 +259,56 @@ Call `.place()` to write contents to `path`.
                 "The `auto_open` option uses the `xlwings` library to handle opening/closing "
                 "Excel sessions. Please 'pip install xlwings' to continue, or set `auto_open=False`"
             )
+
+    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
+    #     """
+    #     Key -> title
+    #     Types:
+    #         Sheet
+    #         I
+    #     """
+    #     elem_type = self.__class__.elem_type
+    #     keys_to_pop = []
+    #     for key, val in kwargs.items():
+    #         if isinstance(val, elem_type):
+    #             keys_to_pop.append(key)
+    #             val.title = key
+    #             args.append(val)
+    #         
+    #         elif isinstance(val, ImpliedType):
+    #             keys_to_pop.append(key)
+    #             new_sheet = val.astype(elem_type, title=key)
+    #             args.append(new_sheet)
+    #         
+    #         elif isinstance(val, DataFrame):
+    #             keys_to_pop.append(key)
+    #             new_sheet = elem_type(Frame(val), title=key)
+    #             args.append(new_sheet)
+    #
+    #         elif isinstance(val, Series):
+    #             keys_to_pop.append(key)
+    #             new_sheet = elem_type(Col(val), title=key)
+    #             args.append(new_sheet)
+    #         
+    #         elif isinstance(val, (_Vec)):
+    #             keys_to_pop.append(key)
+    #             new_sheet = elem_type(val, title=key)
+    #             args.append(new_sheet)
+    #         
+    #         elif isinstance(val, Cell):
+    #             keys_to_pop.append(key)
+    #             if isinstance(val, Cell):
+    #                 new_sheet = elem_type(val, title=key)
+    #             else:
+    #                 new_sheet = elem_type(Cell(val), title=key)
+    #             args.append(new_sheet)
+    #         
+    #         elif isinstance(val, Gap):
+    #             keys_to_pop.append(key)
+    #             if "title" in val.kwargs:
+    #                 val.kwargs.pop("title")
+    #             for i in range(val):
+    #                 args.append(elem_type(title=key, **val.kwargs))
+    #     
+    #     for key in keys_to_pop:
+    #         kwargs.pop(key)

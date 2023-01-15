@@ -6,7 +6,7 @@ from excelbird.util import get_dimensions
 def elem_math(a: Any, b: Any, func, sign: str) -> Any:
     from excelbird.core.cell import Cell
     from excelbird.core.vec import Col
-    from excelbird.core.frame import HFrame
+    from excelbird.core.frame import Frame
 
     a_cls, b_cls = a.__class__, b.__class__
     a_dim, b_dim = get_dimensions(a), get_dimensions(b)
@@ -15,14 +15,14 @@ def elem_math(a: Any, b: Any, func, sign: str) -> Any:
         a_cls = Col
         a_dim = 1
     elif type(a) in [DataFrame]:
-        a_cls = HFrame
+        a_cls = Frame
         a_dim = 2
 
     if type(b) in [list, tuple, Series]:
         b_cls = Col
         b_dim = 1
     elif type(b) in [DataFrame]:
-        b_cls = HFrame
+        b_cls = Frame
         b_dim = 2
 
     if a_dim == 0 and b_dim == 0:

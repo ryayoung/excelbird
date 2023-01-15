@@ -218,3 +218,150 @@ def fun(
         cell_style=cell_style,
         **kwargs,
     )
+
+
+class Func:
+    def __init__(
+        self,
+        res_type: type,
+        inner: list,
+        **kwargs,
+    ) -> None:
+        """
+        All that is needed is the res type and a list of elements.
+        Define the function in its exact form, including all characters,
+        including parentheses, except the beginnning equals sign. Separate
+        out the dynamic elements into their own list elements, which can either
+        be an Expression, set, Cell or vector.
+
+        If res type is a cell, call .range()
+        """
+        if type(inner) not in [list, tuple]:
+            inner = [inner]
+
+        if not all(isinstance(i, (str, Expr) or hasattr(i, "dimensions")) for i in inner):
+            raise ValueError(
+                "Inner elements inside a Func must be any of:, str, Cell, _Vec, _Frame, Expr"
+            )
+
+        convert_all_to_type(inner, set, Expr)
+
+        self.res_type = res_type
+        self.inner = inner
+
+    def get_function(self):
+        assert self.all_resolved() is True, "All references must be resolved before calling .get_function()"
+
+        if not hasattr(self.res_type, "dimensions"):
+            raise TypeError("`res_type` must have `dimensions` class attribute")
+
+        dimensions = get_dimensions(self.res_type)
+        if dimensions == 0:
+            for i, elem in enumerate(self.inner):
+                if get_dimensions(elem) > 0:
+                    self.inner[i] = elem.range()
+            return self.res_type(func=self.inner, **self.kwargs)
+
+        if dimensions == 1:
+            res_length = min(len(x) for x in self.inner if get_dimensions(x) == 1)
+            elem_type = self.res_type.elem_type
+            for i, elem in enumerate(self.inner):
+                if get_dimensions(elem) > 1:
+                    frame = elem
+                    self.inner[i] = self.res_type(
+                        *[ frame[0][k] >> frame[-1][k] for k in range(res_length) ]
+                    )
+            return self.res_type(
+                *[
+                    elem_type(func=[item[i] if get_dimensions(item) == 1 else item for item in self.inner])
+                    for i in range(res_length)
+                ]
+            )
+
+        if dimensions == 2:
+            raise ValueError(
+                "Returning a Frame from Func is not allowed yet. Please return a Cell, Row or Col."
+            )
+
+
+    def exprs(self) -> list:
+        return [i for i in self.inner if isinstance(i, Expr)]
+
+    def all_resolved(self) -> bool:
+        if any(i.refs_resolved() is False for i in self.exprs()):
+            return False
+        return True
+    
+    def attempt_to_resolve(self, container: list) -> bool:
+        """
+        Given a parent container, try to resolve each expression
+        in self's `inner`.
+        """
+        for i, elem in enumerate(self.inner):
+            if isinstance(elem, Expr):
+                if elem.attempt_to_resolve(container) is True:
+                    self.inner[i] = elem.eval()
+
+        return self.all_resolved()
+
+    @classmethod
+    def resolve_container_recursive(cls, container: list) -> bool:
+        """
+        For each _DelayedFunc in a container, attempt to resolve each of
+        its expressions.
+
+        Returns True if all were resolved
+
+        Mutates inplace: `container`
+        """
+        all_dfuncs_resolved = True
+
+        for i, elem in enumerate(container):
+            if isinstance(elem, cls):
+
+                if elem.attempt_to_resolve(container) is True:
+                    container[i] = elem.get_function()
+                else:
+                    all_dfuncs_resolved = False
+
+            elif isinstance(elem, list):
+                if cls.resolve_container_recursive(elem) is False:
+                    all_dfuncs_resolved = False
+
+        return all_dfuncs_resolved
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

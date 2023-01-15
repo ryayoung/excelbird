@@ -28,7 +28,7 @@ from excelbird.core.vec import (
     _HorizontalVec,
     _VerticalVec,
 )
-from excelbird.core.frame import HFrame, VFrame
+from excelbird.core.frame import Frame, VFrame
 
 class _Stack(ListIndexableById, HasId, HasBorder):
     sibling_type = None
@@ -67,7 +67,6 @@ class _Stack(ListIndexableById, HasId, HasBorder):
         elif table_style is True: table_style = default_table_style
 
         move_dict_args_to_other_dict(args, cell_style)
-        self.move_kwargs_to_args(args, kwargs)
         Cell.convert_all_values(args)
 
         frame_type = self.__class__.elem_type
@@ -99,53 +98,6 @@ class _Stack(ListIndexableById, HasId, HasBorder):
         if sep is not None:
             insert_separator(self, sep)
 
-    def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-        """
-        Key -> header OR id, depending on type
-        Types:
-            set
-            Expr, _DelayedFunc
-            Cell
-            elem_type
-        """
-        frame_type = self.__class__.elem_type
-        vec_type = frame_type.elem_type
-        keys_to_pop = []
-        for key, val in kwargs.items():
-
-            if isinstance(val, set):
-                if len(val) == 1:
-                    keys_to_pop.append(key)
-                    # Expr can take header and id safely and decide upon resolution which
-                    # attribute to use
-                    args.append(Expr(val.pop(), header=key, id=key))
-
-            elif isinstance(val, (Expr, _DelayedFunc)):
-                keys_to_pop.append(key)
-                val.header = key
-                val.id = key
-                args.append(val)
-
-            elif isinstance(val, Cell):
-                keys_to_pop.append(key)
-                val.id = key
-                args.append(val)
-
-            elif isinstance(val, vec_type):
-                keys_to_pop.append(key)
-                val.header = key
-                args.append(val)
-
-            elif isinstance(val, Series):
-                keys_to_pop.append(key)
-                args.append(vec_type(val, header=key))
-
-            elif isinstance(val, DataFrame):
-                keys_to_pop.append(key)
-                args.append(frame_type(val, id=key))
-
-        for key in keys_to_pop:
-            kwargs.pop(key)
 
     def _write(self) -> None:
         self.apply_border()
@@ -191,6 +143,53 @@ class _Stack(ListIndexableById, HasId, HasBorder):
     def astype(self, other: type, **kwargs):
         return _Vec.astype(self, other, **kwargs)
 
+    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
+    #     """
+    #     Key -> header OR id, depending on type
+    #     Types:
+    #         set
+    #         Expr, _DelayedFunc
+    #         Cell
+    #         elem_type
+    #     """
+    #     frame_type = self.__class__.elem_type
+    #     vec_type = frame_type.elem_type
+    #     keys_to_pop = []
+    #     for key, val in kwargs.items():
+    #
+    #         if isinstance(val, set):
+    #             if len(val) == 1:
+    #                 keys_to_pop.append(key)
+    #                 # Expr can take header and id safely and decide upon resolution which
+    #                 # attribute to use
+    #                 args.append(Expr(val.pop(), header=key, id=key))
+    #
+    #         elif isinstance(val, (Expr, _DelayedFunc)):
+    #             keys_to_pop.append(key)
+    #             val.header = key
+    #             val.id = key
+    #             args.append(val)
+    #
+    #         elif isinstance(val, Cell):
+    #             keys_to_pop.append(key)
+    #             val.id = key
+    #             args.append(val)
+    #
+    #         elif isinstance(val, vec_type):
+    #             keys_to_pop.append(key)
+    #             val.header = key
+    #             args.append(val)
+    #
+    #         elif isinstance(val, Series):
+    #             keys_to_pop.append(key)
+    #             args.append(vec_type(val, header=key))
+    #
+    #         elif isinstance(val, DataFrame):
+    #             keys_to_pop.append(key)
+    #             args.append(frame_type(val, id=key))
+    #
+    #     for key in keys_to_pop:
+    #         kwargs.pop(key)
 
 class VStack(_Stack, _VerticalVec):
     sibling_type = None # these are set after class declaration
@@ -220,9 +219,9 @@ class VStack(_Stack, _VerticalVec):
         return self.width
 
 
-class HStack(_Stack, _HorizontalVec):
+class Stack(_Stack, _HorizontalVec):
     sibling_type = None # these are set after class declaration
-    elem_type = HFrame
+    elem_type = Frame
 
     def border_mask(self, top, right, bottom, left) -> Style:
         return _HorizontalVec.border_mask(self, top, right, bottom, left)
@@ -248,5 +247,5 @@ class HStack(_Stack, _HorizontalVec):
         return self.height
 
 
-HStack.sibling_type = VStack
-VStack.sibling_type = HStack
+Stack.sibling_type = VStack
+VStack.sibling_type = Stack

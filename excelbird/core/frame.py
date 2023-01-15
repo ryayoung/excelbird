@@ -42,6 +42,7 @@ class _Frame(_Vec):
         id: str | int | None = None,
         schema: None = None,
         sep: Any | None = None,
+        sizes: list | None = None,
         border_top: bool | str | None = None,
         border_right: bool | str | None = None,
         border_bottom: bool | str | None = None,
@@ -67,7 +68,7 @@ class _Frame(_Vec):
         elif table_style is True: table_style = default_table_style
 
         move_dict_args_to_other_dict(args, cell_style)
-        self.move_kwargs_to_args(args, kwargs)
+        # self.move_kwargs_to_args(args, kwargs)
         self.explode_all_dataframes(args)
 
         vec_type = self.__class__.elem_type
@@ -78,10 +79,13 @@ class _Frame(_Vec):
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        init_container(self, args,
+        init_container(
+            self,
+            args,
             loc = None,
             id = id,
             schema = schema,
+            sizes = sizes,
             header_style = Style(**header_style),
             table_style = Style(**table_style),
             # Dicts that must be passed to children
@@ -97,41 +101,6 @@ class _Frame(_Vec):
         if sep is not None:
             insert_separator(self, sep)
     
-    def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-        """
-        Key -> header
-        Types:
-            set,
-            elem_type,
-            Series,
-            Expr,
-            _DelayedFunc
-        """
-        vec_type = self.__class__.elem_type
-        keys_to_pop = []
-        for key, val in kwargs.items():
-
-            if isinstance(val, set):
-                if len(val) == 1:
-                    keys_to_pop.append(key)
-                    args.append(Expr(val.pop(), header=key))
-
-            elif isinstance(val, (vec_type, Expr, _DelayedFunc)):
-                keys_to_pop.append(key)
-                val.header = key
-                args.append(val)
-
-            elif isinstance(val, Series):
-                keys_to_pop.append(key)
-                args.append(vec_type(val, header=key))
-
-            elif isinstance(val, ImpliedType):
-                keys_to_pop.append(key)
-                new_vec = val.astype(vec_type, header=key)
-                args.append(new_vec)
-
-        for key in keys_to_pop:
-            kwargs.pop(key)
     
     def explode_all_dataframes(self, args: list) -> None:
         """
@@ -149,11 +118,48 @@ class _Frame(_Vec):
         try:
             return super().key_to_idx(key)
         except (KeyError, IndexError):
-            headers = [i.header if hasattr(i, "_header") else None for i in self]
-            if key in headers:
+            if key in self.headers:
                 return headers.index(key)
 
             raise KeyError(f"Invalid key, {key}")
+
+    @property
+    def headers(self) -> list:
+        return [i.header if hasattr(i, "_header") else None for i in self]
+    
+    def range(self, include_headers: bool = False):
+
+        if self[0].header_written is True and include_headers is False:
+            first = self[0][1]
+        else:
+            first = self[0][0]
+        
+        last = self[-1][-1]
+        return first >> last
+
+    def apply_sizes(self) -> None:
+        def set_elem_size(elem, size):
+            if isinstance(elem, Col):
+                if size is True:
+                    if elem.header is not None:
+                        elem[0].header_style["autofit"] = True
+                    else:
+                        elem[0].autofit = True
+                else:
+                    elem[0].col_width = size
+            elif isinstance(elem, Row):
+                elem[0].row_height = size
+
+        if isinstance(self.sizes, (list, tuple)):
+            for elem, size in zip(self, self.sizes):
+                set_elem_size(elem, size)
+
+        elif isinstance(self.sizes, dict):
+            for key, val in self.sizes.items():
+                elem = self.get(key)
+                if elem is not None:
+                    set_elem_size(elem, val)
+
 
     def _write(self) -> None:
         require_each_element_to_be_cls_type(self)
@@ -162,6 +168,8 @@ class _Frame(_Vec):
         # been set.
         pass_dict_to_children(self, "header_style")
         pass_dict_to_children(self, "cell_style")
+
+        self.apply_sizes()
 
         for elem in self:
             # If a schema has been declared, check if the
@@ -172,6 +180,7 @@ class _Frame(_Vec):
                     schema_var = self.schema.get(elem.header)
                     if schema_var is not None:
                         elem.header = schema_var.output
+
 
             elem._write()
 
@@ -187,6 +196,41 @@ class _Frame(_Vec):
         for elem in self:
             elem.resolve_gaps()
     
+    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
+    #     """
+    #     Key -> header
+    #     Types:
+    #         set,
+    #         elem_type,
+    #         Series,
+    #         Expr,
+    #         _DelayedFunc
+    #     """
+    #     vec_type = self.__class__.elem_type
+    #     keys_to_pop = []
+    #     for key, val in kwargs.items():
+    #
+    #         if isinstance(val, set):
+    #             if len(val) == 1:
+    #                 keys_to_pop.append(key)
+    #                 args.append(Expr(val.pop(), header=key))
+    #
+    #         elif isinstance(val, (vec_type, Expr, _DelayedFunc)):
+    #             keys_to_pop.append(key)
+    #             val.header = key
+    #             args.append(val)
+    #
+    #         elif isinstance(val, Series):
+    #             keys_to_pop.append(key)
+    #             args.append(vec_type(val, header=key))
+    #
+    #         elif isinstance(val, ImpliedType):
+    #             keys_to_pop.append(key)
+    #             new_vec = val.astype(vec_type, header=key)
+    #             args.append(new_vec)
+    #
+    #     for key in keys_to_pop:
+    #         kwargs.pop(key)
 
 
 class VFrame(_Frame, _VerticalVec):
@@ -206,7 +250,7 @@ class VFrame(_Frame, _VerticalVec):
         return self.width
 
 
-class HFrame(_Frame, _HorizontalVec):
+class Frame(_Frame, _HorizontalVec):
     sibling_type = None # these are set after class declaration
     elem_type = Col
 
@@ -217,7 +261,6 @@ class HFrame(_Frame, _HorizontalVec):
         super()._write()
 
         if len(self.table_style) > 0:
-            table_location = self.range().expr_value()
             self.apply_table_format_to_worksheet()
 
     def format_headers_for_table_format(self) -> None:
@@ -272,24 +315,30 @@ class HFrame(_Frame, _HorizontalVec):
 
         import openpyxl.worksheet.table as xl_tbl
         style = self.table_style
-        cell_range = self.range().expr_value().replace(self.loc.title_str, "")
+        cell_range = self.range(include_headers=True).expr_value().replace(self.loc.title_str, "")
         ws = self.loc.ws
 
         if "displayName" in style:
             name = style.pop("displayName")
         else:
-            name = "Table1"
+            if isinstance(ws.title, str):
+                friendly_title = re.sub(r"[^A-Za-z]", "", ws.title)
+                name = friendly_title + "Table1"
+            else:
+                name = "Table1"
 
         valid_table_name = True
         valid_table_name, attempts = False, 0
-        while valid_table_name is False and attempts < 3:
+        err_msg = ""
+        while valid_table_name is False and attempts < 30:
             attempts += 1
             try:
                 table = xl_tbl.Table(displayName=name, ref=cell_range)
                 table.tableStyleInfo = xl_tbl.TableStyleInfo(**style)
                 ws.add_table(table)
                 valid_table_name = True
-            except ValueError as e:
+            except Exception as e:
+                err_msg = e
                 name_and_num = re.search(r"(.+)(\d+)", name)
                 if name_and_num is None:
                     name += "1"
@@ -298,7 +347,11 @@ class HFrame(_Frame, _HorizontalVec):
                     name = f"{label}{int(num)+1}"
 
         if valid_table_name is False:
-            print("Error when formatting table")
+            raise ValueError(
+                f"Couldn't properly format table on sheet, '{ws.title}', cell range '{cell_range}'."
+                "This is either due to invalid data formatting, or a duplicate table name. Here is the "
+                f"error message from openpyxl:\n{err_msg}"
+            )
 
     @property
     def width(self) -> int:
@@ -313,5 +366,5 @@ class HFrame(_Frame, _HorizontalVec):
         return self.height
 
 
-VFrame.sibling_type = HFrame
-HFrame.sibling_type = VFrame
+VFrame.sibling_type = Frame
+Frame.sibling_type = VFrame

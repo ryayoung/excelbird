@@ -1,6 +1,8 @@
-import pandas as pd
 from collections import namedtuple, ChainMap
+from copy import copy
+from typing import TypeVar
 
+TDataFrame = TypeVar("TDataFrame")
 
 class SchemaError(Exception):
     pass
@@ -79,18 +81,26 @@ class Schema(dict):
         reordered = {k: self[k] for k in key}
         return self.__class__(**reordered)
 
-    def apply(self, df: pd.DataFrame) -> pd.DataFrame:
+    def apply(self, df: TDataFrame) -> TDataFrame:
         """
         Filter dataframe to contain only columns that are in schema
         keys, re-orders the columns. Dataframe doesn't need to have all keys.
         """
         return df[[k for k in self.keys() if k in df.columns]].copy()
 
-    def rename(self, inputs: dict | None = None, outputs: dict | None = None) -> None:
+    def rename(self, keys: dict | None = None, inputs: dict | None = None, outputs: dict | None = None) -> None:
         """
         Identify with key
         """
         new = self.copy()
+        if keys is not None:
+            new = self.__class__()
+            for key, val in self.items():
+                if key not in keys:
+                    new[key] = val
+                else:
+                    new[keys[key]] = val
+
         if inputs is not None:
             for key, new_name in inputs.items():
                 new[key] = Column(new_name, new[key].output)
@@ -111,10 +121,10 @@ class Schema(dict):
             return super().update(self.__class__(**new))
         return super().update(self.__class__(**kwargs))
 
-    def rename_inputs_to_vars(self, df: pd.DataFrame) -> pd.DataFrame:
+    def rename_inputs_to_vars(self, df: TDataFrame) -> TDataFrame:
         return df.rename(columns={val.input: key for key, val in self.items()})
 
-    def rename_vars_to_outputs(self, df: pd.DataFrame) -> pd.DataFrame:
+    def rename_vars_to_outputs(self, df: TDataFrame) -> TDataFrame:
         return df.rename(columns={key: val.output for key, val in self.items()})
 
     def inputs(self) -> list[str]:
@@ -123,7 +133,7 @@ class Schema(dict):
     def outputs(self) -> list[str]:
         return [val.output for val in self.values()]
 
-    def select_inputs(self, df: pd.DataFrame) -> pd.DataFrame:
+    def select_inputs(self, df: TDataFrame) -> TDataFrame:
         """
         Renames desired columns to var names, and selects them.
         If a column isn't found, an error is raised to help you correct
@@ -137,7 +147,7 @@ class Schema(dict):
         df = self.rename_inputs_to_vars(df)
         return df[[k for k in self.keys()]]
 
-    def select_outputs(self, df: pd.DataFrame) -> pd.DataFrame:
+    def select_outputs(self, df: TDataFrame) -> TDataFrame:
         """
         Renames var columns to their output names, and selects them.
         If any columns are missing, an error is raised to remind you to create them.
@@ -165,4 +175,13 @@ class Schema(dict):
         return new
 
     def copy(self) -> dict:
-        return self.__class__(**{k: v for k, v in self.items()})
+        return self.__class__(**{copy(k): copy(v) for k, v in self.items()})
+    
+    def _repr_html_(self):
+        import pandas as pd
+        return pd.DataFrame(
+            list(zip(self.inputs(), self.outputs())),
+            columns=["Input", "Output"],
+            index=self.keys(),
+        )._repr_html_()
+

@@ -1,7 +1,7 @@
 import re
 from typing import TypeVar
 
-from excelbird.globals import global_ids, global_headers
+from excelbird.globals import Globals
 from excelbird.styles import default_table_style
 from excelbird.base_types import Style
 
@@ -38,7 +38,21 @@ class Expr:
     ) -> None:
         if isinstance(expr_str, set):
             expr_str = expr_str.pop()
-        matches = re.findall(r"\[(.*?)\]", expr_str)
+
+        # Match group for the inner contents of a square bracket enclosure
+        # that has at least one character and no brackets inside
+        r_elem = r"\[([^\[\]]+?)\]"
+
+        # Get the element at the start of the string, if one
+        match_start: list = re.findall(r"^" + r_elem, expr_str)
+
+        # For all other matches, make sure the enclosure isn't immediately
+        # preceded by a bracket or parenthese. Those should
+        # be left alone and treated as regular __getitem__ calls in python
+        match_others: list = re.findall(r"[^\]\)\[\(]" + r_elem, expr_str)
+
+        matches = match_start + match_others
+
         for i, match in enumerate(matches):
             match = match.strip()
             try:
@@ -94,10 +108,19 @@ class Expr:
         return not any(i is None for i in self.refs.values())
 
     def eval(self):
+        """
+        Note to self: why are we passing down without override to a
+        result that just got evaluated? Shouldn't the new object
+        have an empty slate of attributes? Instead, just loop through
+        kwargs and:
+            If element has the attribute set it. Else, check if it has
+            a cell_style, and set it as a key/value inside cell_style.
+        """
         if self.refs_resolved() is False:
             raise ValueError("Not all refs resolved")
 
         res = eval(self.expr)
+
         if self.use_ref is True:
             res = res.ref()
 
@@ -134,21 +157,24 @@ class Expr:
 
         A valid reference might be:
             An integer index of an item in the container
-            A string id in `global_ids`
+            A string id in `Globals.ids`
 
         Returns True if a match was found for each reference
 
         Mutates inplace: `self`
         """
         from excelbird.function import _DelayedFunc
-        for key, val in self.refs.items():
+        for key in self.refs.keys():
             try:
                 ref = container[container.key_to_idx(key)]
             except (KeyError, IndexError):
-                try:
-                    ref = global_ids[key]
-                except (KeyError, IndexError):
-                    ref = global_headers.get(key, None)
+                ref = Globals.ids.get(key, None)
+                if ref is None:
+                    ref = Globals.headers.get(key, None)
+                if ref is None:
+                    ref = Globals.global_ids.get(key, None)
+                if ref is None:
+                    ref = Globals.global_headers.get(key, None)
 
             if ref is not None and not isinstance(ref, (_DelayedFunc, Expr)):
                 self.refs[key] = ref

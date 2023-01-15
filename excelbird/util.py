@@ -4,12 +4,12 @@ from openpyxl.worksheet.worksheet import Worksheet
 import openpyxl.worksheet.table as xl_tbl
 import re
 
-from excelbird.globals import global_ids
+from excelbird.globals import Globals
 from excelbird.styles import default_table_style
 from excelbird.base_types import Gap, Style, I
 
 def get_dimensions(elem: Any) -> int:
-    return getattr(elem.__class__, "dimensions", 0)
+    return getattr(elem.__class__, "dimensions", -1)
 
 
 def autofit_algorithm(value: str) -> int:

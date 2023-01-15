@@ -3,6 +3,7 @@ from excelbird.colors import conditional
 
 default_table_style = Style(
     name="TableStyleMedium2",
+    showRowStripes=True,
 )
 
 

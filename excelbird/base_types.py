@@ -1,9 +1,11 @@
 from typing import Any, overload, TypeVar, Iterable
+from types import NoneType
 
-from excelbird.globals import global_ids, global_headers
 from openpyxl.worksheet.worksheet import Worksheet
 from openpyxl.utils import get_column_letter
 from openpyxl.utils.cell import coordinate_from_string, column_index_from_string
+
+from excelbird.globals import Globals
 
 
 class ImpliedType:
@@ -33,7 +35,7 @@ class ImpliedType:
 
     def astype(self, dtype: type, **kwargs) -> Any:
         return dtype(*self.__args, **self.__kwargs, **kwargs)
-    
+
     @classmethod
     def resolve_all_in_container(cls, container: list, dtype: type):
         for i, elem in enumerate(container):
@@ -45,6 +47,7 @@ class I(ImpliedType):
     """
     Shorthand for `ImpliedType`
     """
+
     pass
 
 
@@ -69,13 +72,13 @@ class Gap(int):
     def __len__(self):
         return self
 
-    @property
-    def width(self):
-        return int(self)
+    # @property
+    # def width(self):
+    #     return int(self)
 
-    @property
-    def height(self):
-        return int(self)
+    # @property
+    # def height(self):
+    #     return int(self)
 
     @property
     def fill_val(self):
@@ -85,7 +88,7 @@ class Gap(int):
 
     def ref(self):
         return self
-    
+
     @classmethod
     def explode_all_to_values(cls, container: list, val_type: type) -> None:
         """
@@ -99,9 +102,11 @@ class Gap(int):
                 gap = container.pop(i)
                 for _ in range(gap):
                     container.insert(i, val_type(gap.fill_val, **gap.kwargs))
-    
+
     @classmethod
-    def explode_all_to_vecs(cls, container: list, vec_type: type, vec_length: int) -> None:
+    def explode_all_to_vecs(
+        cls, container: list, vec_type: type, vec_length: int
+    ) -> None:
         """
         Given a container, explode each Gap to vectors of vec_type filled with
         `val_type` with the Gap's fill_val
@@ -113,10 +118,14 @@ class Gap(int):
             if isinstance(elem, cls):
                 gap = container.pop(i)
                 for _ in range(gap):
-                    container.insert(i,
-                        vec_type(*[val_type(gap.fill_val) for _ in range(vec_length)], **gap.kwargs)
+                    container.insert(
+                        i,
+                        vec_type(
+                            *[val_type(gap.fill_val) for _ in range(vec_length)],
+                            **gap.kwargs,
+                        ),
                     )
-    
+
     @classmethod
     def convert_all_to_frames(
         cls, container: list, frame_type: type, vec_length: int
@@ -133,20 +142,17 @@ class Gap(int):
             if isinstance(elem, cls):
                 container[i] = frame_type(
                     *[
-                        vec_type(*[
-                            val_type(elem.fill_val) for _ in range(vec_length)
-                        ])
+                        vec_type(*[val_type(elem.fill_val) for _ in range(vec_length)])
                         for _ in range(elem)
                     ],
-                    **elem.kwargs
+                    **elem.kwargs,
                 )
-
 
 
 class HasId:
     """
     Has an id property which, when set, inserts a reference to
-    self in `global_ids`.
+    self in `Globals.ids`.
     """
 
     @property
@@ -163,7 +169,9 @@ class HasId:
         if new is not None:
             if not isinstance(new, str):
                 raise ValueError(f"Invalid id, `{new}`. Ids must be strings.")
-            global_ids[new] = self
+            Globals.ids[new] = self
+            if new.startswith("G::"):
+                Globals.global_ids[new] = self
         self._id = new
         return self
 
@@ -171,7 +179,7 @@ class HasId:
 class HasHeader:
     """
     Has an header property which, when set, inserts a reference to
-    self in `global_headers`.
+    self in `Globals.headers`.
     """
 
     @property
@@ -188,7 +196,9 @@ class HasHeader:
         if new is not None:
             if not isinstance(new, str):
                 raise ValueError(f"Invalid header, `{new}`. Headers must be strings.")
-            global_headers[new] = self
+            Globals.headers[new] = self
+            if new.startswith("G::"):
+                Globals.global_headers[new] = self
         self._header = new
         return self
 
@@ -198,24 +208,44 @@ class HasBorder:
     Child class is responsible for making sure each instance
     has variable, 'border_x' for each side.
     """
+
     empty = [None, None, None, None]
-    default = 'thin'
+    negated = [False, False, False, False]
+    default_weight = "thin"
+    default_color = "000000"
+    default = ("thin", "000000")
+    valid_weights = (
+        "dashDot",
+        "dashDotDot",
+        "dashed",
+        "dotted",
+        "double",
+        "hair",
+        "medium",
+        "thick",
+        "thin",
+        "mediumDashDot",
+        "mediumDashDotDot",
+        "mediumDashed",
+        "slantDashDot",
+    )
 
     def init_border(self, border, top, right, bottom, left) -> None:
         """
         Processes the full border and individual sides, where
         individual sides take priority only if they are not None
         """
+        cls = self.__class__
         self.border = border
         if top is not None:
-            self.border_top = top
+            self.border_top = cls.interpret_single_value(top)
         if right is not None:
-            self.border_right = right
+            self.border_right = cls.interpret_single_value(right)
         if bottom is not None:
-            self.border_bottom = bottom
+            self.border_bottom = cls.interpret_single_value(bottom)
         if left is not None:
-            self.border_left = left
-        
+            self.border_left = cls.interpret_single_value(left)
+
         _ = self.border
 
     @property
@@ -223,17 +253,13 @@ class HasBorder:
         for side in ["border_top", "border_right", "border_bottom", "border_left"]:
             if not hasattr(self, side):
                 setattr(self, side, None)
-            
-        default = self.__class__.default
-            
-        if self.border_top is True:
-            self.border_top = default
-        if self.border_right is True:
-            self.border_right = default
-        if self.border_bottom is True:
-            self.border_bottom = default
-        if self.border_left is True:
-            self.border_left = default
+
+        cls = self.__class__
+
+        self.border_top = cls.interpret_single_value(self.border_top)
+        self.border_right = cls.interpret_single_value(self.border_right)
+        self.border_bottom = cls.interpret_single_value(self.border_bottom)
+        self.border_left = cls.interpret_single_value(self.border_left)
 
         return [
             self.border_top,
@@ -249,13 +275,89 @@ class HasBorder:
         self.border_right = right
         self.border_bottom = bottom
         self.border_left = left
-    
+
+    @classmethod
+    def is_valid(cls, value: Any) -> bool:
+        if value is None or value is False:
+            return True
+        if isinstance(value, tuple):
+            if len(value) == 2:
+                if isinstance(value[0], str) and isinstance(value[1], str):
+                    if not value[1].startswith("#"):
+                        return True
+        return False
+
+    @classmethod
+    def interpret_single_value(cls, value: Any) -> tuple[Any, Any]:
+        """
+        Given a value intended to represent a single border side, interpret
+        it to one of the following valid formats:
+            - None   - unset, can be overriden
+            - False  - override parent and remove border
+            - ('<weight>' | None | False, '<hex color>' | None | False)
+
+        Valid inputs for ``value``:
+            None
+            True    - converts to ``cls.default``
+            False
+            '<weight>'   - we can tell if the string is in list of valid weights
+            '<hex color>'
+            ('<weight>' | None | True | False,)
+            ('<weight>' | None | True | False, '<hex color>' | None | True | False)
+        """
+        if cls.is_valid(value):
+            return value
+
+        # Treat 1-element tuple as single value
+        if isinstance(value, tuple):
+            if len(value) == 1:
+                value = value[0]
+
+        if value is True:
+            return cls.default
+
+        # If string, we can definitively conclude whether they were
+        # referring to the weight or to the color.
+        if isinstance(value, str):
+            if value in cls.valid_weights:
+                return (value, cls.default_color)
+            else:
+                return (cls.default_weight, value)
+
+        # Now it must be a 2-element tuple
+        if not isinstance(value, tuple):
+            raise ValueError(f"Invalid border value, {value}")
+        if not len(value) == 2:
+            raise ValueError(f"Invalid border value, {value}")
+
+        if value[0] is True:
+            value = (cls.default_weight, value[1])
+
+        if value[1] is True:
+            value = (value[0], cls.default_color)
+
+        for val in value:
+            if not isinstance(val, str) and not val is None and not val is False:
+                raise ValueError(f"Border weight/color values must be strings. {value} is invalid")
+
+        if not value[0] in cls.valid_weights and not value[0] is None and not value[0] is False:
+            raise ValueError(f"'{value[0]}' is not a valid weight")
+        if not isinstance(value[1], str) and not value[1] is None and not value[1] is False:
+            raise ValueError(f"'{value[1]}' is not a valid hex color")
+
+        if isinstance(value[1], str):
+            value = (value[0], value[1].lstrip("#"))
+            if not len(value[1]) == 6:
+                raise ValueError(f"Color value must be 6-character hex code. {value[1]} is invalid")
+
+        return value
+
     @classmethod
     def parse_arg(
         cls, border: bool | Iterable | None
     ) -> tuple[str | bool, str | bool, str | bool, str | bool]:
         """
-        Designed to mimic CSS border logic. Returns a 4-element tuple
+        Designed to mimic CSS border logic. Returns a 4-element list
         describing the border of 4 sides, in the order: top, right, bottom,
         left. Elements can either be None, False, or a string representing weight.
 
@@ -263,22 +365,26 @@ class HasBorder:
 
         Example arguments to outputs:
             True or 'thin':
-                ('thin', 'thin', 'thin', 'thin')
-            ('thin', False):
-                ('thin', False, 'thin', False)
-            ('thick', 'thick', 'thick'):
-                ('thick', 'thick', 'thick', False)
+                [ 'thin', 'thin', 'thin', 'thin' ]
+            [ 'thin', False ]:
+                [ 'thin', False, 'thin', False ]
+            [ 'thick', 'thick', 'thick' ]:
+                [ 'thick', 'thick', 'thick', False ]
         """
-        if border is None:
+        if border is None or border == cls.empty:
             return cls.empty
-
-        if not isinstance(border, (tuple, list)):
-            border = [border]
+        if border == cls.negated:
+            return cls.negated
 
         if isinstance(border, tuple):
-            border = list(border)
+            if len(border) > 2:
+                raise TypeError("Border must be a list")
 
-        border = [cls.default if i is True else i for i in border]
+        if not isinstance(border, list):
+            border = [border]
+
+        for i, elem in enumerate(border):
+            border[i] = cls.interpret_single_value(elem)
 
         if len(border) == 1:
             border = border * 4
@@ -287,7 +393,7 @@ class HasBorder:
         elif len(border) == 3:
             border += [False]
 
-        assert len(border) == 4, "Border must be 4 elements"
+        assert len(border) == 4, "Border must be 4 elements. If you're reading this, an excelbird developer made a mistake"
         return list(border)
 
     def apply_border(self) -> None:
@@ -295,7 +401,7 @@ class HasBorder:
             return
         if len(self) == 0 or self.border == [None, None, None, None]:
             return
-        
+
         first = self[0]
 
         if len(self) == 1:
@@ -361,6 +467,12 @@ class ListIndexableById(list):
         if not isinstance(key, slice):
             key = self.key_to_idx(key)
         return super().__getitem__(key)
+
+    def get(self, key, default=None) -> Any:
+        try:
+            return self[key]
+        except Exception:
+            return default
 
     def __repr__(self):
         # This shouldnt be here but I'm lazy
@@ -451,7 +563,6 @@ class Loc:
 
 
 class HasHelp:
-
     @classmethod
     def help(cls, doc: bool = False):
         doc_str = cls.__doc__
@@ -466,15 +577,17 @@ class HasHelp:
             res = help_str
 
         from excelbird.util import is_notebook
+
         if is_notebook():
-            from IPython.display import display, Markdown as md 
+            from IPython.display import display, Markdown as md
+
             if help_nb_str is not None:
                 display(md(help_nb_str))
             else:
                 display(md(res))
         else:
             print(res)
-    
+
     # Your class's help string
     __help__ = None
     # Custom help string for notebooks

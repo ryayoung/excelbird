@@ -10,7 +10,6 @@ from excelbird.base_types import (
     HasHeader,
     HasBorder,
     Style,
-    DotDict,
     Loc,
     ImpliedType,
 )
@@ -66,7 +65,7 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         if header_style is None: header_style = dict()
 
         move_dict_args_to_other_dict(args, cell_style)
-        self.move_kwargs_to_args(args, kwargs)
+        # self.move_kwargs_to_args(args, kwargs)
         if len(args) == 1 and isinstance(get_idx(args, 0), Series):
             if args[0].name is not None and header is None:
                 header = args[0].name
@@ -97,48 +96,17 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         )
         if sep is not None:
             insert_separator(self, sep)
+        
+        self.header_written = False
     
     
     def explode_all_series(self, args: list) -> None:
         for i, elem in enumerate(args):
             if isinstance(elem, Series):
                 sr = args.pop(i)
-                for cell in reversed(sr):
+                for cell in reversed(sr.reset_index(drop=True)):
                     args.insert(i, self.__class__.elem_type(cell))
-    
-    def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-        """
-        Key -> id
-        Types:
-            set
-            elem_type
-            Expr
-            _DelayedFunc
-            I
-        """
-        keys_to_pop = []
-        for key, val in kwargs.items():
 
-            if isinstance(val, set):
-                if len(val) == 1:
-                    keys_to_pop.append(key)
-                    args.append(Expr(val.pop(), id=key))
-
-            elif isinstance(val, (Cell, Expr, _DelayedFunc)):
-                keys_to_pop.append(key)
-                val.id = key
-                args.append(val)
-
-            elif isinstance(val, ImpliedType):
-                keys_to_pop.append(key)
-                new_cell = val.astype(Cell, id=key)
-                args.append(new_cell)
-
-        for key in keys_to_pop:
-            kwargs.pop(key)
-
-    def range(self):
-        return self.first_cell >> self.last_cell
 
     def resolve_gaps(self):
         Gap.explode_all_to_values(self, Cell)
@@ -206,21 +174,15 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         if self.header is not None:
             length += 1
         return (length,)
-    
-    @property
-    def first_cell(self) -> Cell:
-        if self.__class__.dimensions == 1:
-            return self[0]
-        elif self.__class__.dimensions == 2:
-            return self[0][0]
-    
-    @property
-    def last_cell(self) -> Cell:
-        if self.__class__.dimensions == 1:
-            return self[-1]
-        elif self.__class__.dimensions == 2:
-            return self[-1][-1]
 
+    def range(self, include_headers: bool = False):
+        if self.header_written is True and include_headers is False:
+            first = self[1]
+        else:
+            first = self[0]
+        last = self[-1]
+        return first >> last
+    
     def _write(self) -> None:
         require_each_element_to_be_cls_type(self)
 
@@ -244,14 +206,46 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
                 new_header.autofit = True
             
             self.insert(0, new_header)
+            self.header_written = True
 
         for cell in self:
             cell._write()
     
+    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
+    #     """
+    #     Key -> id
+    #     Types:
+    #         set
+    #         elem_type
+    #         Expr
+    #         _DelayedFunc
+    #         I
+    #     """
+    #     keys_to_pop = []
+    #     for key, val in kwargs.items():
+    #
+    #         if isinstance(val, set):
+    #             if len(val) == 1:
+    #                 keys_to_pop.append(key)
+    #                 args.append(Expr(val.pop(), id=key))
+    #
+    #         elif isinstance(val, (Cell, Expr, _DelayedFunc)):
+    #             keys_to_pop.append(key)
+    #             val.id = key
+    #             args.append(val)
+    #
+    #         elif isinstance(val, ImpliedType):
+    #             keys_to_pop.append(key)
+    #             new_cell = val.astype(Cell, id=key)
+    #             args.append(new_cell)
+    #
+    #     for key in keys_to_pop:
+    #         kwargs.pop(key)
+
 
 class _HorizontalVec(_Vec):
     def border_mask(self, top, right, bottom, left) -> Style:
-        return DotDict(
+        return Style(
             first=(top, False, bottom, left),
             last=(top, right, bottom, False),
             middle=(top, False, bottom, False),
@@ -271,7 +265,7 @@ class _HorizontalVec(_Vec):
 
 class _VerticalVec(_Vec):
     def border_mask(self, top, right, bottom, left) -> Style:
-        return DotDict(
+        return Style(
             first=(top, right, False, left),
             last=(False, right, bottom, left),
             middle=(False, right, False, left),
