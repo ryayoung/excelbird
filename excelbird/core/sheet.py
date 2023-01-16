@@ -5,7 +5,7 @@ from typing import Any
 from excelbird.globals import Globals
 from excelbird.exceptions import ExpressionResolutionError
 from excelbird.expression import Expr
-from excelbird.function import _DelayedFunc
+from excelbird.function import Func
 from excelbird.base_types import Style, ImpliedType, Gap, Loc
 from excelbird.styles import default_table_style
 from excelbird.util import (
@@ -111,7 +111,7 @@ class Sheet(VStack):
             attempts += 1
             if Expr.resolve_container_recursive(self) is False:
                 all_resolved = False
-            if _DelayedFunc.resolve_container_recursive(self) is False:
+            if Func.resolve_container_recursive(self) is False:
                 all_resolved = False
 
         return all_resolved
@@ -173,6 +173,7 @@ class Sheet(VStack):
         super().resolve_gaps()
         self.apply_end_gap()
 
+
     def _write(self) -> None:
 
         if self.tab_color is not None:
@@ -191,35 +192,3 @@ class Sheet(VStack):
 
         if self.isolate is True:
             Globals.clear_references(self.loc.ws.title)
-
-    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-    #     """
-    #     Key -> header OR id
-    #     Types:
-    #         Cell
-    #         Col
-    #         pd.Series
-    #     """
-    #     keys_to_pop = []
-    #     for key, val in kwargs.items():
-    #
-    #         if isinstance(val, Cell):
-    #             keys_to_pop.append(key)
-    #             val.id = key
-    #             args.append(val)
-    #
-    #         elif get_dimensions(val) == 1:
-    #             keys_to_pop.append(key)
-    #             val.header = key
-    #             args.append(val)
-    #
-    #         elif isinstance(val, Series):
-    #             keys_to_pop.append(key)
-    #             args.append(Col(val, header=key))
-    #         
-    #         elif isinstance(val, DataFrame):
-    #             keys_to_pop.append(key)
-    #             args.append(Frame(val, id=key))
-    #
-    #     for key in keys_to_pop:
-    #         kwargs.pop(key)

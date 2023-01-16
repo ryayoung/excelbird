@@ -72,14 +72,6 @@ class Gap(int):
     def __len__(self):
         return self
 
-    # @property
-    # def width(self):
-    #     return int(self)
-
-    # @property
-    # def height(self):
-    #     return int(self)
-
     @property
     def fill_val(self):
         if self.fill is True:
@@ -147,6 +139,9 @@ class Gap(int):
                     ],
                     **elem.kwargs,
                 )
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({int(self)})"
 
 
 class HasId:

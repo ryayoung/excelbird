@@ -28,7 +28,7 @@ from excelbird.util import (
 )
 from excelbird.math import CanDoMath, elem_math
 from excelbird.expression import Expr
-from excelbird.function import _DelayedFunc
+from excelbird.function import Func
 # Internal core
 from excelbird.core.cell import Cell
 
@@ -182,6 +182,22 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
             first = self[0]
         last = self[-1]
         return first >> last
+
+    def validate_child_types(self) -> None:
+        cls_name = self.__class__.__name__
+        elem_type_name = self.__class__.elem_type.__name__
+        valid_types = (
+            self.__class__.elem_type,
+            Gap,
+        )
+        for elem in self:
+            if not isinstance(elem, valid_types):
+                raise TypeError(
+                    f"At write time, a {cls_name} can only hold {elem_type_name}s or Gaps. "
+                    "To arrange mixed types, place them in a Stack or VStack"
+                )
+            if hasattr(elem, "validate_child_types"):
+                elem.validate_child_types()
     
     def _write(self) -> None:
         require_each_element_to_be_cls_type(self)
@@ -210,37 +226,6 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
         for cell in self:
             cell._write()
-    
-    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-    #     """
-    #     Key -> id
-    #     Types:
-    #         set
-    #         elem_type
-    #         Expr
-    #         _DelayedFunc
-    #         I
-    #     """
-    #     keys_to_pop = []
-    #     for key, val in kwargs.items():
-    #
-    #         if isinstance(val, set):
-    #             if len(val) == 1:
-    #                 keys_to_pop.append(key)
-    #                 args.append(Expr(val.pop(), id=key))
-    #
-    #         elif isinstance(val, (Cell, Expr, _DelayedFunc)):
-    #             keys_to_pop.append(key)
-    #             val.id = key
-    #             args.append(val)
-    #
-    #         elif isinstance(val, ImpliedType):
-    #             keys_to_pop.append(key)
-    #             new_cell = val.astype(Cell, id=key)
-    #             args.append(new_cell)
-    #
-    #     for key in keys_to_pop:
-    #         kwargs.pop(key)
 
 
 class _HorizontalVec(_Vec):
@@ -294,6 +279,21 @@ class Row(_HorizontalVec):
     def height(self):
         return 1
 
+    def _repr_html_(self):
+        from pandas import DataFrame
+        header = "" if self.header is None else self.header
+        elems_to_show = list(self) if len(self) <= 10 else list(self)[:10]
+        if len(self) > 10:
+            elems_to_show.append(f"(+{len(self)-10})")
+        df = DataFrame(
+            [elems_to_show, ["" for _ in elems_to_show]],
+            index=[header, ""],
+            columns=["" for _ in elems_to_show]
+        )
+        if self.header is None:
+            return df.style.hide(axis="index")._repr_html_()
+        return df._repr_html_()
+
 
 class Col(_VerticalVec):
     sibling_type = None # these are set after class declaration
@@ -306,6 +306,15 @@ class Col(_VerticalVec):
     def height(self):
         return self.shape[0]
 
+    def _repr_html_(self):
+        from pandas import DataFrame
+        header = "" if self.header is None else self.header
+        elems_to_show = list(self) if len(self) <= 10 else list(self)[:10]
+        if len(self) > 10:
+            elems_to_show.append(f"(+{len(self)-10})")
+        df = DataFrame( elems_to_show + [""], columns=[header])
+        # Hide index when displaying
+        return df.style.hide(axis="index")._repr_html_()
 
 Col.sibling_type = Row
 Row.sibling_type = Col

@@ -1,5 +1,5 @@
 # External
-from pandas import Series, DataFrame
+from pandas import Series, DataFrame, concat
 from typing import Any, Iterable
 import re
 # Internal main
@@ -20,7 +20,7 @@ from excelbird.util import (
     insert_separator,
 )
 from excelbird.expression import Expr
-from excelbird.function import _DelayedFunc
+from excelbird.function import Func
 # Internal core
 from excelbird.core.cell import Cell
 from excelbird.core.vec import (
@@ -160,6 +160,21 @@ class _Frame(_Vec):
                 if elem is not None:
                     set_elem_size(elem, val)
 
+    def validate_child_types(self) -> None:
+        cls_name = self.__class__.__name__
+        elem_type_name = self.__class__.elem_type.__name__
+        valid_types = (
+            self.__class__.elem_type,
+            Gap,
+        )
+        for elem in self:
+            if not isinstance(elem, valid_types):
+                raise TypeError(
+                    f"At write time, a {cls_name} can only hold {elem_type_name}s or Gaps. "
+                    "To arrange mixed types, place them in a Stack or VStack"
+                )
+            if hasattr(elem, "validate_child_types"):
+                elem.validate_child_types()
 
     def _write(self) -> None:
         require_each_element_to_be_cls_type(self)
@@ -195,43 +210,6 @@ class _Frame(_Vec):
         Gap.explode_all_to_vecs(self, self.__class__.elem_type, self.gap_size)
         for elem in self:
             elem.resolve_gaps()
-    
-    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-    #     """
-    #     Key -> header
-    #     Types:
-    #         set,
-    #         elem_type,
-    #         Series,
-    #         Expr,
-    #         _DelayedFunc
-    #     """
-    #     vec_type = self.__class__.elem_type
-    #     keys_to_pop = []
-    #     for key, val in kwargs.items():
-    #
-    #         if isinstance(val, set):
-    #             if len(val) == 1:
-    #                 keys_to_pop.append(key)
-    #                 args.append(Expr(val.pop(), header=key))
-    #
-    #         elif isinstance(val, (vec_type, Expr, _DelayedFunc)):
-    #             keys_to_pop.append(key)
-    #             val.header = key
-    #             args.append(val)
-    #
-    #         elif isinstance(val, Series):
-    #             keys_to_pop.append(key)
-    #             args.append(vec_type(val, header=key))
-    #
-    #         elif isinstance(val, ImpliedType):
-    #             keys_to_pop.append(key)
-    #             new_vec = val.astype(vec_type, header=key)
-    #             args.append(new_vec)
-    #
-    #     for key in keys_to_pop:
-    #         kwargs.pop(key)
-
 
 class VFrame(_Frame, _VerticalVec):
     sibling_type = None # these are set after class declaration
@@ -248,6 +226,18 @@ class VFrame(_Frame, _VerticalVec):
     @property
     def gap_size(self) -> int:
         return self.width
+
+    def _repr_html_(self):
+        elements = [
+            Series(
+                list(e),
+                name=e.header if getattr(e, "_header", None) is not None else ""
+            )
+            for e in self
+        ]
+        df = DataFrame(elements)
+        df.columns = ["" for _ in range(max(len(e) for e in elements))]
+        return df.fillna("")._repr_html_()
 
 
 class Frame(_Frame, _HorizontalVec):
@@ -364,6 +354,17 @@ class Frame(_Frame, _HorizontalVec):
     @property
     def gap_size(self) -> int:
         return self.height
+
+    def _repr_html_(self):
+        elements = [
+            Series(
+                list(e),
+                name=e.header if getattr(e, "_header", None) is not None else ""
+            )
+            for e in self
+        ]
+        return concat(elements, axis=1).fillna("")._repr_html_()
+
 
 
 VFrame.sibling_type = Frame

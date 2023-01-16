@@ -17,6 +17,8 @@ from excelbird.colors import theme
 from excelbird.util import (
     autofit_algorithm,
     get_dimensions,
+    remove_paren_enclosure,
+    prefix_non_formulae_funcs,
 )
 from excelbird.color_algorithms import (
     color_is_light,
@@ -25,7 +27,7 @@ from excelbird.color_algorithms import (
 from excelbird.exceptions import AlreadyWrittenError, CellReferenceError
 from excelbird.math import CanDoMath
 from excelbird.expression import Expr
-from excelbird.function import _DelayedFunc
+from excelbird.function import Func
 
 cell_reference_warning_issued = False
 
@@ -112,7 +114,7 @@ class Cell(HasId, HasBorder, CanDoMath):
                 if getattr(self, key) is None:
                     setattr(self, key, val)
 
-        elif isinstance(self.value, (Expr, _DelayedFunc)):
+        elif isinstance(self.value, (Expr, Func)):
             raise ValueError(
                 "Can't pass expression or function as a Cell's `value`. "
                 "Instead, use the expression/function by itself, and pass any "
@@ -293,6 +295,34 @@ class Cell(HasId, HasBorder, CanDoMath):
         return f"{self.__class__.__name__}({self.value})"
 
     def eval_func(self, func: list) -> str:
+
+        def format_element(elem) -> str:
+            if isinstance(elem, str):
+                return elem
+
+            if isinstance(elem, (int, float)):
+                return str(elem)
+
+            if get_dimensions(elem) > 0:
+                cell_range = elem.range().expr
+                evaluated = self.eval_expr(cell_range)
+                return remove_paren_enclosure(evaluated)
+            
+            if elem.loc is not None:
+                return elem.loc.full_str
+            
+            if elem.expr is not None:
+                evaluated = self.eval_expr(elem.expr)
+                return remove_paren_enclosure(evaluated)
+
+            if elem.value is not None:
+                return str(elem.value)  # Don't put quotes around strings here
+
+        res = "".join([format_element(e) for e in func])
+        res = prefix_non_formulae_funcs(res)
+        return res
+
+    def eval_func_old(self, func: list) -> str:
         """
         New plan for refactoring the function engine:
             The user will create the function in its exact form,
@@ -312,13 +342,15 @@ class Cell(HasId, HasBorder, CanDoMath):
             
             if get_dimensions(elem) > 0:
                 cell_range = elem.range().expr
-                return self.eval_expr(cell_range).removeprefix("(").removesuffix(")")
+                evaluated = self.eval_expr(cell_range)
+                return remove_paren_enclosure(evaluated)
             
             if elem.loc is not None:
                 return elem.loc.full_str
             
             if elem.expr is not None:
-                return self.eval_expr(elem.expr).removeprefix("(").removesuffix(")")
+                evaluated = self.eval_expr(elem.expr)
+                return remove_paren_enclosure(evaluated)
             
             if elem.func is not None:
                 return self.eval_func(elem.func)
@@ -384,17 +416,12 @@ class Cell(HasId, HasBorder, CanDoMath):
         if self.expr is None:
             return None
         expr = self.eval_expr(self.expr)
-        expr = expr.removeprefix("(").removesuffix(")")
-        return expr
+        return remove_paren_enclosure(expr)
 
     def func_value(self) -> str:
         if self.func is None:
             return None
-        try:
-            return self.eval_func(self.func)
-        except Exception:
-            print(self.func)
-            # ['MAX(NETWORKDAYS', Cell(None), Cell(2023-05-31), Cell(None), Cell(())), 0]
+        return self.eval_func(self.func)
 
     def ref(self, inherit_style: bool = False, **kwargs):
         if inherit_style is True:

@@ -3,7 +3,7 @@ from pandas import Series, DataFrame
 from typing import Any, Iterable
 # Internal main
 from excelbird.expression import Expr
-from excelbird.function import _DelayedFunc
+from excelbird.function import Func
 from excelbird.styles import default_table_style
 from excelbird.base_types import Style, Loc, Gap, ImpliedType, ListIndexableById, HasId, HasBorder
 from excelbird.util import (
@@ -99,22 +99,6 @@ class _Stack(ListIndexableById, HasId, HasBorder):
             insert_separator(self, sep)
 
 
-    def _write(self) -> None:
-        self.apply_border()
-
-        pass_attr_to_children(self, "schema")
-        pass_dict_to_children(self, "cell_style")
-        pass_dict_to_children(self, "header_style")
-        pass_dict_to_children(self, "table_style")
-
-        if len(self.cell_style) > 0:
-            for elem in self:
-                if isinstance(elem, Cell):
-                    elem.inherit_style_without_override(self.cell_style)
-
-        for elem in self:
-            elem._write()
-
     @property
     def elem_widths(self) -> list:
         return [i.width for i in self if hasattr(i, "width")]
@@ -143,53 +127,42 @@ class _Stack(ListIndexableById, HasId, HasBorder):
     def astype(self, other: type, **kwargs):
         return _Vec.astype(self, other, **kwargs)
 
-    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-    #     """
-    #     Key -> header OR id, depending on type
-    #     Types:
-    #         set
-    #         Expr, _DelayedFunc
-    #         Cell
-    #         elem_type
-    #     """
-    #     frame_type = self.__class__.elem_type
-    #     vec_type = frame_type.elem_type
-    #     keys_to_pop = []
-    #     for key, val in kwargs.items():
-    #
-    #         if isinstance(val, set):
-    #             if len(val) == 1:
-    #                 keys_to_pop.append(key)
-    #                 # Expr can take header and id safely and decide upon resolution which
-    #                 # attribute to use
-    #                 args.append(Expr(val.pop(), header=key, id=key))
-    #
-    #         elif isinstance(val, (Expr, _DelayedFunc)):
-    #             keys_to_pop.append(key)
-    #             val.header = key
-    #             val.id = key
-    #             args.append(val)
-    #
-    #         elif isinstance(val, Cell):
-    #             keys_to_pop.append(key)
-    #             val.id = key
-    #             args.append(val)
-    #
-    #         elif isinstance(val, vec_type):
-    #             keys_to_pop.append(key)
-    #             val.header = key
-    #             args.append(val)
-    #
-    #         elif isinstance(val, Series):
-    #             keys_to_pop.append(key)
-    #             args.append(vec_type(val, header=key))
-    #
-    #         elif isinstance(val, DataFrame):
-    #             keys_to_pop.append(key)
-    #             args.append(frame_type(val, id=key))
-    #
-    #     for key in keys_to_pop:
-    #         kwargs.pop(key)
+    def validate_child_types(self) -> None:
+        valid_types = (
+            Stack,
+            VStack,
+            Frame, 
+            VFrame, 
+            Col, 
+            Row, 
+            Cell, 
+            Gap,
+        )
+        for elem in self:
+            if not isinstance(elem, valid_types):
+                raise TypeError(
+                    f"At write time, a {self.__class__.__name__} can only hold "
+                    "the following types:\n{valid_types}"
+                )
+            if hasattr(elem, "validate_child_types"):
+                elem.validate_child_types()
+
+    def _write(self) -> None:
+        self.apply_border()
+
+        pass_attr_to_children(self, "schema")
+        pass_dict_to_children(self, "cell_style")
+        pass_dict_to_children(self, "header_style")
+        pass_dict_to_children(self, "table_style")
+
+        if len(self.cell_style) > 0:
+            for elem in self:
+                if isinstance(elem, Cell):
+                    elem.inherit_style_without_override(self.cell_style)
+
+        for elem in self:
+            elem._write()
+
 
 class VStack(_Stack, _VerticalVec):
     sibling_type = None # these are set after class declaration

@@ -4,6 +4,7 @@ from typing import TypeVar
 from excelbird.globals import Globals
 from excelbird.styles import default_table_style
 from excelbird.base_types import Style
+from excelbird.math import CanDoMath
 
 from excelbird.util import (
     pass_attr_without_override,
@@ -12,7 +13,7 @@ from excelbird.util import (
 
 TExpr = TypeVar("TExpr", bound="Expr")
 
-class Expr:
+class Expr(CanDoMath):
     """
     Expression
     ----------
@@ -117,7 +118,7 @@ class Expr:
             a cell_style, and set it as a key/value inside cell_style.
         """
         if self.refs_resolved() is False:
-            raise ValueError("Not all refs resolved")
+            raise ValueError("All references must be resolved before calling .eval()")
 
         res = eval(self.expr)
 
@@ -163,7 +164,7 @@ class Expr:
 
         Mutates inplace: `self`
         """
-        from excelbird.function import _DelayedFunc
+        from excelbird.function import Func
         for key in self.refs.keys():
             try:
                 ref = container[container.key_to_idx(key)]
@@ -176,7 +177,7 @@ class Expr:
                 if ref is None:
                     ref = Globals.global_headers.get(key, None)
 
-            if ref is not None and not isinstance(ref, (_DelayedFunc, Expr)):
+            if ref is not None and not isinstance(ref, (Func, Expr)):
                 self.refs[key] = ref
         
         return self.refs_resolved()
@@ -220,3 +221,7 @@ class Expr:
             elif isinstance(elem, list):
                 cls.set_use_ref_for_container_recursive(elem)
     
+    def __repr__(self):
+        return f"{self.__class__.__name__}(...)"
+
+

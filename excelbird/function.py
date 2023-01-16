@@ -1,230 +1,20 @@
 from typing import Any
+from types import NoneType
 from excelbird.expression import Expr
 from excelbird.styles import default_table_style
 from excelbird.base_types import Style
+from excelbird.math import CanDoMath
 
 from excelbird.util import (
     get_dimensions,
     convert_all_to_type,
 )
 
-class _DelayedFunc:
-    """
-    Returned by `fun()` when any of the references in the function are
-    expressions. Once the parent container resolves all expressions,
-    it can call `get_function()` which will call `fun()` again with the
-    resolved arguments.
-    """
-
+class Func(CanDoMath):
     def __init__(
         self,
-        res_type: type,
-        name: str,
-        inner: list,
-        id: str | None,
-        header: str | None,
-
-        cell_style: Style | dict | None,
-        header_style: Style | dict | None,
-        table_style: Style | dict | bool | None,
-        kwargs: dict,
-    ) -> None:
-        if cell_style is None: cell_style = dict()
-        if header_style is None: header_style = dict()
-        if table_style is None: table_style = dict()
-        elif table_style is True: table_style = default_table_style
-
-        self.res_type = res_type
-        self.name = name
-        self.inner = inner
-        self.id = id
-        self.header = header
-        self.cell_style = Style(**cell_style)
-        self.header_style = Style(**header_style)
-        self.table_style = Style(**table_style)
-        self.kwargs = kwargs
-
-    def exprs(self) -> list:
-        return [i for i in self.inner if isinstance(i, Expr)]
-
-    def all_resolved(self) -> bool:
-        if any(i.refs_resolved() is False for i in self.exprs()):
-            return False
-        return True
-
-    def get_function(self):
-        if not self.all_resolved():
-            raise ValueError("Not all refs resolved")
-
-        return fun(
-            res_type=self.res_type,
-            name=self.name,
-            inner=self.inner,
-            id=self.id,
-            header=self.header,
-            cell_style=self.cell_style,
-            header_style=self.header_style,
-            table_style=self.table_style,
-            **self.kwargs,
-        )
-
-    def ref(self):
-        raise ValueError("Can't make a cell reference to an unresolved _DelayedFunc")
-
-    def attempt_to_resolve(self, container: list) -> bool:
-        """
-        Given a parent container, try to resolve each expression
-        in self's `inner`
-
-        Returns True if all expressions were resolved
-
-        Mutates inplace: `self`
-        """
-        for i, elem in enumerate(self.inner):
-            if isinstance(elem, Expr):
-                if elem.attempt_to_resolve(container) is True:
-                    self.inner[i] = elem.eval()
-        
-        return self.all_resolved()
-    
-    @classmethod
-    def resolve_container_recursive(cls, container: list) -> bool:
-        """
-        For each _DelayedFunc in a container, attempt to resolve each of
-        its expressions.
-
-        Returns True if all were resolved
-
-        Mutates inplace: `container`
-        """
-        all_dfuncs_resolved = True
-
-        for i, elem in enumerate(container):
-            if isinstance(elem, cls):
-
-                if elem.attempt_to_resolve(container) is True:
-                    container[i] = elem.get_function()
-                else:
-                    all_dfuncs_resolved = False
-
-            elif isinstance(elem, list):
-                if cls.resolve_container_recursive(elem) is False:
-                    all_dfuncs_resolved = False
-
-        return all_dfuncs_resolved
-
-
-def fun(
-    res_type: type,
-    name: str,
-    inner: list,
-    id: str | None = None,
-    header: str | None = None,
-
-    cell_style: Style | dict | None = None,
-    header_style: Style | dict | None = None,
-    table_style: Style | dict | bool | None = None,
-    **kwargs: Any,
-) -> Any:
-    """
-    Create an excel function.
-    `name` is the string name of the function in Excel.
-    `inner` is the contents to be enclosed inside the parentheses. These can
-    be Cells, Vecs, or expressions.
-    `res_type` must be either `Cell`, `Row`, or `Col`. This cannot be assumed,
-    from the contents of `inner`, because the same type of arguments could be
-    used to return either a vector or a Cell. For instance, you might use
-    "SUM(col, col)" to return a single cell, whereas you might use "CONCAT(col, col)"
-    to return a vector where each cell concatenates two cells from the corresponding
-    columns.
-
-    If any of the contents of `inner` are Expr, a _DelayedFunc will be returned,
-    which will need to be resolved by its parent container.
-    """
-    if cell_style is None: cell_style = dict()
-    if header_style is None: header_style = dict()
-    if table_style is None: table_style = dict()
-    elif table_style is True: table_style = default_table_style
-
-    cell_style = Style(**cell_style)
-    header_style = Style(**header_style)
-    table_style = Style(**table_style)
-
-    # Checking type instead of isinstance() because _Vec subclasses list
-    if type(inner) not in [list, tuple]:
-        inner = [inner]
-    
-    # Convert sets to expressions
-    convert_all_to_type(inner, set, Expr)
-
-    if any(isinstance(i, (Expr, _DelayedFunc)) for i in inner):
-        return _DelayedFunc(
-            res_type=res_type,
-            name=name,
-            inner=inner,
-            id=id,
-            header=header,
-            cell_style=cell_style,
-            header_style=header_style,
-            table_style=table_style,
-            kwargs=kwargs,
-        )
-    
-    if not hasattr(res_type, "dimensions"):
-        raise TypeError("`res_type` must have `dimensions` class attribute")
-    
-    if res_type.dimensions == 0:
-        return res_type(func=[name.upper()] + inner, id=id, **cell_style)
-
-    if not any(hasattr(i.__class__, "dimensions") for i in inner):
-        raise TypeError(
-            f"To return a '{res_type.__name__}', at least one item in "
-            f"`inner` needs a `dimensions` class attribute."
-        )
-    if not any(
-        i.__class__.dimensions >= res_type.dimensions
-        for i in inner if hasattr(i.__class__, "dimensions")
-    ):
-        raise TypeError(
-            f"To return a '{res_type.__name__}', at least one item in `inner` "
-            f"needs to have an equal or greater number of dimensions than "
-            f"'{res_type.__name__}'. For instance, you can't sum two cells "
-            f"and return a column."
-        )
-
-    kwargs["header_style"] = header_style
-    kwargs["header"] = header
-    kwargs["table_style"] = table_style
-
-    # Return a vector of some kind
-    # Say 'inner' is a list with integers, cells, and vectors. We want to return
-    # a vector no longer than the shortest vector in 'inner'. This returned
-    # vector will call fun() again for each cell, where, for each item in 'inner',
-    # if it's a vector, use a single element, else just repeat the value
-    # So `fun(Col, "CONCAT", [1, Col(1,2)])` returns something like:
-    # Col([fun(Cell, "CONCAT", [1, Cell(1)]), fun(Cell, "CONCAT", [1, Cell(2)])])
-
-    
-    return res_type(
-        *[
-            fun(
-                res_type=res_type.elem_type,
-                name=name,
-                inner=[item[i] if get_dimensions(item) == 1 else item for item in inner],
-            )
-            for i in range(min(len(x) for x in inner if get_dimensions(x) == 1))
-        ],
-        id=id,
-        cell_style=cell_style,
-        **kwargs,
-    )
-
-
-class Func:
-    def __init__(
-        self,
-        res_type: type,
-        inner: list,
+        *inner,
+        res_type: type | None = None,
         **kwargs,
     ) -> None:
         """
@@ -236,21 +26,78 @@ class Func:
 
         If res type is a cell, call .range()
         """
-        if type(inner) not in [list, tuple]:
-            inner = [inner]
+        inner = list(inner)
 
-        if not all(isinstance(i, (str, Expr) or hasattr(i, "dimensions")) for i in inner):
-            raise ValueError(
-                "Inner elements inside a Func must be any of:, str, Cell, _Vec, _Frame, Expr"
-            )
+        if len(inner) == 0:
+            raise ValueError("No elements provided to Func")
+
+        if len(inner) == 1 and type(inner[0]) in [list, tuple]:
+            inner = list(inner[0])
 
         convert_all_to_type(inner, set, Expr)
 
+        if any(isinstance(i, Func) for i in inner):
+            raise ValueError("Cannot nest Funcs inside one another, as there is no need to do so.")
+
+        if not all(isinstance(i, (str, int, float, Expr)) or hasattr(i.__class__, "dimensions") for i in inner):
+            raise ValueError(
+                "Inner elements inside a Func must be any of:, str, int, float, Cell, _Vec, _Frame, Expr"
+            )
+
+        if res_type is None:
+            res_type = self.imply_res_type_without_knowing_container()
+
         self.res_type = res_type
         self.inner = inner
+        self.kwargs = kwargs
 
-    def get_function(self):
-        assert self.all_resolved() is True, "All references must be resolved before calling .get_function()"
+    def imply_res_type_without_knowing_container(self) -> type | NoneType:
+        if any(isinstance(i, Expr) for i in self.inner):
+            return None
+
+        if all(get_dimensions(i) in [-1, 0] for i in self.inner):
+            from excelbird.core.cell import Cell
+            return Cell
+
+        layout_elements = [i for i in self.inner if get_dimensions(i) >= 0]
+
+        if len(layout_elements) == 0:
+            return None
+
+        if len(set([e.__class__ for e in layout_elements])) == 1:
+            return layout_elements[0].__class__
+
+        return None
+
+    def get_function(self, container_type: type | None = None):
+        if self.res_type is None:
+            implied_type = self.imply_res_type_without_knowing_container()
+            if container_type is None and implied_type is None:
+                raise ValueError(
+                    "Can't determine the result type of function. Please provide "
+                    "`res_type` as a keyword argument to Func, with the desired return type."
+                )
+            if implied_type is not None:
+                self.res_type = implied_type
+            else:
+                from excelbird.core.frame import Frame, VFrame
+                from excelbird.core.vec import Col, Row
+                valid_containers = (Frame, VFrame, Col, Row)
+                if not issubclass(container_type, valid_containers):
+                    raise ValueError(
+                        f"When a Func is placed inside of a general container type "
+                        "(in this case, {container_type.__name__}) we can't assume  "
+                        "its result type cannot be implied/assumed (we don't know) if "
+                    )
+                self.res_type = container_type.elem_type
+
+        assert self.res_type is not None, (
+            "Internal developer error: a Func's res_type is still None. Why? Please raise an Issue on Github so this can be patched. "
+            "In the meantime, you can avoid this error by passing `res_type` as a keyword argument to Func"
+        )
+
+        if self.refs_resolved() is False:
+            raise ValueError("All references must be resolved before calling .get_function()")
 
         if not hasattr(self.res_type, "dimensions"):
             raise TypeError("`res_type` must have `dimensions` class attribute")
@@ -275,13 +122,16 @@ class Func:
                 *[
                     elem_type(func=[item[i] if get_dimensions(item) == 1 else item for item in self.inner])
                     for i in range(res_length)
-                ]
+                ],
+                **kwargs
             )
 
         if dimensions == 2:
             raise ValueError(
                 "Returning a Frame from Func is not allowed yet. Please return a Cell, Row or Col."
             )
+
+        raise Exception("get function returned nothing")
 
 
     def exprs(self) -> list:
@@ -320,7 +170,7 @@ class Func:
             if isinstance(elem, cls):
 
                 if elem.attempt_to_resolve(container) is True:
-                    container[i] = elem.get_function()
+                    container[i] = elem.get_function(container.__class__)
                 else:
                     all_dfuncs_resolved = False
 
@@ -330,38 +180,6 @@ class Func:
 
         return all_dfuncs_resolved
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.res_type.__name__}...)"
 

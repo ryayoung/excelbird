@@ -58,7 +58,7 @@ Why was it referenced?
         super().__init__(self.message)
     
     @classmethod
-    def issue_warning(cls, message: str | None):
+    def issue_warning(cls, message: str | None = None):
         if message is None:
             message = cls.default_msg
         print(message)

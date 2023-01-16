@@ -2,6 +2,7 @@ from typing import Any, Iterable, Generator
 from pandas import DataFrame, Series, to_datetime
 from openpyxl.worksheet.worksheet import Worksheet
 import openpyxl.worksheet.table as xl_tbl
+from openpyxl.utils import FORMULAE
 import re
 
 from excelbird.globals import Globals
@@ -9,6 +10,8 @@ from excelbird.styles import default_table_style
 from excelbird.base_types import Gap, Style, I
 
 def get_dimensions(elem: Any) -> int:
+    if isinstance(elem, type):
+        return getattr(elem, "dimensions", -1)
     return getattr(elem.__class__, "dimensions", -1)
 
 
@@ -253,7 +256,7 @@ def init_container(instance, args: list, **kwargs):
     calling this function
     """
     from excelbird.expression import Expr
-    from excelbird.function import _DelayedFunc
+    from excelbird.function import Func
 
     list.__init__(instance, list(args))
 
@@ -262,7 +265,7 @@ def init_container(instance, args: list, **kwargs):
 
     Expr.set_use_ref_for_container_recursive(instance)
     Expr.resolve_container_recursive(instance)
-    _DelayedFunc.resolve_container_recursive(instance)
+    Func.resolve_container_recursive(instance)
 
 
 def move_remaining_kwargs_to_dict(kwargs: dict, to_dict: dict, safely: bool = False) -> None:
@@ -331,4 +334,23 @@ def mark_all_cells_as_written_recursive(container: list) -> None:
         elif isinstance(elem, list):
             mark_all_cells_as_written_recursive(elem)
 
+def remove_paren_enclosure(value: str) -> str:
+    if not isinstance(value, str):
+        return value
+    if value.startswith("(") and value.endswith(")"):
+        return value.removeprefix("(").removesuffix(")")
+    return value
+
+def prefix_non_formulae_funcs(func: str) -> str:
+    """
+    Openpyxl will insert '@' before any function it doesn't think is a valid
+    excel function. Its list of functions is outdated, so newer functions, like "CONCAT"
+    will be interpreted as invalid incorrectly.
+
+    Our solution is to find functions in the string, where there are capital letters
+    followed by a "(", check if they are in openpyxl's `FORMULAE`, and if not, prefix them
+    with "_xlfn."
+    """
+    splits = re.split(r"([A-Z]+\()", func)
+    return "".join(["_xlfn." if s == "" else s for s in splits])
 

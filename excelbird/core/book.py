@@ -28,12 +28,12 @@ from excelbird.util import (
     insert_separator,
 )
 from excelbird.expression import Expr
-from excelbird.function import _DelayedFunc
+from excelbird.function import Func
 # Internal core
 from excelbird.core.cell import Cell
-from excelbird.core.vec import _Vec, Col
-from excelbird.core.frame import Frame
-from excelbird.core.stack import Stack
+from excelbird.core.vec import _Vec, Col, Row
+from excelbird.core.frame import Frame, VFrame
+from excelbird.core.stack import Stack, VStack
 from excelbird.core.sheet import Sheet
 
 
@@ -141,8 +141,6 @@ Call `.place()` to write contents to `path`.
                         args[i] = elem_type(Frame(*elem))
                     else:
                         args[i] = elem_type(Stack(*elem))
-    
-
 
     def resolve_all_references(self) -> bool:
         Expr.set_use_ref_for_container_recursive(self)
@@ -154,10 +152,31 @@ Call `.place()` to write contents to `path`.
             attempts += 1
             if Expr.resolve_container_recursive(self) is False:
                 all_resolved = False
-            if _DelayedFunc.resolve_container_recursive(self) is False:
+            if Func.resolve_container_recursive(self) is False:
                 all_resolved = False
 
         return all_resolved
+
+    def validate_child_types(self) -> None:
+        valid_types = (
+            Sheet,
+            Stack,
+            VStack,
+            Frame, 
+            VFrame, 
+            Col, 
+            Row, 
+            Cell, 
+            Gap,
+        )
+        type_names = [e.__name__ for e in valid_types]
+        for elem in self:
+            if not isinstance(elem, valid_types):
+                raise TypeError(
+                    f"At write time, a Book can only hold the following types:\n{type_names}"
+                )
+            if hasattr(elem, "validate_child_types"):
+                elem.validate_child_types()
 
     def write(self) -> None:
         if self.path is None:
@@ -172,6 +191,8 @@ Call `.place()` to write contents to `path`.
             raise ExpressionResolutionError()
 
         pass_attr_to_children(self, "end_gap")
+
+        self.validate_child_types()
         
         for sheet in self:
             sheet.resolve_gaps()
@@ -259,56 +280,3 @@ Call `.place()` to write contents to `path`.
                 "The `auto_open` option uses the `xlwings` library to handle opening/closing "
                 "Excel sessions. Please 'pip install xlwings' to continue, or set `auto_open=False`"
             )
-
-    # def move_kwargs_to_args(self, args: list, kwargs: dict) -> None:
-    #     """
-    #     Key -> title
-    #     Types:
-    #         Sheet
-    #         I
-    #     """
-    #     elem_type = self.__class__.elem_type
-    #     keys_to_pop = []
-    #     for key, val in kwargs.items():
-    #         if isinstance(val, elem_type):
-    #             keys_to_pop.append(key)
-    #             val.title = key
-    #             args.append(val)
-    #         
-    #         elif isinstance(val, ImpliedType):
-    #             keys_to_pop.append(key)
-    #             new_sheet = val.astype(elem_type, title=key)
-    #             args.append(new_sheet)
-    #         
-    #         elif isinstance(val, DataFrame):
-    #             keys_to_pop.append(key)
-    #             new_sheet = elem_type(Frame(val), title=key)
-    #             args.append(new_sheet)
-    #
-    #         elif isinstance(val, Series):
-    #             keys_to_pop.append(key)
-    #             new_sheet = elem_type(Col(val), title=key)
-    #             args.append(new_sheet)
-    #         
-    #         elif isinstance(val, (_Vec)):
-    #             keys_to_pop.append(key)
-    #             new_sheet = elem_type(val, title=key)
-    #             args.append(new_sheet)
-    #         
-    #         elif isinstance(val, Cell):
-    #             keys_to_pop.append(key)
-    #             if isinstance(val, Cell):
-    #                 new_sheet = elem_type(val, title=key)
-    #             else:
-    #                 new_sheet = elem_type(Cell(val), title=key)
-    #             args.append(new_sheet)
-    #         
-    #         elif isinstance(val, Gap):
-    #             keys_to_pop.append(key)
-    #             if "title" in val.kwargs:
-    #                 val.kwargs.pop("title")
-    #             for i in range(val):
-    #                 args.append(elem_type(title=key, **val.kwargs))
-    #     
-    #     for key in keys_to_pop:
-    #         kwargs.pop(key)
