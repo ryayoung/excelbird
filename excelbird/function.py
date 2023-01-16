@@ -44,12 +44,12 @@ class Func(CanDoMath):
                 "Inner elements inside a Func must be any of:, str, int, float, Cell, _Vec, _Frame, Expr"
             )
 
-        if res_type is None:
-            res_type = self.imply_res_type_without_knowing_container()
-
         self.res_type = res_type
         self.inner = inner
         self.kwargs = kwargs
+
+        if res_type is None:
+            res_type = self.imply_res_type_without_knowing_container()
 
     def imply_res_type_without_knowing_container(self) -> type | NoneType:
         if any(isinstance(i, Expr) for i in self.inner):
@@ -86,7 +86,7 @@ class Func(CanDoMath):
                 if not issubclass(container_type, valid_containers):
                     raise ValueError(
                         f"When a Func is placed inside of a general container type "
-                        "(in this case, {container_type.__name__}) we can't assume  "
+                        f"(in this case, {container_type.__name__}) we can't assume  "
                         "its result type cannot be implied/assumed (we don't know) if "
                     )
                 self.res_type = container_type.elem_type
@@ -96,7 +96,7 @@ class Func(CanDoMath):
             "In the meantime, you can avoid this error by passing `res_type` as a keyword argument to Func"
         )
 
-        if self.refs_resolved() is False:
+        if self.all_resolved() is False:
             raise ValueError("All references must be resolved before calling .get_function()")
 
         if not hasattr(self.res_type, "dimensions"):
@@ -123,7 +123,7 @@ class Func(CanDoMath):
                     elem_type(func=[item[i] if get_dimensions(item) == 1 else item for item in self.inner])
                     for i in range(res_length)
                 ],
-                **kwargs
+                **self.kwargs
             )
 
         if dimensions == 2:

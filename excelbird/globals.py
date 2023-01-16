@@ -4,6 +4,7 @@ class Globals:
     global_ids = dict()
     global_headers = dict()
     force_valid_references = True
+    expression_sign_spacing = 2
 
     @classmethod
     def clear_references(cls, sheet_title: str | None = None) -> None:

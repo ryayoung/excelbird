@@ -321,49 +321,6 @@ class Cell(HasId, HasBorder, CanDoMath):
         res = "".join([format_element(e) for e in func])
         res = prefix_non_formulae_funcs(res)
         return res
-
-    def eval_func_old(self, func: list) -> str:
-        """
-        New plan for refactoring the function engine:
-            The user will create the function in its exact form,
-            applying parentheses and everything manually. self.func
-            will be stored as a list, where each expression cell is its
-            own element. Run eval_expr on each cell expression, and join
-            the strings together. It's that simple.
-        """
-        name, *elems = func
-
-        def format_element(elem) -> str:
-            if isinstance(elem, str):
-                return '"' + elem + '"'
-
-            if isinstance(elem, (int, float)):
-                return str(elem)
-            
-            if get_dimensions(elem) > 0:
-                cell_range = elem.range().expr
-                evaluated = self.eval_expr(cell_range)
-                return remove_paren_enclosure(evaluated)
-            
-            if elem.loc is not None:
-                return elem.loc.full_str
-            
-            if elem.expr is not None:
-                evaluated = self.eval_expr(elem.expr)
-                return remove_paren_enclosure(evaluated)
-            
-            if elem.func is not None:
-                return self.eval_func(elem.func)
-
-            if elem.value is not None:
-                return str(elem.value)  # Don't put quotes around strings here
-            
-        res = [format_element(e) for e in elems]
-
-        if name not in FORMULAE:
-            name = "_xlfn." + name
-        return f"{name}({', '.join(res)})"
-
     
     def eval_expr(self, expr: list) -> str:
 

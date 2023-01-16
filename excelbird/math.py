@@ -3,6 +3,7 @@ from pandas import Series, DataFrame
 
 from excelbird.util import get_dimensions
 from excelbird.base_types import Gap
+from excelbird.globals import Globals
 
 expr_error = ValueError(
     "You've tried to do math with an Expr that contains unresolved references. This isn't possible "
@@ -100,7 +101,7 @@ def elem_math(a: Any, b: Any, func, sign: str) -> Any:
 
     if a_dim < b_dim:
         b = [b for b in b if not isinstance(b, Gap)]
-        if hasattr(b_cls, "sibling_type"):
+        if hasattr(b_cls, "sibling_type") and a_dim > 0:
             if getattr(b_cls.sibling_type, "elem_type", None) == a_cls:
                 b_cls = b_cls.sibling_type
 
@@ -141,65 +142,69 @@ class CanDoMath:
             "Internal developer error. Can't find dimensions of CanDoMath object"
         )
 
+    def space_sign(self, sign: str) -> str:
+        space = Globals.expression_sign_spacing
+        return (space * " ") + sign + (space * " ")
+
     def __eq__(self, other):
-        return elem_math(self, other, lambda a,b: a == b, " = ")
+        return elem_math(self, other, lambda a,b: a == b, self.space_sign("="))
 
     def __ne__(self, other):
-        return elem_math(self, other, lambda a,b: a != b, " <> ")
+        return elem_math(self, other, lambda a,b: a != b, self.space_sign("<>"))
 
     def __lt__(self, other):
-        return elem_math(self, other, lambda a,b: a < b, " < ")
+        return elem_math(self, other, lambda a,b: a < b, self.space_sign("<"))
 
     def __gt__(self, other):
-        return elem_math(self, other, lambda a,b: a > b, " > ")
+        return elem_math(self, other, lambda a,b: a > b, self.space_sign(">"))
 
     def __le__(self, other):
-        return elem_math(self, other, lambda a,b: a <= b, " <= ")
+        return elem_math(self, other, lambda a,b: a <= b, self.space_sign("<="))
 
     def __ge__(self, other):
-        return elem_math(self, other, lambda a,b: a >= b, " >= ")
+        return elem_math(self, other, lambda a,b: a >= b, self.space_sign(">="))
 
 
     def __add__(self, other):
-        return elem_math(self, other, lambda a,b: a + b, " + ")
+        return elem_math(self, other, lambda a,b: a + b, self.space_sign("+"))
 
     def __radd__(self, other):
-        return elem_math(other, self, lambda a,b: a + b, " + ")
+        return elem_math(other, self, lambda a,b: a + b, self.space_sign("+"))
 
 
     def __sub__(self, other):
-        return elem_math(self, other, lambda a,b: a - b, " - ")
+        return elem_math(self, other, lambda a,b: a - b, self.space_sign("-"))
 
     def __rsub__(self, other):
-        return elem_math(other, self, lambda a,b: a - b, " - ")
+        return elem_math(other, self, lambda a,b: a - b, self.space_sign("-"))
 
 
     def __mul__(self, other):
-        return elem_math(self, other, lambda a,b: a * b, " * ")
+        return elem_math(self, other, lambda a,b: a * b, self.space_sign("*"))
 
     def __rmul__(self, other):
-        return elem_math(other, self, lambda a,b: a * b, " * ")
+        return elem_math(other, self, lambda a,b: a * b, self.space_sign("*"))
 
 
     def __truediv__(self, other):
-        return elem_math(self, other, lambda a,b: a / b, " / ")
+        return elem_math(self, other, lambda a,b: a / b, self.space_sign("/"))
 
     def __rtruediv__(self, other):
-        return elem_math(other, self, lambda a,b: a / b, " / ")
+        return elem_math(other, self, lambda a,b: a / b, self.space_sign("/"))
 
 
     def __xor__(self, other):
-        return elem_math(self, other, lambda a,b: a ^ b, " ^ ")
+        return elem_math(self, other, lambda a,b: a ^ b, self.space_sign("^"))
 
     def __rxor__(self, other):
-        return elem_math(other, self, lambda a,b: a ^ b, " ^ ")
+        return elem_math(other, self, lambda a,b: a ^ b, self.space_sign("^"))
 
 
     def __pow__(self, other):
-        return elem_math(self, other, lambda a,b: a ^ b, " ^ ")
+        return elem_math(self, other, lambda a,b: a ^ b, self.space_sign("^"))
 
     def __rpow__(self, other):
-        return elem_math(other, self, lambda a,b: a ^ b, " ^ ")
+        return elem_math(other, self, lambda a,b: a ^ b, self.space_sign("^"))
 
 
     def __rshift__(self, other):
@@ -213,10 +218,10 @@ class CanDoMath:
         if isinstance(other, str):
             if not other.endswith('"') and not other.startswith('"'):
                 other = f'"{other}"'
-        return elem_math(self, other, lambda a,b: a & b, " & ")
+        return elem_math(self, other, lambda a,b: a & b, self.space_sign("&"))
 
     def __rand__(self, other):
         if isinstance(other, str):
             if not other.endswith('"') and not other.startswith('"'):
                 other = f'"{other}"'
-        return elem_math(self, other, lambda a,b: a & b, " & ")
+        return elem_math(self, other, lambda a,b: a & b, self.space_sign("&"))
