@@ -27,6 +27,7 @@ from excelbird.core.frame import Frame, VFrame
 from excelbird.core.stack import VStack, Stack
 
 class Sheet(VStack):
+    dimensions = -1
     def __init__(
         self,
         *args: Any,
@@ -37,6 +38,7 @@ class Sheet(VStack):
         end_gap: bool | int | dict | Gap | None = None,
         isolate: bool | None = None,
         hidden: bool | None = None,
+        zoom: int | None = None,
 
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
@@ -48,8 +50,10 @@ class Sheet(VStack):
         if isinstance(first_arg, str):
             title = args.pop(0)
 
+        args = [i for i in args if i is not None]
+
         # Alternative to init_from_same_dimension_type
-        elif len(args) == 1 and isinstance(first_arg, Sheet):
+        if len(args) == 1 and isinstance(first_arg, Sheet):
             args = list(first_arg)
             new_kwargs = first_arg.__dict__
             new_kwargs.pop("loc")
@@ -80,6 +84,7 @@ class Sheet(VStack):
             end_gap=end_gap,
             isolate=isolate,
             hidden=hidden,
+            zoom=zoom,
             # Dicts that must be passed to children
             cell_style = Style(**cell_style),
             header_style = Style(**header_style),
@@ -90,6 +95,7 @@ class Sheet(VStack):
             insert_separator(self, sep)
 
         if self.isolate is True:
+            self.resolve_all_references()
             self.resolve_all_references()
             self.resolve_all_references()
             #     raise ExpressionResolutionError(
@@ -124,7 +130,7 @@ class Sheet(VStack):
         if not type(gap) in [bool, int] and not isinstance(gap, Gap) and not isinstance(gap, dict):
             raise ValueError("end_gap must be bool, int, or Gap")
         
-        default_size = 25
+        default_size = 35
         default_color = "FFFFFF"  # white
 
         if gap is True:
@@ -182,6 +188,8 @@ class Sheet(VStack):
         if self.hidden is True:
             self.loc.ws.sheet_state = 'hidden'
 
+        if self.zoom is not None:
+            self.loc.ws.sheet_view.zoomScale = self.zoom
 
         pass_dict_to_children(self, "cell_style")
         pass_dict_to_children(self, "header_style")

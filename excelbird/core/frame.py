@@ -55,8 +55,10 @@ class _Frame(_Vec):
         **kwargs,
     ) -> None:
         args = combine_args_and_children_to_list(args, children)
-        if isinstance(get_idx(args, 0), str) and id is None:
-            id = args.pop(0)
+        # if isinstance(get_idx(args, 0), str) and id is None:
+            # id = args.pop(0)
+
+        args = [i for i in args if i is not None]
 
         args = init_from_same_dimension_type(self, args)
         if getattr(self, "_id", None) is not None and id is None:
@@ -139,16 +141,13 @@ class _Frame(_Vec):
 
     def apply_sizes(self) -> None:
         def set_elem_size(elem, size):
-            if isinstance(elem, Col):
-                if size is True:
-                    if elem.header is not None:
-                        elem[0].header_style["autofit"] = True
-                    else:
-                        elem[0].autofit = True
-                else:
-                    elem[0].col_width = size
-            elif isinstance(elem, Row):
-                elem[0].row_height = size
+            if not isinstance(elem, (Col, Row)):
+                return
+            attr = "col_width" if isinstance(elem, Col) else "row_height"
+
+            elem.cell_style[attr] = size
+            if elem.header is not None:
+                elem.header_style[attr] = size
 
         if isinstance(self.sizes, (list, tuple)):
             for elem, size in zip(self, self.sizes):

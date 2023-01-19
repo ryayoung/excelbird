@@ -43,6 +43,7 @@ Contains Sheets.
 
 Call `.place()` to write contents to `path`.
     """
+    dimensions = -1
 
     elem_type = Sheet
     def __init__(
@@ -57,6 +58,7 @@ Call `.place()` to write contents to `path`.
         tab_color: str | None = None,
         end_gap: bool | int | dict | Gap | None = None,
         isolate: bool | None = None,
+        zoom: int | None = None,
 
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
@@ -66,6 +68,8 @@ Call `.place()` to write contents to `path`.
         args = combine_args_and_children_to_list(args, children)
         if isinstance(get_idx(args, 0), str):
             path = args.pop(0)
+
+        args = [i for i in args if i is not None]
 
         if cell_style is None: cell_style = dict()
         if header_style is None: header_style = dict()
@@ -91,6 +95,7 @@ Call `.place()` to write contents to `path`.
             tab_color = tab_color,
             end_gap = end_gap,
             isolate = isolate,
+            zoom=zoom,
             # Dicts that must be passed to children
             cell_style = Style(**cell_style),
             header_style = Style(**header_style),
@@ -201,6 +206,7 @@ Call `.place()` to write contents to `path`.
 
         pass_attr_to_children(self, "tab_color")
         pass_attr_to_children(self, "isolate")
+        pass_attr_to_children(self, "zoom")
         pass_dict_to_children(self, "cell_style")
         pass_dict_to_children(self, "header_style")
         pass_dict_to_children(self, "table_style")

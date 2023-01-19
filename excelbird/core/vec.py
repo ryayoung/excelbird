@@ -54,8 +54,10 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         **kwargs,
     ) -> None:
         args = combine_args_and_children_to_list(args, children)
-        if len(args) > 1 and isinstance(get_idx(args, 0), str) and header is None:
-            header = args.pop(0)
+        # if len(args) > 1 and isinstance(get_idx(args, 0), str) and header is None:
+        #     header = args.pop(0)
+
+        args = [i for i in args if i is not None]
         
         args = init_from_same_dimension_type(self, args)
         if getattr(self, "_header", None) is not None and header is None:
@@ -145,7 +147,12 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         return other[0] >> self[-1]
 
     def ref(self, inherit_style: bool = False, **kwargs):
-        new_elements = [i.ref(inherit_style=inherit_style, **kwargs) for i in self]
+        new_elements = [
+            i.ref(inherit_style=inherit_style, **kwargs)
+            if not isinstance(i, Gap)
+            else deepcopy(i)
+            for i in self
+        ]
         new_dict = kwargs
         if inherit_style is True:
             self_dict = deepcopy(self.__dict__)
@@ -231,9 +238,9 @@ class _Vec(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 class _HorizontalVec(_Vec):
     def border_mask(self, top, right, bottom, left) -> Style:
         return Style(
-            first=(top, False, bottom, left),
-            last=(top, right, bottom, False),
-            middle=(top, False, bottom, False),
+            first=[ top, False, bottom, left ],
+            last=[ top, right, bottom, False ],
+            middle=[ top, False, bottom, False ],
         )
 
     @staticmethod
@@ -251,9 +258,9 @@ class _HorizontalVec(_Vec):
 class _VerticalVec(_Vec):
     def border_mask(self, top, right, bottom, left) -> Style:
         return Style(
-            first=(top, right, False, left),
-            last=(False, right, bottom, left),
-            middle=(False, right, False, left),
+            first=[ top, right, False, left ],
+            last=[ False, right, bottom, left ],
+            middle=[ False, right, False, left ],
         )
 
     @staticmethod
@@ -283,13 +290,16 @@ class Row(_HorizontalVec):
         from pandas import DataFrame
         header = "" if self.header is None else self.header
         elems_to_show = list(self) if len(self) <= 10 else list(self)[:10]
+
         if len(self) > 10:
             elems_to_show.append(f"(+{len(self)-10})")
+
         df = DataFrame(
             [elems_to_show, ["" for _ in elems_to_show]],
             index=[header, ""],
             columns=["" for _ in elems_to_show]
         )
+
         if self.header is None:
             return df.style.hide(axis="index")._repr_html_()
         return df._repr_html_()
@@ -310,10 +320,11 @@ class Col(_VerticalVec):
         from pandas import DataFrame
         header = "" if self.header is None else self.header
         elems_to_show = list(self) if len(self) <= 10 else list(self)[:10]
+
         if len(self) > 10:
             elems_to_show.append(f"(+{len(self)-10})")
+
         df = DataFrame( elems_to_show + [""], columns=[header])
-        # Hide index when displaying
         return df.style.hide(axis="index")._repr_html_()
 
 Col.sibling_type = Row

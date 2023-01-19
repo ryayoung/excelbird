@@ -28,11 +28,12 @@ from excelbird.core.vec import (
     _HorizontalVec,
     _VerticalVec,
 )
-from excelbird.core.frame import Frame, VFrame
+from excelbird.core.frame import _Frame, Frame, VFrame
 
 class _Stack(ListIndexableById, HasId, HasBorder):
     sibling_type = None
     elem_type = None
+    dimensions = -1
 
     def __init__(
         self,
@@ -54,8 +55,9 @@ class _Stack(ListIndexableById, HasId, HasBorder):
         **kwargs,
     ) -> None:
         args = combine_args_and_children_to_list(args, children)
-        if isinstance(get_idx(args, 0), str) and id is None:
-            id = args.pop(0)
+        # if isinstance(get_idx(args, 0), str) and id is None:
+        #     id = args.pop(0)
+        args = [i for i in args if i is not None]
 
         args = init_from_same_dimension_type(self, args)
         if getattr(self, "_id", None) is not None and id is None:

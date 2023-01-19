@@ -67,6 +67,7 @@ class Cell(HasId, HasBorder, CanDoMath):
         func: list | None = None,
         autofit: bool | None = None,
         cell_style: dict | None = None,
+        written: bool | None = None,
     ) -> None:
         self.written = False
         self.loc = None
@@ -152,8 +153,8 @@ class Cell(HasId, HasBorder, CanDoMath):
             return
 
         # Remove trailing commas
-        if ", )" in str(self.value):
-            self.value = re.sub(r"(, )(\))", r"\2", self.value)
+        # if ", )" in str(self.value):
+            # self.value = re.sub(r"(, )(\))", r"\2", self.value)
         
         try:
             if pd.isnull(self.value):
