@@ -14,17 +14,14 @@ from excelbird.globals import Globals
 from excelbird.base_types import Style, Loc, ImpliedType, Gap, HasHelp
 from excelbird.styles import default_table_style
 from excelbird.util import (
-    get_idx,
     combine_args_and_children_to_list,
     move_dict_args_to_other_dict,
     pass_dict_to_children,
     pass_attr_to_children,
-    convert_all_to_type,
     init_container,
-    init_from_same_dimension_type,
     move_remaining_kwargs_to_dict,
     require_each_element_to_be_cls_type,
-    mark_all_cells_as_written_recursive,
+    fill_frames,
     insert_separator,
 )
 from excelbird.expression import Expr
@@ -39,10 +36,45 @@ from excelbird.core.sheet import Sheet
 
 class Book(list, HasHelp):
     """
-Contains Sheets.
 
-Call `.place()` to write contents to `path`.
-    """
+Parameters
+----------
+*args: Sheet | Gap | Any
+    Book should take Sheet or Gap, but can take any other excelbird layout element,
+    or values which are valid for constructing another layout element, such as int,
+    str, list, pd.DataFrame, etc. Any element which isn't a Sheet or Gap will be placed
+    in its own Sheet. 1 or 2 dimensional vectors that aren't excelbird layout types,
+    such as list, pd.Series, pd.DataFrame, will be converted to Col or Frame respectively.
+    ImpliedType -> Sheet
+children: list, default None
+    Will be combined with *args
+path: str, default None
+    Path to write Book. Can be omitted and passed to .write() instead
+auto_open: bool, default False
+    Attempt to automatically open after calling .write(). If a file with the same name
+    is already open, it will be closed first. Requires dependency, xlwings
+sep: Gap | bool | int | dict, default None
+    A sep in any excelbird layout element inserts a Gap between each of its children.
+    If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
+    Gap(1, **sep) will be used.
+tab_color: str, default None
+    Applied to each child Sheet
+end_gap: bool | int | dict | Gap, default None
+    Applied to each child Sheet
+isolate: bool, default None
+    Applied to each child Sheet
+zoom: int, default None
+    Applied to each child Sheet
+cell_style: dict, default None
+    Applied to each child Sheet
+header_style: dict, default None
+    Applied to each child Sheet
+table_style: dict | bool, default None
+    Applied to each child Sheet
+**kwargs: Any
+    Remaining keyword arguments applied to self.cell_style, to be passed down to children
+    
+"""
     dimensions = -1
 
     elem_type = Sheet
@@ -50,7 +82,6 @@ Call `.place()` to write contents to `path`.
         self,
         *args: str | Sheet,
         children: list | None = None,
-        wb: xl.Workbook | None = None,
         path: str | None = None,
         auto_open: bool = False,
         sep: Any | None = None,
@@ -66,8 +97,6 @@ Call `.place()` to write contents to `path`.
         **kwargs,
     ) -> None:
         args = combine_args_and_children_to_list(args, children)
-        if isinstance(get_idx(args, 0), str):
-            path = args.pop(0)
 
         args = [i for i in args if i is not None]
 
@@ -106,10 +135,8 @@ Call `.place()` to write contents to `path`.
     
     def format_args(self, args: list) -> None:
         """
-        DataFrame -> Sheet(HFrame(data))
-        Series, list -> Sheet(Col(data))
-        _Vec -> Sheet(data)
-        Gap(2) -> *[Sheet(), Sheet()]
+        Please refactor so that any element that isn't sheet or gap
+        is simply passed to the Sheet constructor
         """
         elem_type = self.__class__.elem_type
         for i, elem in enumerate(args):
@@ -183,7 +210,10 @@ Call `.place()` to write contents to `path`.
             if hasattr(elem, "validate_child_types"):
                 elem.validate_child_types()
 
-    def write(self) -> None:
+    def write(self, path: str | None = None) -> None:
+        if path is not None:
+            self.path = path
+
         if self.path is None:
             raise ValueError("Workbook needs a path")
 
@@ -198,8 +228,12 @@ Call `.place()` to write contents to `path`.
         pass_attr_to_children(self, "end_gap")
 
         self.validate_child_types()
-        
+
         for sheet in self:
+            fill_frames(sheet)
+            sheet.resolve_padding()
+            sheet.resolve_margin()
+            sheet.resolve_background_color()
             sheet.resolve_gaps()
 
         self.set_loc()

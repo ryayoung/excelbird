@@ -60,12 +60,13 @@ class Gap(int):
         # arg and ignore the extras which will be handled by Gap __init__
         return super(Gap, cls).__new__(cls, value)
 
-    def __init__(self, value: int | None = None, fill: bool = False, **kwargs):
+    def __init__(self, value: int | None = None, fill: bool = False, is_margin: bool = False, **kwargs):
         if value is None:
             value = 1
         if len(kwargs) > 0:
             fill = True
         self.fill = fill
+        self.is_margin = is_margin
         self.kwargs = kwargs
         int.__init__(value)
 
@@ -80,6 +81,14 @@ class Gap(int):
 
     def ref(self):
         return self
+
+    @property
+    def width(self) -> int:
+        return int(self)
+
+    @property
+    def height(self) -> int:
+        return int(self)
 
     @classmethod
     def explode_all_to_values(cls, container: list, val_type: type) -> None:
@@ -197,6 +206,95 @@ class HasHeader:
         self._header = new
         return self
 
+
+class HasMargin:
+    empty = [None, None, None, None]
+
+    def init_margin(self, margin, top, right, bottom, left) -> None:
+
+        if (margin, top, right, bottom, left) == (None, None, None, None, None):
+            self.margin_top = None
+            self.margin_right = None
+            self.margin_bottom = None
+            self.margin_left = None
+            return
+
+        if not isinstance(margin, list):
+            margin = [margin]
+        if len(margin) == 1:
+            margin *= 4
+        elif len(margin) == 2:
+            margin *= 2
+        elif len(margin) == 3:
+            margin += [None]
+
+        self.margin_top = margin[0]
+        self.margin_right = margin[1]
+        self.margin_bottom = margin[2]
+        self.margin_left = margin[3]
+
+        if top is not None:
+            self.margin_top = top
+        if right is not None:
+            self.margin_right = right
+        if bottom is not None:
+            self.margin_bottom = bottom
+        if left is not None:
+            self.margin_left = left
+
+    @property
+    def margin(self) -> list[int | None]:
+        return [
+            self.margin_top,
+            self.margin_right,
+            self.margin_bottom,
+            self.margin_left,
+        ]
+
+
+class HasPadding:
+    empty = [None, None, None, None]
+
+    def init_padding(self, padding, top, right, bottom, left) -> None:
+
+        if (padding, top, right, bottom, left) == (None, None, None, None, None):
+            self.padding_top = None
+            self.padding_right = None
+            self.padding_bottom = None
+            self.padding_left = None
+            return
+
+        if not isinstance(padding, list):
+            padding = [padding]
+        if len(padding) == 1:
+            padding *= 4
+        elif len(padding) == 2:
+            padding *= 2
+        elif len(padding) == 3:
+            padding += [None]
+
+        self.padding_top = padding[0]
+        self.padding_right = padding[1]
+        self.padding_bottom = padding[2]
+        self.padding_left = padding[3]
+
+        if top is not None:
+            self.padding_top = top
+        if right is not None:
+            self.padding_right = right
+        if bottom is not None:
+            self.padding_bottom = bottom
+        if left is not None:
+            self.padding_left = left
+
+    @property
+    def padding(self) -> list[int | None]:
+        return [
+            self.padding_top,
+            self.padding_right,
+            self.padding_bottom,
+            self.padding_left,
+        ]
 
 class HasBorder:
     """
@@ -350,7 +448,7 @@ class HasBorder:
     @classmethod
     def parse_arg(
         cls, border: bool | Iterable | None
-    ) -> tuple[str | bool, str | bool, str | bool, str | bool]:
+    ) -> list:
         """
         Designed to mimic CSS border logic. Returns a 4-element list
         describing the border of 4 sides, in the order: top, right, bottom,
@@ -373,6 +471,7 @@ class HasBorder:
 
         if isinstance(border, tuple):
             if len(border) > 2:
+                print(border)
                 raise TypeError("Border must be a list")
 
         if not isinstance(border, list):
@@ -400,6 +499,8 @@ class HasBorder:
         first = self[0]
 
         if len(self) == 1:
+            if getattr(first, "is_empty", None) is True and hasattr(first, 'value'):
+                first.value = ""
             first.border = self.border
 
         elif len(self) >= 2:
@@ -407,10 +508,17 @@ class HasBorder:
             last = self[-1]
             vecs_in_between = self[1:-1]
 
+            if getattr(first, "is_empty", None) is True and hasattr(first, 'value'):
+                first.value = ""
+            if getattr(last, "is_empty", None) is True and hasattr(last, 'value'):
+                last.value = ""
+
             first.border = mask.first
             last.border = mask.last
             if len(self) > 2:
                 for vec in vecs_in_between:
+                    if getattr(vec, 'is_empty', None) is True and hasattr(vec, 'value'):
+                        vec.value = ""
                     vec.border = mask.middle
 
 

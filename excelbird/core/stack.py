@@ -1,11 +1,21 @@
 # External
 from pandas import Series, DataFrame
 from typing import Any, Iterable
+
 # Internal main
 from excelbird.expression import Expr
 from excelbird.function import Func
 from excelbird.styles import default_table_style
-from excelbird.base_types import Style, Loc, Gap, ImpliedType, ListIndexableById, HasId, HasBorder
+from excelbird.base_types import (
+    Style,
+    Loc,
+    Gap,
+    ImpliedType,
+    ListIndexableById,
+    HasId,
+    HasMargin,
+    HasPadding,
+)
 from excelbird.util import (
     get_dimensions,
     get_idx,
@@ -19,6 +29,7 @@ from excelbird.util import (
     move_remaining_kwargs_to_dict,
     insert_separator,
 )
+
 # Internal core
 from excelbird.core.cell import Cell
 from excelbird.core.vec import (
@@ -30,7 +41,71 @@ from excelbird.core.vec import (
 )
 from excelbird.core.frame import _Frame, Frame, VFrame
 
-class _Stack(ListIndexableById, HasId, HasBorder):
+
+class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
+    """
+
+    Parameters
+    ----------
+    *args: Any
+        Can take any layout element (besides Book or Sheet), or any value that
+        can be used to construct a layout element. Stack is the only layout element
+        that can store other instances of itself as children
+    children: list, default None
+        Will be combined with *args
+    id: str, default None
+        Unique identifier to store globally so that this element can be referenced
+        elsewhere in the layout without being assigned to a variable
+    sep: Gap | bool | int | dict, default None
+        A sep in any excelbird layout element inserts a Gap between each of its children.
+        If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
+        Gap(1, **sep) will be used.
+    background_color: str, default None
+        Hex code for background_color. Will be applied to fill_color of padding, any Gap
+        child who hasn't specified its own fill_color, and to any child Stack/VStack's margins.
+        Will also be passed down to any child (Cell excluded) who hasn't specified its own
+        background_color.
+    schema: Schema, default None
+        Applied to each child who takes schema
+    cell_style: dict, default None
+        Applied to each child who has cell_style
+    header_style: dict, default None
+        Applied to each child who has header_style
+    table_style: dict | bool, default None
+        Applied to each child who has table_style
+    margin: int | list[int], default None
+        Margin, like padding, will apply space around the element. Unlike padding, margin space
+        will NOT inherit any of the element's styling. It will, however, be filled with the
+        parent container's background_color, if present. Syntax inspired by CSS. An int,
+        if passed, will be applied to all 4 sides. If list, length can be 2, 3, or 4 elements.
+        Order is [top, right, bottom, left]. If length 2, apply the first element to top and
+        bottom margin, and second to right and left.
+    margin_top: int, default None
+        Top margin, measured in number of cells
+    margin_right: int, default None
+        Right margin, measured in number of cells
+    margin_bottom: int, default None
+        Bottom marign, measured in number of cells
+    margin_left: int, default None
+        Left margin, measured in number of cells
+    padding: int | list[int], default None
+        Padding, like margin, will apply space around the element. Unlike margin, padding space
+        WILL inherit the element's styling, like background_color. Syntax inspired by CSS. An int,
+        if passed, will be applied to all 4 sides. If list, length can be 2, 3, or 4 elements.
+        Order is [top, right, bottom, left]. If length 2, apply the first element to top and
+        bottom margin, and second to right and left.
+    padding_top: int, default None
+        Top padding, measured in number of cells
+    padding_right: int, default None
+        Right padding, measured in number of cells
+    padding_bottom: int, default None
+        Bottom padding, measured in number of cells
+    padding_left: int, default None
+        Left padding, measured in number of cells
+    **kwargs: Any
+        Remaining kwargs will be applied to cell_style
+    """
+
     sibling_type = None
     elem_type = None
     dimensions = -1
@@ -41,14 +116,18 @@ class _Stack(ListIndexableById, HasId, HasBorder):
         children: list | None = None,
         id: str | int | None = None,
         sep: Any | None = None,
-        border_top: bool | str | None = None,
-        border_right: bool | str | None = None,
-        border_bottom: bool | str | None = None,
-        border_left: bool | str | None = None,
-        border: bool | str | Iterable | None = None,
-
+        background_color: str | None = None,
+        margin: int | list[int] | None = None,
+        margin_top: int | None = None,
+        margin_right: int | None = None,
+        margin_bottom: int | None = None,
+        margin_left: int | None = None,
+        padding: int | list[int] | None = None,
+        padding_top: int | None = None,
+        padding_right: int | None = None,
+        padding_bottom: int | None = None,
+        padding_left: int | None = None,
         schema: None = None,
-
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
         table_style: Style | dict | bool | None = None,
@@ -63,43 +142,57 @@ class _Stack(ListIndexableById, HasId, HasBorder):
         if getattr(self, "_id", None) is not None and id is None:
             id = self.id
 
-        if cell_style is None: cell_style = dict()
-        if header_style is None: header_style = dict()
-        if table_style is None: table_style = dict()
-        elif table_style is True: table_style = default_table_style
+        if cell_style is None:
+            cell_style = dict()
+        if header_style is None:
+            header_style = dict()
+        if table_style is None:
+            table_style = dict()
+        elif table_style is True:
+            table_style = default_table_style
 
         move_dict_args_to_other_dict(args, cell_style)
         Cell.convert_all_values(args)
 
         frame_type = self.__class__.elem_type
         vec_type = frame_type.elem_type
-        ImpliedType.resolve_all_in_container(args, frame_type)
+        # ImpliedType.resolve_all_in_container(args, frame_type)
         convert_all_to_type(args, Series, vec_type)
         convert_all_to_type(args, DataFrame, frame_type)
         convert_all_to_type(args, set, Expr)
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        init_container(self, args,
-            loc = None,
-            id = id,
+        init_container(
+            self,
+            args,
+            loc=None,
+            id=id,
+            background_color=background_color,
             # Attrs that must be passed to children
-            schema = schema,
+            schema=schema,
             # Dicts that must be passed to children
-            cell_style = Style(**cell_style),
-            header_style = Style(**header_style),
-            table_style = Style(**table_style),
+            cell_style=Style(**cell_style),
+            header_style=Style(**header_style),
+            table_style=Style(**table_style),
         )
-        self.init_border(
-            border,
-            border_top,
-            border_right,
-            border_bottom,
-            border_left,
+        self.init_margin(
+            margin,
+            margin_top,
+            margin_right,
+            margin_bottom,
+            margin_left,
         )
+        self.init_padding(
+            padding,
+            padding_top,
+            padding_right,
+            padding_bottom,
+            padding_left,
+        )
+
         if sep is not None:
             insert_separator(self, sep)
-
 
     @property
     def elem_widths(self) -> list:
@@ -109,23 +202,155 @@ class _Stack(ListIndexableById, HasId, HasBorder):
     def elem_heights(self) -> list:
         return [i.height for i in self if hasattr(i, "height")]
 
+    def resolve_background_color(self) -> None:
+
+        for elem in self:
+            if hasattr(elem, "resolve_background_color"):
+                if (
+                    self.background_color not in [None, False]
+                    and elem.background_color is None
+                ):
+                    elem.background_color = self.background_color
+                elem.resolve_background_color()
+
+        if self.background_color not in [None, False]:
+            for elem in self:
+                if isinstance(elem, Gap):
+                    if "fill_color" not in elem.kwargs and elem.is_margin is False:
+                        elem.fill = True
+                        elem.kwargs["fill_color"] = self.background_color
+
+                # Child's margins should be filled with self's background color
+                elif hasattr(elem, "margin"):
+                    if elem.margin != HasMargin.empty:
+                        for item in elem:
+                            if isinstance(item, Gap):
+                                if (
+                                    "fill_color" not in item.kwargs
+                                    and item.is_margin is True
+                                ):
+                                    item.fill = True
+                                    item.kwargs["fill_color"] = self.background_color
+                            elif hasattr(item, "margin"):
+                                for x in item:
+                                    if isinstance(x, Gap):
+                                        if (
+                                            "fill_color" not in x.kwargs
+                                            and x.is_margin is True
+                                        ):
+                                            x.fill = True
+                                            x.kwargs[
+                                                "fill_color"
+                                            ] = self.background_color
+
+    def resolve_padding(self) -> None:
+        for elem in self:
+            if hasattr(elem, "padding"):
+                elem.resolve_padding()
+
+        def get_gap(amount, elem) -> Gap:
+            if getattr(elem, "background_color", None) not in [None, False]:
+                return Gap(amount, fill_color=elem.background_color)
+            return Gap(amount, fill_color=None)
+
+        for i, elem in enumerate(self):
+            if hasattr(elem, "padding"):
+                if elem.padding != HasPadding.empty:
+                    top, right, bottom, left = elem.padding
+                    elem_type = type(elem)
+                    new_elements = []
+                    for i, item in reversed(list(enumerate(elem))):
+                        new_elements.insert(0, elem.pop(i))
+
+                    if issubclass(elem_type, Stack):
+                        if left is not None:
+                            elem.append(get_gap(left, elem))
+
+                        elem.append(
+                            elem_type.sibling_type(
+                                get_gap(top, elem) if top is not None else None,
+                                elem_type(*new_elements),
+                                get_gap(bottom, elem) if bottom is not None else None,
+                            ),
+                        )
+                        if right is not None:
+                            elem.append(get_gap(right, elem))
+
+                    elif issubclass(elem_type, VStack):
+                        if top is not None:
+                            elem.append(get_gap(top, elem))
+
+                        elem.append(
+                            elem_type.sibling_type(
+                                get_gap(left, elem) if left is not None else None,
+                                elem_type(*new_elements),
+                                get_gap(right, elem) if right is not None else None,
+                            ),
+                        )
+                        if bottom is not None:
+                            elem.append(get_gap(bottom, elem))
+
+    def resolve_margin(self) -> None:
+        for elem in self:
+            if hasattr(elem, "margin"):
+                elem.resolve_margin()
+
+        for i, elem in enumerate(self):
+            if hasattr(elem, "margin"):
+                if elem.margin != HasMargin.empty:
+                    top, right, bottom, left = elem.margin
+                    print(left)
+                    elem_type = type(elem)
+                    new_elements = []
+                    for i, item in reversed(list(enumerate(elem))):
+                        new_elements.insert(0, elem.pop(i))
+
+                    if issubclass(elem_type, Stack):
+                        if left is not None:
+                            elem.append(Gap(left, is_margin=True))
+
+                        elem.append(
+                            elem_type.sibling_type(
+                                Gap(top, is_margin=True) if top is not None else None,
+                                elem_type(*new_elements),
+                                Gap(bottom, is_margin=True)
+                                if bottom is not None
+                                else None,
+                            ),
+                        )
+                        if right is not None:
+                            elem.append(Gap(right, is_margin=True))
+
+                    elif issubclass(elem_type, VStack):
+                        if top is not None:
+                            elem.append(Gap(top, is_margin=True))
+
+                        elem.append(
+                            elem_type.sibling_type(
+                                Gap(left, is_margin=True) if left is not None else None,
+                                elem_type(*new_elements),
+                                Gap(right, is_margin=True)
+                                if right is not None
+                                else None,
+                            ),
+                        )
+                        if bottom is not None:
+                            elem.append(Gap(bottom, is_margin=True))
+
     def resolve_gaps(self) -> None:
         Gap.convert_all_to_frames(self, self.__class__.elem_type, self.gap_size)
         for elem in self:
             elem.resolve_gaps()
-    
+
     def set_loc(self, loc: Loc) -> None:
         _Vec.set_loc(self, loc)
-    
-    def apply_border(self) -> None:
-        return _Vec.apply_border(self)
-    
+
     def __getitem__(self, key):
         return _Vec.__getitem__(self, key)
-    
+
     def ref(self, inherit_style: bool = False, **kwargs):
         return _Vec.ref(self, inherit_style, **kwargs)
-    
+
     def astype(self, other: type, **kwargs):
         return _Vec.astype(self, other, **kwargs)
 
@@ -133,11 +358,11 @@ class _Stack(ListIndexableById, HasId, HasBorder):
         valid_types = (
             Stack,
             VStack,
-            Frame, 
-            VFrame, 
-            Col, 
-            Row, 
-            Cell, 
+            Frame,
+            VFrame,
+            Col,
+            Row,
+            Cell,
             Gap,
         )
         for elem in self:
@@ -150,8 +375,6 @@ class _Stack(ListIndexableById, HasId, HasBorder):
                 elem.validate_child_types()
 
     def _write(self) -> None:
-        self.apply_border()
-
         pass_attr_to_children(self, "schema")
         pass_dict_to_children(self, "cell_style")
         pass_dict_to_children(self, "header_style")
@@ -166,40 +389,37 @@ class _Stack(ListIndexableById, HasId, HasBorder):
             elem._write()
 
 
-class VStack(_Stack, _VerticalVec):
-    sibling_type = None # these are set after class declaration
+class VStack(_Stack):
+    _Stack.__doc__
+    sibling_type = None  # these are set after class declaration
     elem_type = VFrame
-
-    def border_mask(self, top, right, bottom, left) -> Style:
-        return _VerticalVec.border_mask(self, top, right, bottom, left)
 
     @staticmethod
     def inc_offset(offset: Loc, elem: Any) -> Loc:
         offset.y += elem.height
         return offset
-    
+
     def starting_offset(self) -> Loc:
-        return Loc((0,0), self.loc.ws)
+        return Loc((0, 0), self.loc.ws)
 
     @property
     def width(self) -> int:
-        return max(self.elem_widths + [0])
+        widths = [i.width for i in self if hasattr(i, 'width') and not isinstance(i, Gap)]
+        return max(widths + [0])
 
     @property
     def height(self) -> int:
         return sum(self.elem_heights + [0])
-    
+
     @property
     def gap_size(self) -> int:
         return self.width
 
 
-class Stack(_Stack, _HorizontalVec):
-    sibling_type = None # these are set after class declaration
+class Stack(_Stack):
+    _Stack.__doc__
+    sibling_type = None  # these are set after class declaration
     elem_type = Frame
-
-    def border_mask(self, top, right, bottom, left) -> Style:
-        return _HorizontalVec.border_mask(self, top, right, bottom, left)
 
     @staticmethod
     def inc_offset(offset: Loc, elem: Any) -> Loc:
@@ -207,7 +427,7 @@ class Stack(_Stack, _HorizontalVec):
         return offset
 
     def starting_offset(self) -> Loc:
-        return Loc((0,0), self.loc.ws)
+        return Loc((0, 0), self.loc.ws)
 
     @property
     def width(self) -> int:
@@ -215,7 +435,8 @@ class Stack(_Stack, _HorizontalVec):
 
     @property
     def height(self) -> int:
-        return max(self.elem_heights + [0])
+        heights = [i.height for i in self if hasattr(i, 'height') and not isinstance(i, Gap)]
+        return max(heights + [0])
 
     @property
     def gap_size(self) -> int:

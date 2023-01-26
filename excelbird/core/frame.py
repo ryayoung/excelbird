@@ -4,7 +4,7 @@ from typing import Any, Iterable
 import re
 # Internal main
 from excelbird.styles import default_table_style
-from excelbird.base_types import Gap, Style, Loc, ImpliedType
+from excelbird.base_types import Gap, Style, Loc, ImpliedType, HasBorder
 from excelbird.util import (
     combine_args_and_children_to_list,
     move_dict_args_to_other_dict,
@@ -32,6 +32,73 @@ from excelbird.core.vec import (
 )
 
 class _Frame(_Vec):
+    """
+A 2-dimensional vector that holds 1-dimensional vectors. Frame holds Col, and arranges its
+children horizontally. VFrame holds Row, and arranges its children vertically. Only Frame
+can be formatted as an Excel table.
+
+Frame and VFrame can be used in a python expression with any other layout element with equal or
+or lower number of dimensions. See the math module for further explanation.
+
+Parameters
+----------
+*args: Any
+    Children must be (or resolve to) 1-dimensional vectors. Frame holds Cols, and VFrame
+    holds Rows - Gap and ImpliedType will be interpreted as the respective element. Can also
+    take any value that will be resolved to one of the above types, such as a list, tuple,
+    pandas Series, etc. 2-dimensional arguments, such as pandas DataFrame, will be 'exploded'
+    inplace into separate 1-dimensional elements.
+children: list, default None
+    Will be combined with *args
+id: str, default None
+    Unique identifier to store globally so that this element can be referenced
+    elsewhere in the layout without being assigned to a variable
+schema: Schema, default None
+    A Schema object to use to rename child headers to desired output names at write time.
+sep: Gap | bool | int | dict, default None
+    A sep in any excelbird layout element inserts a Gap between each of its children.
+    If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
+    Gap(1, **sep) will be used.
+sizes: dict[str, int], default None
+    Specify the column width (or row height, if VFrame) for any child element by header.
+    Keys should be the header of a child element, and values should be integers representing
+    that element's size. Note: unlike most excelbird styling, this argument will override any
+    other column widths / row heights given to the children.
+background_color: str, default None
+    Hex code for background color. Will be applied to fill_color of any Gap child who hasn't specified its own
+    fill_color. Will also be passed down to any Col/Row child who hasn't specified its own background_color.
+fill_empty: bool, default None
+    Fill shorter children (if children vary in length) with `Cell("")` so that all lengths are matching,
+    and all Cells inside the child will follow the same style. If False or None, these empty spaces will instead
+    be filled with `Gap()`, to which the child's background_color will be applied, if present.
+cell_style: dict, default None
+    Will be applied to each child's cell_style
+header_style: dict, default None
+    Will be applied to each child's header_style
+table_style: dict | bool, default None
+    Format a Frame as an Excel table. (ignored for VFrame). If True, default style
+    'name="TableStyleMedium2"' is used. If dict, key 'displayName' will be used as the
+    table name, and all other key/values will be passed to openpyxl.worksheet.table.TableStyleInfo.
+border: list[tuple | str | bool] | tuple[str | bool, str | bool] | str | bool, default None
+    Syntax inspired by CSS. A non-list value will be applied to all 4 sides. If list,
+    length can be 2, 3, or 4 elements. Order is [top, right, bottom, left]. If length 2,
+    apply the first element to top and bottom border, and apply the second element to right and left.
+    To apply border to children instead, use cell_style.
+border_top: tuple[str | bool, str | bool] | str | bool, default None
+    Top border. If True, a thin black border is used. If string (6 char hex code),
+    use the default weight and apply the specified color. If string (valid weight name),
+    use the default color and apply the specified weight. If tuple, apply the first
+    element as weight, and second element as color.
+border_right: tuple[str | bool, str | bool] | str | bool, default None
+    Right border. See border_top
+border_bottom: tuple[str | bool, str | bool] | str | bool, default None
+    Bottom border. See border_top
+border_left: tuple[str | bool, str | bool] | str | bool, default None
+    Left border. See border_top
+**kwargs: Any
+    Remaining kwargs will be applied to cell_style
+
+"""
     dimensions = 2
     elem_type = _Vec
 
@@ -48,6 +115,8 @@ class _Frame(_Vec):
         border_bottom: bool | str | None = None,
         border_left: bool | str | None = None,
         border: bool | str | Iterable | None = None,
+        background_color: str | None = None,
+        fill_empty: bool | None = None,
 
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
@@ -88,6 +157,8 @@ class _Frame(_Vec):
             id = id,
             schema = schema,
             sizes = sizes,
+            background_color=background_color,
+            fill_empty=fill_empty,
             header_style = Style(**header_style),
             table_style = Style(**table_style),
             # Dicts that must be passed to children
@@ -178,6 +249,7 @@ class _Frame(_Vec):
     def _write(self) -> None:
         require_each_element_to_be_cls_type(self)
         self.apply_border()
+
         # Safely set each style to the element's header style, if it hasn't already
         # been set.
         pass_dict_to_children(self, "header_style")

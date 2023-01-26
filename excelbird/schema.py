@@ -81,12 +81,43 @@ class Schema(dict):
         reordered = {k: self[k] for k in key}
         return self.__class__(**reordered)
 
-    def apply(self, df: TDataFrame) -> TDataFrame:
+    def __setitem__(self, key, val):
+
+        if isinstance(val, Column):
+            return super().__setitem__(key, val)
+
+        if isinstance(val, (list, tuple)):
+            new = Column(*val)
+            return super().__setitem__(key, new)
+
+        if isinstance(val, str):
+            new = Column(val, val)
+            return super().__setitem__(key, new)
+
+        raise ValueError(f"Invalid value, {val}")
+
+    def drop(self, columns: list) -> dict:
+        return self.__class__(**{
+            copy(k): copy(v)
+            for k, v in self.items()
+            if k not in columns
+        })
+
+    def apply(self, df: TDataFrame, strict: bool = False) -> TDataFrame:
         """
         Filter dataframe to contain only columns that are in schema
         keys, re-orders the columns. Dataframe doesn't need to have all keys.
         """
-        return df[[k for k in self.keys() if k in df.columns]].copy()
+        if strict is False:
+            return df[[k for k in self.keys() if k in df.columns]].copy()
+        try:
+            return df[[k for k in self.keys()]].copy()
+        except KeyError:
+            missing = [k for k in self.keys() if k not in df.columns]
+            raise KeyError(
+                f"Schema apply strict: The following columns were not found "
+                f"in the dataframe (did you forget to run .select_inputs() first?): {missing}"
+            )
 
     def rename(self, keys: dict | None = None, inputs: dict | None = None, outputs: dict | None = None) -> None:
         """

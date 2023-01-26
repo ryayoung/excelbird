@@ -1,6 +1,7 @@
 # External
 from pandas import Series, DataFrame
 from typing import Any
+
 # Internal main
 from excelbird.globals import Globals
 from excelbird.exceptions import ExpressionResolutionError
@@ -20,14 +21,63 @@ from excelbird.util import (
     get_dimensions,
     insert_separator,
 )
+
 # Internal core
 from excelbird.core.cell import Cell
 from excelbird.core.vec import Col, Row
 from excelbird.core.frame import Frame, VFrame
 from excelbird.core.stack import VStack, Stack
 
+
 class Sheet(VStack):
+    """
+
+    Parameters
+    ----------
+    *args: Any
+        Can take any layout element (besides Book and Sheet) or any value that can
+        be used to construct a layout element. NOTE: If the first element is a string,
+        it will be used the Sheet's title to allow for better readability.
+    children: list, default None
+        Will be combined with *args
+    title: str, default None
+        Sheet name
+    sep: Gap | bool | int | dict, default None
+        A sep in any excelbird layout element inserts a Gap between each of its children.
+        If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
+        Gap(1, **sep) will be used.
+    tab_color: str, default None
+        Hex color for tab color.
+    end_gap: bool | int | dict | Gap, default None
+        Applies a Gap to cells below and to the right of the Sheet. The Gap determines
+        the number of columns filled, and 1/3 the number of rows filled. The default
+        is Gap(35, fill_color="FFFFFF") (white). This means apply whitespace (hide grid)
+        for 35 columns, and 105 rows surrounding the Sheet contents.
+    isolate: bool, default None
+        After initialization, clear the global memory of ids and headers, so references
+        in future declared Sheets won't conflict with previous ones. This will also isolate
+        previously declared Sheets, so they musn't reference elements declared after the current
+        one.
+    hidden: bool, default None
+        Whether to hide the Sheet
+    zoom: int, default None
+        Percentage zoom level. (Passing None or 100 will have the same effect)
+    background_color: str, default None
+        Hex code for background_color. Will be applied to fill_color of any Gap child who hasn't
+        specified its own fill_color, and to any child Stack/VStack's margins. Will also be passed
+        down to any child (Cell excluded) who hasn't specified its own background_color.
+    cell_style: dict, default None
+        Applied to each child who has cell_style
+    header_style: dict, default None
+        Applied to each child who has header_style
+    table_style: dict | bool, default None
+        Applied to each child who has table_style
+    **kwargs Any
+        Remaining kwargs will be applied to self.cell_style
+    """
+
     dimensions = -1
+
     def __init__(
         self,
         *args: Any,
@@ -39,7 +89,7 @@ class Sheet(VStack):
         isolate: bool | None = None,
         hidden: bool | None = None,
         zoom: int | None = None,
-
+        background_color: str | None = None,
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
         table_style: Style | dict | bool | None = None,
@@ -60,10 +110,14 @@ class Sheet(VStack):
             for key, val in new_kwargs.items():
                 setattr(self, key, val)
 
-        if cell_style is None: cell_style = dict()
-        if header_style is None: header_style = dict()
-        if table_style is None: table_style = dict()
-        elif table_style is True: table_style = default_table_style
+        if cell_style is None:
+            cell_style = dict()
+        if header_style is None:
+            header_style = dict()
+        if table_style is None:
+            table_style = dict()
+        elif table_style is True:
+            table_style = default_table_style
 
         move_dict_args_to_other_dict(args, cell_style)
         Cell.convert_all_values(args)
@@ -71,13 +125,13 @@ class Sheet(VStack):
         frame_type = self.__class__.elem_type
         vec_type = frame_type.elem_type
         ImpliedType.resolve_all_in_container(args, frame_type)
-        convert_all_to_type(args, Series, Col)
-        convert_all_to_type(args, DataFrame, Frame)
-        convert_all_to_type(args, set, Expr)
+        self.format_args(args)
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        init_container(self, args,
+        init_container(
+            self,
+            args,
             loc=None,
             title=title,
             tab_color=tab_color,
@@ -85,10 +139,11 @@ class Sheet(VStack):
             isolate=isolate,
             hidden=hidden,
             zoom=zoom,
+            background_color=background_color,
             # Dicts that must be passed to children
-            cell_style = Style(**cell_style),
-            header_style = Style(**header_style),
-            table_style = Style(**table_style),
+            cell_style=Style(**cell_style),
+            header_style=Style(**header_style),
+            table_style=Style(**table_style),
         )
 
         if sep is not None:
@@ -106,6 +161,11 @@ class Sheet(VStack):
             #         "so any element created afterwards won't be able to reference them."
             #     )
             Globals.clear_references()
+
+    def format_args(self, args: list) -> None:
+        convert_all_to_type(args, Series, Col)
+        convert_all_to_type(args, DataFrame, Frame)
+        convert_all_to_type(args, set, Expr)
 
     def resolve_all_references(self) -> bool:
         Expr.set_use_ref_for_container_recursive(self)
@@ -127,11 +187,15 @@ class Sheet(VStack):
         if gap is None or gap is False:
             return
 
-        if not type(gap) in [bool, int] and not isinstance(gap, Gap) and not isinstance(gap, dict):
-            raise ValueError("end_gap must be bool, int, or Gap")
-        
+        if (
+            not type(gap) in [bool, int]
+            and not isinstance(gap, Gap)
+            and not isinstance(gap, dict)
+        ):
+            raise ValueError("end_gap must be bool, int, Gap, dict")
+
         default_size = 35
-        default_color = "FFFFFF"  # white
+        # default_color = "FFFFFF"  # white
 
         if gap is True:
             gap = Gap(default_size)
@@ -143,8 +207,8 @@ class Sheet(VStack):
             else:
                 gap = Gap(default_size, **gap)
 
-        if "fill_color" not in gap.kwargs:
-            gap.kwargs["fill_color"] = default_color
+        if "fill_color" not in gap.kwargs and self.background_color is not None:
+            gap.kwargs["fill_color"] = self.background_color
 
         if "row_multiplier" not in gap.kwargs:
             gap.kwargs["row_multiplier"] = 3
@@ -162,23 +226,25 @@ class Sheet(VStack):
             Stack(
                 VStack(
                     *new_elements,
-                    VFrame(*[
-                        Row(*[Cell("", **kwargs) for _ in range(width)])
-                        for _ in range(new_rows)
-                    ])
+                    VFrame(
+                        *[
+                            Row(*[Cell("", **kwargs) for _ in range(width)])
+                            for _ in range(new_rows)
+                        ]
+                    ),
                 ),
-                Frame(*[
-                    Col(*[Cell("", **kwargs) for _ in range(full_height)])
-                    for _ in range(new_cols)
-                ])
+                Frame(
+                    *[
+                        Col(*[Cell("", **kwargs) for _ in range(full_height)])
+                        for _ in range(new_cols)
+                    ]
+                ),
             )
         )
-    
 
     def resolve_gaps(self) -> None:
         super().resolve_gaps()
         self.apply_end_gap()
-
 
     def _write(self) -> None:
 
@@ -186,7 +252,7 @@ class Sheet(VStack):
             self.loc.ws.sheet_properties.tabColor = self.tab_color
 
         if self.hidden is True:
-            self.loc.ws.sheet_state = 'hidden'
+            self.loc.ws.sheet_state = "hidden"
 
         if self.zoom is not None:
             self.loc.ws.sheet_view.zoomScale = self.zoom

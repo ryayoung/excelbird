@@ -41,8 +41,12 @@ class Expr(CanDoMath):
             expr_str = expr_str.pop()
 
         # Match group for the inner contents of a square bracket enclosure
-        # that has at least one character and no brackets inside
+        # that has at least one character and no brackets inside, and is NOT
+        # not ONLY digits
+        # r_elem = r"\[((?:[^\[\]]|\d+)+?)\]"
         r_elem = r"\[([^\[\]]+?)\]"
+        # r_elem = r"\[([^\[\]\d]+?)\]"
+        # r_elem = r"\[([^\[\]](?:[a-zA-Z\d]+)+?)\]"
 
         # Get the element at the start of the string, if one
         match_start: list = re.findall(r"^" + r_elem, expr_str)
@@ -69,6 +73,10 @@ class Expr(CanDoMath):
         )
         # Remove quotes around integers
         expr = re.sub(r'"(-?\d+)"', r"\1", expr)
+
+        # expr = re.sub(r"[^\[]\[", 'self.refs["', expr_str)
+        # expr = re.sub(r"[^\d]\]", '"]', expr)
+        # expr = re.sub(r'"(-?\d+)"', r"\1", expr)
 
         # Check to see if they're just referencing an object without doing
         # calculations on it. If so, we MIGHT want to return that element's
@@ -119,6 +127,11 @@ class Expr(CanDoMath):
         """
         if self.refs_resolved() is False:
             raise ValueError("All references must be resolved before calling .eval()")
+
+        from excelbird.core.cell import Cell
+        from excelbird.core.vec import Col, Row
+        from excelbird.core.frame import Frame, VFrame
+        from excelbird.core.stack import Stack, VStack
 
         res = eval(self.expr)
 

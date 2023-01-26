@@ -63,7 +63,15 @@ def datetime_cols_to_dates(df: DataFrame) -> DataFrame:
     return df
 
 
-def insert_separator(container: list, separator: Gap) -> None:
+def insert_separator(container: list, separator: Gap | int | bool | dict) -> None:
+    if type(separator) in [int, bool, dict]:
+        if separator is True:
+            separator = 1
+        if isinstance(separator, int):
+            separator = Gap(separator)
+        elif isinstance(separator, dict):
+            separator = Gap(1, **separator)
+
     for i, elem in reversed(list(enumerate(container))):
         if i > 0:
             container.insert(i, separator)
@@ -283,9 +291,12 @@ def init_from_same_dimension_type(instance, args: list) -> list:
     Mutates `instance` inplace, AND returns new args.
     """
     first_arg = get_idx(args, 0)
+    arg_dimensions = get_dimensions(first_arg)
+    instance_dimensions = get_dimensions(instance)
     if (
         len(args) == 1
-        and get_dimensions(first_arg) == instance.__class__.dimensions
+        and arg_dimensions == instance_dimensions
+        and arg_dimensions > 0 and instance_dimensions > 0
     ):
         args = list(first_arg)
         for key, val in first_arg.__dict__.items():
@@ -293,9 +304,45 @@ def init_from_same_dimension_type(instance, args: list) -> list:
                 continue
             if key == "_id":
                 key = "id"
+            if key == "_header":
+                key = "header"
             setattr(instance, key, val)
     
     return args
+
+
+def fill_frames(container: list) -> None:
+    from excelbird.core.stack import _Stack
+    from excelbird.core.frame import _Frame
+    from excelbird.core.vec import _Vec
+    from excelbird.core.cell import Cell
+
+    def true_length(vec) -> int:
+        return len(vec) + (0 if vec.header is None else 1)
+
+    for elem in container:
+        if isinstance(elem, _Stack):
+            fill_frames(elem)
+
+        elif isinstance(elem, _Frame):
+            if len(set(
+                (true_lengths := [
+                    true_length(i) for i in elem if isinstance(i, _Vec)
+                ])
+            )) == 1:
+                continue
+
+            max_length = max(true_lengths)
+
+            if elem.fill_empty is True:
+                fill_value = lambda: Cell("")
+            else:
+                fill_value = lambda: Gap()
+
+            for vec in [e for e in elem if isinstance(e, _Vec)]:
+                if (true_len := true_length(vec)) < max_length:
+                    for _ in range(max_length - true_len):
+                        vec.append(fill_value())
 
 
 def is_notebook() -> bool:
@@ -330,9 +377,10 @@ def mark_all_cells_as_written_recursive(container: list) -> None:
     from excelbird.core.cell import Cell
     for elem in container:
         if isinstance(elem, Cell):
-            elem.written = True
+            elem._written = True
         elif isinstance(elem, list):
             mark_all_cells_as_written_recursive(elem)
+
 
 def remove_paren_enclosure(value: str) -> str:
     if not isinstance(value, str):
@@ -341,6 +389,22 @@ def remove_paren_enclosure(value: str) -> str:
         return value.removeprefix("(").removesuffix(")")
     return value
 
+
+def getApproximateArialStringWidth(st):
+    import string
+    size = 0 # in milinches
+    for s in st:
+        if s in 'lij|\' ': size += 37
+        elif s in '![]fI.,:;/\\t': size += 50
+        elif s in '`-(){}r"': size += 60
+        elif s in '*^zcsJkvxy': size += 85
+        elif s in 'aebdhnopqug#$L+<>=?_~FZT' + string.digits: size += 95
+        elif s in 'BSPEAKVXY&UwNRCHD': size += 112
+        elif s in 'QGOMm%W@': size += 135
+        else: size += 50
+    return size * 6 / 1000.0 # Convert to picas
+
+
 def prefix_non_formulae_funcs(func: str) -> str:
     """
     Openpyxl will insert '@' before any function it doesn't think is a valid
@@ -348,9 +412,11 @@ def prefix_non_formulae_funcs(func: str) -> str:
     will be interpreted as invalid incorrectly.
 
     Our solution is to find functions in the string, where there are capital letters
-    followed by a "(", check if they are in openpyxl's `FORMULAE`, and if not, prefix them
+    followed by a starting parenthese, check if they are in openpyxl's `FORMULAE`, and if not, prefix them
     with "_xlfn."
     """
     splits = re.split(r"([A-Z]+\()", func)
     return "".join(["_xlfn." if s == "" else s for s in splits])
+
+
 

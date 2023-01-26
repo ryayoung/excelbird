@@ -28,6 +28,8 @@ class Func(CanDoMath):
         """
         inner = list(inner)
 
+        inner = [i for i in inner if i is not None]
+
         if len(inner) == 0:
             raise ValueError("No elements provided to Func")
 
@@ -48,37 +50,13 @@ class Func(CanDoMath):
         self.inner = inner
         self.kwargs = kwargs
 
-        if res_type is None:
-            res_type = self.imply_res_type_without_knowing_container()
-
-    def imply_res_type_without_knowing_container(self) -> type | NoneType:
-        if any(isinstance(i, Expr) for i in self.inner):
-            return None
-
-        if all(get_dimensions(i) in [-1, 0] for i in self.inner):
-            from excelbird.core.cell import Cell
-            return Cell
-
-        layout_elements = [i for i in self.inner if get_dimensions(i) >= 0]
-
-        if len(layout_elements) == 0:
-            return None
-
-        if len(set([e.__class__ for e in layout_elements])) == 1:
-            return layout_elements[0].__class__
-
-        return None
-
     def get_function(self, container_type: type | None = None):
         if self.res_type is None:
-            implied_type = self.imply_res_type_without_knowing_container()
-            if container_type is None and implied_type is None:
+            if container_type is None:
                 raise ValueError(
                     "Can't determine the result type of function. Please provide "
                     "`res_type` as a keyword argument to Func, with the desired return type."
                 )
-            if implied_type is not None:
-                self.res_type = implied_type
             else:
                 from excelbird.core.frame import Frame, VFrame
                 from excelbird.core.vec import Col, Row
@@ -99,10 +77,9 @@ class Func(CanDoMath):
         if self.all_resolved() is False:
             raise ValueError("All references must be resolved before calling .get_function()")
 
-        if not hasattr(self.res_type, "dimensions"):
-            raise TypeError("`res_type` must have `dimensions` class attribute")
-
         dimensions = get_dimensions(self.res_type)
+        assert dimensions >= 0, f"Invalid res_type, {self.res_type}"
+
         if dimensions == 0:
             for i, elem in enumerate(self.inner):
                 if get_dimensions(elem) > 0:
@@ -181,5 +158,7 @@ class Func(CanDoMath):
         return all_dfuncs_resolved
 
     def __repr__(self):
-        return f"{self.__class__.__name__}({self.res_type.__name__}...)"
+        if self.res_type is not None:
+            return f"{self.__class__.__name__}({self.res_type.__name__}...)"
+        return f"{self.__class__.__name__}(...)"
 
