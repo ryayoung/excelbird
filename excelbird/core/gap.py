@@ -1,0 +1,121 @@
+
+class Gap(int):
+    """
+    ====
+    Gap
+    ====
+
+    A spacer inside a container. The parent container will decide what to do with the Gap,
+    and convert it into the appropriate type.
+
+    ----
+
+    Parameters
+    ----------
+    value: *int, default 1*
+        The gap distance, measured in cells
+    **kwargs:
+        Additional keyword arguments are passed to the resulting type when the parent container creates it.    
+        This lets you apply styling to the gap
+
+    """
+
+    def __new__(cls, value=None, *args, **kwargs):
+        if value is None:
+            value = 1
+        # Need this because Gap's __init__ takes extra args, which int's
+        # __new__ doesn't accept. So just call int's __new__ with the `value`
+        # arg and ignore the extras which will be handled by Gap __init__
+        return super(Gap, cls).__new__(cls, value)
+
+    def __init__(self, value: int | None = None, fill: bool = False, is_margin: bool = False, **kwargs):
+        if value is None:
+            value = 1
+        if len(kwargs) > 0:
+            fill = True
+        self.fill = fill
+        self.is_margin = is_margin
+        self.kwargs = kwargs
+        int.__init__(value)
+
+    def __len__(self):
+        return self
+
+    @property
+    def fill_val(self):
+        if self.fill is True:
+            return ""
+        return None
+
+    def ref(self):
+        return self
+
+    @property
+    def width(self) -> int:
+        return int(self)
+
+    @property
+    def height(self) -> int:
+        return int(self)
+
+    @classmethod
+    def explode_all_to_values(cls, container: list, val_type: type) -> None:
+        """
+        Given a container, explode each Gap to `val_type`
+        with the gap's fill_val
+
+        Mutates inplace: `container`
+        """
+        for i, elem in enumerate(container):
+            if isinstance(elem, cls):
+                gap = container.pop(i)
+                for _ in range(gap):
+                    container.insert(i, val_type(gap.fill_val, **gap.kwargs))
+
+    @classmethod
+    def explode_all_to_series(
+        cls, container: list, series_type: type, series_length: int
+    ) -> None:
+        """
+        Given a container, explode each Gap to seriess of series_type filled with
+        `val_type` with the Gap's fill_val
+
+        Mutates inplace: `container`
+        """
+        val_type = series_type.elem_type
+        for i, elem in enumerate(container):
+            if isinstance(elem, cls):
+                gap = container.pop(i)
+                for _ in range(gap):
+                    container.insert(
+                        i,
+                        series_type(
+                            *[val_type(gap.fill_val) for _ in range(series_length)],
+                            **gap.kwargs,
+                        ),
+                    )
+
+    @classmethod
+    def convert_all_to_frames(
+        cls, container: list, frame_type: type, series_length: int
+    ) -> None:
+        """
+        Given a container, replace each Gap with a frame of series of cells.
+        `series_length` sets the length of each resulting series.
+
+        Mutates inplace: `container`
+        """
+        series_type = frame_type.elem_type
+        val_type = series_type.elem_type
+        for i, elem in enumerate(container):
+            if isinstance(elem, cls):
+                container[i] = frame_type(
+                    *[
+                        series_type(*[val_type(elem.fill_val) for _ in range(series_length)])
+                        for _ in range(elem)
+                    ],
+                    **elem.kwargs,
+                )
+
+    def __repr__(self):
+        return f"{type(self).__name__}({int(self)})"

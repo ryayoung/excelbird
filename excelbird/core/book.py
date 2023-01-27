@@ -4,211 +4,158 @@ import openpyxl as xl
 from typing import Any
 from copy import copy
 import os
+
 # Internal main
+from excelbird._utils.util import (
+    fill_frames,
+)
+from excelbird._utils.argument_parsing import (
+    combine_args_and_children_to_list,
+    move_dict_args_to_other_dict,
+    move_remaining_kwargs_to_dict,
+)
+from excelbird._utils.pass_attributes import (
+    pass_dict_to_children,
+    pass_attr_to_children,
+)
+from excelbird._utils.validation import (
+    require_each_element_to_be_cls_type,
+)
 from excelbird.exceptions import (
     AutoOpenFileError,
     InvalidSheetName,
     ExpressionResolutionError,
 )
-from excelbird.globals import Globals
-from excelbird.base_types import Style, Loc, ImpliedType, Gap, HasHelp
-from excelbird.styles import default_table_style
-from excelbird.util import (
-    combine_args_and_children_to_list,
-    move_dict_args_to_other_dict,
-    pass_dict_to_children,
-    pass_attr_to_children,
-    init_container,
-    move_remaining_kwargs_to_dict,
-    require_each_element_to_be_cls_type,
-    fill_frames,
-    insert_separator,
-)
-from excelbird.expression import Expr
-from excelbird.function import Func
-# Internal core
+from excelbird._layout_references import Globals
+from excelbird.styles.styles import default_table_style
+
+from excelbird.core.expression import Expr
+from excelbird.core.function import Func
+from excelbird.core.item import Item
+from excelbird.core.gap import Gap
 from excelbird.core.cell import Cell
-from excelbird.core.vec import _Vec, Col, Row
-from excelbird.core.frame import Frame, VFrame
-from excelbird.core.stack import Stack, VStack
+from excelbird.core.frame import _Frame, Frame, VFrame
+from excelbird.core.stack import _Stack, Stack, VStack
+from excelbird.core.series import _Series, Col, Row
 from excelbird.core.sheet import Sheet
 
+from excelbird._base.container import ListIndexableById
+from excelbird._base.dotdict import Style
+from excelbird._base.loc import Loc
 
-class Book(list, HasHelp):
+
+class Book(ListIndexableById):
+    """
+    =====
+    Book
+    =====
+
+    The top-most parent container for a layout. Only ``Book`` has the ability to write
+    a layout to an Excel file.
+
+    Call ``.write(path)`` to save to an Excel file.
+
+    ----
+
+    * Child Type: ``Sheet``
+
+    ----
+
+    Parameters
+    ----------
+    *args: `Any`
+        Book should take Sheet or Gap, but can take any other excelbird layout element,
+        or values which are valid for constructing another layout element, such as int,
+        str, list, pd.DataFrame, etc. Any element which isn't a Sheet or Gap will be placed
+        in its own Sheet. 1 or 2 dimensional vectors that aren't excelbird layout types,
+        such as list, pd.Series, pd.DataFrame, will be converted to Col or Frame respectively.
+        Item -> Sheet
+    children: *list, default None*
+        Will be combined with *args
+    path: *str, default None*
+        Path to write Book. Can be omitted and passed to ``.write()`` instead
+    auto_open: *bool, default False*
+        Attempt to automatically open after calling ``.write()``. If a file with the same name
+        is already open, it will be closed first. Requires dependency, xlwings
+    sep: *Gap | bool | int | dict, default None*
+        A sep in any excelbird layout element inserts a Gap between each of its children.
+        If True, a default of ``Gap(1)`` is used. If int, ``Gap(sep)`` will be used. If a dict,
+        ``Gap(1, **sep)`` will be used.
+    tab_color: *str, default None*
+        Applied to each child Sheet
+    end_gap: *bool | int | dict | Gap, default None*
+        Applied to each child Sheet
+    isolate: *bool, default None*
+        Applied to each child Sheet
+    zoom: *int, default None*
+        Applied to each child Sheet
+    cell_style: *dict, default None*
+        Applied to each child Sheet
+    header_style: *dict, default None*
+        Applied to each child Sheet
+    table_style: *dict | bool, default None*
+        Applied to each child Sheet
+    **kwargs:
+        Remaining keyword arguments applied to ``cell_style``, to be passed down to children
     """
 
-Parameters
-----------
-*args: Sheet | Gap | Any
-    Book should take Sheet or Gap, but can take any other excelbird layout element,
-    or values which are valid for constructing another layout element, such as int,
-    str, list, pd.DataFrame, etc. Any element which isn't a Sheet or Gap will be placed
-    in its own Sheet. 1 or 2 dimensional vectors that aren't excelbird layout types,
-    such as list, pd.Series, pd.DataFrame, will be converted to Col or Frame respectively.
-    ImpliedType -> Sheet
-children: list, default None
-    Will be combined with *args
-path: str, default None
-    Path to write Book. Can be omitted and passed to .write() instead
-auto_open: bool, default False
-    Attempt to automatically open after calling .write(). If a file with the same name
-    is already open, it will be closed first. Requires dependency, xlwings
-sep: Gap | bool | int | dict, default None
-    A sep in any excelbird layout element inserts a Gap between each of its children.
-    If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
-    Gap(1, **sep) will be used.
-tab_color: str, default None
-    Applied to each child Sheet
-end_gap: bool | int | dict | Gap, default None
-    Applied to each child Sheet
-isolate: bool, default None
-    Applied to each child Sheet
-zoom: int, default None
-    Applied to each child Sheet
-cell_style: dict, default None
-    Applied to each child Sheet
-header_style: dict, default None
-    Applied to each child Sheet
-table_style: dict | bool, default None
-    Applied to each child Sheet
-**kwargs: Any
-    Remaining keyword arguments applied to self.cell_style, to be passed down to children
-    
-"""
-    dimensions = -1
+    _dimensions = -1
 
     elem_type = Sheet
+
     def __init__(
         self,
-        *args: str | Sheet,
+        *args: Any,
         children: list | None = None,
         path: str | None = None,
         auto_open: bool = False,
         sep: Any | None = None,
-
         tab_color: str | None = None,
         end_gap: bool | int | dict | Gap | None = None,
         isolate: bool | None = None,
         zoom: int | None = None,
-
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
         table_style: Style | dict | bool | None = None,
         **kwargs,
     ) -> None:
-        args = combine_args_and_children_to_list(args, children)
+        children = combine_args_and_children_to_list(args, children)
 
-        args = [i for i in args if i is not None]
+        children = [i for i in children if i is not None]
 
-        if cell_style is None: cell_style = dict()
-        if header_style is None: header_style = dict()
-        if table_style is None: table_style = dict()
-        elif table_style is True: table_style = default_table_style
+        if cell_style is None:
+            cell_style = dict()
+        if header_style is None:
+            header_style = dict()
+        if table_style is None or table_style is False:
+            table_style = dict()
+        elif table_style is True:
+            table_style = default_table_style
 
-        move_dict_args_to_other_dict(args, cell_style)
-        # self.move_kwargs_to_args(args, kwargs)
-        ImpliedType.resolve_all_in_container(args, Sheet)
-
-        self.format_args(args)
-
-        original_workbook = xl.Workbook()
+        self._format_args(children)
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        init_container(self, args,
-            original_workbook = original_workbook,
-            wb = copy(original_workbook),
-            path = path,
-            auto_open = auto_open,
-            # Attrs that must be passed to children
-            tab_color = tab_color,
-            end_gap = end_gap,
-            isolate = isolate,
-            zoom=zoom,
-            # Dicts that must be passed to children
-            cell_style = Style(**cell_style),
-            header_style = Style(**header_style),
-            table_style = Style(**table_style),
-        )
+        original_workbook = xl.Workbook()
+
+        self.original_workbook = original_workbook
+        self.wb = copy(original_workbook)
+        self.path = path
+        self.auto_open = auto_open
+        # Attrs that must be passed to children
+        self.tab_color = tab_color
+        self.end_gap = end_gap
+        self.isolate = isolate
+        self.zoom = zoom
+        # Dicts that must be passed to children
+        self.cell_style = Style(**cell_style)
+        self.header_style = Style(**header_style)
+        self.table_style = Style(**table_style)
+
+        self._init(children)
+
         if sep is not None:
-            insert_separator(self, sep)
-    
-    def format_args(self, args: list) -> None:
-        """
-        Please refactor so that any element that isn't sheet or gap
-        is simply passed to the Sheet constructor
-        """
-        elem_type = self.__class__.elem_type
-        for i, elem in enumerate(args):
-            if isinstance(elem, elem_type):
-                continue
-
-            if isinstance(elem, DataFrame):
-                args[i] = elem_type(Frame(elem))
-
-            elif isinstance(elem, Series):
-                args[i] = elem_type(Col(elem))
-
-            elif isinstance(elem, _Vec):
-                args[i] = elem_type(elem)
-            
-            elif isinstance(elem, Gap):
-                gap = args.pop(i)
-                for _ in range(gap):
-                    args.insert(i, Sheet(**gap.kwargs))
-
-            elif isinstance(elem, Cell):
-                args[i] = elem_type(elem)
-            
-            elif isinstance(elem, (int, str, float)) and not isinstance(elem, Gap):
-                args[i] = elem_type(Cell(elem))
-            
-            elif type(elem) in [list, tuple]:
-                if len(elem) == 0:
-                    args.pop(i)
-                else:
-                    if isinstance(elem[0], (Cell, int, str, float)):
-                        args[i] = elem_type(Col(*elem))
-                    elif isinstance(elem[0], (list, tuple, Series)):
-                        args[i] = elem_type(Frame(*elem))
-                    else:
-                        args[i] = elem_type(Stack(*elem))
-
-    def resolve_all_references(self) -> bool:
-        Expr.set_use_ref_for_container_recursive(self)
-
-        all_resolved = False
-        attempts = 0
-        while not all_resolved and attempts <= 5:
-            all_resolved = True
-            attempts += 1
-            if Expr.resolve_container_recursive(self) is False:
-                all_resolved = False
-            if Func.resolve_container_recursive(self) is False:
-                all_resolved = False
-
-        return all_resolved
-
-    def validate_child_types(self) -> None:
-        valid_types = (
-            Sheet,
-            Stack,
-            VStack,
-            Frame, 
-            VFrame, 
-            Col, 
-            Row, 
-            Cell, 
-            Gap,
-        )
-        type_names = [e.__name__ for e in valid_types]
-        for elem in self:
-            if not isinstance(elem, valid_types):
-                raise TypeError(
-                    f"At write time, a Book can only hold the following types:\n{type_names}"
-                )
-            if hasattr(elem, "validate_child_types"):
-                elem.validate_child_types()
+            self._insert_separator(sep)
 
     def write(self, path: str | None = None) -> None:
         if path is not None:
@@ -220,14 +167,14 @@ table_style: dict | bool, default None
         require_each_element_to_be_cls_type(self)
 
         if self.auto_open == True:
-            self.save_close_currently_open_excel_file()
+            self._save_close_currently_open_excel_file()
 
-        if self.resolve_all_references() is False:
+        if self._resolve_all_references() is False:
             raise ExpressionResolutionError()
 
         pass_attr_to_children(self, "end_gap")
 
-        self.validate_child_types()
+        self._validate_child_types()
 
         for sheet in self:
             fill_frames(sheet)
@@ -236,7 +183,7 @@ table_style: dict | bool, default None
             sheet.resolve_background_color()
             sheet.resolve_gaps()
 
-        self.set_loc()
+        self._set_loc()
 
         pass_attr_to_children(self, "tab_color")
         pass_attr_to_children(self, "isolate")
@@ -251,13 +198,88 @@ table_style: dict | bool, default None
         self.wb.save(self.path)
         print(f"Book '{self.path}' saved")
         if self.auto_open == True:
-            self.open_excel_file()
+            self._open_excel_file()
 
         Globals.clear_references()
         Globals.clear_global_references()
 
-    
-    def set_loc(self):
+    def _format_args(self, args: list) -> None:
+        """
+        Please refactor so that any element that isn't sheet or gap
+        is simply passed to the Sheet constructor
+        """
+
+        Item._resolve_all_in_container(args, Sheet)
+
+        elem_type = type(self).elem_type
+        for i, elem in enumerate(args):
+            if isinstance(elem, elem_type):
+                continue
+
+            if isinstance(elem, DataFrame):
+                args[i] = elem_type(Frame(elem))
+
+            elif isinstance(elem, Series):
+                args[i] = elem_type(Col(elem))
+
+            elif isinstance(elem, (_Series, _Frame, _Stack)):
+                args[i] = elem_type(elem)
+
+            elif isinstance(elem, Gap):
+                gap = args.pop(i)
+                for _ in range(gap):
+                    args.insert(i, Sheet(**gap.kwargs))
+
+            elif isinstance(elem, Cell):
+                args[i] = elem_type(elem)
+
+            elif isinstance(elem, (int, str, float)) and not isinstance(elem, Gap):
+                args[i] = elem_type(Cell(elem))
+
+            elif type(elem) in [list, tuple]:
+                if len(elem) == 0:
+                    args.pop(i)
+                else:
+                    if isinstance(elem[0], (Cell, int, str, float)):
+                        args[i] = elem_type(Col(*elem))
+                    elif isinstance(elem[0], (list, tuple, Series)):
+                        args[i] = elem_type(Frame(*elem))
+                    else:
+                        args[i] = elem_type(Stack(*elem))
+
+    def _resolve_all_references(self) -> bool:
+        Expr._set_use_ref_for_container_recursive(self)
+
+        all_resolved = False
+        attempts = 0
+        while not all_resolved and attempts <= 5:
+            all_resolved = True
+            attempts += 1
+            if Expr._resolve_container_recursive(self) is False:
+                all_resolved = False
+            if Func._resolve_container_recursive(self) is False:
+                all_resolved = False
+
+        return all_resolved
+
+    def _validate_child_types(self) -> None:
+        valid_types = (
+            _Stack,
+            _Frame,
+            _Series,
+            Cell,
+            Gap,
+        )
+        type_names = [e.__name__ for e in valid_types]
+        for elem in self:
+            if not isinstance(elem, valid_types):
+                raise TypeError(
+                    f"At write time, a Book can only hold the following types:\n{type_names}"
+                )
+            if hasattr(elem, "_validate_child_types"):
+                elem._validate_child_types()
+
+    def _set_loc(self):
         for i, sheet in enumerate(self):
             if i == 0:
                 ws = self.wb.active
@@ -266,21 +288,22 @@ table_style: dict | bool, default None
 
             if sheet.title is None:
                 sheet.title = f"Sheet{i+1}"
-            
+
             invalid_sheet_name_chars = [":", "\\", "/", "?", "*", "[", "]"]
             if any(c in sheet.title for c in invalid_sheet_name_chars):
-                raise InvalidSheetName(f"Sheet name must not contain, {invalid_sheet_name_chars}")
+                raise InvalidSheetName(
+                    f"Sheet name must not contain, {invalid_sheet_name_chars}"
+                )
 
             ws.title = sheet.title
-            sheet.set_loc(Loc((0,0), ws))
+            sheet.set_loc(Loc((0, 0), ws))
 
     def __repr__(self):
         return ""
-    
 
-    def save_close_currently_open_excel_file(self):
+    def _save_close_currently_open_excel_file(self):
         if self.auto_open is True:
-            xw = self.try_to_import_xlwings()
+            xw = self._try_to_import_xlwings()
             # Calling `xw.books` will raise error if excel is not already open
             # If excel isn't open, just call `xw.App`
             try:
@@ -296,13 +319,15 @@ table_style: dict | bool, default None
                     "To fix this, EITHER move the file out of OneDrive, OR close the file before code execution."
                     f'\nThis error was triggered by an `XlwingsError` being raised. Its message is:\n"{e}"'
                 )
-    
-    def open_excel_file(self):
+
+    def _open_excel_file(self):
         if self.auto_open is True:
-            xw = self.try_to_import_xlwings()
+            xw = self._try_to_import_xlwings()
+
             try:
                 print("Opening Book...")
                 xw.Book(self.path)
+
             except xw.XlwingsError as e:
                 raise AutoOpenFileError(
                     "Couldn't access Excel file. A common cause of this issue is having your "
@@ -311,9 +336,10 @@ table_style: dict | bool, default None
                     f'\nThis error was triggered by an `XlwingsError` being raised. Its message is:\n"{e}"'
                 )
 
-    def try_to_import_xlwings(self) -> None:
+    def _try_to_import_xlwings(self) -> None:
         try:
             import xlwings as xw
+
             return xw
         except Exception:
             raise ModuleNotFoundError(

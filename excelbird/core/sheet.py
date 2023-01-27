@@ -3,80 +3,100 @@ from pandas import Series, DataFrame
 from typing import Any
 
 # Internal main
-from excelbird.globals import Globals
-from excelbird.exceptions import ExpressionResolutionError
-from excelbird.expression import Expr
-from excelbird.function import Func
-from excelbird.base_types import Style, ImpliedType, Gap, Loc
-from excelbird.styles import default_table_style
-from excelbird.util import (
+from excelbird._layout_references import Globals
+from excelbird._base.dotdict import Style
+from excelbird.styles.styles import default_table_style
+from excelbird._utils.util import (
     get_idx,
+)
+from excelbird._utils.argument_parsing import (
     combine_args_and_children_to_list,
     move_dict_args_to_other_dict,
-    pass_dict_to_children,
     convert_all_to_type,
-    init_container,
-    init_from_same_dimension_type,
     move_remaining_kwargs_to_dict,
-    get_dimensions,
-    insert_separator,
 )
-
+from excelbird._utils.pass_attributes import (
+    pass_dict_to_children,
+)
 # Internal core
+from excelbird.core.gap import Gap
+from excelbird.core.item import Item
 from excelbird.core.cell import Cell
-from excelbird.core.vec import Col, Row
+from excelbird.core.series import Col, Row
 from excelbird.core.frame import Frame, VFrame
 from excelbird.core.stack import VStack, Stack
+from excelbird.core.expression import Expr
+from excelbird.core.function import Func
 
 
 class Sheet(VStack):
     """
+    ======
+    Sheet
+    ======
+
+    Behaves similar to ``VStack`` - it can hold any element, and arranges its children vertically.
+    However, you cannot nest ``Sheet`` inside one another, nor can margin or padding be applied.
+
+    If the first argument in ``*args`` is a string, it will be used as the ``title`` attribute.
+    This allows for better readability in complex layouts with multiple sheets, so a sheet's
+    title can be visible at the start of the container.
+
+    Some sheet-specific options include ``tab_color``, ``end_gap``, ``isolate``, ``hidden``,
+    and ``zoom``, described below.
+
+    ----
+
+    * Direction: **vertical**
+    * Child Type: **Any** (excluding ``Book`` and ``Sheet``)
+
+    ----
 
     Parameters
     ----------
-    *args: Any
+    *args: `Any`
         Can take any layout element (besides Book and Sheet) or any value that can
         be used to construct a layout element. NOTE: If the first element is a string,
         it will be used the Sheet's title to allow for better readability.
-    children: list, default None
+    children: *list, default None*
         Will be combined with *args
-    title: str, default None
+    title: *str, default None*
         Sheet name
-    sep: Gap | bool | int | dict, default None
+    sep: *Gap | bool | int | dict, default None*
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
         Gap(1, **sep) will be used.
-    tab_color: str, default None
+    tab_color: *str, default None*
         Hex color for tab color.
-    end_gap: bool | int | dict | Gap, default None
+    end_gap: *bool | int | dict | Gap, default None*
         Applies a Gap to cells below and to the right of the Sheet. The Gap determines
         the number of columns filled, and 1/3 the number of rows filled. The default
         is Gap(35, fill_color="FFFFFF") (white). This means apply whitespace (hide grid)
         for 35 columns, and 105 rows surrounding the Sheet contents.
-    isolate: bool, default None
+    isolate: *bool, default None*
         After initialization, clear the global memory of ids and headers, so references
         in future declared Sheets won't conflict with previous ones. This will also isolate
         previously declared Sheets, so they musn't reference elements declared after the current
         one.
-    hidden: bool, default None
+    hidden: *bool, default None*
         Whether to hide the Sheet
-    zoom: int, default None
+    zoom: *int, default None*
         Percentage zoom level. (Passing None or 100 will have the same effect)
-    background_color: str, default None
+    background_color: *str, default None*
         Hex code for background_color. Will be applied to fill_color of any Gap child who hasn't
         specified its own fill_color, and to any child Stack/VStack's margins. Will also be passed
         down to any child (Cell excluded) who hasn't specified its own background_color.
-    cell_style: dict, default None
+    cell_style: *dict, default None*
         Applied to each child who has cell_style
-    header_style: dict, default None
+    header_style: *dict, default None*
         Applied to each child who has header_style
-    table_style: dict | bool, default None
+    table_style: *dict | bool, default None*
         Applied to each child who has table_style
-    **kwargs Any
+    **kwargs:
         Remaining kwargs will be applied to self.cell_style
     """
 
-    dimensions = -1
+    _dimensions = -1
 
     def __init__(
         self,
@@ -95,16 +115,16 @@ class Sheet(VStack):
         table_style: Style | dict | bool | None = None,
         **kwargs,
     ) -> None:
-        args = combine_args_and_children_to_list(args, children)
-        first_arg = get_idx(args, 0)
+        children = combine_args_and_children_to_list(args, children)
+        first_arg = get_idx(children, 0)
         if isinstance(first_arg, str):
-            title = args.pop(0)
+            title = children.pop(0)
 
-        args = [i for i in args if i is not None]
+        children = [i for i in children if i is not None]
 
         # Alternative to init_from_same_dimension_type
-        if len(args) == 1 and isinstance(first_arg, Sheet):
-            args = list(first_arg)
+        if len(children) == 1 and isinstance(first_arg, Sheet):
+            children = list(first_arg)
             new_kwargs = first_arg.__dict__
             new_kwargs.pop("loc")
             for key, val in new_kwargs.items():
@@ -114,45 +134,37 @@ class Sheet(VStack):
             cell_style = dict()
         if header_style is None:
             header_style = dict()
-        if table_style is None:
+        if table_style is None or table_style is False:
             table_style = dict()
         elif table_style is True:
             table_style = default_table_style
 
-        move_dict_args_to_other_dict(args, cell_style)
-        Cell.convert_all_values(args)
-
-        frame_type = self.__class__.elem_type
-        vec_type = frame_type.elem_type
-        ImpliedType.resolve_all_in_container(args, frame_type)
-        self.format_args(args)
+        self._format_args(children)
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        init_container(
-            self,
-            args,
-            loc=None,
-            title=title,
-            tab_color=tab_color,
-            end_gap=end_gap,
-            isolate=isolate,
-            hidden=hidden,
-            zoom=zoom,
-            background_color=background_color,
-            # Dicts that must be passed to children
-            cell_style=Style(**cell_style),
-            header_style=Style(**header_style),
-            table_style=Style(**table_style),
-        )
+        self.loc = None
+        self.title = title
+        self.tab_color = tab_color
+        self.end_gap = end_gap
+        self.isolate = isolate
+        self.hidden = hidden
+        self.zoom = zoom
+        self.background_color = background_color
+        # Dicts that must be passed to children
+        self.cell_style = Style(**cell_style)
+        self.header_style = Style(**header_style)
+        self.table_style = Style(**table_style)
+
+        self._init(children)
 
         if sep is not None:
-            insert_separator(self, sep)
+            self._insert_separator(sep)
 
         if self.isolate is True:
-            self.resolve_all_references()
-            self.resolve_all_references()
-            self.resolve_all_references()
+            self._resolve_all_references()
+            self._resolve_all_references()
+            self._resolve_all_references()
             #     raise ExpressionResolutionError(
             #         "Couldn't resolve all expression references.\nThis error was raised during the "
             #         f"creation of sheet, '{self.title}'.\nWhen `isolate=True` for "
@@ -162,27 +174,22 @@ class Sheet(VStack):
             #     )
             Globals.clear_references()
 
-    def format_args(self, args: list) -> None:
-        convert_all_to_type(args, Series, Col)
-        convert_all_to_type(args, DataFrame, Frame)
-        convert_all_to_type(args, set, Expr)
-
-    def resolve_all_references(self) -> bool:
-        Expr.set_use_ref_for_container_recursive(self)
+    def _resolve_all_references(self) -> bool:
+        Expr._set_use_ref_for_container_recursive(self)
 
         all_resolved = False
         attempts = 0
         while not all_resolved and attempts <= 5:
             all_resolved = True
             attempts += 1
-            if Expr.resolve_container_recursive(self) is False:
+            if Expr._resolve_container_recursive(self) is False:
                 all_resolved = False
-            if Func.resolve_container_recursive(self) is False:
+            if Func._resolve_container_recursive(self) is False:
                 all_resolved = False
 
         return all_resolved
 
-    def apply_end_gap(self) -> None:
+    def _apply_end_gap(self) -> None:
         gap = self.end_gap
         if gap is None or gap is False:
             return
@@ -242,9 +249,9 @@ class Sheet(VStack):
             )
         )
 
-    def resolve_gaps(self) -> None:
-        super().resolve_gaps()
-        self.apply_end_gap()
+    def _resolve_gaps(self) -> None:
+        super()._resolve_gaps()
+        self._apply_end_gap()
 
     def _write(self) -> None:
 

@@ -9,6 +9,10 @@
    make html
 
 
+.. role:: arg
+   :class: arg
+
+
 Welcome to excelbird's documentation!
 =====================================
 
@@ -17,6 +21,7 @@ Welcome to excelbird's documentation!
    :caption: Contents:
 
    source/excelbird.core
+   source/excelbird.styles
    source/excelbird
    source/modules
 
@@ -28,3 +33,6 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+
+

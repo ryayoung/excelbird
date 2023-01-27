@@ -1,11 +1,10 @@
+from __future__ import annotations
+
+from pandas import DataFrame
 from collections import namedtuple, ChainMap
 from copy import copy
-from typing import TypeVar
-
-TDataFrame = TypeVar("TDataFrame")
-
-class SchemaError(Exception):
-    pass
+from excelbird.exceptions import SchemaError
+from typing import overload
 
 
 # namedtuple is like a tuple, but you can access elements by name. So
@@ -59,12 +58,21 @@ class Schema(dict):
         # since for some reason ChainMap returns the values in opposite order
         super().__init__(**ChainMap(*tuple(reversed(schemas))), **kwargs)
 
-    def __getattr__(self, key) -> tuple[str, str]:
+    def __getattr__(self, key: str) -> Column:
         """Lets you access dict items with dot notation"""
         if key in self.keys():
             return self[key]
+        raise KeyError(f"Unknown key, '{key}'")
 
-    def __getitem__(self, key) -> Column | dict:
+    @overload
+    def __getitem__(self, key: list) -> Schema:
+        ...
+
+    @overload
+    def __getitem__(self, key: str) -> Column:
+        ...
+
+    def __getitem__(self, key) -> Column | Schema:
         """
         Acts normal, unless you past a list.
         If a list is passed, filter and re-order the schema just like a
@@ -77,11 +85,10 @@ class Schema(dict):
         if len(missing) > 0:
             raise SchemaError(f"Keys {missing} not present in schema")
 
-        filtered = {k: v for k, v in self.items() if k in key}
-        reordered = {k: self[k] for k in key}
-        return self.__class__(**reordered)
+        reordered = {copy(k): copy(self[k]) for k in key}
+        return type(self)(**reordered)
 
-    def __setitem__(self, key, val):
+    def __setitem__(self, key: str, val: Column | tuple[str, ...] | str) -> None:
 
         if isinstance(val, Column):
             return super().__setitem__(key, val)
@@ -96,17 +103,24 @@ class Schema(dict):
 
         raise ValueError(f"Invalid value, {val}")
 
-    def drop(self, columns: list) -> dict:
-        return self.__class__(**{
-            copy(k): copy(v)
-            for k, v in self.items()
-            if k not in columns
-        })
-
-    def apply(self, df: TDataFrame, strict: bool = False) -> TDataFrame:
+    def drop(self, columns: list[str] | str) -> Schema:
         """
-        Filter dataframe to contain only columns that are in schema
-        keys, re-orders the columns. Dataframe doesn't need to have all keys.
+        Drop the specified keys
+        """
+        if not isinstance(columns, (list, tuple)):
+            columns = [columns]
+
+        return type(self)(
+            **{copy(k): copy(v) for k, v in self.items() if k not in columns}
+        )
+
+    def apply(self, df: DataFrame, strict: bool = False) -> DataFrame:
+        """
+        - Filter ``df`` to remove columns that aren't in self
+        - Re-order columns according to self's order
+
+        If ``strict=True``, raise an error if ``df`` doesn't at least contain
+        all columns specified in self.
         """
         if strict is False:
             return df[[k for k in self.keys() if k in df.columns]].copy()
@@ -119,13 +133,19 @@ class Schema(dict):
                 f"in the dataframe (did you forget to run .select_inputs() first?): {missing}"
             )
 
-    def rename(self, keys: dict | None = None, inputs: dict | None = None, outputs: dict | None = None) -> None:
+    def rename(
+        self,
+        keys: dict | None = None,
+        inputs: dict | None = None,
+        outputs: dict | None = None,
+    ) -> Schema:
         """
-        Identify with key
+        Rename any part of self's items (key, input, output), by passing a dict
+        who's keys are a current key in self, and values are the updated element.
         """
         new = self.copy()
         if keys is not None:
-            new = self.__class__()
+            new = type(self)()
             for key, val in self.items():
                 if key not in keys:
                     new[key] = val
@@ -139,23 +159,32 @@ class Schema(dict):
         if outputs is not None:
             for key, new_name in outputs.items():
                 new[key] = Column(new[key].input, new_name)
+
         return new
 
     def update(self, new: dict | None = None, **kwargs) -> None:
         """
-        If passing regular dict or kwargs, create a new Self object
-        with the arguments before updating, so the same format is maintained
+        Like ``dict.update()``, but if a regular ``dict`` or kwargs are passed,
+        they're first used to create a new ``Schema`` before updating, so the
+        correct format is maintained
         """
-        if isinstance(new, self.__class__):
+        if isinstance(new, type(self)):
             return super().update(new)
         if new is not None:
-            return super().update(self.__class__(**new))
-        return super().update(self.__class__(**kwargs))
+            return super().update(type(self)(**new))
+        return super().update(type(self)(**kwargs))
 
-    def rename_inputs_to_vars(self, df: TDataFrame) -> TDataFrame:
+    def rename_inputs_to_vars(self, df: DataFrame) -> DataFrame:
+        """
+        Take a dataframe in its input format and rename its columns to the
+        python-friendly keys in self.
+        """
         return df.rename(columns={val.input: key for key, val in self.items()})
 
-    def rename_vars_to_outputs(self, df: TDataFrame) -> TDataFrame:
+    def rename_vars_to_outputs(self, df: DataFrame) -> DataFrame:
+        """
+        Rename columns to self's output names
+        """
         return df.rename(columns={key: val.output for key, val in self.items()})
 
     def inputs(self) -> list[str]:
@@ -164,10 +193,10 @@ class Schema(dict):
     def outputs(self) -> list[str]:
         return [val.output for val in self.values()]
 
-    def select_inputs(self, df: TDataFrame) -> TDataFrame:
+    def select_inputs(self, df: DataFrame) -> DataFrame:
         """
         Renames desired columns to var names, and selects them.
-        If a column isn't found, an error is raised to help you correct
+        If a column isn't found, an error is raised to force you to correct
         your schema.
         """
         missing = [col for col in self.inputs() if col not in df.columns]
@@ -178,7 +207,7 @@ class Schema(dict):
         df = self.rename_inputs_to_vars(df)
         return df[[k for k in self.keys()]]
 
-    def select_outputs(self, df: TDataFrame) -> TDataFrame:
+    def select_outputs(self, df: DataFrame) -> DataFrame:
         """
         Renames var columns to their output names, and selects them.
         If any columns are missing, an error is raised to remind you to create them.
@@ -189,7 +218,7 @@ class Schema(dict):
         df = self.rename_vars_to_outputs(df)
         return df[[k for k in self.outputs()]]
 
-    def reset_inputs(self):
+    def reset_inputs(self) -> Schema:
         """
         Sets all inputs with output values. Use this if you're
         using a previous schema to read in data that was outputted from it
@@ -199,20 +228,22 @@ class Schema(dict):
             new[key] = Column(new[key].output, new[key].output)
         return new
 
-    def reset_outputs(self):
+    def reset_outputs(self) -> Schema:
+        """
+        Fills all outputs with the current inputs
+        """
         new = self.copy()
         for key in new.keys():
-            new[key] = Column(new[key].output, new[key].output)
+            new[key] = Column(new[key].input, new[key].input)
         return new
 
-    def copy(self) -> dict:
-        return self.__class__(**{copy(k): copy(v) for k, v in self.items()})
-    
+    def copy(self) -> Schema:
+        return type(self)(**{copy(k): copy(v) for k, v in self.items()})
+
     def _repr_html_(self):
-        import pandas as pd
-        return pd.DataFrame(
+
+        return DataFrame(
             list(zip(self.inputs(), self.outputs())),
             columns=["Input", "Output"],
-            index=self.keys(),
+            index=list(self.keys()),
         )._repr_html_()
-

@@ -1,4 +1,6 @@
 
+class SchemaError(Exception):
+    pass
 
 class AlreadyWrittenError(Exception):
     """
@@ -37,7 +39,7 @@ after that sheet was created.
 """
     def __init__(self, message: str | None = None):
         if message is None:
-            message = self.__class__.default_msg
+            message = type(self).default_msg
         self.message = message
         super().__init__(self.message)
 
@@ -53,7 +55,7 @@ Why was it referenced?
 """
     def __init__(self, message: str | None = None):
         if message is None:
-            message = self.__class__.default_msg
+            message = type(self).default_msg
         self.message = message
         super().__init__(self.message)
     
