@@ -165,13 +165,13 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
     def _resolve_background_color(self) -> None:
 
         for elem in self:
-            if hasattr(elem, "resolve_background_color"):
+            if hasattr(elem, "_resolve_background_color"):
                 if (
                     self.background_color not in [None, False]
                     and elem.background_color is None
                 ):
                     elem.background_color = self.background_color
-                elem.resolve_background_color()
+                elem._resolve_background_color()
 
         if self.background_color not in [None, False]:
             for elem in self:
@@ -206,7 +206,7 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
     def _resolve_padding(self) -> None:
         for elem in self:
             if hasattr(elem, "padding"):
-                elem.resolve_padding()
+                elem._resolve_padding()
 
         def get_gap(amount, elem) -> Gap:
             if getattr(elem, "background_color", None) not in [None, False]:
@@ -253,7 +253,7 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
     def _resolve_margin(self) -> None:
         for elem in self:
             if hasattr(elem, "margin"):
-                elem.resolve_margin()
+                elem._resolve_margin()
 
         for i, elem in enumerate(self):
             if hasattr(elem, "margin"):
@@ -297,7 +297,7 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
                             elem.append(Gap(bottom, is_margin=True))
 
     def _resolve_gaps(self) -> None:
-        Gap.convert_all_to_frames(self, type(self).elem_type, self.gap_size)
+        Gap._convert_all_to_frames(self, type(self).elem_type, self._gap_size)
         for elem in self:
             if hasattr(elem, "_resolve_gaps"):
                 elem._resolve_gaps()
@@ -305,12 +305,12 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
     def _set_loc(self, loc: Loc) -> None:
         self.loc = loc
 
-        offset = self.starting_offset()
+        offset = self._starting_offset()
         for elem in self:
-            elem.set_loc(
+            elem._set_loc(
                 Loc((self.loc.y + offset.y, self.loc.x + offset.x), self.loc.ws)
             )
-            offset = self.inc_offset(offset, elem)
+            offset = self._inc_offset(offset, elem)
 
     def __getitem__(self, key):
         if not isinstance(key, list):
@@ -338,7 +338,7 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
                     f"At write time, a {type(self).__name__} can only hold "
                     "the following types:\n{valid_types}"
                 )
-            if hasattr(elem, "validate_child_types"):
+            if hasattr(elem, "_validate_child_types"):
                 elem._validate_child_types()
 
     def _write(self) -> None:

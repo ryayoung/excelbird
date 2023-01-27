@@ -111,7 +111,7 @@ class Func(CanDoMath):
 
         if dimensions == 1:
             res_length = min(len(x) for x in self.inner if get_dimensions(x) == 1)
-            elem_type = self.res_type._elem_type
+            elem_type = self.res_type.elem_type
             for i, elem in enumerate(self.inner):
                 if get_dimensions(elem) > 1:
                     frame = elem
@@ -138,7 +138,7 @@ class Func(CanDoMath):
         return [i for i in self.inner if isinstance(i, Expr)]
 
     def _all_resolved(self) -> bool:
-        if any(i.refs_resolved() is False for i in self._exprs()):
+        if any(i._refs_resolved() is False for i in self._exprs()):
             return False
         return True
     

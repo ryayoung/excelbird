@@ -176,13 +176,13 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
 
     def _resolve_background_color(self) -> None:
         for elem in self:
-            if hasattr(elem, "resolve_background_color"):
+            if hasattr(elem, "_resolve_background_color"):
                 if (
                     self.background_color not in [None, False]
                     and elem.background_color is None
                 ):
                     elem.background_color = self.background_color
-                elem.resolve_background_color()
+                elem._resolve_background_color()
 
         if self.background_color not in [None, False]:
             for elem in self:
@@ -215,12 +215,12 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
     def _set_loc(self, loc: Loc) -> None:
         self.loc = loc
 
-        offset = self.starting_offset()
+        offset = self._starting_offset()
         for elem in self:
-            elem.set_loc(
+            elem._set_loc(
                 Loc((self.loc.y + offset.y, self.loc.x + offset.x), self.loc.ws)
             )
-            offset = self.inc_offset(offset, elem)
+            offset = self._inc_offset(offset, elem)
 
     def _apply_sizes(self) -> None:
         def set_elem_size(elem, size):
@@ -255,12 +255,12 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
                     f"At write time, a {cls_name} can only hold {elem_type_name}s or Gaps. "
                     "To arrange mixed types, place them in a Stack or VStack"
                 )
-            if hasattr(elem, "validate_child_types"):
+            if hasattr(elem, "_validate_child_types"):
                 elem._validate_child_types()
 
     def _write(self) -> None:
         require_each_element_to_be_cls_type(self)
-        self.apply_border()
+        self._apply_border()
 
         # Safely set each style to the element's header style, if it hasn't already
         # been set.
@@ -282,7 +282,7 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
             elem._write()
 
     def _resolve_gaps(self) -> None:
-        Gap.explode_all_to_series(self, type(self).elem_type, self.gap_size)
+        Gap._explode_all_to_series(self, type(self).elem_type, self._gap_size)
         for elem in self:
             if hasattr(elem, "_resolve_gaps"):
                 elem._resolve_gaps()

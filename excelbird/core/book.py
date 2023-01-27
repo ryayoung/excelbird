@@ -178,10 +178,10 @@ class Book(ListIndexableById):
 
         for sheet in self:
             fill_frames(sheet)
-            sheet.resolve_padding()
-            sheet.resolve_margin()
-            sheet.resolve_background_color()
-            sheet.resolve_gaps()
+            sheet._resolve_padding()
+            sheet._resolve_margin()
+            sheet._resolve_background_color()
+            sheet._resolve_gaps()
 
         self._set_loc()
 
@@ -296,7 +296,7 @@ class Book(ListIndexableById):
                 )
 
             ws.title = sheet.title
-            sheet.set_loc(Loc((0, 0), ws))
+            sheet._set_loc(Loc((0, 0), ws))
 
     def __repr__(self):
         return ""
@@ -312,6 +312,7 @@ class Book(ListIndexableById):
                     book = xw.Book(self.path)
                     book.save()
                     book.close()
+
             except xw.XlwingsError as e:
                 raise AutoOpenFileError(
                     "Couldn't access Excel file. A common cause of this issue is having your "

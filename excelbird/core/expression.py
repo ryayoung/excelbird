@@ -180,7 +180,7 @@ class Expr(CanDoMath):
 
         # If returning cell, set each style value as attribute on cell
         if getattr(type(res), "_dimensions", None) == 0:
-            res.inherit_style_without_override(self.cell_style)
+            res._inherit_style_without_override(self.cell_style)
             res.id = self.id
 
         # If returning _Series, pass down attributes
@@ -217,7 +217,7 @@ class Expr(CanDoMath):
         from excelbird.core.function import Func
         for key in self.refs.keys():
             try:
-                ref = container[container.key_to_idx(key)]
+                ref = container[container._key_to_idx(key)]
             except (KeyError, IndexError):
                 ref = Globals.ids.get(key, None)
                 if ref is None:

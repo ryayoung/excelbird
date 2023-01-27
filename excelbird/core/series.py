@@ -146,7 +146,7 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         convert_all_to_type(args, set, Expr)
         convert_all_to_type(args, (str, int, float), Cell, strict=True)
         self._explode_all_series(args)
-        Item.resolve_all_in_container(args, type(self).elem_type)
+        Item._resolve_all_in_container(args, type(self).elem_type)
 
     def _explode_all_series(self, args: list) -> None:
         for i, elem in enumerate(args):
@@ -169,13 +169,13 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
     def _resolve_background_color(self) -> None:
         for elem in self:
-            if hasattr(elem, "resolve_background_color"):
+            if hasattr(elem, "_resolve_background_color"):
                 if (
                     self.background_color not in [None, False]
                     and elem.background_color is None
                 ):
                     elem.background_color = self.background_color
-                elem.resolve_background_color()
+                elem._resolve_background_color()
 
         if self.background_color not in [None, False]:
             for elem in self:
@@ -185,17 +185,17 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
                         elem.kwargs["fill_color"] = self.background_color
 
     def _resolve_gaps(self):
-        Gap.explode_all_to_values(self, Cell)
+        Gap._explode_all_to_values(self, Cell)
 
     def _set_loc(self, loc: Loc) -> None:
         self.loc = loc
 
-        offset = self.starting_offset()
+        offset = self._starting_offset()
         for elem in self:
-            elem.set_loc(
+            elem._set_loc(
                 Loc((self.loc.y + offset.y, self.loc.x + offset.x), self.loc.ws)
             )
-            offset = self.inc_offset(offset, elem)
+            offset = self._inc_offset(offset, elem)
 
     def __getitem__(self, key):
         if not isinstance(key, list):
@@ -232,16 +232,16 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
                     f"At write time, a {cls_name} can only hold {elem_type_name}s or Gaps. "
                     "To arrange mixed types, place them in a Stack or VStack"
                 )
-            if hasattr(elem, "validate_child_types"):
-                elem.validate_child_types()
+            if hasattr(elem, "_validate_child_types"):
+                elem._validate_child_types()
 
     def _write(self) -> None:
         require_each_element_to_be_cls_type(self)
 
-        self.apply_border()
+        self._apply_border()
 
         for cell in self:
-            cell.inherit_style_without_override(self.cell_style)
+            cell._inherit_style_without_override(self.cell_style)
 
         if self.header is not None:
             ensure_value_is_not_number(self.header)

@@ -59,7 +59,7 @@ class Gap(int):
         return int(self)
 
     @classmethod
-    def explode_all_to_values(cls, container: list, val_type: type) -> None:
+    def _explode_all_to_values(cls, container: list, val_type: type) -> None:
         """
         Given a container, explode each Gap to `val_type`
         with the gap's fill_val
@@ -73,7 +73,7 @@ class Gap(int):
                     container.insert(i, val_type(gap.fill_val, **gap.kwargs))
 
     @classmethod
-    def explode_all_to_series(
+    def _explode_all_to_series(
         cls, container: list, series_type: type, series_length: int
     ) -> None:
         """
@@ -96,7 +96,7 @@ class Gap(int):
                     )
 
     @classmethod
-    def convert_all_to_frames(
+    def _convert_all_to_frames(
         cls, container: list, frame_type: type, series_length: int
     ) -> None:
         """

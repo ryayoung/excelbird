@@ -284,7 +284,7 @@ class HasBorder:
         assert len(border) == 4, "Border must be 4 elements. If you're reading this, an excelbird developer made a mistake"
         return list(border)
 
-    def apply_border(self) -> None:
+    def _apply_border(self) -> None:
         if not hasattr(self, "__len__"):
             return
         if len(self) == 0 or self.border == [None, None, None, None]:
