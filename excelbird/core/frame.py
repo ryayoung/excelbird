@@ -307,12 +307,8 @@ class Frame(_Frame):
     Frame and VFrame can be used in a python expression with any other layout element with equal or
     or lower number of dimensions. See the math module for further explanation.
 
-    ----
-
     * Direction: **horizontal**
     * Child Type: ``Col``
-
-    ----
 
     Parameters
     ----------
@@ -371,6 +367,7 @@ class Frame(_Frame):
         Left border. See border_top
     \*\*kwargs:
         Remaining kwargs will be applied to cell_style
+
     """
 
     sibling_type = None  # these are set after class declaration
@@ -527,20 +524,12 @@ class Frame(_Frame):
 class VFrame(_Frame):
     """
 
-    =======
-    VFrame
-    =======
-
     The vertically-arranged sibling to ``Frame``
 
     Excel doesn't support table formatting for vertical tables
 
-    ----
-
     * Direction: **vertical**
     * Child Type: ``Row``
-
-    ----
 
     """
 

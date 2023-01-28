@@ -14,8 +14,6 @@ class Func(CanDoMath):
     to a single call to an Excel function, but rather to the entire formula. Therefore, you
     cannot nest ``Func`` inside one another, nor would there be any reason to.
 
-    ----
-
     Parameters
     ----------
     \*inner: `Any`

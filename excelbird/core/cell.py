@@ -12,7 +12,6 @@ from excelbird._base.identifier import HasId
 from excelbird._base.styling import HasBorder
 from excelbird._base.dotdict import Style
 from excelbird._base.loc import Loc
-from excelbird.core.gap import Gap
 
 from excelbird.styles import formats
 
@@ -52,8 +51,6 @@ class Cell(HasId, HasBorder, CanDoMath):
     has been set or not, to avoid override. For any attribute, if you just want to ignore the
     value set by a parent container, set its value to False, even if it isn't documented as accepting
     a boolean.
-
-    ----
 
     Parameters
     ----------

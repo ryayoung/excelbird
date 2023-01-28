@@ -4,8 +4,6 @@ class Gap(int):
     A spacer inside a container. The parent container will decide what to do with the Gap,
     and convert it into the appropriate type.
 
-    ----
-
     Parameters
     ----------
     value: *int, default 1*

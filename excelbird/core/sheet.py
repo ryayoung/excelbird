@@ -41,12 +41,8 @@ class Sheet(VStack):
     Some sheet-specific options include ``tab_color``, ``end_gap``, ``isolate``, ``hidden``,
     and ``zoom``, described below.
 
-    ----
-
     * Direction: **vertical**
     * Child Type: **Any** (excluding ``Book`` and ``Sheet``)
-
-    ----
 
     Parameters
     ----------

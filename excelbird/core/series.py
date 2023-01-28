@@ -269,12 +269,8 @@ class Col(_Series):
     """
     A series (1-dimensional vector) that holds ``Cell`` and arranges itself vertically.
 
-    ----
-
     * Direction: **vertical**
     * Child Type: ``Cell``
-
-    ----
 
     Parameters
     ----------
@@ -324,6 +320,7 @@ class Col(_Series):
         Left border. See border_top
     \*\*kwargs:
         Remaining kwargs will be applied to cell_style
+
     """
     sibling_type = None  # these are set after class declaration
     elem_type = Cell
@@ -371,12 +368,8 @@ class Row(_Series):
     """
     The horizontally-arranged sibling to ``Col`` . Otherwise functionally identical.
 
-    ----
-
     * Direction: **horizontal**
     * Child Type: ``Cell``
-
-    ----
 
     """
     elem_type = Cell

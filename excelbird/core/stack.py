@@ -361,12 +361,8 @@ class Stack(_Stack):
     A general container that can hold any element, including itself. Offers unique spatial
     styling features, like margin and padding, described below.
 
-    ----
-
     * Direction: **horizontal**
     * Child Type: **Any** (excluding ``Book`` and ``Sheet``)
-
-    ----
 
     Parameters
     ----------
@@ -457,12 +453,8 @@ class VStack(_Stack):
     """
     The vertically-arranged sibling to ``Stack``. Otherwise functionally identical.
 
-    ----
-
     * Direction: **vertical**
     * Child Type: **Any** (excluding ``Book`` and ``Sheet``)
-
-    ----
 
     """
     sibling_type = None  # these are set after class declaration

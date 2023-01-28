@@ -51,15 +51,11 @@ class Book(ListIndexableById):
 
     Call ``.write(path)`` to save to an Excel file.
 
-    ----
-
-    * Child Type: ``Sheet``
-
-    ----
+    Child Type: ``Sheet``
 
     Parameters
     ----------
-    \*args: `Any`
+    *args: `Any`
         Book should take Sheet or Gap, but can take any other excelbird layout element,
         or values which are valid for constructing another layout element, such as int,
         str, list, pd.DataFrame, etc. Any element which isn't a Sheet or Gap will be placed
@@ -91,7 +87,7 @@ class Book(ListIndexableById):
         Applied to each child Sheet
     table_style: *dict | bool, default None*
         Applied to each child Sheet
-    \*\*kwargs:
+    **kwargs:
         Remaining keyword arguments applied to ``cell_style``, to be passed down to children
     """
 

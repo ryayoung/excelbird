@@ -19,12 +19,13 @@ release = '0.0.5'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-autodoc_default_options = {
-    'members': True,
-    'undoc-members': True,
-    'member-order': 'bysource',
-    'inherited-members': 'list, int',
-}
+# autodoc_default_options = {
+#     'members': True,
+#     'undoc-members': True,
+#     'member-order': 'bysource',
+#     'inherited-members': 'list, int',
+# }
+
 
 
 
@@ -38,12 +39,12 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
-    'sphinx.ext.linkcode',
     'sphinx.ext.extlinks',
     'sphinx.ext.autosummary',
     'sphinx.ext.todo',
     'sphinx.ext.mathjax',
     'sphinx.ext.intersphinx',
+    # 'sphinx.ext.linkcode',
     # 'sphinx.ext.coverage',
     # 'sphinx.ext.githubpages',
     # 'sphinx.ext.napoleon',
@@ -58,7 +59,20 @@ intersphinx_disabled_domains = ['std']
 
 numpydoc_attributes_as_param_list = False
 numpydoc_class_members_toctree = False
-numpydoc_show_class_members = False
+numpydoc_show_class_members = True
+
+numpydoc_show_inherited_class_members = False
+# numpydoc_show_inherited_class_members = {
+#     'excelbird.core.gap.Gap': False,
+#     'excelbird.core.series.Col': False,
+# }
+
+# autodoc_default_options = {
+#     'members': True,
+#     'undoc-members': True,
+#     'member-order': 'bysource',
+#     'inherited-members': 'list, int',
+# }
 
 # sphinx-panels shouldn't add bootstrap css since the pydata-sphinx-theme
 # already loads it

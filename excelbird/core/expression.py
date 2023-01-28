@@ -22,8 +22,6 @@ class Expr(CanDoMath):
     for resolving each of these keys by filling them with their corresponding
     element in the layout, and then evaluating.
 
-    *Syntax*
-    --------
     Pass a string containing the code to be executed. It should look like normal python code, but instead
     of variable names, use square brackets and enclose the ``id`` or ``header`` of another layout element
     that may or may not exist yet. Quote marks are *not* necessary inside the brackets. For instance,
@@ -32,8 +30,6 @@ class Expr(CanDoMath):
     written as a single-element ``set``, containing the expression string:
     * ``{"[some_cell_id] / ([some_column_header] + 2)"}``
     This is useful when building a ``Func``, where you might list many ``Expr`` together in succession.
-
-    ----
 
     Parameters
     ----------

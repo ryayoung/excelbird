@@ -19,8 +19,6 @@ class Item:
     or have its elements/attributes referenced, until it is either passed as an element
     to a parent container or resolved by calling ``.astype()``.
 
-    ----
-
     """
 
     def __init__(self, *args, **kwargs) -> None:
