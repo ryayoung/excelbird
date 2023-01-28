@@ -10,7 +10,7 @@ class Gap(int):
     ----------
     value: *int, default 1*
         The gap distance, measured in cells
-    **kwargs:
+    \*\*kwargs:
         Additional keyword arguments are passed to the resulting type when the parent container creates it.    
         This lets you apply styling to the gap
 
