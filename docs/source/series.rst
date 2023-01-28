@@ -1,9 +1,9 @@
 Col / Row
 ==============
 
-.. autoclass:: excelbird.core.series.Col
+.. autoclass:: excelbird.Col
 
-.. autoclass:: excelbird.core.series.Row
+.. autoclass:: excelbird.Row
    :no-members:
    :no-inherited-members:
 
