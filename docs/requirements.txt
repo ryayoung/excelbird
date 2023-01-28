@@ -1,5 +1,6 @@
-pydata-sphinx-theme
-numpydoc
+pydata-sphinx-theme=0.11.0
+numpydoc=1.5.0
 sphinx-toggleprompt
 sphinx-copybutton
 sphinx-panels
+
