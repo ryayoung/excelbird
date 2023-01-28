@@ -18,14 +18,14 @@ class Func(CanDoMath):
 
     Parameters
     ----------
-    *inner: `Any`
+    \*inner: `Any`
         Pass each section of the formula as positional arguments
     res_type: *type, default None*
         Desired return type. This is rarely needed, since often you'll be placing ``Func``
         inside a container that can only hold one type, so ``res_type`` is inferred.
         In some cases though, such as when inside a ``Stack``, or when being used in a
         math expression prior to being placed in a layout, this will need to be specified.
-    **kwargs:
+    \*\*kwargs:
         Any additional keyword arguments will be passed to the constructor of the resulting
         object.
 
