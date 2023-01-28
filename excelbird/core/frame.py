@@ -316,14 +316,14 @@ class Frame(_Frame):
 
     Parameters
     ----------
-    *args: `Any`
+    \*args: `Any`
         Children must be (or resolve to) a series. Frame holds Cols, and VFrame
         holds Rows - ``Gap`` and ``Item`` will be interpreted as the respective element. Can also
         take any value that will be resolved to one of the above types, such as a list, tuple,
         pandas Series, etc. 2-dimensional arguments, such as pandas DataFrame, will be 'exploded'
         inplace into separate 1-dimensional elements.
     children: *list, default None*
-        Will be combined with *args
+        Will be combined with args
     id: *str, default None*
         Unique identifier to store globally so that this element can be referenced
         elsewhere in the layout without being assigned to a variable
@@ -332,7 +332,7 @@ class Frame(_Frame):
     sep: *Gap | bool | int | dict, default None*
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
-        Gap(1, **sep) will be used.
+        ``Gap(1, **sep)`` will be used.
     sizes: *dict[str, int], default None*
         Specify the column width (or row height, if VFrame) for any child element by header.
         Keys should be the header of a child element, and values should be integers representing
@@ -369,7 +369,7 @@ class Frame(_Frame):
         Bottom border. See border_top
     border_left: *tuple[str | bool, str | bool] | str | bool, default None*
         Left border. See border_top
-    **kwargs:
+    \*\*kwargs:
         Remaining kwargs will be applied to cell_style
     """
 

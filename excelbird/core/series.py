@@ -278,11 +278,11 @@ class Col(_Series):
 
     Parameters
     ----------
-    *args: `Any`
+    \*args: *Any*
         Children must be (or resolve to) Cells. ``Gap`` and ``Item`` will be interpreted
         as Cell.
     children: *list, default None*
-        Will be combined with *args
+        Will be combined with args
     id: *str, default None*
         Unique identifier to store globally so that this element can be referenced
         elsewhere in the layout without being assigned to a variable
@@ -295,7 +295,7 @@ class Col(_Series):
     sep: *Gap | bool | int | dict, default None*
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
-        Gap(1, **sep) will be used.
+        ``Gap(1, **sep)`` will be used.
     background_color: *str, default None*
         Hex code for background color. Will be applied to any Gap child who hasn't specified its own
         fill_color.
@@ -322,7 +322,7 @@ class Col(_Series):
         Bottom border. See border_top
     border_left: *tuple[str | bool, str | bool] | str | bool, default None*
         Left border. See border_top
-    **kwargs:
+    \*\*kwargs:
         Remaining kwargs will be applied to cell_style
     """
     sibling_type = None  # these are set after class declaration

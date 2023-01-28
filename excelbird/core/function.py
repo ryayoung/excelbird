@@ -20,7 +20,7 @@ class Func(CanDoMath):
     ----------
     *inner: `Any`
         Pass each section of the formula as positional arguments
-    res_type: type, default None
+    res_type: *type, default None*
         Desired return type. This is rarely needed, since often you'll be placing ``Func``
         inside a container that can only hold one type, so ``res_type`` is inferred.
         In some cases though, such as when inside a ``Stack``, or when being used in a
@@ -28,6 +28,7 @@ class Func(CanDoMath):
     **kwargs:
         Any additional keyword arguments will be passed to the constructor of the resulting
         object.
+
     """
 
     def __init__(

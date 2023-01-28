@@ -23,14 +23,14 @@ class Expr(CanDoMath):
     element in the layout, and then evaluating.
 
     *Syntax*
-    ------
+    --------
     Pass a string containing the code to be executed. It should look like normal python code, but instead
     of variable names, use square brackets and enclose the ``id`` or ``header`` of another layout element
     that may or may not exist yet. Quote marks are *not* necessary inside the brackets. For instance,
-        ``Expr("[some_cell_id] / ([some_column_header] + 2)", id="new_col")``
+    * ``Expr("[some_cell_id] / ([some_column_header] + 2)", id="new_col")``
     **Shorthand Syntax**: If you don't need to pass any keyword arguments, ``Expr`` can be more concisely
     written as a single-element ``set``, containing the expression string:
-        ``{"[some_cell_id] / ([some_column_header] + 2)"}``
+    * ``{"[some_cell_id] / ([some_column_header] + 2)"}``
     This is useful when building a ``Func``, where you might list many ``Expr`` together in succession.
 
     ----
@@ -52,8 +52,9 @@ class Expr(CanDoMath):
         To be applied to the resulting element
     table_style: *dict, default None*
         To be applied to the resulting element
-    **kwargs:
+    \*\*kwargs:
         Any other keyword arguments will be set as attributes on the resulting element
+
     """
 
     def __init__(

@@ -34,9 +34,9 @@ from excelbird.core.function import Func
 from excelbird.core.item import Item
 from excelbird.core.gap import Gap
 from excelbird.core.cell import Cell
-from excelbird.core.frame import _Frame, Frame, VFrame
-from excelbird.core.stack import _Stack, Stack, VStack
-from excelbird.core.series import _Series, Col, Row
+from excelbird.core.frame import _Frame, Frame
+from excelbird.core.stack import _Stack, Stack
+from excelbird.core.series import _Series, Col
 from excelbird.core.sheet import Sheet
 
 from excelbird._base.container import ListIndexableById
@@ -59,15 +59,15 @@ class Book(ListIndexableById):
 
     Parameters
     ----------
-    *args: `Any`
+    \*args: `Any`
         Book should take Sheet or Gap, but can take any other excelbird layout element,
         or values which are valid for constructing another layout element, such as int,
         str, list, pd.DataFrame, etc. Any element which isn't a Sheet or Gap will be placed
         in its own Sheet. 1 or 2 dimensional vectors that aren't excelbird layout types,
         such as list, pd.Series, pd.DataFrame, will be converted to Col or Frame respectively.
-        Item -> Sheet
+        Item converts to Sheet.
     children: *list, default None*
-        Will be combined with *args
+        Will be combined with args
     path: *str, default None*
         Path to write Book. Can be omitted and passed to ``.write()`` instead
     auto_open: *bool, default False*
@@ -91,7 +91,7 @@ class Book(ListIndexableById):
         Applied to each child Sheet
     table_style: *dict | bool, default None*
         Applied to each child Sheet
-    **kwargs:
+    \*\*kwargs:
         Remaining keyword arguments applied to ``cell_style``, to be passed down to children
     """
 

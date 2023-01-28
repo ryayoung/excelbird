@@ -370,19 +370,19 @@ class Stack(_Stack):
 
     Parameters
     ----------
-    *args: `Any`
+    \*args: `Any`
         Can take any layout element (besides Book or Sheet), or any value that
         can be used to construct a layout element. Stack is the only layout element
         that can store other instances of itself as children
     children: *list, default None*
-        Will be combined with *args
+        Will be combined with args
     id: *str, default None*
         Unique identifier to store globally so that this element can be referenced
         elsewhere in the layout without being assigned to a variable
     sep: *Gap | bool | int | dict, default None*
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
-        Gap(1, **sep) will be used.
+        ``Gap(1, **sep)`` will be used.
     background_color: *str, default None*
         Hex code for background_color. Will be applied to fill_color of padding, any Gap
         child who hasn't specified its own fill_color, and to any child Stack/VStack's margins.
@@ -425,7 +425,7 @@ class Stack(_Stack):
         Bottom padding, measured in number of cells
     padding_left: *int, default None*
         Left padding, measured in number of cells
-    **kwargs:
+    \*\*kwargs:
         Remaining kwargs will be applied to cell_style
     """
     sibling_type = None  # these are set after class declaration

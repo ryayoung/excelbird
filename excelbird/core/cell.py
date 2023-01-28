@@ -100,7 +100,7 @@ class Cell(HasId, HasBorder, CanDoMath):
     ignore_format: *bool, default None*
         Negate any number formatting set by a parent container. This is an easier alternative to
         setting num_fmt=False, currency=False
-    fill_color: *str, default None
+    fill_color: *str, default None*
         Hex code string color to fill the cell
     auto_color_font: *bool, default None*
         Sets font color to white or black, based on lightness of fill_color, so that text will be

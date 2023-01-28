@@ -50,18 +50,18 @@ class Sheet(VStack):
 
     Parameters
     ----------
-    *args: `Any`
+    \*args: `Any`
         Can take any layout element (besides Book and Sheet) or any value that can
         be used to construct a layout element. NOTE: If the first element is a string,
         it will be used the Sheet's title to allow for better readability.
     children: *list, default None*
-        Will be combined with *args
+        Will be combined with args
     title: *str, default None*
         Sheet name
     sep: *Gap | bool | int | dict, default None*
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
-        Gap(1, **sep) will be used.
+        ``Gap(1, **sep)`` will be used.
     tab_color: *str, default None*
         Hex color for tab color.
     end_gap: *bool | int | dict | Gap, default None*
@@ -88,7 +88,7 @@ class Sheet(VStack):
         Applied to each child who has header_style
     table_style: *dict | bool, default None*
         Applied to each child who has table_style
-    **kwargs:
+    \*\*kwargs:
         Remaining kwargs will be applied to self.cell_style
     """
 

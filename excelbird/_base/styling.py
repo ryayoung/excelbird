@@ -125,13 +125,13 @@ class HasBorder:
         cls = type(self)
         self.border = border
         if top is not None:
-            self.border_top = cls.interpret_single_value(top)
+            self.border_top = cls._interpret_single_value(top)
         if right is not None:
-            self.border_right = cls.interpret_single_value(right)
+            self.border_right = cls._interpret_single_value(right)
         if bottom is not None:
-            self.border_bottom = cls.interpret_single_value(bottom)
+            self.border_bottom = cls._interpret_single_value(bottom)
         if left is not None:
-            self.border_left = cls.interpret_single_value(left)
+            self.border_left = cls._interpret_single_value(left)
 
         _ = self.border
 
@@ -143,10 +143,10 @@ class HasBorder:
 
         cls = type(self)
 
-        self.border_top = cls.interpret_single_value(self.border_top)
-        self.border_right = cls.interpret_single_value(self.border_right)
-        self.border_bottom = cls.interpret_single_value(self.border_bottom)
-        self.border_left = cls.interpret_single_value(self.border_left)
+        self.border_top = cls._interpret_single_value(self.border_top)
+        self.border_right = cls._interpret_single_value(self.border_right)
+        self.border_bottom = cls._interpret_single_value(self.border_bottom)
+        self.border_left = cls._interpret_single_value(self.border_left)
 
         return [
             self.border_top,
@@ -157,14 +157,14 @@ class HasBorder:
 
     @border.setter
     def border(self, new: list) -> None:
-        top, right, bottom, left = type(self).parse_arg(new)
+        top, right, bottom, left = type(self)._parse_arg(new)
         self.border_top = top
         self.border_right = right
         self.border_bottom = bottom
         self.border_left = left
 
     @classmethod
-    def is_valid(cls, value: Any) -> bool:
+    def _is_valid(cls, value: Any) -> bool:
         if value is None or value is False:
             return True
         if isinstance(value, tuple):
@@ -175,24 +175,24 @@ class HasBorder:
         return False
 
     @classmethod
-    def interpret_single_value(cls, value: Any) -> tuple[Any, Any]:
+    def _interpret_single_value(cls, value: Any) -> tuple[Any, Any]:
         """
         Given a value intended to represent a single border side, interpret
         it to one of the following valid formats:
-            - None   - unset, can be overriden
-            - False  - override parent and remove border
-            - ('<weight>' | None | False, '<hex color>' | None | False)
+        * None - unset, can be overriden
+        * False - override parent and remove border
+        * ('<weight>' | None | False, '<hex color>' | None | False)
 
         Valid inputs for ``value``:
-            None
-            True    - converts to ``cls.default``
-            False
-            '<weight>'   - we can tell if the string is in list of valid weights
-            '<hex color>'
-            ('<weight>' | None | True | False,)
-            ('<weight>' | None | True | False, '<hex color>' | None | True | False)
+        * None
+        * True - converts to ``cls.default``
+        * False
+        * '<weight>' - we can tell if the string is in list of valid weights
+        * '<hex color>'
+        * ('<weight>' | None | True | False,)
+        * ('<weight>' | None | True | False, '<hex color>' | None | True | False)
         """
-        if cls.is_valid(value):
+        if cls._is_valid(value):
             return value
 
         # Treat 1-element tuple as single value
@@ -240,7 +240,7 @@ class HasBorder:
         return value
 
     @classmethod
-    def parse_arg(
+    def _parse_arg(
         cls, border: bool | Iterable | None
     ) -> list:
         """
@@ -272,7 +272,7 @@ class HasBorder:
             border = [border]
 
         for i, elem in enumerate(border):
-            border[i] = cls.interpret_single_value(elem)
+            border[i] = cls._interpret_single_value(elem)
 
         if len(border) == 1:
             border = border * 4
