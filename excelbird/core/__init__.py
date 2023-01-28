@@ -12,12 +12,17 @@ from excelbird.core.merged import *
 
 """
 TODO:
+- Refactor `astype` to `to_sibling`
+- Doc examples and doctests!!
+- Store styles in dict instead of Style
 - In range references from separate sheets, remove redundant repeated sheet name
 - Change expression to @[] instead of [].
 - Allow Func to be a single string, parsing out all @[] just like we do with Expr
 - Conditional formatting!
 - Offer syntax in cell expression to specify which $s to use
 - Somehow, figure out how to use column name references.
+- Fix table formatting with cross-sheet references
+- Make diagrams for documentation
 
 Make cell references smarter, using $ signs where appropriate.
     First change cell expression tree to hold 5 elements instead of 3.

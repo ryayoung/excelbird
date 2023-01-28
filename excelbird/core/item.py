@@ -2,10 +2,6 @@ from typing import Any
 
 class Item:
     """
-    ====
-    Item
-    ====
-
     Let the parent container decide what type the element should be.
 
     Its abbreviated version, ``I``, can be used interchangeably.

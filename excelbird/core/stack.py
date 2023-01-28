@@ -358,10 +358,6 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
 
 class Stack(_Stack):
     """
-    ======
-    Stack
-    ======
-
     A general container that can hold any element, including itself. Offers unique spatial
     styling features, like margin and padding, described below.
 
@@ -459,10 +455,6 @@ class Stack(_Stack):
 
 class VStack(_Stack):
     """
-    ======
-    VStack
-    ======
-
     The vertically-arranged sibling to ``Stack``. Otherwise functionally identical.
 
     ----

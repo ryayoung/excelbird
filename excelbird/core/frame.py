@@ -300,10 +300,6 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
 
 class Frame(_Frame):
     """
-    =======
-    Frame
-    =======
-
     A 2-dimensional vector that holds 1-dimensional vectors. Frame holds Col, and arranges its
     children horizontally. VFrame holds Row, and arranges its children vertically. Only Frame
     can be formatted as an Excel table.

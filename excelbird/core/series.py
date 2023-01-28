@@ -267,11 +267,6 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
 class Col(_Series):
     """
-
-    ===
-    Col
-    ===
-
     A series (1-dimensional vector) that holds ``Cell`` and arranges itself vertically.
 
     ----
@@ -374,10 +369,6 @@ class Col(_Series):
 
 class Row(_Series):
     """
-    ===
-    Row
-    ===
-
     The horizontally-arranged sibling to ``Col`` . Otherwise functionally identical.
 
     ----

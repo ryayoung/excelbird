@@ -31,10 +31,6 @@ from excelbird.core.function import Func
 
 class Sheet(VStack):
     """
-    ======
-    Sheet
-    ======
-
     Behaves similar to ``VStack`` - it can hold any element, and arranges its children vertically.
     However, you cannot nest ``Sheet`` inside one another, nor can margin or padding be applied.
 

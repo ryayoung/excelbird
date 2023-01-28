@@ -10,10 +10,6 @@ from excelbird._utils.argument_parsing import (
 
 class Func(CanDoMath):
     """
-    =====
-    Func
-    =====
-
     Create a formula that uses builtin Excel functions. One ``Func`` does *not* correspond
     to a single call to an Excel function, but rather to the entire formula. Therefore, you
     cannot nest ``Func`` inside one another, nor would there be any reason to.

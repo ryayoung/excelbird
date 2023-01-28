@@ -1,10 +1,6 @@
 
 class Gap(int):
     """
-    ====
-    Gap
-    ====
-
     A spacer inside a container. The parent container will decide what to do with the Gap,
     and convert it into the appropriate type.
 

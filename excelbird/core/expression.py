@@ -15,10 +15,6 @@ TExpr = TypeVar("TExpr", bound="Expr")
 
 class Expr(CanDoMath):
     """
-    =====
-    Expr
-    =====
-
     Reference elements in parent container by name or index in a string
     expression. Immediately upon instantiating and Expr, all references
     enclosed in square brackets are parsed out and stored in a dictionary,
@@ -162,13 +158,6 @@ class Expr(CanDoMath):
         - Applies stored attributes to the result object
         - Returns result object
         """
-
-        # Note to self: why are we passing down without override to a
-        # result that just got evaluated? Shouldn't the new object
-        # have an empty slate of attributes? Instead, just loop through
-        # kwargs and:
-        #     If element has the attribute set it. Else, check if it has
-        #     a cell_style, and set it as a key/value inside cell_style.
 
         if self._refs_resolved() is False:
             raise ValueError("All references must be resolved before calling .eval()")

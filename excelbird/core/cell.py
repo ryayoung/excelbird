@@ -38,11 +38,6 @@ cell_reference_warning_issued = False
 
 class Cell(HasId, HasBorder, CanDoMath):
     """
-
-    ====
-    Cell
-    ====
-
     Represents a real cell in Excel. Capable of math operations in python, and tracking
     cell references on its own, without knowing locations.
 

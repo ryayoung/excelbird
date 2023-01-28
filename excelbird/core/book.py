@@ -46,10 +46,6 @@ from excelbird._base.loc import Loc
 
 class Book(ListIndexableById):
     """
-    =====
-    Book
-    =====
-
     The top-most parent container for a layout. Only ``Book`` has the ability to write
     a layout to an Excel file.
 
