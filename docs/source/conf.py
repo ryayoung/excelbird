@@ -26,6 +26,8 @@ autodoc_default_options = {
     'inherited-members': 'list, int',
 }
 
+
+
 extensions = [
     'numpydoc',
     'sphinx.ext.duration',
@@ -48,6 +50,9 @@ intersphinx_mapping = {
 }
 
 intersphinx_disabled_domains = ['std']
+
+numpydoc_class_members_toctree = False
+numpydoc_show_class_members = False
 
 templates_path = ['_templates']
 exclude_patterns = []
