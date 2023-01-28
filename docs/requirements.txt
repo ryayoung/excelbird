@@ -1,1 +1,5 @@
+pydata-sphinx-theme
 numpydoc
+sphinx-toggleprompt
+sphinx-copybutton
+sphinx-panels

@@ -30,16 +30,21 @@ autodoc_default_options = {
 
 extensions = [
     'numpydoc',
+    'sphinx_copybutton',
+    'sphinx_panels',
+    'sphinx_toggleprompt',
     'sphinx.ext.duration',
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
-    'sphinx.ext.intersphinx',
+    'sphinx.ext.ifconfig',
     'sphinx.ext.viewcode',
+    'sphinx.ext.linkcode',
+    'sphinx.ext.extlinks',
     'sphinx.ext.autosummary',
-    # 'sphinx.ext.todo',
+    'sphinx.ext.todo',
+    'sphinx.ext.mathjax',
+    'sphinx.ext.intersphinx',
     # 'sphinx.ext.coverage',
-    # 'sphinx.ext.mathjax',
-    # 'sphinx.ext.ifconfig',
     # 'sphinx.ext.githubpages',
     # 'sphinx.ext.napoleon',
 ]
@@ -51,11 +56,32 @@ intersphinx_mapping = {
 
 intersphinx_disabled_domains = ['std']
 
+numpydoc_attributes_as_param_list = False
 numpydoc_class_members_toctree = False
 numpydoc_show_class_members = False
 
+# sphinx-panels shouldn't add bootstrap css since the pydata-sphinx-theme
+# already loads it
+panels_add_bootstrap_css = False
+
+# https://sphinx-toggleprompt.readthedocs.io/en/stable/#offset
+toggleprompt_offset_right = 35
+
+# The name of the Pygments (syntax highlighting) style to use.
+pygments_style = "sphinx"
+
 templates_path = ['_templates']
 exclude_patterns = []
+
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
+# html_static_path = ["_static"]
+#
+# html_css_files = [
+#     "css/getting_started.css",
+#     "css/pandas.css",
+# ]
 
 # html_static_path = ['_static']
 
@@ -64,6 +90,12 @@ exclude_patterns = []
 
 # html_theme = 'pydata_sphinx_theme'
 html_theme = 'sphinx_rtd_theme'
+
+# If false, no module index is generated.
+html_use_modindex = True
+
+# If false, no index is generated.
+# html_use_index = True
 
 html_theme_options = {
     'display_version': True,
