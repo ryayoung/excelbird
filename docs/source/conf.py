@@ -27,12 +27,13 @@ autodoc_default_options = {
 }
 
 extensions = [
+    'numpydoc',
     'sphinx.ext.duration',
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
+    # 'sphinx.ext.autosummary',
     # 'sphinx.ext.todo',
     # 'sphinx.ext.coverage',
     # 'sphinx.ext.mathjax',
