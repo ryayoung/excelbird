@@ -24,6 +24,6 @@ sphinx:
 python:
   install:
     - method: pip
-      path: .
+      path: excelbird
   
    # - requirements: docs/requirements.txt
