@@ -46,46 +46,47 @@ class Sheet(VStack):
 
     Parameters
     ----------
-    \*args: `Any`
+    *args: Any
         Can take any layout element (besides Book and Sheet) or any value that can
         be used to construct a layout element. NOTE: If the first element is a string,
         it will be used the Sheet's title to allow for better readability.
-    children: *list, default None*
+    children : list, default None
         Will be combined with args
-    title: *str, default None*
+    title : str, default None
         Sheet name
-    sep: *Gap | bool | int | dict, default None*
+    sep : Gap or bool or int or dict, default None
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
         ``Gap(1, **sep)`` will be used.
-    tab_color: *str, default None*
+    tab_color : str, default None
         Hex color for tab color.
-    end_gap: *bool | int | dict | Gap, default None*
+    end_gap : bool or int or dict or Gap, default None
         Applies a Gap to cells below and to the right of the Sheet. The Gap determines
         the number of columns filled, and 1/3 the number of rows filled. The default
         is Gap(35, fill_color="FFFFFF") (white). This means apply whitespace (hide grid)
         for 35 columns, and 105 rows surrounding the Sheet contents.
-    isolate: *bool, default None*
+    isolate : bool, default None
         After initialization, clear the global memory of ids and headers, so references
         in future declared Sheets won't conflict with previous ones. This will also isolate
         previously declared Sheets, so they musn't reference elements declared after the current
         one.
-    hidden: *bool, default None*
+    hidden : bool, default None
         Whether to hide the Sheet
-    zoom: *int, default None*
+    zoom : int, default None
         Percentage zoom level. (Passing None or 100 will have the same effect)
-    background_color: *str, default None*
+    background_color : str, default None
         Hex code for background_color. Will be applied to fill_color of any Gap child who hasn't
         specified its own fill_color, and to any child Stack/VStack's margins. Will also be passed
         down to any child (Cell excluded) who hasn't specified its own background_color.
-    cell_style: *dict, default None*
+    cell_style : dict, default None
         Applied to each child who has cell_style
-    header_style: *dict, default None*
+    header_style : dict, default None
         Applied to each child who has header_style
-    table_style: *dict | bool, default None*
+    table_style : dict or bool, default None
         Applied to each child who has table_style
-    \*\*kwargs:
+    **kwargs :
         Remaining kwargs will be applied to self.cell_style
+
     """
 
     _dimensions = -1

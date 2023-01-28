@@ -312,60 +312,60 @@ class Frame(_Frame):
 
     Parameters
     ----------
-    \*args: `Any`
+    *args: Any
         Children must be (or resolve to) a series. Frame holds Cols, and VFrame
         holds Rows - ``Gap`` and ``Item`` will be interpreted as the respective element. Can also
         take any value that will be resolved to one of the above types, such as a list, tuple,
         pandas Series, etc. 2-dimensional arguments, such as pandas DataFrame, will be 'exploded'
         inplace into separate 1-dimensional elements.
-    children: *list, default None*
+    children : list, default None
         Will be combined with args
-    id: *str, default None*
+    id : str, default None
         Unique identifier to store globally so that this element can be referenced
         elsewhere in the layout without being assigned to a variable
-    schema: *Schema, default None*
+    schema : Schema, default None
         A Schema object to use to rename child headers to desired output names at write time.
-    sep: *Gap | bool | int | dict, default None*
+    sep : Gap | bool | int | dict, default None
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
         ``Gap(1, **sep)`` will be used.
-    sizes: *dict[str, int], default None*
+    sizes : dict[str, int], default None
         Specify the column width (or row height, if VFrame) for any child element by header.
         Keys should be the header of a child element, and values should be integers representing
         that element's size. Note: unlike most excelbird styling, this argument will override any
         other column widths / row heights given to the children.
-    background_color: *str, default None*
+    background_color : str, default None
         Hex code for background color. Will be applied to fill_color of any Gap child who hasn't specified its own
         fill_color. Will also be passed down to any Col/Row child who hasn't specified its own background_color.
-    fill_empty: *bool, default None*
+    fill_empty : bool, default None
         Fill shorter children (if children vary in length) with `Cell("")` so that all lengths are matching,
         and all Cells inside the child will follow the same style. If False or None, these empty spaces will instead
         be filled with `Gap()`, to which the child's background_color will be applied, if present.
-    cell_style: *dict, default None*
+    cell_style : dict, default None
         Will be applied to each child's cell_style
-    header_style: *dict, default None*
+    header_style : dict, default None
         Will be applied to each child's header_style
-    table_style: *dict | bool, default None*
+    table_style : dict | bool, default None
         Format a Frame as an Excel table. (ignored for VFrame). If True, default style
         'name="TableStyleMedium2"' is used. If dict, key 'displayName' will be used as the
         table name, and all other key/values will be passed to openpyxl.worksheet.table.TableStyleInfo.
-    border: *list[tuple | str | bool] | tuple[str | bool, str | bool] | str | bool, default None*
+    border : list[tuple | str | bool] | tuple[str | bool, str | bool] | str | bool, default None
         Syntax inspired by CSS. A non-list value will be applied to all 4 sides. If list,
         length can be 2, 3, or 4 elements. Order is [top, right, bottom, left]. If length 2,
         apply the first element to top and bottom border, and apply the second element to right and left.
         To apply border to children instead, use cell_style.
-    border_top: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_top : tuple[str | bool, str | bool] | str | bool, default None
         Top border. If True, a thin black border is used. If string (6 char hex code),
         use the default weight and apply the specified color. If string (valid weight name),
         use the default color and apply the specified weight. If tuple, apply the first
         element as weight, and second element as color.
-    border_right: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_right : tuple[str | bool, str | bool] | str | bool, default None
         Right border. See border_top
-    border_bottom: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_bottom : tuple[str | bool, str | bool] | str | bool, default None
         Bottom border. See border_top
-    border_left: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_left : tuple[str | bool, str | bool] | str | bool, default None
         Left border. See border_top
-    \*\*kwargs:
+    **kwargs :
         Remaining kwargs will be applied to cell_style
 
     """

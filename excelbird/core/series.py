@@ -274,51 +274,51 @@ class Col(_Series):
 
     Parameters
     ----------
-    \*args: *Any*
+    *args: Any
         Children must be (or resolve to) Cells. ``Gap`` and ``Item`` will be interpreted
         as Cell.
-    children: *list, default None*
+    children : list, default None
         Will be combined with args
-    id: *str, default None*
+    id : str, default None
         Unique identifier to store globally so that this element can be referenced
         elsewhere in the layout without being assigned to a variable
-    header: *str, default None*
+    header : str, default None
         Unique identifier to be inserted as a Cell at position 0 at write time. Headers are
         stored globally, and can be referenced elsewhere in the layout just like ids. Headers are
         ignored during expression evaluation, so for instance, `col2 = col1 + row1`, where col1 and
         row1 each have headers, will return a Col with no header, whose children each reference an
         element in col1 and row1.
-    sep: *Gap | bool | int | dict, default None*
+    sep : Gap | bool | int | dict, default None
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
         ``Gap(1, **sep)`` will be used.
-    background_color: *str, default None*
+    background_color : str, default None
         Hex code for background color. Will be applied to any Gap child who hasn't specified its own
         fill_color.
-    cell_style: *dict, default None*
+    cell_style : dict, default None
         Each key/value will be used to set an attribute on each child Cell (header excluded)
         only if the respective attribute has not already been set on the child Cell (its value is None).
         This mimics HTML/CSS behavior, where styling declared at the parent level is passed down
         to children, but each child can override the parent.
-    header_style: *dict, default None*
+    header_style : dict, default None
         Just like cell_style, but for the header only. Ignored if header is None.
-    border: *list[tuple | str | bool] | tuple[str | bool, str | bool] | str | bool, default None*
+    border : list[tuple | str | bool] | tuple[str | bool, str | bool] | str | bool, default None
         Syntax inspired by CSS. A non-list value will be applied to all 4 sides. If list,
         length can be 2, 3, or 4 elements. Order is [top, right, bottom, left]. If length 2,
         apply the first element to top and bottom border, and apply the second element to right and left.
         To apply border to children instead, use cell_style.
-    border_top: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_top : tuple[str | bool, str | bool] | str | bool, default None
         Top border. If True, a thin black border is used. If string (6 char hex code),
         use the default weight and apply the specified color. If string (valid weight name),
         use the default color and apply the specified weight. If tuple, apply the first
         element as weight, and second element as color.
-    border_right: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_right : tuple[str | bool, str | bool] | str | bool, default None
         Right border. See border_top
-    border_bottom: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_bottom : tuple[str | bool, str | bool] | str | bool, default None
         Bottom border. See border_top
-    border_left: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_left : tuple[str | bool, str | bool] | str | bool, default None
         Left border. See border_top
-    \*\*kwargs:
+    **kwargs:
         Remaining kwargs will be applied to cell_style
 
     """

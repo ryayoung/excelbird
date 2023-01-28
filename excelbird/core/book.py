@@ -55,40 +55,41 @@ class Book(ListIndexableById):
 
     Parameters
     ----------
-    *args: `Any`
+    *args: Any
         Book should take Sheet or Gap, but can take any other excelbird layout element,
         or values which are valid for constructing another layout element, such as int,
         str, list, pd.DataFrame, etc. Any element which isn't a Sheet or Gap will be placed
         in its own Sheet. 1 or 2 dimensional vectors that aren't excelbird layout types,
         such as list, pd.Series, pd.DataFrame, will be converted to Col or Frame respectively.
         Item converts to Sheet.
-    children: *list, default None*
+    children : list, default None
         Will be combined with args
-    path: *str, default None*
+    path : str, default None
         Path to write Book. Can be omitted and passed to ``.write()`` instead
-    auto_open: *bool, default False*
+    auto_open : bool, default False
         Attempt to automatically open after calling ``.write()``. If a file with the same name
         is already open, it will be closed first. Requires dependency, xlwings
-    sep: *Gap | bool | int | dict, default None*
+    sep : Gap or bool or int or dict, default None
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of ``Gap(1)`` is used. If int, ``Gap(sep)`` will be used. If a dict,
         ``Gap(1, **sep)`` will be used.
-    tab_color: *str, default None*
+    tab_color : str, default None
         Applied to each child Sheet
-    end_gap: *bool | int | dict | Gap, default None*
+    end_gap : bool or int or dict or Gap, default None
         Applied to each child Sheet
-    isolate: *bool, default None*
+    isolate : bool, default None
         Applied to each child Sheet
-    zoom: *int, default None*
+    zoom : int, default None
         Applied to each child Sheet
-    cell_style: *dict, default None*
+    cell_style : dict, default None
         Applied to each child Sheet
-    header_style: *dict, default None*
+    header_style : dict, default None
         Applied to each child Sheet
-    table_style: *dict | bool, default None*
+    table_style : dict or bool, default None
         Applied to each child Sheet
-    **kwargs:
+    **kwargs :
         Remaining keyword arguments applied to ``cell_style``, to be passed down to children
+
     """
 
     _dimensions = -1

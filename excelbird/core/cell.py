@@ -55,97 +55,97 @@ class Cell(HasId, HasBorder, CanDoMath):
     Parameters
     ----------
 
-    value: *str | int | float, default None*
+    value : str or int or float, default None
         Value to display. If None, the Cell's styling will NOT be rendered. To display an empty
         cell with styling, pass an empty string as a value.
         This attribute will temporarily be None if a Cell references other Cells in an expression.
         For instance, if `cell3 = cell1 + cell2`, cell3's value will be None, until the parent
         book's .write() is called and cell1 and cell2's locations have been determined.
-    dropdown: *list | Cell | Col | Row, default None*
+    dropdown : list or Cell or Col or Row, default None
         Apply data validation for the cell that offers a dropdown list of values to pick from. Pass
         a list of options, or a Cell, Col, or Row.
-    id: *str, default None*
+    id : str, default None
         Unique identifier to store globally so that this element can be referenced
         elsewhere in the layout without being assigned to a variable
-    align_x: *str, default None*
+    align_x : str, default None
         Horizontal alignment. Options: 'center', 'right', 'left'
-    align_y: *str, default None*
+    align_y : str, default None
         Vertical alignment. Options: 'top', 'center', 'bottom'
-    indent: *int | float, default None*
+    indent : int or float, default None
         Indent the cell's value. Indentation direction will depend on horizontal alignment, so if
         align_x='right', the indentation will determine its distance from the right edge of the cell.
-    center: *bool, default None*
+    center : bool, default None
         Center the cell horizontally and vertically. Shorthand for setting align_x and align_y to 'center'
-    wrap: *bool, default None*
+    wrap : bool, default None
         Wrap the cell's text so that it doesn't continue outside of its boundary. As long as row_height=None
         and col_width=None, Excel will automatically resize the cell to display the full text.
-    size: *int, default None*
+    size : int, default None
         Font size
-    bold: *bool, default None*
+    bold : bool, default None
         Bold font
-    italic: *bool, default None*
+    italic : bool, default None
         Italic font
-    color: *str, default None*
+    color : str, default None
         Font color, as a hex code
-    num_fmt: *str, default None*
+    num_fmt : str, default None
         Cell value format. See the styles module for available formats
-    currency: *bool, default None*
+    currency : bool, default None
         Indicate that this Cell might contain a currency value. If value is an int or float
         and num_fmt has not been set, apply accounting format. The recommended use-case for this
         attribute is to set currency=True for a parent container once, and all of its numerical data
         will be formatted accordingly
-    ignore_format: *bool, default None*
+    ignore_format : bool, default None
         Negate any number formatting set by a parent container. This is an easier alternative to
         setting num_fmt=False, currency=False
-    fill_color: *str, default None*
+    fill_color : str, default None
         Hex code string color to fill the cell
-    auto_color_font: *bool, default None*
+    auto_color_font : bool, default None
         Sets font color to white or black, based on lightness of fill_color, so that text will be
         visible over any background. Lightness of fill_color is measured using the weighted euclidean
         norm of the rgb vector. If the resulting coefficient indicates a medium to light color, lightness
         will be re-calculated from the Luma of the rgb vector.
-    auto_shade_font: *bool, default None*
+    auto_shade_font : bool, default None
         Font color will be a lighter or darker shade of fill_color. If fill_color is dark, a lighter shade
         will be chosen as the font color, and vice versa. Lightness coefficient of fill_color is measured
         using the weighted euclidean norm of the rgb vector. If the resulting coefficient indicates a
         medium to light color, lightness will be re-calculated from the Luma of the rgb vector.
-    border: *list[tuple | str | bool] | tuple[str | bool, str | bool] | str | bool, default None*
+    border : list[tuple or str or bool] or tuple[str or bool, str or bool] or str or bool, default None
         Syntax inspired by CSS. A non-list value will be applied to all 4 sides. If list,
         length can be 2, 3, or 4 elements. Order is [top, right, bottom, left]. If length 2,
         apply the first element to top and bottom border, and apply the second element to right and left.
-    border_top: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_top : tuple[str or bool, str or bool] or str or bool, default None
         Top border. If True, a thin black border is used. If string (6 char hex code),
         use the default weight and apply the specified color. If string (valid weight name),
         use the default color and apply the specified weight. If tuple, apply the first
         element as weight, and second element as color.
-    border_right: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_right : tuple[str or bool, str or bool] or str or bool, default None
         Right border. See border_top
-    border_bottom: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_bottom : tuple[str or bool, str or bool] or str or bool, default None
         Bottom border. See border_top
-    border_left: *tuple[str | bool, str | bool] | str | bool, default None*
+    border_left : tuple[str or bool, str or bool] or str or bool, default None
         Left border. See border_top
-    col_width: *int, default None*
+    col_width : int, default None
         Column width. Format is the same as used in Excel.
-    row_height: *int, default None*
+    row_height : int, default None
         Row height. Format is the same as used in Excel.
-    autofit: *bool, default None*
+    autofit : bool, default None
         Autofit column width based on the length of the value. This is NOT as accurate as the built-in
         autofit feature in Excel. This is because we can't determine the rendered width without actually
         rendering the value in the desired font and size, and counting pixels.
-    merge: *tuple[int, int], default None*
+    merge : tuple[int, int], default None
         Merge this cell with other cells to its right or below. First element is the distance to
         merge below, and second element is the distance to merge across. For instance, `(0, 1)` will
         merge the current Cell with the one to the right. `(1,1)` will merge diagonally in a square.
         The cells being merged must have values of None. For instance, if you have a Row of multiple
         values and want the first and second elements to be merged, your code would be as follows:
         ``Row(Cell('a', merge=(0,1)), Cell(), Cell('b'), Cell('c'))`` - notice the second Cell is empty
-    cell_style: *dict, default None*
+    cell_style : dict, default None
         A dict that contains attributes to set. Priority is given to existing attributes - An attribute in
         cell_style will only be set if the Cell's attribute is currently None
-    expr: *list, default None*
+    expr : list, default None
         Stores the binary tree of an expression with Cell references. For internal use only.
         Ignore unless debugging, or doing something sick.
-    func: *list, default None*
+    func : list, default None
         Stores the contents of a formula created by a Func object. For internal use only. Ignore
         unless debugging, or doing something sick.
 

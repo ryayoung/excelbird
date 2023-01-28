@@ -33,22 +33,22 @@ class Expr(CanDoMath):
 
     Parameters
     ----------
-    expr_str: *str*
+    expr_str : str
         The contents of the expression to be executed. It should look like normal python code, but instead
         of variables, use square brackets and enclose an ``id`` or ``header`` of another layout element.
         Example: ``"[some_cell_id] / ([some_column_header] + 2)"``
-    id: *str, default None*
+    id : str, default None
         Id of the resulting element once the Expr is evaluated
-    header: *str, default None*
+    header : str, default None
         Header of the resulting element once the Expr is evaluated. This will only have an effect if the
         resulting element can take a header
-    cell_style: *dict, default None*
+    cell_style : dict, default None
         To be applied to the resulting element
-    header_style: *dict, default None*
+    header_style : dict, default None
         To be applied to the resulting element
-    table_style: *dict, default None*
+    table_style : dict, default None
         To be applied to the resulting element
-    \*\*kwargs:
+    **kwargs :
         Any other keyword arguments will be set as attributes on the resulting element
 
     """

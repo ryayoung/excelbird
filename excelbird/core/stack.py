@@ -366,63 +366,64 @@ class Stack(_Stack):
 
     Parameters
     ----------
-    \*args: `Any`
+    *args: Any
         Can take any layout element (besides Book or Sheet), or any value that
         can be used to construct a layout element. Stack is the only layout element
         that can store other instances of itself as children
-    children: *list, default None*
+    children : list, default None
         Will be combined with args
-    id: *str, default None*
+    id : str, default None
         Unique identifier to store globally so that this element can be referenced
         elsewhere in the layout without being assigned to a variable
-    sep: *Gap | bool | int | dict, default None*
+    sep : Gap or bool or int or dict, default None
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
         ``Gap(1, **sep)`` will be used.
-    background_color: *str, default None*
+    background_color : str, default None
         Hex code for background_color. Will be applied to fill_color of padding, any Gap
         child who hasn't specified its own fill_color, and to any child Stack/VStack's margins.
         Will also be passed down to any child (Cell excluded) who hasn't specified its own
         background_color.
-    schema: *Schema, default None*
+    schema : Schema, default None
         Applied to each child who takes schema
-    cell_style: *dict, default None*
+    cell_style : dict, default None
         Applied to each child who has cell_style
-    header_style: *dict, default None*
+    header_style : dict, default None
         Applied to each child who has header_style
-    table_style: *dict | bool, default None*
+    table_style : dict or bool, default None
         Applied to each child who has table_style
-    margin: *int | list[int], default None*
+    margin : int or list[int], default None
         Margin, like padding, will apply space around the element. Unlike padding, margin space
         will NOT inherit any of the element's styling. It will, however, be filled with the
         parent container's background_color, if present. Syntax inspired by CSS. An int,
         if passed, will be applied to all 4 sides. If list, length can be 2, 3, or 4 elements.
         Order is [top, right, bottom, left]. If length 2, apply the first element to top and
         bottom margin, and second to right and left.
-    margin_top: *int, default None*
+    margin_top : int, default None
         Top margin, measured in number of cells
-    margin_right: *int, default None*
+    margin_right : int, default None
         Right margin, measured in number of cells
-    margin_bottom: *int, default None*
+    margin_bottom : int, default None
         Bottom marign, measured in number of cells
-    margin_left: *int, default None*
+    margin_left : int, default None
         Left margin, measured in number of cells
-    padding: *int | list[int], default None*
+    padding : int or list[int], default None
         Padding, like margin, will apply space around the element. Unlike margin, padding space
         WILL inherit the element's styling, like background_color. Syntax inspired by CSS. An int,
         if passed, will be applied to all 4 sides. If list, length can be 2, 3, or 4 elements.
         Order is [top, right, bottom, left]. If length 2, apply the first element to top and
         bottom margin, and second to right and left.
-    padding_top: *int, default None*
+    padding_top : int, default None
         Top padding, measured in number of cells
-    padding_right: *int, default None*
+    padding_right : int, default None
         Right padding, measured in number of cells
-    padding_bottom: *int, default None*
+    padding_bottom : int, default None
         Bottom padding, measured in number of cells
-    padding_left: *int, default None*
+    padding_left : int, default None
         Left padding, measured in number of cells
-    \*\*kwargs:
+    **kwargs :
         Remaining kwargs will be applied to cell_style
+
     """
     sibling_type = None  # these are set after class declaration
     elem_type = Frame

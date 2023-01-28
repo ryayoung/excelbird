@@ -57,7 +57,7 @@ intersphinx_mapping = {
 
 intersphinx_disabled_domains = ['std']
 
-numpydoc_attributes_as_param_list = False
+numpydoc_attributes_as_param_list = True
 numpydoc_class_members_toctree = False
 numpydoc_show_class_members = True
 
@@ -90,49 +90,26 @@ exclude_patterns = []
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ["_static"]
-#
-# html_css_files = [
-#     "css/getting_started.css",
-#     "css/pandas.css",
-# ]
+html_static_path = ["_static"]
+
+html_css_files = [
+    "css/getting_started.css",
+    "css/pandas.css",
+]
 
 # html_static_path = ['_static']
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-# html_theme = 'pydata_sphinx_theme'
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'pydata_sphinx_theme'
+# html_theme = 'sphinx_rtd_theme'
 
 # If false, no module index is generated.
 html_use_modindex = True
 
 # If false, no index is generated.
 # html_use_index = True
-
-html_theme_options = {
-    'display_version': True,
-    'prev_next_buttons_location': 'bottom',
-    'style_external_links': False,
-    'vcs_pageview_mode': '',
-    'style_nav_header_background': '',
-    # Toc options
-    'collapse_navigation': True,
-    'sticky_navigation': True,
-    'navigation_depth': 4,
-    'includehidden': True,
-    'titles_only': False
-}
-
-html_context = {
-    'display_github': True, # Integrate GitHub
-    'github_user': 'ryayoung', # Username
-    'github_repo': 'excelbird', # Repo name
-    'github_version': 'main', # Version
-    'conf_py_path': '/docs/source/', # Path in the checkout to the docs root
-}
-
 
 
 
