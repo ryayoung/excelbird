@@ -1,4 +1,4 @@
 Book
 =====
 
-.. autoclass:: excelbird.core.book.Book
+.. autoclass:: excelbird.Book
