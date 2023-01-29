@@ -1,3 +1,6 @@
+"""
+Cell module docstring
+"""
 # External
 import pandas as pd
 from typing import Any
@@ -217,7 +220,7 @@ class Cell(HasId, HasBorder, CanDoMath):
         self.autofit = autofit
         self.center = center
 
-        self.init_border(
+        self._init_border(
             border,
             border_top,
             border_right,

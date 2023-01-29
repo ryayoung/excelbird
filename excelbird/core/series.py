@@ -1,3 +1,6 @@
+"""
+Here is the docstring for series module
+"""
 # External
 from pandas import Series
 from typing import Iterable, Any
@@ -31,6 +34,7 @@ from excelbird.core.expression import Expr
 from excelbird.core.function import Func
 from excelbird.core.gap import Gap
 from excelbird.core.item import Item
+
 
 
 class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
@@ -86,7 +90,7 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
         self._init(children)
 
-        self.init_border(
+        self._init_border(
             border,
             border_top,
             border_right,
@@ -99,6 +103,9 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         self.header_written = False
 
     def ref(self, inherit_style: bool = False, **kwargs):
+        """
+        Ref doc
+        """
         new_elements = [
             i.ref(inherit_style=inherit_style, **kwargs)
             if not isinstance(i, Gap)
@@ -116,6 +123,14 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         return type(self)(*new_elements, **new_dict)
 
     def astype(self, other: type, **kwargs):
+        """
+        Astype doc
+
+        Parameters
+        ----------
+        other : type
+            The type we want to convert to
+        """
         elements = list(self)
         new = other(*elements)
         for key, val in self.__dict__.items():
@@ -135,6 +150,9 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         return (length,)
 
     def range(self, include_headers: bool = False):
+        """
+        Range doc
+        """
         if self.header_written is True and include_headers is False:
             first = self[1]
         else:
@@ -269,8 +287,17 @@ class Col(_Series):
     """
     A series (1-dimensional vector) that holds ``Cell`` and arranges itself vertically.
 
+    .. code-block::
+       :caption: A cool example
+
+       The output of this line starts with four spaces.
+
     * Direction: **vertical**
     * Child Type: ``Cell``
+
+    .. warning:: Warning text.
+
+    .. note:: Note text.
 
     Parameters
     ----------
@@ -288,7 +315,7 @@ class Col(_Series):
         ignored during expression evaluation, so for instance, `col2 = col1 + row1`, where col1 and
         row1 each have headers, will return a Col with no header, whose children each reference an
         element in col1 and row1.
-    sep : Gap | bool | int | dict, default None
+    sep : Gap or bool or int or dict, default None
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
         ``Gap(1, **sep)`` will be used.
@@ -302,21 +329,21 @@ class Col(_Series):
         to children, but each child can override the parent.
     header_style : dict, default None
         Just like cell_style, but for the header only. Ignored if header is None.
-    border : list[tuple | str | bool] | tuple[str | bool, str | bool] | str | bool, default None
+    border : list[tuple or str or bool] or tuple[str or bool, str or bool] or str or bool, default None
         Syntax inspired by CSS. A non-list value will be applied to all 4 sides. If list,
         length can be 2, 3, or 4 elements. Order is [top, right, bottom, left]. If length 2,
         apply the first element to top and bottom border, and apply the second element to right and left.
         To apply border to children instead, use cell_style.
-    border_top : tuple[str | bool, str | bool] | str | bool, default None
+    border_top : tuple[str or bool, str or bool] or str or bool, default None
         Top border. If True, a thin black border is used. If string (6 char hex code),
         use the default weight and apply the specified color. If string (valid weight name),
         use the default color and apply the specified weight. If tuple, apply the first
         element as weight, and second element as color.
-    border_right : tuple[str | bool, str | bool] | str | bool, default None
+    border_right : tuple[str or bool, str or bool] or str or bool, default None
         Right border. See border_top
-    border_bottom : tuple[str | bool, str | bool] | str | bool, default None
+    border_bottom : tuple[str or bool, str or bool] or str or bool, default None
         Bottom border. See border_top
-    border_left : tuple[str | bool, str | bool] | str | bool, default None
+    border_left : tuple[str or bool, str or bool] or str or bool, default None
         Left border. See border_top
     **kwargs:
         Remaining kwargs will be applied to cell_style

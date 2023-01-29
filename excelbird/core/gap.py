@@ -1,3 +1,6 @@
+"""
+Gap module docstring
+"""
 
 class Gap(int):
     """

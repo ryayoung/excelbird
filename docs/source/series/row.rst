@@ -1,0 +1,4 @@
+Row
+===
+
+.. autoclass:: excelbird.Row

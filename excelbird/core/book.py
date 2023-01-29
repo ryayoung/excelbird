@@ -1,3 +1,8 @@
+"""
+Cool stuff!
+
+
+"""
 # External
 from pandas import Series, DataFrame
 import openpyxl as xl

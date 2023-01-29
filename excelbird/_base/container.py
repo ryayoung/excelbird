@@ -15,6 +15,9 @@ class ListIndexableById(list):
         super().insert(index, new)
 
     def get(self, key, default=None) -> Any:
+        """
+        Get doc
+        """
         try:
             return self[key]
         except Exception:

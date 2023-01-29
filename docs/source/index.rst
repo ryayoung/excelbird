@@ -3,66 +3,38 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-excelbird
-=====================================
+:doc:`Getting Started </intro/main>`
+------------------------------------
 
-``pip install excelbird``
+.. grid:: 3
 
-----
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Cell
-   :hidden:
-   :titlesonly:
-
-   cell
+    .. grid-item-card:: :doc:`Installation </intro/install>`
+    .. grid-item-card:: :doc:`Layout Tree </intro/layout>`
+    .. grid-item-card:: :doc:`Python Expressions </intro/expression>`
 
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Series
-   :hidden:
-   :titlesonly:
+Layout Elements
+----------------
 
-   series
+.. grid:: 3
 
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Frame
-   :hidden:
-   :titlesonly:
-
-   frame
+    .. grid-item-card:: :doc:`Cell </cell/main>`
+    .. grid-item-card:: :doc:`Series </series/main>`
+    .. grid-item-card:: :doc:`Frame </frame/main>`
+    .. grid-item-card:: :doc:`Stack </stack/main>`
+    .. grid-item-card:: :doc:`Workbook </workbook/main>`
 
 
-.. toctree::
-   :maxdepth: 1
-   :caption: Stack
-   :hidden:
-   :titlesonly:
+Dynamic Elements
+----------------
 
-   stack
+.. grid:: 2
+
+    .. grid-item-card:: :doc:`Expr </expr/main>`
+    .. grid-item-card:: :doc:`Func </func/main>`
+    .. grid-item-card:: :doc:`Gap </gap/main>`
+    .. grid-item-card:: :doc:`Item <item>`
 
 
 .. toctree::
-   :maxdepth: 1
-   :caption: Workbook
-   :hidden:
-   :titlesonly:
-
-   sheet
-   book
-
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Special Types
-   :hidden:
-   :titlesonly:
-
-   expr
-   func
-   gap
-   item
+   api

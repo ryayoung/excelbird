@@ -1,10 +1,10 @@
 Item
 ======
 
-.. autoclass:: excelbird.core.item.Item
+.. _item_main:
 
-.. autoclass:: excelbird.core.item.I
+.. autoclass:: excelbird.Item
+
+.. autoclass:: excelbird.I
    :no-members:
    :no-inherited-members:
-
-..

@@ -1,5 +1,4 @@
 # External
-from pandas import Series, DataFrame
 from typing import Any
 
 # Internal main
@@ -11,8 +10,6 @@ from excelbird._utils.util import (
 )
 from excelbird._utils.argument_parsing import (
     combine_args_and_children_to_list,
-    move_dict_args_to_other_dict,
-    convert_all_to_type,
     move_remaining_kwargs_to_dict,
 )
 from excelbird._utils.pass_attributes import (
@@ -20,7 +17,6 @@ from excelbird._utils.pass_attributes import (
 )
 # Internal core
 from excelbird.core.gap import Gap
-from excelbird.core.item import Item
 from excelbird.core.cell import Cell
 from excelbird.core.series import Col, Row
 from excelbird.core.frame import Frame, VFrame

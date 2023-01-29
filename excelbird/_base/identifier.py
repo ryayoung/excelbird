@@ -14,9 +14,9 @@ class HasId:
 
     @id.setter
     def id(self, new):
-        self.set_id(new)
+        self._set_id(new)
 
-    def set_id(self, new):
+    def _set_id(self, new):
         if new is not None:
             if not isinstance(new, str):
                 raise ValueError(f"Invalid id, `{new}`. Ids must be strings.")
@@ -41,9 +41,9 @@ class HasHeader:
 
     @header.setter
     def header(self, new):
-        self.set_header(new)
+        self._set_header(new)
 
-    def set_header(self, new):
+    def _set_header(self, new):
         if new is not None:
             if not isinstance(new, str):
                 raise ValueError(f"Invalid header, `{new}`. Headers must be strings.")

@@ -117,7 +117,7 @@ class HasBorder:
         "slantDashDot",
     )
 
-    def init_border(self, border, top, right, bottom, left) -> None:
+    def _init_border(self, border, top, right, bottom, left) -> None:
         """
         Processes the full border and individual sides, where
         individual sides take priority only if they are not None
@@ -137,6 +137,9 @@ class HasBorder:
 
     @property
     def border(self) -> list:
+        """
+        A great border
+        """
         for side in ["border_top", "border_right", "border_bottom", "border_left"]:
             if not hasattr(self, side):
                 setattr(self, side, None)

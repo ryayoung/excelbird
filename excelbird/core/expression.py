@@ -1,3 +1,6 @@
+"""
+Expr docstring
+"""
 import re
 from typing import TypeVar
 

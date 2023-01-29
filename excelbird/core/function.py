@@ -1,3 +1,6 @@
+"""
+Func docstring
+"""
 from excelbird.core.expression import Expr
 from excelbird._base.math import CanDoMath
 

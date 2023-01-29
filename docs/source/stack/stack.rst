@@ -1,0 +1,4 @@
+Stack
+=================
+
+.. autoclass:: excelbird.Stack

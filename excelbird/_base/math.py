@@ -1,3 +1,75 @@
+"""
+How to do math
+
+``__rshift__(a, b)``
+    * ``a >> b`` --> ``=a:b``
+
+``__eq__(a, b)``
+    * ``a == b`` --> ``=a = b``
+
+``__ne__(a, b)``
+    * ``a != b`` --> ``=a <> b``
+
+``__lt__(a, b)`` / ``__gt__(a, b)``
+    * ``a < b`` / ``a > b`` --> ``=a < b`` / ``=a > b``
+
+``__le__(a, b)`` / ``__ge__(a, b)``
+    * ``a <= b`` / ``a >= b` --> ``=a <= b`` / ``=a >= b``
+
+``__add__(a, b)``
+    * ``a + b`` --> ``=a ^ b``
+
+``__and__(a, b)``
+    * ``a & b`` --> ``=a & b``
+    * note - Strings will be surrounded in double quotes
+
+``__sub__(a, b)``
+    * ``a - b`` --> ``=a - b``
+
+``__mul__(a, b)``
+    * ``a * b`` --> ``=a * b``
+
+``__truediv__(a, b)``
+    * ``a / b`` --> ``=a / b``
+
+``__pow__(a, b)``
+    * ``a ** b`` --> ``=a ^ b``
+
+``__xor__(a, b)``
+    * ``a ^ b`` --> ``=a ^ b``
+
+``__or__(a, b)``
+    * ``a | b`` --> ``=OR(a, b)``
+
+``__mod__(a, b)``
+    * ``a % b`` --> ``=MOD(a, b)``
+    * ``a % a`` --> ``=a%``
+    * NOTE: Passing the *same* object on both sides of the expression (i.e. ``my_var % my_var``)
+      will call excel's shorthand percent conversion and return ``=my_var%``
+
+``__round__(a, b)``
+    * ``round(a, b)`` --> ``=ROUND(a, b)``
+
+``__abs__(x)``
+    * ``abs(x)`` --> ``=ABS(x)``
+
+``__invert__(x)``
+    * ``~ x`` -> ``=NOT(x)``
+
+``__trunc__(x)``
+    * ``math.trunc(x)`` -> ``=TRUNC(x)``
+
+``__floor__(x)``
+    * ``math.floor(x)`` -> ``=FLOOR(x, 1)``
+
+``__ceil__(x)``
+    * ``math.ceil(x)`` -> ``=CEILING(x, 1)``
+
+
+
+
+
+"""
 from typing import Any
 from pandas import Series, DataFrame
 
@@ -21,6 +93,7 @@ func_error = ValueError(
     "until all of its referenecs are resolved. Simply assign this func an `id` or `header` "
     "(which will be applied to its returned element) and then reference that future element in your Expr."
 )
+
 
 def elem_math(a: Any, b: Any, func, sign: str) -> Any:
     from excelbird.core.cell import Cell
@@ -110,6 +183,17 @@ def elem_math(a: Any, b: Any, func, sign: str) -> Any:
 
 class CanDoMath:
 
+    def _space_sign(self, sign: str) -> str:
+        space = Globals.expression_sign_spacing
+        return (space * " ") + sign + (space * " ")
+
+    def to_func(self, name: str, extra_param: Any = None):
+        from excelbird.core.function import Func
+        start = name.upper() + "("
+        if extra_param is None:
+            return Func(start, self, ")")
+        return Func(start, self, ", ", extra_param, ")")
+
     def __neg__(self):
         from excelbird.core.cell import Cell
         from excelbird.core.function import Func
@@ -142,69 +226,125 @@ class CanDoMath:
             "Internal developer error. Can't find dimensions of CanDoMath object"
         )
 
-    def space_sign(self, sign: str) -> str:
-        space = Globals.expression_sign_spacing
-        return (space * " ") + sign + (space * " ")
+    def __mod__(self, other):
+        if self is not other:
+            return self.to_func("MOD", other)
+
+        from excelbird.core.cell import Cell
+        from excelbird.core.function import Func
+        from excelbird.core.expression import Expr
+        res = self
+        cls = type(res)
+        dim = get_dimensions(res)
+
+        if isinstance(res, Expr):
+            try:
+                res = res._eval()
+                dim = get_dimensions(res)
+            except Exception:
+                raise expr_error
+
+        if isinstance(res, Func):
+            try:
+                res = res._get_function()
+                dim = get_dimensions(res)
+            except Exception:
+                raise func_error
+
+        if dim == 0:
+            return Cell(expr=[res, "%"])
+        
+        if dim > 0:
+            return cls(*[elem % elem for elem in res])
+
+        assert False, (
+            "Internal developer error. Can't find dimensions of CanDoMath object"
+        )
+
+    def __round__(self, amount):
+        return self.to_func("ROUND", amount)
+
+    def __abs__(self):
+        return self.to_func("ABS")
+
+    def __invert__(self):
+        return self.to_func("NOT")
+
+    def __floor__(self):
+        return self.to_func("FLOOR", 1)
+
+    def __ceil__(self):
+        return self.to_func("CEILING", 1)
+
+    def __trunc__(self):
+        return self.to_func("TRUNC")
+
+    def __or__(self, other):
+        return self.to_func("OR", other)
+
+    def __ror__(self, other):
+        from excelbird.core.function import Func
+        return Func("OR(", other, ", ", self, ")")
 
     def __eq__(self, other):
-        return elem_math(self, other, lambda a,b: a == b, self.space_sign("="))
+        return elem_math(self, other, lambda a,b: a == b, self._space_sign("="))
 
     def __ne__(self, other):
-        return elem_math(self, other, lambda a,b: a != b, self.space_sign("<>"))
+        return elem_math(self, other, lambda a,b: a != b, self._space_sign("<>"))
 
     def __lt__(self, other):
-        return elem_math(self, other, lambda a,b: a < b, self.space_sign("<"))
+        return elem_math(self, other, lambda a,b: a < b, self._space_sign("<"))
 
     def __gt__(self, other):
-        return elem_math(self, other, lambda a,b: a > b, self.space_sign(">"))
+        return elem_math(self, other, lambda a,b: a > b, self._space_sign(">"))
 
     def __le__(self, other):
-        return elem_math(self, other, lambda a,b: a <= b, self.space_sign("<="))
+        return elem_math(self, other, lambda a,b: a <= b, self._space_sign("<="))
 
     def __ge__(self, other):
-        return elem_math(self, other, lambda a,b: a >= b, self.space_sign(">="))
+        return elem_math(self, other, lambda a,b: a >= b, self._space_sign(">="))
 
 
     def __add__(self, other):
-        return elem_math(self, other, lambda a,b: a + b, self.space_sign("+"))
+        return elem_math(self, other, lambda a,b: a + b, self._space_sign("+"))
 
     def __radd__(self, other):
-        return elem_math(other, self, lambda a,b: a + b, self.space_sign("+"))
+        return elem_math(other, self, lambda a,b: a + b, self._space_sign("+"))
 
 
     def __sub__(self, other):
-        return elem_math(self, other, lambda a,b: a - b, self.space_sign("-"))
+        return elem_math(self, other, lambda a,b: a - b, self._space_sign("-"))
 
     def __rsub__(self, other):
-        return elem_math(other, self, lambda a,b: a - b, self.space_sign("-"))
+        return elem_math(other, self, lambda a,b: a - b, self._space_sign("-"))
 
 
     def __mul__(self, other):
-        return elem_math(self, other, lambda a,b: a * b, self.space_sign("*"))
+        return elem_math(self, other, lambda a,b: a * b, self._space_sign("*"))
 
     def __rmul__(self, other):
-        return elem_math(other, self, lambda a,b: a * b, self.space_sign("*"))
+        return elem_math(other, self, lambda a,b: a * b, self._space_sign("*"))
 
 
     def __truediv__(self, other):
-        return elem_math(self, other, lambda a,b: a / b, self.space_sign("/"))
+        return elem_math(self, other, lambda a,b: a / b, self._space_sign("/"))
 
     def __rtruediv__(self, other):
-        return elem_math(other, self, lambda a,b: a / b, self.space_sign("/"))
+        return elem_math(other, self, lambda a,b: a / b, self._space_sign("/"))
 
 
     def __xor__(self, other):
-        return elem_math(self, other, lambda a,b: a ^ b, self.space_sign("^"))
+        return elem_math(self, other, lambda a,b: a ^ b, self._space_sign("^"))
 
     def __rxor__(self, other):
-        return elem_math(other, self, lambda a,b: a ^ b, self.space_sign("^"))
+        return elem_math(other, self, lambda a,b: a ^ b, self._space_sign("^"))
 
 
     def __pow__(self, other):
-        return elem_math(self, other, lambda a,b: a ^ b, self.space_sign("^"))
+        return elem_math(self, other, lambda a,b: a ^ b, self._space_sign("^"))
 
     def __rpow__(self, other):
-        return elem_math(other, self, lambda a,b: a ^ b, self.space_sign("^"))
+        return elem_math(other, self, lambda a,b: a ^ b, self._space_sign("^"))
 
 
     def __rshift__(self, other):
@@ -218,10 +358,10 @@ class CanDoMath:
         if isinstance(other, str):
             if not other.endswith('"') and not other.startswith('"'):
                 other = f'"{other}"'
-        return elem_math(self, other, lambda a,b: a & b, self.space_sign("&"))
+        return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))
 
     def __rand__(self, other):
         if isinstance(other, str):
             if not other.endswith('"') and not other.startswith('"'):
                 other = f'"{other}"'
-        return elem_math(self, other, lambda a,b: a & b, self.space_sign("&"))
+        return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))

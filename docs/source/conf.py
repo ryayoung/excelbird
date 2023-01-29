@@ -19,21 +19,12 @@ release = '0.0.5'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-# autodoc_default_options = {
-#     'members': True,
-#     'undoc-members': True,
-#     'member-order': 'bysource',
-#     'inherited-members': 'list, int',
-# }
-
-
-
-
 extensions = [
     'numpydoc',
     'sphinx_copybutton',
-    'sphinx_panels',
+    # 'sphinx_panels',
     'sphinx_toggleprompt',
+    'sphinx_design',
     'sphinx.ext.duration',
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
@@ -57,26 +48,21 @@ intersphinx_mapping = {
 
 intersphinx_disabled_domains = ['std']
 
+autodoc_default_options = {
+    # 'member-order': 'bysource',
+    # 'undoc-members': True,
+    'exclude-members': (
+        'append, clear, copy, count, pop, remove, reverse, sort, extend, index, insert, '
+        'from_bytes, to_bytes, conjugate, bit_length, bit_count, sibling_type, elem_type, '
+        'as_integer_ratio, border, shape, header, id, height, width, __weakref__'
+    )
+}
+
 numpydoc_attributes_as_param_list = True
 numpydoc_class_members_toctree = False
-numpydoc_show_class_members = True
-
-numpydoc_show_inherited_class_members = False
-# numpydoc_show_inherited_class_members = {
-#     'excelbird.core.gap.Gap': False,
-#     'excelbird.core.series.Col': False,
-# }
-
-# autodoc_default_options = {
-#     'members': True,
-#     'undoc-members': True,
-#     'member-order': 'bysource',
-#     'inherited-members': 'list, int',
-# }
-
-# sphinx-panels shouldn't add bootstrap css since the pydata-sphinx-theme
-# already loads it
-panels_add_bootstrap_css = False
+# numpydoc_show_class_members = True
+#
+# numpydoc_show_inherited_class_members = False
 
 # https://sphinx-toggleprompt.readthedocs.io/en/stable/#offset
 toggleprompt_offset_right = 35
@@ -93,38 +79,41 @@ exclude_patterns = []
 html_static_path = ["_static"]
 
 html_css_files = [
-    "css/getting_started.css",
-    "css/pandas.css",
+    # "css/getting_started.css",
+    # "css/pandas.css",
+    # "css/numpy.css",
+    "css/test.css",
 ]
-
-# html_static_path = ['_static']
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'pydata_sphinx_theme'
-# html_theme = 'sphinx_rtd_theme'
 
 # If false, no module index is generated.
+html_title = "excelbird"
 html_use_modindex = True
+html_context = dict(
+    default_mode = "light",
+    github_user = "ryayoung",
+    github_repo = "excelbird",
+    github_version = "main",
+    doc_path = "docs/source/"
+)
 
 # If false, no index is generated.
 # html_use_index = True
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+html_theme_options = dict(
+    # navigation_depth = 3,
+    # show_nav_level = 3,
+    github_url = "https://github.com/ryayoung/excelbird",
+    # collapse_navigation = True,
+    use_edit_page_button = True,
+    show_toc_level = 2,
+    # Add light/dark mode and documentation version switcher:
+    # "navbar_end": ["theme-switcher", "version-switcher", "navbar-icon-links"],
+)
 
 
 

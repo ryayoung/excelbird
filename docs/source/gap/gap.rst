@@ -1,0 +1,4 @@
+Gap
+======
+
+.. autoclass:: excelbird.Gap

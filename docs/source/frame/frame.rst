@@ -1,0 +1,4 @@
+Frame
+================
+
+.. autoclass:: excelbird.Frame

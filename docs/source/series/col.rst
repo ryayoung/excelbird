@@ -1,0 +1,4 @@
+Col
+===
+
+.. autoclass:: excelbird.Col

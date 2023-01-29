@@ -1,3 +1,6 @@
+"""
+Stack module docstring
+"""
 # External
 from pandas import Series, DataFrame
 from typing import Any

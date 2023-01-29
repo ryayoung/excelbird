@@ -1,3 +1,6 @@
+"""
+Frame module docstring
+"""
 # External
 from pandas import Series, DataFrame, concat
 from typing import Any, Iterable
@@ -100,7 +103,7 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
 
         self._init(children)
 
-        self.init_border(
+        self._init_border(
             border,
             border_top,
             border_right,
@@ -299,7 +302,7 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
 
 
 class Frame(_Frame):
-    """
+    __doc__ = """
     A 2-dimensional vector that holds 1-dimensional vectors. Frame holds Col, and arranges its
     children horizontally. VFrame holds Row, and arranges its children vertically. Only Frame
     can be formatted as an Excel table.
@@ -586,3 +589,5 @@ class VFrame(_Frame):
 
 VFrame.sibling_type = Frame
 Frame.sibling_type = VFrame
+
+VFrame.__doc__ = Frame.__doc__
