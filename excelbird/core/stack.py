@@ -1,6 +1,7 @@
 """
-Stack module docstring
+Detailed documentation and code examples coming soon.
 """
+from __future__ import annotations
 # External
 from pandas import Series, DataFrame
 from typing import Any
@@ -26,7 +27,6 @@ from excelbird._utils.pass_attributes import (
 )
 from excelbird._utils.argument_parsing import (
     combine_args_and_children_to_list,
-    move_dict_args_to_other_dict,
     convert_all_to_type,
     move_remaining_kwargs_to_dict,
 )
@@ -42,6 +42,74 @@ from excelbird.core.expression import Expr
 
 
 class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
+    _doc_primary_summary = """
+    A general container that can hold any element, *including itself*. Offers unique spatial styling
+    features, like margin and padding, described below.
+    """
+    _doc_params = """
+    .. note:: Stacks *cannot* be :ref:`used in a python expression <expression_main>`, or included in a :class:`Func`. However, you can still call :meth:`self.ref()` to make an exact reference to its cells.
+
+    Parameters
+    ----------
+    *args : Union[Stack, VStack, Frame, VFrame, Col, Row, Cell, list, tuple, str, int, float, pd.Series, pd.DataFrame, np.ndarray, Gap, Expr, Func, set]
+        Can take any layout element (besides Book or Sheet), or any value that
+        can be used to construct a layout element. Stack is the only layout element
+        that can store other instances of itself as children
+    children : list, optional
+        Will be combined with args
+    id : str, optional
+        Unique identifier to store globally so that this element can be referenced
+        elsewhere in the layout without being assigned to a variable
+    sep : Gap or bool or int or dict, optional
+        A sep in any excelbird layout element inserts a Gap between each of its children.
+        If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
+        ``Gap(1, **sep)`` will be used.
+    background_color : str, optional
+        Hex code for background_color. Will be applied to fill_color of padding, any Gap
+        child who hasn't specified its own fill_color, and to any child Stack/VStack's margins.
+        Will also be passed down to any child (Cell excluded) who hasn't specified its own
+        background_color.
+    schema : Schema, optional
+        Applied to each child who takes schema
+    cell_style : dict, optional
+        Applied to each child who has cell_style
+    header_style : dict, optional
+        Applied to each child who has header_style
+    table_style : dict or bool, optional
+        Applied to each child who has table_style
+    margin : int or list[int], optional
+        Margin, like padding, will apply space around the element. Unlike padding, margin space
+        will NOT inherit any of the element's styling. It will, however, be filled with the
+        parent container's background_color, if present. Syntax inspired by CSS. An int,
+        if passed, will be applied to all 4 sides. If list, length can be 2, 3, or 4 elements.
+        Order is [top, right, bottom, left]. If length 2, apply the first element to top and
+        bottom margin, and second to right and left.
+    margin_top : int, optional
+        Top margin, measured in number of cells
+    margin_right : int, optional
+        Right margin, measured in number of cells
+    margin_bottom : int, optional
+        Bottom marign, measured in number of cells
+    margin_left : int, optional
+        Left margin, measured in number of cells
+    padding : int or list[int], optional
+        Padding, like margin, will apply space around the element. Unlike margin, padding space
+        WILL inherit the element's styling, like background_color. Syntax inspired by CSS. An int,
+        if passed, will be applied to all 4 sides. If list, length can be 2, 3, or 4 elements.
+        Order is [top, right, bottom, left]. If length 2, apply the first element to top and
+        bottom margin, and second to right and left.
+    padding_top : int, optional
+        Top padding, measured in number of cells
+    padding_right : int, optional
+        Right padding, measured in number of cells
+    padding_bottom : int, optional
+        Bottom padding, measured in number of cells
+    padding_left : int, optional
+        Left padding, measured in number of cells
+    **kwargs : Any
+        Remaining kwargs will be applied to cell_style
+
+    """
 
     sibling_type = None
     elem_type = None
@@ -103,14 +171,14 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
 
         self._init(children)
 
-        self.init_margin(
+        self._init_margin(
             margin,
             margin_top,
             margin_right,
             margin_bottom,
             margin_left,
         )
-        self.init_padding(
+        self._init_padding(
             padding,
             padding_top,
             padding_right,
@@ -123,6 +191,31 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
 
 
     def ref(self, inherit_style: bool = False, **kwargs):
+        """
+        Get a new object with cell references to those in the caller.
+        This assumes that **both** the calling object
+        and the returned object will be placed in the workbook.
+
+        Parameters
+        ----------
+        inherit_style : bool, default False
+            Copy the caller's style to the returned object.
+
+        Returns
+        -------
+        :class:`Stack <excelbird.Stack>` or :class:`VStack <excelbird.VStack>`
+            Self type
+
+        Notes
+        -----
+
+        .. note::
+
+            Children's ``header`` attributes are stylistic attributes, and therefore will **not** be
+            passed to the returned object's children unless ``inherit_style=True``. And, if style
+            is inherited, headers will be copied over to the children, instead of cell references to them.
+
+        """
         new_elements = [
             i.ref(inherit_style=inherit_style, **kwargs)
             if not isinstance(i, Gap)
@@ -139,12 +232,43 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
                     new_dict[key] = val
         return type(self)(*new_elements, **new_dict)
 
-    def astype(self, other: type, **kwargs):
+    def transpose(self, other: type, **kwargs):
+        """
+        Convert to sibling type. Places current children into the returned object,
+        without copying or making cell references to them.
+
+        Parameters
+        ----------
+        **kwargs : Any
+            Keyword arguments to apply as attributes to the new object.
+
+        Returns
+        -------
+        :class:`Stack <excelbird.Stack>` or :class:`VStack <excelbird.VStack>`
+            The opposite to self's type. Try ``type(my_obj).sibling_type``
+
+        Notes
+        -----
+        **Assumes that the caller won't be placed in the layout**. Do not
+        place both the calling object and returned object in the layout, since
+        they both contain the same children.
+
+        .. code-block::
+
+            # 'current' must not be placed in the workbook.
+            new = current.transpose()
+
+        To include the caller and make cell references to it, get a reference
+        first:
+
+        .. code-block::
+
+            new = current.ref().transpose()
+
+        """
         elements = list(self)
         new = other(*elements)
         for key, val in self.__dict__.items():
-            if key == "_header":
-                key = "header"
             if key != "_id":
                 setattr(new, key, val)
         for key, val in kwargs.items():
@@ -360,76 +484,18 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
 
 
 class Stack(_Stack):
-    """
-    A general container that can hold any element, including itself. Offers unique spatial
-    styling features, like margin and padding, described below.
-
+    _doc_custom_summary = """
     * Direction: **horizontal**
-    * Child Type: **Any** (excluding ``Book`` and ``Sheet``)
-
-    Parameters
-    ----------
-    *args: Any
-        Can take any layout element (besides Book or Sheet), or any value that
-        can be used to construct a layout element. Stack is the only layout element
-        that can store other instances of itself as children
-    children : list, default None
-        Will be combined with args
-    id : str, default None
-        Unique identifier to store globally so that this element can be referenced
-        elsewhere in the layout without being assigned to a variable
-    sep : Gap or bool or int or dict, default None
-        A sep in any excelbird layout element inserts a Gap between each of its children.
-        If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
-        ``Gap(1, **sep)`` will be used.
-    background_color : str, default None
-        Hex code for background_color. Will be applied to fill_color of padding, any Gap
-        child who hasn't specified its own fill_color, and to any child Stack/VStack's margins.
-        Will also be passed down to any child (Cell excluded) who hasn't specified its own
-        background_color.
-    schema : Schema, default None
-        Applied to each child who takes schema
-    cell_style : dict, default None
-        Applied to each child who has cell_style
-    header_style : dict, default None
-        Applied to each child who has header_style
-    table_style : dict or bool, default None
-        Applied to each child who has table_style
-    margin : int or list[int], default None
-        Margin, like padding, will apply space around the element. Unlike padding, margin space
-        will NOT inherit any of the element's styling. It will, however, be filled with the
-        parent container's background_color, if present. Syntax inspired by CSS. An int,
-        if passed, will be applied to all 4 sides. If list, length can be 2, 3, or 4 elements.
-        Order is [top, right, bottom, left]. If length 2, apply the first element to top and
-        bottom margin, and second to right and left.
-    margin_top : int, default None
-        Top margin, measured in number of cells
-    margin_right : int, default None
-        Right margin, measured in number of cells
-    margin_bottom : int, default None
-        Bottom marign, measured in number of cells
-    margin_left : int, default None
-        Left margin, measured in number of cells
-    padding : int or list[int], default None
-        Padding, like margin, will apply space around the element. Unlike margin, padding space
-        WILL inherit the element's styling, like background_color. Syntax inspired by CSS. An int,
-        if passed, will be applied to all 4 sides. If list, length can be 2, 3, or 4 elements.
-        Order is [top, right, bottom, left]. If length 2, apply the first element to top and
-        bottom margin, and second to right and left.
-    padding_top : int, default None
-        Top padding, measured in number of cells
-    padding_right : int, default None
-        Right padding, measured in number of cells
-    padding_bottom : int, default None
-        Bottom padding, measured in number of cells
-    padding_left : int, default None
-        Left padding, measured in number of cells
-    **kwargs :
-        Remaining kwargs will be applied to cell_style
-
+    * Child Type: :class:`Stack`, :class:`VStack`, :class:`Frame`, :class:`VFrame`, :class:`Col`, :class:`Row`, :class:`Cell`
     """
     sibling_type = None  # these are set after class declaration
     elem_type = Frame
+
+    def transpose(self, **kwargs) -> VStack:
+        return super().transpose(**kwargs)
+
+    def ref(self, inherit_style: bool = False, **kwargs) -> Stack:
+        return super().ref(inherit_style, **kwargs)
 
     @property
     def width(self) -> int:
@@ -454,15 +520,18 @@ class Stack(_Stack):
 
 
 class VStack(_Stack):
-    """
-    The vertically-arranged sibling to ``Stack``. Otherwise functionally identical.
-
+    _doc_custom_summary = """
     * Direction: **vertical**
-    * Child Type: **Any** (excluding ``Book`` and ``Sheet``)
-
+    * Child Type: :class:`Stack`, :class:`VStack`, :class:`Frame`, :class:`VFrame`, :class:`Col`, :class:`Row`, :class:`Cell`
     """
     sibling_type = None  # these are set after class declaration
     elem_type = VFrame
+
+    def transpose(self, **kwargs) -> Stack:
+        return super().transpose(**kwargs)
+
+    def ref(self, inherit_style: bool = False, **kwargs) -> VStack:
+        return super().ref(inherit_style, **kwargs)
 
     @property
     def width(self) -> int:
@@ -488,3 +557,21 @@ class VStack(_Stack):
 
 Stack.sibling_type = VStack
 VStack.sibling_type = Stack
+
+Stack.__doc__ = f"""
+    {_Stack._doc_primary_summary}
+
+    {Stack._doc_custom_summary}
+
+    {_Stack._doc_params}
+
+    """
+
+VStack.__doc__ = f"""
+    {_Stack._doc_primary_summary}
+
+    {VStack._doc_custom_summary}
+
+    {_Stack._doc_params}
+
+    """

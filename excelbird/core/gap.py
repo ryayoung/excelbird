@@ -1,6 +1,9 @@
 """
-Gap module docstring
+Detailed documentation and code examples coming soon. For now, please use the class
+reference page below:
 """
+from __future__ import annotations
+from copy import deepcopy
 
 class Gap(int):
     """
@@ -44,8 +47,37 @@ class Gap(int):
             return ""
         return None
 
-    def ref(self):
-        return self
+    def ref(self, inherit_style: bool = False, **kwargs) -> Gap:
+        """
+        Get a copy.
+
+        `Gap` has this method because parent containers
+        will call ``.ref()`` on each of their children, passing the
+        same set of arguments. It's unlikely you'll ever want to call
+        this method on a `Gap` directly.
+
+        Parameters
+        ----------
+        inherit_style : bool, default False
+            Copy the caller's style to the returned object.
+        **kwargs : Any
+            Extra keyword arguments are set as attributes on the returned
+            object.
+
+        Returns
+        -------
+        :class:`Gap <excelbird.Gap>`
+
+        """
+        if inherit_style is False:
+            new = Gap(deepcopy(int(self)))
+        else:
+            new = deepcopy(self)
+
+        for key, val in kwargs.items():
+            new.kwargs[key] = val
+
+        return new
 
     @property
     def width(self) -> int:

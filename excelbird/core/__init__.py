@@ -12,6 +12,12 @@ from excelbird.core.merged import *
 
 """
 TODO:
+- Fix .ref() so that it can handle child elements who are item, expr, func
+- ALL elements should be subclass of XBElement, to make type checking easier.
+  ALL dynamic elements (gap, func, expr, item) should be subclass of Dynamic
+- Ids and headers declared in Expr, Func, and Item should all be placed into global
+  memory right away. This way, when Book's .write() is called, we can immediately determine
+  if there are any invalid references, without trying to go through the whole process.
 - Refactor `astype` to `to_sibling`
 - Doc examples and doctests!!
 - Store styles in dict instead of Style

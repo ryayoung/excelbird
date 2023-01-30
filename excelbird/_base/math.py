@@ -1,6 +1,4 @@
 """
-How to do math
-
 ``__rshift__(a, b)``
     * ``a >> b`` --> ``=a:b``
 
@@ -187,7 +185,7 @@ class CanDoMath:
         space = Globals.expression_sign_spacing
         return (space * " ") + sign + (space * " ")
 
-    def to_func(self, name: str, extra_param: Any = None):
+    def _to_func(self, name: str, extra_param: Any = None):
         from excelbird.core.function import Func
         start = name.upper() + "("
         if extra_param is None:
@@ -228,7 +226,7 @@ class CanDoMath:
 
     def __mod__(self, other):
         if self is not other:
-            return self.to_func("MOD", other)
+            return self._to_func("MOD", other)
 
         from excelbird.core.cell import Cell
         from excelbird.core.function import Func
@@ -262,25 +260,25 @@ class CanDoMath:
         )
 
     def __round__(self, amount):
-        return self.to_func("ROUND", amount)
+        return self._to_func("ROUND", amount)
 
     def __abs__(self):
-        return self.to_func("ABS")
+        return self._to_func("ABS")
 
     def __invert__(self):
-        return self.to_func("NOT")
+        return self._to_func("NOT")
 
     def __floor__(self):
-        return self.to_func("FLOOR", 1)
+        return self._to_func("FLOOR", 1)
 
     def __ceil__(self):
-        return self.to_func("CEILING", 1)
+        return self._to_func("CEILING", 1)
 
     def __trunc__(self):
-        return self.to_func("TRUNC")
+        return self._to_func("TRUNC")
 
     def __or__(self, other):
-        return self.to_func("OR", other)
+        return self._to_func("OR", other)
 
     def __ror__(self, other):
         from excelbird.core.function import Func

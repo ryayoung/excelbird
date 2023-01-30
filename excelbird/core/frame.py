@@ -1,8 +1,10 @@
 """
-Frame module docstring
+Detailed documentation and code examples coming soon.
 """
+from __future__ import annotations
 # External
 from pandas import Series, DataFrame, concat
+from numpy import ndarray
 from typing import Any, Iterable
 from copy import deepcopy
 import re
@@ -36,6 +38,7 @@ from excelbird._utils.validation import (
 )
 
 from excelbird.core.expression import Expr
+from excelbird.core.function import Func
 
 from excelbird.core.gap import Gap
 from excelbird.core.series import (
@@ -46,6 +49,69 @@ from excelbird.core.series import (
 
 
 class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
+    _doc_primary_summary = """
+    A 2-dimensional vector that can :ref:`be used in a python expression <expression_main>`.
+    """
+    _doc_params = """
+    Parameters
+    ----------
+    *args : Union[Col, Row, Frame, VFrame, list, tuple, pd.Series, pd.DataFrame, np.ndarray, Gap, Item, Expr, Func, set]
+        Children must be (or resolve to) a series. Frame holds Cols, and VFrame
+        holds Rows - `Gap` and `Item` will be interpreted as the respective element. Can also
+        take any value that will be resolved to one of the above types, such as a list, tuple,
+        pandas Series, etc. 2-dimensional arguments, such as pandas DataFrame, will be 'exploded'
+        inplace into separate 1-dimensional elements.
+    children : list, optional
+        Will be combined with args
+    id : str, optional
+        Unique identifier to store globally so that this element can be referenced
+        elsewhere in the layout without being assigned to a variable
+    schema : Schema, optional
+        A Schema object to use to rename child headers to desired output names at write time.
+    sep : Gap or bool or int or dict, optional
+        A sep in any excelbird layout element inserts a Gap between each of its children.
+        If True, a default of ``Gap(1)`` is used. If int, ``Gap(sep)`` will be used. If a dict,
+        ``Gap(1, **sep)`` will be used.
+    sizes : dict[str, int], optional
+        Specify the column width (or row height, if `VFrame`) for any child element by header.
+        Keys should be the header of a child element, and values should be integers representing
+        that element's size. Note: unlike most excelbird styling, this argument will override any
+        other column widths / row heights given to the children.
+    background_color : str, optional
+        Hex code for background color. Will be applied to fill_color of any Gap child who hasn't specified its own
+        fill_color. Will also be passed down to any Col/Row child who hasn't specified its own background_color.
+    fill_empty : bool, optional
+        Fill shorter children (if children vary in length) with ``Cell("")`` so that all lengths are matching,
+        and all Cells inside the child will follow the same style. If False or None, these empty spaces will instead
+        be filled with ``Gap()``, to which the child's background_color will be applied, if present.
+    cell_style : dict, optional
+        Will be applied to each child's cell_style
+    header_style : dict, optional
+        Will be applied to each child's header_style
+    table_style : dict or bool, optional
+        Format a Frame as an Excel table. (ignored for VFrame). If True, default style
+        'name="TableStyleMedium2"' is used. If dict, key 'displayName' will be used as the
+        table name, and all other key/values will be passed to openpyxl.worksheet.table.TableStyleInfo.
+    border : list[tuple or str or bool] or tuple[str or bool, str or bool] or str or bool, optional
+        Syntax inspired by CSS. A non-list value will be applied to all 4 sides. If list,
+        length can be 2, 3, or 4 elements. Order is [top, right, bottom, left]. If length 2,
+        apply the first element to top and bottom border, and apply the second element to right and left.
+        To apply border to children instead, use cell_style.
+    border_top : tuple[str or bool, str or bool] or str or bool, optional
+        Top border. If True, a thin black border is used. If string (6 char hex code),
+        use the default weight and apply the specified color. If string (valid weight name),
+        use the default color and apply the specified weight. If tuple, apply the first
+        element as weight, and second element as color.
+    border_right : tuple[str or bool, str or bool] or str or bool, optional
+        Right border. See border_top
+    border_bottom : tuple[str or bool, str or bool] or str or bool, optional
+        Bottom border. See border_top
+    border_left : tuple[str or bool, str or bool] or str or bool, optional
+        Left border. See border_top
+    **kwargs : Any
+        Remaining kwargs will be applied to cell_style
+
+    """
     _dimensions = 2
     elem_type = _Series
 
@@ -121,20 +187,50 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
         )
 
     @property
-    def headers(self) -> list:
+    def headers(self) -> list[str | None]:
+        """
+        The headers of each child. `None` will be placed at the index
+        of children who have no header, so the returned list will be of
+        the same length as self.
+
+        Returns
+        -------
+        list[str or None]
+        """
         return [i.header if hasattr(i, "_header") else None for i in self]
 
-    def range(self, include_headers: bool = False):
-
-        if self[0].header_written is True and include_headers is False:
-            first = self[0][1]
-        else:
-            first = self[0][0]
-
-        last = self[-1][-1]
-        return first >> last
-
     def ref(self, inherit_style: bool = False, **kwargs):
+        """
+        Get a new object with cell references to those in the caller.
+        This assumes that **both** the calling object
+        and the returned object will be placed in the workbook.
+
+        .. note::
+
+            Calling ``.ref()`` is **not** necessary when an object is used in
+            a python expression (i.e. ``some_cell + some_row``) and should `only`
+            be used to duplicate data across a workbook.
+
+        Parameters
+        ----------
+        inherit_style : bool, default False
+            Copy the caller's style to the returned object.
+
+        Returns
+        -------
+        :class:`Frame <excelbird.Frame>` or :class:`VFrame <excelbird.VFrame>`
+            Self type
+
+        Notes
+        -----
+
+        .. note::
+
+            Children's ``header`` attributes are stylistic attributes, and therefore will **not** be
+            passed to the returned object's children unless ``inherit_style=True``. And, if style
+            is inherited, headers will be copied over to the children, instead of cell references to them.
+
+        """
         new_elements = [
             i.ref(inherit_style=inherit_style, **kwargs)
             if not isinstance(i, Gap)
@@ -151,31 +247,103 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
                     new_dict[key] = val
         return type(self)(*new_elements, **new_dict)
 
-    def astype(self, other: type, **kwargs):
+    def transpose(self, **kwargs):
+        """
+        Convert to sibling type. Places current children into the returned object,
+        without copying or making cell references to them.
+
+        Parameters
+        ----------
+        **kwargs : Any
+            Keyword arguments to apply as attributes to the new object.
+
+        Returns
+        -------
+        :class:`Frame <excelbird.Frame>` or :class:`VFrame <excelbird.VFrame>`
+            The opposite to self's type. Try ``type(my_obj).sibling_type``
+
+        Notes
+        -----
+        **Assumes that the caller won't be placed in the layout**. Do not
+        place both the calling object and returned object in the layout, since
+        they both contain the same children.
+
+        .. code-block::
+
+            # 'current' must not be placed in the workbook.
+            new = current.transpose()
+
+        To include the caller and make cell references to it, get a reference
+        first:
+
+        .. code-block::
+
+            new = current.ref().transpose()
+
+        """
         elements = list(self)
-        new = other(*elements)
+        new = type(self).sibling_type(*elements)
         for key, val in self.__dict__.items():
-            if key == "_header":
-                key = "header"
             if key != "_id":
                 setattr(new, key, val)
         for key, val in kwargs.items():
             setattr(new, key, val)
         return new
 
+    def range(self, include_headers: bool = False):
+        """
+        Get a reference to the entire range of the frame, instead of a vector of
+        cell references.
+
+        Parameters
+        ----------
+        include_headers : bool, default False
+            If True, the header cells will be included in the range reference.
+
+        Returns
+        -------
+        :class:`Cell <excelbird.Cell>`
+        """
+
+        if getattr(self[0], 'header_written', False) is True and include_headers is False:
+            first = self[0][1]
+        else:
+            first = self[0][0]
+
+        last = self[-1][-1]
+        return first >> last
+
     def _format_args(self, args: list) -> None:
-        self._explode_all_dataframes(args)
-        convert_all_to_type(args, Series, type(self).elem_type)
+        self._explode_all_2d_iterables(args)
+        convert_all_to_type(args, (Series, tuple, ndarray), type(self).elem_type)
+        convert_all_to_type(args, list, type(self).elem_type, strict=True)
         convert_all_to_type(args, set, Expr)
         Item._resolve_all_in_container(args, type(self).elem_type)
         convert_sibling_types(self, args)
 
-    def _explode_all_dataframes(self, args: list) -> None:
+    def _explode_all_2d_iterables(self, args: list) -> None:
         for i, elem in enumerate(args):
             if isinstance(elem, DataFrame):
                 df = args.pop(i)
                 for col in reversed(df.columns):
-                    args.insert(i, type(self).elem_type(df[col]))
+                    args.insert(i, df[col])
+
+            elif isinstance(elem, type(self)):
+                frame = args.pop(i)
+                for sr in reversed(frame):
+                    args.insert(i, sr)
+
+            elif isinstance(elem, ndarray):
+                if len(elem.shape) == 2:
+                    arr2d = args.pop(i)
+                    for sr in reversed(arr2d):
+                        args.insert(i, sr)
+
+            elif type(elem) is list or isinstance(elem, tuple):
+                if all(isinstance(e, (list, tuple, ndarray, Series, Item, Gap, Expr, Func)) for e in elem):
+                    iterable2d = args.pop(i)
+                    for sr in reversed(iterable2d):
+                        args.insert(i, sr)
 
     def _resolve_background_color(self) -> None:
         for elem in self:
@@ -302,79 +470,20 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
 
 
 class Frame(_Frame):
-    __doc__ = """
-    A 2-dimensional vector that holds 1-dimensional vectors. Frame holds Col, and arranges its
-    children horizontally. VFrame holds Row, and arranges its children vertically. Only Frame
-    can be formatted as an Excel table.
 
-    Frame and VFrame can be used in a python expression with any other layout element with equal or
-    or lower number of dimensions. See the math module for further explanation.
-
+    _doc_custom_summary = """
     * Direction: **horizontal**
-    * Child Type: ``Col``
-
-    Parameters
-    ----------
-    *args: Any
-        Children must be (or resolve to) a series. Frame holds Cols, and VFrame
-        holds Rows - ``Gap`` and ``Item`` will be interpreted as the respective element. Can also
-        take any value that will be resolved to one of the above types, such as a list, tuple,
-        pandas Series, etc. 2-dimensional arguments, such as pandas DataFrame, will be 'exploded'
-        inplace into separate 1-dimensional elements.
-    children : list, default None
-        Will be combined with args
-    id : str, default None
-        Unique identifier to store globally so that this element can be referenced
-        elsewhere in the layout without being assigned to a variable
-    schema : Schema, default None
-        A Schema object to use to rename child headers to desired output names at write time.
-    sep : Gap | bool | int | dict, default None
-        A sep in any excelbird layout element inserts a Gap between each of its children.
-        If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
-        ``Gap(1, **sep)`` will be used.
-    sizes : dict[str, int], default None
-        Specify the column width (or row height, if VFrame) for any child element by header.
-        Keys should be the header of a child element, and values should be integers representing
-        that element's size. Note: unlike most excelbird styling, this argument will override any
-        other column widths / row heights given to the children.
-    background_color : str, default None
-        Hex code for background color. Will be applied to fill_color of any Gap child who hasn't specified its own
-        fill_color. Will also be passed down to any Col/Row child who hasn't specified its own background_color.
-    fill_empty : bool, default None
-        Fill shorter children (if children vary in length) with `Cell("")` so that all lengths are matching,
-        and all Cells inside the child will follow the same style. If False or None, these empty spaces will instead
-        be filled with `Gap()`, to which the child's background_color will be applied, if present.
-    cell_style : dict, default None
-        Will be applied to each child's cell_style
-    header_style : dict, default None
-        Will be applied to each child's header_style
-    table_style : dict | bool, default None
-        Format a Frame as an Excel table. (ignored for VFrame). If True, default style
-        'name="TableStyleMedium2"' is used. If dict, key 'displayName' will be used as the
-        table name, and all other key/values will be passed to openpyxl.worksheet.table.TableStyleInfo.
-    border : list[tuple | str | bool] | tuple[str | bool, str | bool] | str | bool, default None
-        Syntax inspired by CSS. A non-list value will be applied to all 4 sides. If list,
-        length can be 2, 3, or 4 elements. Order is [top, right, bottom, left]. If length 2,
-        apply the first element to top and bottom border, and apply the second element to right and left.
-        To apply border to children instead, use cell_style.
-    border_top : tuple[str | bool, str | bool] | str | bool, default None
-        Top border. If True, a thin black border is used. If string (6 char hex code),
-        use the default weight and apply the specified color. If string (valid weight name),
-        use the default color and apply the specified weight. If tuple, apply the first
-        element as weight, and second element as color.
-    border_right : tuple[str | bool, str | bool] | str | bool, default None
-        Right border. See border_top
-    border_bottom : tuple[str | bool, str | bool] | str | bool, default None
-        Bottom border. See border_top
-    border_left : tuple[str | bool, str | bool] | str | bool, default None
-        Left border. See border_top
-    **kwargs :
-        Remaining kwargs will be applied to cell_style
-
+    * Child Type: :class:`Col`
     """
 
     sibling_type = None  # these are set after class declaration
     elem_type = Col
+
+    def transpose(self, **kwargs) -> VFrame:
+        return super().transpose(**kwargs)
+
+    def ref(self, inherit_style: bool = False, **kwargs) -> Frame:
+        return super().ref(inherit_style, **kwargs)
 
     @property
     def width(self) -> int:
@@ -448,7 +557,7 @@ class Frame(_Frame):
         style = self.table_style
         cell_range = (
             self.range(include_headers=True)
-            .expr_value()
+            ._expr_value()
             .replace(self.loc.title_str, "")
         )
         ws = self.loc.ws
@@ -525,19 +634,21 @@ class Frame(_Frame):
 
 
 class VFrame(_Frame):
-    """
-
-    The vertically-arranged sibling to ``Frame``
-
-    Excel doesn't support table formatting for vertical tables
-
+    _doc_custom_summary = """
     * Direction: **vertical**
-    * Child Type: ``Row``
+    * Child Type: :class:`Row`
 
+    .. note:: Unlike :class:`Frame`, `VFrame` cannot be formatted as a table in Excel. Param ``table_style`` will be ignored.
     """
 
     sibling_type = None  # these are set after class declaration
     elem_type = Row
+
+    def transpose(self, **kwargs) -> Frame:
+        return super().transpose(**kwargs)
+
+    def ref(self, inherit_style: bool = False, **kwargs) -> VFrame:
+        return super().ref(inherit_style, **kwargs)
 
     @property
     def width(self) -> int:
@@ -591,3 +702,21 @@ VFrame.sibling_type = Frame
 Frame.sibling_type = VFrame
 
 VFrame.__doc__ = Frame.__doc__
+
+Frame.__doc__ = f"""
+    {_Frame._doc_primary_summary}
+
+    {Frame._doc_custom_summary}
+
+    {_Frame._doc_params}
+
+    """
+
+VFrame.__doc__ = f"""
+    {_Frame._doc_primary_summary}
+
+    {VFrame._doc_custom_summary}
+
+    {_Frame._doc_params}
+
+    """

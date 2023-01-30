@@ -74,7 +74,7 @@ def convert_sibling_types(instance, container: list) -> None:
     sib_type = elem_type.sibling_type
     for i, elem in enumerate(container):
         if isinstance(elem, sib_type):
-            container[i] = elem.astype(elem_type)
+            container[i] = elem.transpose()
 
 
 def move_remaining_kwargs_to_dict(kwargs: dict, to_dict: dict, safely: bool = False) -> None:

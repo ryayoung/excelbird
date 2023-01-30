@@ -1,5 +1,6 @@
 """
-Func docstring
+Detailed documentation and code examples coming soon. For now, please use the class
+reference page below:
 """
 from excelbird.core.expression import Expr
 from excelbird._base.math import CanDoMath
@@ -13,20 +14,20 @@ from excelbird._utils.argument_parsing import (
 
 class Func(CanDoMath):
     """
-    Create a formula that uses builtin Excel functions. One ``Func`` does *not* correspond
+    Create a formula that uses builtin Excel functions. One `Func` does *not* correspond
     to a single call to an Excel function, but rather to the entire formula. Therefore, you
     cannot nest ``Func`` inside one another, nor would there be any reason to.
 
     Parameters
     ----------
-    *inner: Any
+    *inner : Any
         Pass each section of the formula as positional arguments
-    res_type : type, default None
+    res_type : type, optional
         Desired return type. This is rarely needed, since often you'll be placing ``Func``
         inside a container that can only hold one type, so ``res_type`` is inferred.
         In some cases though, such as when inside a ``Stack``, or when being used in a
         math expression prior to being placed in a layout, this will need to be specified.
-    **kwargs :
+    **kwargs : Any
         Any additional keyword arguments will be passed to the constructor of the resulting
         object.
 

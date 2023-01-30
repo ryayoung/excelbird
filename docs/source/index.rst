@@ -3,37 +3,110 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-:doc:`Getting Started </intro/main>`
-------------------------------------
+Excelbird Documentation
+=======================
 
-.. grid:: 3
-
-    .. grid-item-card:: :doc:`Installation </intro/install>`
-    .. grid-item-card:: :doc:`Layout Tree </intro/layout>`
-    .. grid-item-card:: :doc:`Python Expressions </intro/expression>`
-
-
-Layout Elements
-----------------
-
-.. grid:: 3
-
-    .. grid-item-card:: :doc:`Cell </cell/main>`
-    .. grid-item-card:: :doc:`Series </series/main>`
-    .. grid-item-card:: :doc:`Frame </frame/main>`
-    .. grid-item-card:: :doc:`Stack </stack/main>`
-    .. grid-item-card:: :doc:`Workbook </workbook/main>`
-
-
-Dynamic Elements
-----------------
+.. role:: html(raw)
+    :format: html
 
 .. grid:: 2
 
-    .. grid-item-card:: :doc:`Expr </expr/main>`
-    .. grid-item-card:: :doc:`Func </func/main>`
-    .. grid-item-card:: :doc:`Gap </gap/main>`
-    .. grid-item-card:: :doc:`Item <item>`
+    .. grid-item-card::
+        :link: /intro/main
+        :link-type: doc
+
+        :doc:`Getting Started </intro/main>`
+        ^^^
+
+:html:`<h4>Layout Elements</h4>`
+
+.. grid:: 3
+
+    .. grid-item-card::
+        :link: /cell/main
+        :link-type: doc
+
+        Value
+        ^^^
+        :class:`Cell <excelbird.Cell>`
+
+    .. grid-item-card::
+        :link: /series/main
+        :link-type: doc
+
+        Series
+        ^^^
+        :class:`Col <excelbird.Col>` | :class:`Row <excelbird.Row>`
+
+
+    .. grid-item-card::
+        :link: /frame/main
+        :link-type: doc
+
+        DataFrame
+        ^^^
+        :class:`Frame <excelbird.Frame>` | :class:`VFrame <excelbird.VFrame>`
+
+.. grid:: 2
+
+    .. grid-item-card::
+        :link: /stack/main
+        :link-type: doc
+
+        Container
+        ^^^
+        :class:`Stack <excelbird.Stack>` | :class:`VStack <excelbird.VStack>`
+
+    .. grid-item-card::
+        :link: /workbook/main
+        :link-type: doc
+
+        Workbook
+        ^^^
+        :class:`Sheet <excelbird.Sheet>`, :class:`Book <excelbird.Book>`
+
+
+
+:html:`<h4>Dynamic Elements</h4>`
+
+.. grid:: 2
+
+    .. grid-item-card::
+        :link: /gap/main
+        :link-type: doc
+
+        :class:`Gap <excelbird.Gap>`
+        ^^^
+
+        Apply spacing
+
+    .. grid-item-card::
+        :link: item
+        :link-type: doc
+
+        :class:`Item <excelbird.Item>`
+        ^^^
+
+        Let the parent container decide
+
+    .. grid-item-card::
+        :link: /expr/main
+        :link-type: doc
+
+        :class:`Expr <excelbird.Expr>`
+        ^^^
+
+        Execute code on elements not assigned to variables
+
+    .. grid-item-card::
+        :link: /func/main
+        :link-type: doc
+
+        :class:`Func <excelbird.Func>`
+        ^^^
+
+        Call Excel built-in functions
+
 
 
 .. toctree::

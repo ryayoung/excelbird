@@ -16,7 +16,29 @@ class ListIndexableById(list):
 
     def get(self, key, default=None) -> Any:
         """
-        Get doc
+        Safely get an element.
+
+        Parameters
+        ----------
+        key : str or int
+            The index, ``id`` or ``header`` (if series) of a child element.
+        default : Any, default None
+            Value to return if nothing is found
+
+        Returns
+        -------
+        Any
+            Note that some dynamic elements, such as :class:`Gap` or :class:`Expr` may not
+            have been resolved to a valid child type yet.
+
+        Notes
+        -----
+
+        .. note::
+
+            Excelbird containers are all subclasses of :class:`python:list` so you
+            can access elements using square brackets the same as you would with a list.
+
         """
         try:
             return self[key]

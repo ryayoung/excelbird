@@ -1,5 +1,6 @@
 """
-Expr docstring
+Detailed documentation and code examples coming soon. For now, please use the class
+reference page below:
 """
 import re
 from typing import TypeVar
@@ -28,30 +29,48 @@ class Expr(CanDoMath):
     Pass a string containing the code to be executed. It should look like normal python code, but instead
     of variable names, use square brackets and enclose the ``id`` or ``header`` of another layout element
     that may or may not exist yet. Quote marks are *not* necessary inside the brackets. For instance,
-    * ``Expr("[some_cell_id] / ([some_column_header] + 2)", id="new_col")``
-    **Shorthand Syntax**: If you don't need to pass any keyword arguments, ``Expr`` can be more concisely
-    written as a single-element ``set``, containing the expression string:
-    * ``{"[some_cell_id] / ([some_column_header] + 2)"}``
-    This is useful when building a ``Func``, where you might list many ``Expr`` together in succession.
+
+    .. code-block::
+
+        Expr("[some_cell_id] / ([some_column_header] + 2)", id="new_col")
+
+    **Shorthand Syntax**: If you don't need to pass any keyword arguments, `Expr` can be more concisely
+    written as a single-element :class:`set`, containing the expression string:
+
+    .. code-block::
+
+        {"[some_cell_id] / [other_cell_id]"}
+
+    This is useful when building a :class:`Func`, where you might list many `Expr` together in succession.
+
+    Perhaps you only want to reference a single element, rather than execute an expression. In this
+    case, the square brackets are not needed:
+
+    .. code-block::
+
+        {"[some_cell_id]"}
+        # Can also be written as
+        {"some_cell_id"}
+
+    Again, this shorthand is most useful when building a `Func`
 
     Parameters
     ----------
     expr_str : str
         The contents of the expression to be executed. It should look like normal python code, but instead
         of variables, use square brackets and enclose an ``id`` or ``header`` of another layout element.
-        Example: ``"[some_cell_id] / ([some_column_header] + 2)"``
-    id : str, default None
+    id : str, optional
         Id of the resulting element once the Expr is evaluated
-    header : str, default None
+    header : str, optional
         Header of the resulting element once the Expr is evaluated. This will only have an effect if the
         resulting element can take a header
-    cell_style : dict, default None
+    cell_style : dict, optional
         To be applied to the resulting element
-    header_style : dict, default None
+    header_style : dict, optional
         To be applied to the resulting element
-    table_style : dict, default None
+    table_style : dict, optional
         To be applied to the resulting element
-    **kwargs :
+    **kwargs : Any
         Any other keyword arguments will be set as attributes on the resulting element
 
     """
@@ -69,23 +88,23 @@ class Expr(CanDoMath):
         **kwargs,
     ) -> None:
         if isinstance(expr_str, set):
-            expr_str = expr_str.pop()
+            expr_str = str(expr_str.pop())
+
+        if "[" not in expr_str and "]" not in expr_str:
+            expr_str = "[" + expr_str + "]"
 
         # Match group for the inner contents of a square bracket enclosure
         # that has at least one character and no brackets inside, and is NOT
         # not ONLY digits
-        # r_elem = r"\[((?:[^\[\]]|\d+)+?)\]"
         r_elem = r"\[([^\[\]]+?)\]"
-        # r_elem = r"\[([^\[\]\d]+?)\]"
-        # r_elem = r"\[([^\[\]](?:[a-zA-Z\d]+)+?)\]"
 
-        # Get the element at the start of the string, if one
         match_start: list = re.findall(r"^" + r_elem, expr_str)
 
+        not_prefixed = r"[^\]\)\[\(]"
         # For all other matches, make sure the enclosure isn't immediately
         # preceded by a bracket or parenthese. Those should
         # be left alone and treated as regular __getitem__ calls in python
-        match_others: list = re.findall(r"[^\]\)\[\(]" + r_elem, expr_str)
+        match_others: list = re.findall(not_prefixed + r_elem, expr_str)
 
         matches = match_start + match_others
 
@@ -94,20 +113,36 @@ class Expr(CanDoMath):
             try:
                 matches[i] = int(match)
             except Exception:
-                matches[i] = match.replace("'", "").replace('"', "")
+                try:
+                    matches[i] = float(match)
+                except Exception:
+                    # If match starts AND ends with double quotes, remove them.
+                    # Do the same for single quotes
+                    matches[i] = re.sub(r'^"(.*?)"$', r"\1", match)
+                    matches[i] = re.sub(r"^'(.*?)'$", r"\1", matches[i])
 
         refs = {match: None for match in matches}
-        expr = (
-            expr_str
-            # Add dub quotes around every ref name
-            .replace(r"[", 'self.refs["').replace(r"]", '"]')
-        )
-        # Remove quotes around integers
-        expr = re.sub(r'"(-?\d+)"', r"\1", expr)
 
-        # expr = re.sub(r"[^\[]\[", 'self.refs["', expr_str)
-        # expr = re.sub(r"[^\d]\]", '"]', expr)
-        # expr = re.sub(r'"(-?\d+)"', r"\1", expr)
+        # Now, our ref names have surrounding quotes removed, so we need
+        # to update expr_str to reflect these changes so they match
+
+        r_elem_dub_q = r'\["([^\[\]]+?)"\]'
+        r_elem_sing_q = r"\['([^\[\]]+?)'\]"
+        cap_not_prefixed = r"(" + not_prefixed + r")"
+
+        expr_str = re.sub(r"^" + r_elem_dub_q, r"[\1]", expr_str)
+        expr_str = re.sub(r"^" + r_elem_sing_q, r"[\1]", expr_str)
+        expr_str = re.sub(cap_not_prefixed + r_elem_dub_q, r"\1[\2]", expr_str)
+        expr_str = re.sub(cap_not_prefixed + r_elem_sing_q, r"\1[\2]", expr_str)
+
+        # Prepare expr_str to be evaluated with eval()
+        # - Replace [ref] with self.refs["""ref"""]
+        # - Triple quotes must be used since we don't know what kind of quotes, if any,
+        #   are already present in the true content of the ref name. It might have both!
+        for str_ref in [k for k in refs.keys() if not isinstance(k, (int, float))]:
+            expr_str = expr_str.replace(f"[{str_ref}]", f'self.refs["""{str_ref}"""]')
+
+        expr = expr_str
 
         # Check to see if they're just referencing an object without doing
         # calculations on it. If so, we MIGHT want to return that element's

@@ -3,11 +3,56 @@ Getting Started
 
 .. _intro:
 
-Here is how you get started
+.. grid:: 2
 
+    .. grid-item-card:: Layout Tree Structure
+        :link: layout
+        :link-type: doc
+
+    .. grid-item-card:: Python Expressions
+        :link: expression
+        :link-type: doc
+
+.. role:: html(raw)
+   :format: html
+
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
+:html:`</br>`
 
 .. toctree::
 
-   install
    layout
    expression

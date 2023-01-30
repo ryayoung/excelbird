@@ -4,20 +4,33 @@ class Item:
     """
     Let the parent container decide what type the element should be.
 
-    Its abbreviated version, ``I``, can be used interchangeably.
+    Its subclass, :class:`I`, serves as a more concise alternative and can be
+    used interchangeably.
 
-    ``Item`` exists because most layout elements (``Stack``/``VStack`` and ``Sheet`` excluded)
+    `Item` exists because most layout elements
+    (with the exception of :class:`Stack` / :class:`VStack` and :class:`Sheet`)
     can only hold one child type. In many cases, your code can be simplified, and
-    refactoring made easier, by using ``I``/``Item`` instead of the required child type.
-    For instance, if you have a ``Frame`` full of ``Col`` and you want to refactor it
-    to a ``VFrame``, you'd need to rename not only the container in question, but also
-    each of its children, changing all the ``Col`` instances to ``Row``. If ``I``/``Item``
-    were used instead of ``Col``, this code change wouldn't be necessary, as the ``I``
-    elements would be interpreted as ``Row`` automatically by the new parent container type.
+    refactoring made easier, by using `Item` instead of the actual child type.
+    For instance, if you have a :class:`Frame` full of :class:`Col` and you want to refactor it
+    to a :class:`VFrame`, you'd need to rename not only the container in question, but also
+    each of its children, changing all the `Col` instances to `Row`. If `Item`
+    were used instead of `Col`, this code change wouldn't be necessary, as each `Item`
+    would be interpreted as `Row` automatically by the new parent container type.
 
-    Once created, an ``Item`` cannot be modified, used in expressions/functions,
-    or have its elements/attributes referenced, until it is either passed as an element
-    to a parent container or resolved by calling ``.astype()``.
+    .. note::
+
+        Once created, an `Item` cannot be modified, used in expressions/functions,
+        or have its elements/attributes referenced, until it is either passed as an element
+        to a parent container or resolved by calling :meth:`self.construct() <excelbird.Item.construct>`.
+
+    Parameters
+    ----------
+    *args : Any
+        All arguments are stored until the parent container decides which type should be
+        instantiated, and will be passed to the corresponding type.
+    **kwargs : Any
+        All keyword arguments are stored until the parent container decides which type should be
+        instantiated, and will be passed to the corresponding type.
 
     """
 
@@ -25,9 +38,22 @@ class Item:
         self.__args = args
         self.__kwargs = kwargs
 
-    def astype(self, dtype: type, **kwargs) -> Any:
+    def construct(self, dtype: type, **kwargs) -> Any:
         """
-        Instantiate the desired type.
+        Construct the desired type with the stored data.
+
+        Parameters
+        ----------
+        dtype : type
+            The desired type
+        **kwargs : Any
+            Additional keyword arguments will be passed to the constructor
+            of the desired type
+
+        Returns
+        -------
+        Any
+            Type passed in argument ``dtype``
         """
         return dtype(*self.__args, **self.__kwargs, **kwargs)
 
@@ -35,12 +61,12 @@ class Item:
     def _resolve_all_in_container(cls, container: list, dtype: type):
         for i, elem in enumerate(container):
             if isinstance(elem, cls):
-                container[i] = elem.astype(dtype)
+                container[i] = elem.construct(dtype)
 
 
 class I(Item):
     """
-    Shorthand for `Item`
+    Shorthand for :class:`Item <excelbird.Item>`
     """
 
     pass

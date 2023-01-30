@@ -1,8 +1,24 @@
 """
-Here is the docstring for series module
+.. _header:
+
+Headers
+------------------------
+
+A Series' :attr:`header <excelbird._Series.header>` attribute is a string which will
+*later* be inserted as a :class:`Cell <excelbird.Cell>`. It has several purposes:
+
+* Ignored by formulas and cell references, and is instead treated as a stylistic attribute
+  of the parent container.
+* Declared manually, or automatically if a :class:`pd.Series <pandas.Series>` is given
+* Its styling is independent of the other child cells, and must be styled separately with :attr:`header_style <excelbird._Series.header_style>`.
+* It can be referenced globally by other :class:`Exprs <excelbird.Expr>` in the layout, just like an ``id``. This is to avoid
+  redundancy, and also provide convenience when headers are set automatically from :mod:`pandas` objects.
+
 """
 # External
+from __future__ import annotations
 from pandas import Series
+from numpy import ndarray
 from typing import Iterable, Any
 from copy import copy, deepcopy
 
@@ -38,6 +54,60 @@ from excelbird.core.item import Item
 
 
 class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
+    _doc_primary_summary = """
+    A 1-dimensional vector that can :ref:`be used in a python expression <expression_main>`,
+    and can be prefixed with a :ref:`header <header>`.
+    """
+    _doc_params = """
+    Parameters
+    ----------
+    *args : Union[Cell, Col, Row, str, int, float, list, tuple, pd.Series, np.ndarray, Gap, Item, Expr, Func, set]
+        Children must be, or resolve to, `Cell`. Iterables will be *exploded* inplace. So, if given
+        ``1, pandas.Series([2, 3]), 4``, it will be read as ``1, 2, 3, 4`` before converting the
+        ints to `Cell`. If a :class:`pandas.Series` is passed as the *only* argument, its name
+        (if present) will be used as :ref:`header <header>`.
+    children : list, optional
+        Will be combined with args
+    id : str, optional
+        Unique identifier to store globally so that this element can be referenced
+        elsewhere in the layout without being assigned to a variable
+    header : str, optional
+        Unique identifier to be inserted as a Cell at position 0 at write time. Can be referenced
+        by an `Expr` elsewhere in the layout. Set automatically if a named ``pandas.Series`` is given.
+        :ref:`Read more <header>`
+    sep : Gap or bool or int or dict, optional
+        A sep in any excelbird layout element inserts a `Gap` between each of its children.
+        If True, a default of ``Gap(1)`` is used. If int, ``Gap(sep)`` will be used. If a dict,
+        ``Gap(1, **sep)`` will be used.
+    background_color : str, optional
+        Hex code for background color. Will be applied to any Gap child who hasn't specified its own
+        fill_color.
+    cell_style : dict, optional
+        Each key/value will be used to set an attribute on each child Cell (header excluded)
+        only if the respective attribute has not already been set on the child Cell (its value is None).
+        This mimics HTML/CSS behavior, where styling declared at the parent level is passed down
+        to children, but each child can override the parent.
+    header_style : dict, optional
+        Just like cell_style, but for the header only. Ignored if header is None.
+    border : list[tuple or str or bool] or tuple[str or bool, str or bool] or str or bool, optional
+        Syntax inspired by CSS. A non-list value will be applied to all 4 sides. If list,
+        length can be 2, 3, or 4 elements. Order is [top, right, bottom, left]. If length 2,
+        apply the first element to top and bottom border, and apply the second element to right and left.
+        To apply border to children instead, use cell_style.
+    border_top : tuple[str or bool, str or bool] or str or bool, optional
+        Top border. If True, a thin black border is used. If string (6 char hex code),
+        use the default weight and apply the specified color. If string (valid weight name),
+        use the default color and apply the specified weight. If tuple, apply the first
+        element as weight, and second element as color.
+    border_right : tuple[str or bool, str or bool] or str or bool, optional
+        Right border. See border_top
+    border_bottom : tuple[str or bool, str or bool] or str or bool, optional
+        Bottom border. See border_top
+    border_left : tuple[str or bool, str or bool] or str or bool, optional
+        Left border. See border_top
+    **kwargs : Any
+        Remaining kwargs will be applied to cell_style
+    """
 
     _dimensions = 1
     elem_type = Cell
@@ -104,12 +174,42 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
     def ref(self, inherit_style: bool = False, **kwargs):
         """
-        Ref doc
+        Get a new object with cell references to those in the caller.
+        This assumes that **both** the calling object
+        and the returned object will be placed in the workbook.
+
+        .. note::
+
+            Calling ``.ref()`` is **not** necessary  when an object is used in
+            a python expression (i.e. ``some_cell + some_row``) and should `only`
+            be used to duplicate data across a workbook.
+
+        Parameters
+        ----------
+        inherit_style : bool, default False
+            Copy the caller's style to the returned object.
+        **kwargs : Any
+            Extra keyword arguments are set as attributes on the returned
+            object.
+
+        Returns
+        -------
+        :class:`Col <excelbird.Col>` or :class:`Row <excelbird.Row>`
+            Self type
+
+        Notes
+        -----
+
+        .. note::
+
+            ``self.header`` is a stylistic attribute, and therefore will **not** be
+            passed to the returned object unless ``inherit_style=True``. And, if style
+            is inherited, the header will be copied to its new cell, instead of having
+            a cell reference made to it.
+
         """
         new_elements = [
             i.ref(inherit_style=inherit_style, **kwargs)
-            if not isinstance(i, Gap)
-            else deepcopy(i)
             for i in self
         ]
         new_dict = kwargs
@@ -122,17 +222,42 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
                     new_dict[key] = val
         return type(self)(*new_elements, **new_dict)
 
-    def astype(self, other: type, **kwargs):
+    def transpose(self, **kwargs):
         """
-        Astype doc
+        Convert to sibling type. Places current children into the returned object,
+        without copying or making cell references to them.
 
         Parameters
         ----------
-        other : type
-            The type we want to convert to
+        **kwargs : Any
+            Keyword arguments to apply as attributes to the new object.
+
+        Returns
+        -------
+        :class:`Col <excelbird.Col>` or :class:`Row <excelbird.Row>`
+            The opposite to self's type. Try ``type(my_obj).sibling_type``
+
+        Notes
+        -----
+        **Assumes that the caller won't be placed in the layout**. Do not
+        place both the calling object and returned object in the layout, since
+        they both contain the same children.
+
+        .. code-block::
+
+            # 'current' must not be placed in the workbook.
+            new = current.transpose()
+
+        To include the caller and make cell references to it, get a reference
+        first:
+
+        .. code-block::
+
+            new = current.ref().transpose()
+
         """
         elements = list(self)
-        new = other(*elements)
+        new = type(self).sibling_type(*elements)
         for key, val in self.__dict__.items():
             if key == "_header":
                 key = "header"
@@ -142,16 +267,19 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
             setattr(new, key, val)
         return new
 
-    @property
-    def shape(self) -> tuple[int]:
-        length = sum([1 if not isinstance(i, Gap) else i for i in self])
-        if self.header is not None:
-            length += 1
-        return (length,)
-
-    def range(self, include_headers: bool = False):
+    def range(self, include_headers: bool = False) -> Cell:
         """
-        Range doc
+        Get a reference to the range of the series, instead of a vector of
+        cell references.
+
+        Parameters
+        ----------
+        include_headers : bool, default False
+            If True, the header cell will be included in the range reference.
+
+        Returns
+        -------
+        :class:`Cell <excelbird.Cell>`
         """
         if self.header_written is True and include_headers is False:
             first = self[1]
@@ -160,30 +288,35 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         last = self[-1]
         return first >> last
 
-    def _format_args(self, args: list) -> None:
-        convert_all_to_type(args, set, Expr)
-        convert_all_to_type(args, (str, int, float), Cell, strict=True)
-        self._explode_all_series(args)
-        Item._resolve_all_in_container(args, type(self).elem_type)
+    @property
+    def shape(self) -> tuple[int]:
+        length = sum([1 if not isinstance(i, Gap) else i for i in self])
+        if self.header is not None:
+            length += 1
+        return (length,)
 
-    def _explode_all_series(self, args: list) -> None:
+    def _format_args(self, args: list) -> None:
+        self._explode_all_1d_iterables(args)
+        convert_all_to_type(args, set, Expr)
+        convert_all_to_type(args, int, Cell, strict=True)
+        convert_all_to_type(args, (str, float), Cell)
+        Item._resolve_all_in_container(args, type(self).elem_type)
+        for i, elem in enumerate(args):
+            if not isinstance(elem, (Iterable, Gap, Expr, Func)):
+                args[i] = Cell(elem)
+
+    def _explode_all_1d_iterables(self, args: list) -> None:
+
         for i, elem in enumerate(args):
             if isinstance(elem, Series):
                 sr = args.pop(i)
                 for cell in reversed(sr.reset_index(drop=True)):
-                    args.insert(i, type(self).elem_type(cell))
+                    args.insert(i, cell)
 
-            elif type(elem) in [list, tuple]:
+            elif isinstance(elem, (list, tuple, ndarray)):
                 sr = args.pop(i)
                 for value in reversed(sr):
-
-                    if isinstance(value, set):
-                        value = Expr(value.pop())
-
-                    if isinstance(value, (Cell, Gap, Expr, Func)):
-                        args.insert(i, value)
-                    else:
-                        args.insert(i, Cell(value))
+                    args.insert(i, value)
 
     def _resolve_background_color(self) -> None:
         for elem in self:
@@ -284,73 +417,19 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
 
 class Col(_Series):
-    """
-    A series (1-dimensional vector) that holds ``Cell`` and arranges itself vertically.
-
-    .. code-block::
-       :caption: A cool example
-
-       The output of this line starts with four spaces.
-
+    _doc_custom_summary = """
     * Direction: **vertical**
-    * Child Type: ``Cell``
-
-    .. warning:: Warning text.
-
-    .. note:: Note text.
-
-    Parameters
-    ----------
-    *args: Any
-        Children must be (or resolve to) Cells. ``Gap`` and ``Item`` will be interpreted
-        as Cell.
-    children : list, default None
-        Will be combined with args
-    id : str, default None
-        Unique identifier to store globally so that this element can be referenced
-        elsewhere in the layout without being assigned to a variable
-    header : str, default None
-        Unique identifier to be inserted as a Cell at position 0 at write time. Headers are
-        stored globally, and can be referenced elsewhere in the layout just like ids. Headers are
-        ignored during expression evaluation, so for instance, `col2 = col1 + row1`, where col1 and
-        row1 each have headers, will return a Col with no header, whose children each reference an
-        element in col1 and row1.
-    sep : Gap or bool or int or dict, default None
-        A sep in any excelbird layout element inserts a Gap between each of its children.
-        If True, a default of Gap(1) is used. If int, Gap(sep) will be used. If a dict,
-        ``Gap(1, **sep)`` will be used.
-    background_color : str, default None
-        Hex code for background color. Will be applied to any Gap child who hasn't specified its own
-        fill_color.
-    cell_style : dict, default None
-        Each key/value will be used to set an attribute on each child Cell (header excluded)
-        only if the respective attribute has not already been set on the child Cell (its value is None).
-        This mimics HTML/CSS behavior, where styling declared at the parent level is passed down
-        to children, but each child can override the parent.
-    header_style : dict, default None
-        Just like cell_style, but for the header only. Ignored if header is None.
-    border : list[tuple or str or bool] or tuple[str or bool, str or bool] or str or bool, default None
-        Syntax inspired by CSS. A non-list value will be applied to all 4 sides. If list,
-        length can be 2, 3, or 4 elements. Order is [top, right, bottom, left]. If length 2,
-        apply the first element to top and bottom border, and apply the second element to right and left.
-        To apply border to children instead, use cell_style.
-    border_top : tuple[str or bool, str or bool] or str or bool, default None
-        Top border. If True, a thin black border is used. If string (6 char hex code),
-        use the default weight and apply the specified color. If string (valid weight name),
-        use the default color and apply the specified weight. If tuple, apply the first
-        element as weight, and second element as color.
-    border_right : tuple[str or bool, str or bool] or str or bool, default None
-        Right border. See border_top
-    border_bottom : tuple[str or bool, str or bool] or str or bool, default None
-        Bottom border. See border_top
-    border_left : tuple[str or bool, str or bool] or str or bool, default None
-        Left border. See border_top
-    **kwargs:
-        Remaining kwargs will be applied to cell_style
-
+    * Child Type: :class:`Cell`
     """
+
     sibling_type = None  # these are set after class declaration
     elem_type = Cell
+
+    def transpose(self, **kwargs) -> Row:
+        return super().transpose(**kwargs)
+
+    def ref(self, inherit_style: bool = False, **kwargs) -> Col:
+        return super().ref(inherit_style, **kwargs)
 
     @property
     def width(self):
@@ -392,15 +471,18 @@ class Col(_Series):
 
 
 class Row(_Series):
-    """
-    The horizontally-arranged sibling to ``Col`` . Otherwise functionally identical.
-
+    _doc_custom_summary = """
     * Direction: **horizontal**
-    * Child Type: ``Cell``
-
+    * Child Type: :class:`Cell`
     """
     elem_type = Cell
     sibling_type = None  # these are set after class declaration
+
+    def transpose(self, **kwargs) -> Col:
+        return super().transpose(**kwargs)
+
+    def ref(self, inherit_style: bool = False, **kwargs) -> Row:
+        return super().ref(inherit_style, **kwargs)
 
     @property
     def width(self):
@@ -450,3 +532,25 @@ class Row(_Series):
 
 Col.sibling_type = Row
 Row.sibling_type = Col
+
+Col.__doc__ = f"""
+    {_Series._doc_primary_summary}
+
+    {Col._doc_custom_summary}
+
+    {_Series._doc_params}
+
+    """
+
+Row.__doc__ = f"""
+    {_Series._doc_primary_summary}
+
+    {Row._doc_custom_summary}
+
+    {_Series._doc_params}
+
+    """
+
+
+
+

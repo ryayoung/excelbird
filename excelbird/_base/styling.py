@@ -4,7 +4,7 @@ from typing import Any, Iterable
 class HasMargin:
     empty = [None, None, None, None]
 
-    def init_margin(self, margin, top, right, bottom, left) -> None:
+    def _init_margin(self, margin, top, right, bottom, left) -> None:
 
         if (margin, top, right, bottom, left) == (None, None, None, None, None):
             self.margin_top = None
@@ -49,7 +49,7 @@ class HasMargin:
 class HasPadding:
     empty = [None, None, None, None]
 
-    def init_padding(self, padding, top, right, bottom, left) -> None:
+    def _init_padding(self, padding, top, right, bottom, left) -> None:
 
         if (padding, top, right, bottom, left) == (None, None, None, None, None):
             self.padding_top = None

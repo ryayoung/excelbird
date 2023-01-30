@@ -1,7 +1,5 @@
 """
-Cool stuff!
-
-
+Detailed documentation and code examples coming soon.
 """
 # External
 from pandas import Series, DataFrame
@@ -16,7 +14,6 @@ from excelbird._utils.util import (
 )
 from excelbird._utils.argument_parsing import (
     combine_args_and_children_to_list,
-    move_dict_args_to_other_dict,
     move_remaining_kwargs_to_dict,
 )
 from excelbird._utils.pass_attributes import (
@@ -51,46 +48,43 @@ from excelbird._base.loc import Loc
 
 class Book(ListIndexableById):
     """
-    The top-most parent container for a layout. Only ``Book`` has the ability to write
-    a layout to an Excel file.
+    The outer-most parent container for a layout. Only `Book` has the ability to write
+    to an Excel file.
 
     Call ``.write(path)`` to save to an Excel file.
 
-    Child Type: ``Sheet``
+    * Child Type: :class:`Sheet`
 
     Parameters
     ----------
-    *args: Any
-        Book should take Sheet or Gap, but can take any other excelbird layout element,
-        or values which are valid for constructing another layout element, such as int,
-        str, list, pd.DataFrame, etc. Any element which isn't a Sheet or Gap will be placed
-        in its own Sheet. 1 or 2 dimensional vectors that aren't excelbird layout types,
-        such as list, pd.Series, pd.DataFrame, will be converted to Col or Frame respectively.
-        Item converts to Sheet.
-    children : list, default None
+    *args : Union[Sheet, Stack, VStack, Frame, VFrame, Col, Row, Cell, list, tuple, str, int, float, pd.Series, pd.DataFrame, np.ndarray, Gap, Expr, Func, set]
+        Each element, if not a :class:`Sheet`, will be placed in its own separate `Sheet`.
+        Vectors which aren't layout types (like `list`, or `pd.DataFrame`) will be inferred
+        as :class:`Col` or :class:`Frame`
+    children : list, optional
         Will be combined with args
-    path : str, default None
+    path : str, optional
         Path to write Book. Can be omitted and passed to ``.write()`` instead
     auto_open : bool, default False
         Attempt to automatically open after calling ``.write()``. If a file with the same name
         is already open, it will be closed first. Requires dependency, xlwings
-    sep : Gap or bool or int or dict, default None
+    sep : Gap or bool or int or dict, optional
         A sep in any excelbird layout element inserts a Gap between each of its children.
         If True, a default of ``Gap(1)`` is used. If int, ``Gap(sep)`` will be used. If a dict,
         ``Gap(1, **sep)`` will be used.
-    tab_color : str, default None
+    tab_color : str, optional
         Applied to each child Sheet
-    end_gap : bool or int or dict or Gap, default None
+    end_gap : bool or int or dict or Gap, optional
         Applied to each child Sheet
-    isolate : bool, default None
+    isolate : bool, optional
         Applied to each child Sheet
-    zoom : int, default None
+    zoom : int, optional
         Applied to each child Sheet
-    cell_style : dict, default None
+    cell_style : dict, optional
         Applied to each child Sheet
-    header_style : dict, default None
+    header_style : dict, optional
         Applied to each child Sheet
-    table_style : dict or bool, default None
+    table_style : dict or bool, optional
         Applied to each child Sheet
     **kwargs :
         Remaining keyword arguments applied to ``cell_style``, to be passed down to children
@@ -156,6 +150,47 @@ class Book(ListIndexableById):
             self._insert_separator(sep)
 
     def write(self, path: str | None = None) -> None:
+        """
+        Evaluates the layout tree and writes the completed layout to a ``.xlsx`` file.
+
+        Parameters
+        ----------
+        path : str, optional
+            Full path to the output file. Only exclude if `path` attribute
+            has already been set.
+
+        Notes
+        -----
+
+        **The algorithm, step by step**
+
+        * First, all references inside each :class:`Expr <excelbird.Expr>` in the layout is resolved and evaluated
+        * Now that the true size and shape of each layout element is known, spatial styling
+          can be resolved
+
+          * Margin and padding values are interpreted to create correctly sized :class:`Gap <excelbird.Gap>` spacing
+          * Background colors are applied to the appropriate cells, drilling breadth-first through the tree.
+          * Then, all `Gaps` are evaluated as correctly sized and styled layout elements.
+
+        * Now that the layout structure, input data, and styling is complete
+
+          * Traverse the tree and iteratevely assign a true sheet/column/row coordinate
+            to each :class:`Cell <excelbird.Cell>` individually. Notice that *only* cells
+            who were placed directly inside the `Book` get assigned a location. Later on,
+            this lets us ensure that the formulas and cell references we create are valid.
+          * Call each child's ``._write()`` method. Each layout element's write method will 
+            safely pass down styling to its children, and then call each child's write method.
+
+        * `Cells` which contain cell references don't know the value of their formula
+          until their ``._write()`` is called. At this point, their expression is nothing
+          more than a binary tree of references to other Python objects. When recursively expanding
+          the tree to a formula string, we're able to tell whether a referenced `Cell` is actually
+          being placed in the workbook or not, since unplaced `Cells` were never assigned locations.
+          Therefore, we will always end up with a valid formula, because instead of trying to
+          reference a non-existent cell, we take its value or formula and include it in
+          our own.
+
+        """
         if path is not None:
             self.path = path
 

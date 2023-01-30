@@ -41,25 +41,62 @@ extensions = [
     # 'sphinx.ext.napoleon',
 ]
 
-intersphinx_mapping = {
-    'python': ('https://docs.python.org/3/', None),
-    'sphinx': ('https://www.sphinx-doc.org/en/master/', None),
-}
-
 intersphinx_disabled_domains = ['std']
 
+autodoc_typehints = 'signature'
 autodoc_default_options = {
     # 'member-order': 'bysource',
     # 'undoc-members': True,
     'exclude-members': (
         'append, clear, copy, count, pop, remove, reverse, sort, extend, index, insert, '
         'from_bytes, to_bytes, conjugate, bit_length, bit_count, sibling_type, elem_type, '
-        'as_integer_ratio, border, shape, header, id, height, width, __weakref__'
+        'as_integer_ratio, border, shape, header, id, height, width, __weakref__, denominator, '
+        'imag, numerator, real'
     )
 }
 
+numpydoc_xref_param_type = True
 numpydoc_attributes_as_param_list = True
 numpydoc_class_members_toctree = False
+numpydoc_xref_aliases = {
+    'pd.DataFrame': 'pandas.DataFrame',
+    'pd.Series': 'pandas.Series',
+    'np.ndarray': 'numpy.ndarray',
+    'bool': 'bool',
+    'str': 'str',
+    'int': 'int',
+    'float': 'float',
+    'dict': 'dict',
+    # 'tuple': 'tuple',
+    'list': 'list',
+    # 'set': 'set',
+    # values
+    'None': 'None',
+    # 'True': 'True',
+    # 'False': 'False',
+}
+numpydoc_xref_ignore = {
+    'bool', 
+    'str', 
+    'int', 
+    'float', 
+    'dict', 
+    'tuple', 
+    'list', 
+    'set', 
+    'None', 
+    'True', 
+    'False',
+}
+
+intersphinx_mapping = {
+    'pd': ('https://pandas.pydata.org/pandas-docs/stable', None),
+    "dateutil": ("https://dateutil.readthedocs.io/en/latest/", None),
+    "np": ("https://numpy.org/doc/stable/", None),
+    "python": ("https://docs.python.org/3/", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/", None),
+    "pyarrow": ("https://arrow.apache.org/docs/", None),
+}
 # numpydoc_show_class_members = True
 #
 # numpydoc_show_inherited_class_members = False
