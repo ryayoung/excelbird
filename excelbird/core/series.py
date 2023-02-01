@@ -133,10 +133,6 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
         children = [i for i in children if i is not None]
 
-        children = init_from_same_dimension_type(self, children)
-        if getattr(self, "_header", None) is not None and header is None:
-            header = self.header
-
         if cell_style is None:
             cell_style = dict()
         if header_style is None:
@@ -147,6 +143,51 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
                 header = children[0].name
 
         self._format_args(children)
+
+        move_remaining_kwargs_to_dict(kwargs, cell_style)
+
+        self.loc = None
+        self.id = id
+        self.header = header
+        self.background_color = background_color
+        self.header_style = Style(**header_style)
+        # Dicts that must be passed to children
+        self.cell_style = Style(**cell_style)
+
+        self._init(children)
+
+        self._init_border(
+            border,
+            border_top,
+            border_right,
+            border_bottom,
+            border_left,
+        )
+        if sep is not None:
+            self._insert_separator(sep)
+
+        self.header_written = False
+
+    def from_valid_children(
+        self,
+        children: list,
+        id: str | None = None,
+        header: str | None = None,
+        sep: Any | None = None,
+        border_left: bool | str | None = None,
+        border_right: bool | str | None = None,
+        border_top: bool | str | None = None,
+        border_bottom: bool | str | None = None,
+        border: bool | str | Iterable | None = None,
+        background_color: str | None = None,
+        cell_style: Style | dict | None = None,
+        header_style: Style | dict | None = None,
+        **kwargs,
+    ):
+        if cell_style is None:
+            cell_style = dict()
+        if header_style is None:
+            header_style = dict()
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
@@ -302,7 +343,7 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         convert_all_to_type(args, (str, float), Cell)
         Item._resolve_all_in_container(args, type(self).elem_type)
         for i, elem in enumerate(args):
-            if not isinstance(elem, (Iterable, Gap, Expr, Func)):
+            if not isinstance(elem, (Cell, Iterable, Gap, Expr, Func)):
                 args[i] = Cell(elem)
 
     def _explode_all_1d_iterables(self, args: list) -> None:

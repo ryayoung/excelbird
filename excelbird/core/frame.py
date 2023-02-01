@@ -273,8 +273,7 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
             # 'current' must not be placed in the workbook.
             new = current.transpose()
 
-        To include the caller and make cell references to it, get a reference
-        first:
+        To include both, use a reference of `current` instead
 
         .. code-block::
 
@@ -320,6 +319,9 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
         convert_all_to_type(args, set, Expr)
         Item._resolve_all_in_container(args, type(self).elem_type)
         convert_sibling_types(self, args)
+        for i, elem in enumerate(args):
+            if not isinstance(elem, (type(self).elem_type, Gap, Func, Expr)):
+                args[i] = type(self).elem_type(elem)
 
     def _explode_all_2d_iterables(self, args: list) -> None:
         for i, elem in enumerate(args):

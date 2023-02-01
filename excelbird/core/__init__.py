@@ -12,6 +12,13 @@ from excelbird.core.merged import *
 
 """
 TODO:
+- DUDE!!!! Make Func use a unique syntax to declare an Expr inside.
+  The enclosure, @[], represents an Expr. So @[<stuff>] will be interpreted
+  EXACTLY as Expr("<stuff>"). AND since Expr can take a single reference without
+  brackets, this gives us the ULTIMATE syntax combo. Inside a Func, reference an element
+  like `@[some_elem]`. OR reference an Expr like `@[[foo]+[bar].range()]`
+  the bracket references must be prefixed with an @[]
+  - A reference is made like @[some_elem]. To insert an Expr, 
 - Fix .ref() so that it can handle child elements who are item, expr, func
 - ALL elements should be subclass of XBElement, to make type checking easier.
   ALL dynamic elements (gap, func, expr, item) should be subclass of Dynamic

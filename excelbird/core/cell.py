@@ -298,7 +298,7 @@ class Cell(HasId, HasBorder, CanDoMath):
     def _expr_value(self) -> str | None:
         if self.expr is None:
             return None
-        expr = self._eval_expr(self.expr)
+        expr = str(self._eval_expr(self.expr))
         return remove_paren_enclosure(expr)
 
     def _func_value(self) -> str | None:
@@ -328,6 +328,8 @@ class Cell(HasId, HasBorder, CanDoMath):
 
         if self.expr is not None:
             self.value = self._expr_value()
+            if self.value is None:
+                return
             if "UNKNOWN" not in str(self.value):
                 self.value = "=" + str(self.value)
             self.value = self.value.replace(self.loc.title_str, "")

@@ -93,6 +93,7 @@ class Expr(CanDoMath):
         if "[" not in expr_str and "]" not in expr_str:
             expr_str = "[" + expr_str + "]"
 
+
         # Match group for the inner contents of a square bracket enclosure
         # that has at least one character and no brackets inside, and is NOT
         # not ONLY digits

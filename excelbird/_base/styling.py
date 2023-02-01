@@ -301,7 +301,7 @@ class HasBorder:
             first.border = self.border
 
         elif len(self) >= 2:
-            mask = self.border_mask(*self.border)
+            mask = self._border_mask(*self.border)
             last = self[-1]
             middle_elements = self[1:-1]
 

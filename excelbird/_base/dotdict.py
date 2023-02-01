@@ -1,4 +1,3 @@
-
 class DotDict(dict):
     def __getattr__(self, key):
         try:
@@ -8,5 +7,6 @@ class DotDict(dict):
 
 
 class Style(DotDict):
+
     def help(self) -> None:
         print(*self.keys(), sep="\n")
