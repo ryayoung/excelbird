@@ -151,7 +151,7 @@ html_theme_options = dict(
     show_toc_level = 2,
     # Add light/dark mode and documentation version switcher:
     # "navbar_end": ["theme-switcher", "version-switcher", "navbar-icon-links"],
-    pygment_light_style="solarized-dark",
+    pygment_light_style="nord",
     pygment_dark_style="nord",
 )
 
