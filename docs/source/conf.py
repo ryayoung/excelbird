@@ -175,10 +175,15 @@ nbsphinx_prolog = """
 
         .input_area {
             border: none !important;
+            border-bottom: 0.5px solid var(--pst-color-info) !important;
         }
 
-        .highlight {
-            background: none !important;
+        .highlight-ipython3 .highlight {
+            background-color: #f9f9f9 !important;
+        }
+
+        div.nbinput.container div.prompt, div.nboutput.container div.prompt {
+            display: none;
         }
 
 
