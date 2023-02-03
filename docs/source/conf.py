@@ -166,16 +166,22 @@ nbsphinx_prolog = """
             box-shadow: none !important;
         }
 
-        div.cell {
-            border: none !important;
-        }
-
         h1, .h1 {
             font-size: 50px;
             font-family: "Trebuchet MS";
-            font-size: 4em !important;
+            font-size: 2.5em !important;
             color: #2a7bbd;
         }
+
+        .input_area {
+            border: none !important;
+        }
+
+        .highlight {
+            background: none !important;
+        }
+
+
 
     </style>
 """
