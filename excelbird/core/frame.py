@@ -695,7 +695,7 @@ class VFrame(_Frame):
         ] + [Series(["" for _ in range(max_len)], name="")]
 
         df = DataFrame(elements)
-        df.columns = ["" for _ in range(max(len(e) if isinstance(e, _Series) else 1 for e in elements))]
+        df.columns = ["" for _ in range(max([len(e) for e in elements] + [0]))]
 
         if not any(getattr(e, "_header", None) is not None or getattr(e, 'header', None) is not None for e in self):
             return df.fillna("").style.hide(axis="index")._repr_html_()
