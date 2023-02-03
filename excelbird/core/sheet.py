@@ -109,7 +109,7 @@ class Sheet(VStack):
         if len(children) == 1 and isinstance(first_arg, Sheet):
             children = list(first_arg)
             new_kwargs = first_arg.__dict__
-            new_kwargs.pop("loc")
+            new_kwargs.pop("_loc")
             for key, val in new_kwargs.items():
                 setattr(self, key, val)
 
@@ -126,7 +126,7 @@ class Sheet(VStack):
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        self.loc = None
+        self._loc = None
         self.title = title
         self.tab_color = tab_color
         self.end_gap = end_gap
@@ -239,13 +239,13 @@ class Sheet(VStack):
     def _write(self) -> None:
 
         if self.tab_color is not None:
-            self.loc.ws.sheet_properties.tabColor = self.tab_color
+            self._loc.ws.sheet_properties.tabColor = self.tab_color
 
         if self.hidden is True:
-            self.loc.ws.sheet_state = "hidden"
+            self._loc.ws.sheet_state = "hidden"
 
         if self.zoom is not None:
-            self.loc.ws.sheet_view.zoomScale = self.zoom
+            self._loc.ws.sheet_view.zoomScale = self.zoom
 
         pass_dict_to_children(self, "cell_style")
         pass_dict_to_children(self, "header_style")
@@ -255,4 +255,4 @@ class Sheet(VStack):
             elem._write()
 
         if self.isolate is True:
-            Globals.clear_references(self.loc.ws.title)
+            Globals.clear_references(self._loc.ws.title)

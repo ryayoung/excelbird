@@ -156,7 +156,7 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        self.loc = None
+        self._loc = None
         self.id = id
         self.schema = schema
         self.sizes = sizes
@@ -243,7 +243,7 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
             for key, val in self_dict.items():
                 if key == "_header":
                     key = "header"
-                if key not in new_dict and key not in ["_id", "loc"]:
+                if key not in new_dict and key not in ["_id", "_loc"]:
                     new_dict[key] = val
         return type(self)(*new_elements, **new_dict)
 
@@ -283,10 +283,14 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
         elements = list(self)
         new = type(self).sibling_type(*elements)
         for key, val in self.__dict__.items():
-            if key != "_id":
-                setattr(new, key, val)
-        for key, val in kwargs.items():
+            if key == "_id":
+                key = "id"
             setattr(new, key, val)
+        for key, val in kwargs.items():
+            if hasattr(new, key):
+                setattr(new, key, val)
+            elif hasattr(new, 'cell_style'):
+                new.cell_style[key] = val
         return new
 
     def range(self, include_headers: bool = False):
@@ -374,24 +378,40 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
             raise KeyError(f"Invalid key, {key}")
 
     def __getitem__(self, key):
+        if isinstance(key, (int, str, slice)):
+            return super().__getitem__(key)
+
         if not isinstance(key, list):
             # return super().__getitem__(key)
             return ListIndexableById.__getitem__(self, key)
 
         new_elements = [self[self._key_to_idx(k)] for k in key]
-        new_dict = {k: v for k, v in self.__dict__.items() if k not in ["_id", "loc"]}
+        new_dict = {k: v for k, v in self.__dict__.items() if k not in ["_id", "_loc"]}
         if "_header" in new_dict:
             new_dict["header"] = new_dict.pop("_header")
 
         return type(self)(*new_elements, **new_dict)
 
+    def __setitem__(self, key, val) -> None:
+        if isinstance(key, int):
+            return super().__setitem__(key, val)
+        if isinstance(val, Func):
+            val.kwargs['header'] = key
+        else:
+            val.header = key
+        try:
+            index = self._key_to_idx(key)
+            self[index] = val
+        except Exception:
+            self.append(val)
+
     def _set_loc(self, loc: Loc) -> None:
-        self.loc = loc
+        self._loc = loc
 
         offset = self._starting_offset()
         for elem in self:
             elem._set_loc(
-                Loc((self.loc.y + offset.y, self.loc.x + offset.x), self.loc.ws)
+                Loc((self._loc.y + offset.y, self._loc.x + offset.x), self._loc.ws)
             )
             offset = self._inc_offset(offset, elem)
 
@@ -460,15 +480,15 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
             if hasattr(elem, "_resolve_gaps"):
                 elem._resolve_gaps()
 
-    def __rshift__(self, other):
-        if get_dimensions(other) < get_dimensions(self):
-            return elem_math(self[0], other, lambda a, b: a >> b, " >> ")
-        return self[0] >> other[-1]
-
-    def __rrshift__(self, other):
-        if get_dimensions(other) < get_dimensions(self):
-            return elem_math(other, self[-1], lambda a, b: a >> b, " >> ")
-        return other[0] >> self[-1]
+    # def __rshift__(self, other):
+    #     if get_dimensions(other) < get_dimensions(self):
+    #         return elem_math(self[0], other, lambda a, b: a >> b, " >> ")
+    #     return self[0] >> other[-1]
+    #
+    # def __rrshift__(self, other):
+    #     if get_dimensions(other) < get_dimensions(self):
+    #         return elem_math(other, self[-1], lambda a, b: a >> b, " >> ")
+    #     return other[0] >> self[-1]
 
 
 class Frame(_Frame):
@@ -550,7 +570,7 @@ class Frame(_Frame):
         Formats self's cell range in worksheet as excel table
 
         Mutates inplace:
-            `self.loc.ws`
+            `self._loc.ws`
             `self.table_style`
         """
 
@@ -560,9 +580,9 @@ class Frame(_Frame):
         cell_range = (
             self.range(include_headers=True)
             ._expr_value()
-            .replace(self.loc.title_str, "")
+            .replace(self._loc.title_str, "")
         )
-        ws = self.loc.ws
+        ws = self._loc.ws
 
         if "displayName" in style:
             name = style.pop("displayName")
@@ -606,8 +626,8 @@ class Frame(_Frame):
     def _repr_html_(self):
         elements = [
             Series(
-                list(e) + [""],
-                name=e.header if getattr(e, "_header", None) is not None else "",
+                list(e) if isinstance(e, list) else [e] + [""],
+                name=e.header if getattr(e, "_header", None) is not None or getattr(e, 'header', None) is not None else "",
             )
             for e in self
         ]
@@ -629,7 +649,7 @@ class Frame(_Frame):
         return offset
 
     def _starting_offset(self) -> Loc:
-        offset = Loc((0, 0), self.loc.ws)
+        offset = Loc((0, 0), self._loc.ws)
         if getattr(self, "_header", None) is not None:
             offset.x += 1
         return offset
@@ -665,19 +685,19 @@ class VFrame(_Frame):
         return self.width
 
     def _repr_html_(self):
-        max_len = max([len(e) for e in self if isinstance(e, _Series)] + [0])
+        max_len = max([len(e) if isinstance(e, _Series) else 1 for e in self] + [0])
         elements = [
             Series(
-                list(e),
-                name=e.header if getattr(e, "_header", None) is not None else "",
+                list(e) if isinstance(e, list) else [e],
+                name=e.header if getattr(e, "_header", None) is not None or getattr(e, 'header', None) is not None else "",
             )
             for e in self
         ] + [Series(["" for _ in range(max_len)], name="")]
 
         df = DataFrame(elements)
-        df.columns = ["" for _ in range(max(len(e) for e in elements))]
+        df.columns = ["" for _ in range(max(len(e) if isinstance(e, _Series) else 1 for e in elements))]
 
-        if not any(getattr(e, "_header", None) is not None for e in self):
+        if not any(getattr(e, "_header", None) is not None or getattr(e, 'header', None) is not None for e in self):
             return df.fillna("").style.hide(axis="index")._repr_html_()
         return df.fillna("")._repr_html_()
 
@@ -694,7 +714,7 @@ class VFrame(_Frame):
         return offset
 
     def _starting_offset(self) -> Loc:
-        offset = Loc((0, 0), self.loc.ws)
+        offset = Loc((0, 0), self._loc.ws)
         if getattr(self, "_header", None) is not None:
             offset.y += 1
         return offset

@@ -146,7 +146,7 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        self.loc = None
+        self._loc = None
         self.id = id
         self.header = header
         self.background_color = background_color
@@ -191,7 +191,7 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        self.loc = None
+        self._loc = None
         self.id = id
         self.header = header
         self.background_color = background_color
@@ -259,7 +259,7 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
             for key, val in self_dict.items():
                 if key == "_header":
                     key = "header"
-                if key not in new_dict and key not in ["_id", "loc"]:
+                if key not in new_dict and key not in ["_id", "_loc"]:
                     new_dict[key] = val
         return type(self)(*new_elements, **new_dict)
 
@@ -302,10 +302,15 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         for key, val in self.__dict__.items():
             if key == "_header":
                 key = "header"
-            if key != "_id":
-                setattr(new, key, val)
-        for key, val in kwargs.items():
+            if key == "_id":
+                key = "id"
             setattr(new, key, val)
+
+        for key, val in kwargs.items():
+            if hasattr(new, key):
+                setattr(new, key, val)
+            elif hasattr(new, 'cell_style'):
+                new.cell_style[key] = val
         return new
 
     def range(self, include_headers: bool = False) -> Cell:
@@ -380,12 +385,12 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         Gap._explode_all_to_values(self, Cell)
 
     def _set_loc(self, loc: Loc) -> None:
-        self.loc = loc
+        self._loc = loc
 
         offset = self._starting_offset()
         for elem in self:
             elem._set_loc(
-                Loc((self.loc.y + offset.y, self.loc.x + offset.x), self.loc.ws)
+                Loc((self._loc.y + offset.y, self._loc.x + offset.x), self._loc.ws)
             )
             offset = self._inc_offset(offset, elem)
 
@@ -395,21 +400,21 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
             return ListIndexableById.__getitem__(self, key)
 
         new_elements = [self[self._key_to_idx(k)] for k in key]
-        new_dict = {k: v for k, v in self.__dict__.items() if k not in ["_id", "loc"]}
+        new_dict = {k: v for k, v in self.__dict__.items() if k not in ["_id", "_loc"]}
         if "_header" in new_dict:
             new_dict["header"] = new_dict.pop("_header")
 
         return type(self)(*new_elements, **new_dict)
 
-    def __rshift__(self, other):
-        if get_dimensions(other) < get_dimensions(self):
-            return elem_math(self[0], other, lambda a, b: a >> b, " >> ")
-        return self[0] >> other[-1]
-
-    def __rrshift__(self, other):
-        if get_dimensions(other) < get_dimensions(self):
-            return elem_math(other, self[-1], lambda a, b: a >> b, " >> ")
-        return other[0] >> self[-1]
+    # def __rshift__(self, other):
+    #     if get_dimensions(other) < get_dimensions(self):
+    #         return elem_math(self[0], other, lambda a, b: a >> b, " >> ")
+    #     return self[0] >> other[-1]
+    #
+    # def __rrshift__(self, other):
+    #     if get_dimensions(other) < get_dimensions(self):
+    #         return elem_math(other, self[-1], lambda a, b: a >> b, " >> ")
+    #     return other[0] >> self[-1]
 
     def _validate_child_types(self) -> None:
         cls_name = type(self).__name__
@@ -439,7 +444,7 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
             ensure_value_is_not_number(self.header)
             new_header = Cell(self.header)
 
-            new_header._set_loc(self.loc)
+            new_header._set_loc(self._loc)
 
             new_header._inherit_style_without_override(self.header_style)
 
@@ -505,7 +510,7 @@ class Col(_Series):
         return offset
 
     def _starting_offset(self) -> Loc:
-        offset = Loc((0, 0), self.loc.ws)
+        offset = Loc((0, 0), self._loc.ws)
         if getattr(self, "_header", None) is not None:
             offset.y += 1
         return offset
@@ -565,7 +570,7 @@ class Row(_Series):
         return offset
 
     def _starting_offset(self) -> Loc:
-        offset = Loc((0, 0), self.loc.ws)
+        offset = Loc((0, 0), self._loc.ws)
         if getattr(self, "_header", None) is not None:
             offset.x += 1
         return offset

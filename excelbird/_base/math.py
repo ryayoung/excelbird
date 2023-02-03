@@ -284,6 +284,13 @@ class CanDoMath:
         from excelbird.core.function import Func
         return Func("OR(", other, ", ", self, ")")
 
+    def __and__(self, other):
+        return self._to_func("AND", other)
+
+    def __rand__(self, other):
+        from excelbird.core.function import Func
+        return Func("AND(", other, ", ", self, ")")
+
     def __eq__(self, other):
         return elem_math(self, other, lambda a,b: a == b, self._space_sign("="))
 
@@ -302,13 +309,34 @@ class CanDoMath:
     def __ge__(self, other):
         return elem_math(self, other, lambda a,b: a >= b, self._space_sign(">="))
 
-
     def __add__(self, other):
+        from excelbird.core.function import Func
+        if isinstance(self, Func) and self._is_python_sum is True:
+            self.inner.insert(-1, ", ")
+            self.inner.insert(-1, other)
+            return self
+
+        if isinstance(other, str):
+            if not other.startswith('"') and not other.endswith('"'):
+                other = f'"{other}"'
+            return elem_math(self, other, lambda a,b: a + b, self._space_sign("&"))
         return elem_math(self, other, lambda a,b: a + b, self._space_sign("+"))
 
     def __radd__(self, other):
-        return elem_math(other, self, lambda a,b: a + b, self._space_sign("+"))
+        from excelbird.core.function import Func
+        if other == 0:  # Adding to zero signals the beginning of python sum() evaluation
+            return Func("SUM(", self, ")", _is_python_sum = True)
 
+        if isinstance(other, Func) and other._is_python_sum is True:
+            other.inner.insert(-1, ", ")
+            other.inner.insert(-1, self)
+            return other
+
+        if isinstance(other, str):
+            if not other.startswith('"') and not other.endswith('"'):
+                other = f'"{other}"'
+            return elem_math(other, self, lambda a,b: a + b, self._space_sign("&"))
+        return elem_math(other, self, lambda a,b: a + b, self._space_sign("+"))
 
     def __sub__(self, other):
         return elem_math(self, other, lambda a,b: a - b, self._space_sign("-"))
@@ -352,14 +380,14 @@ class CanDoMath:
         return elem_math(self, other, lambda a,b: a >> b, ":")
 
 
-    def __and__(self, other):
-        if isinstance(other, str):
-            if not other.endswith('"') and not other.startswith('"'):
-                other = f'"{other}"'
-        return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))
-
-    def __rand__(self, other):
-        if isinstance(other, str):
-            if not other.endswith('"') and not other.startswith('"'):
-                other = f'"{other}"'
-        return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))
+    # def __and__(self, other):
+    #     if isinstance(other, str):
+    #         if not other.endswith('"') and not other.startswith('"'):
+    #             other = f'"{other}"'
+    #     return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))
+    #
+    # def __rand__(self, other):
+    #     if isinstance(other, str):
+    #         if not other.endswith('"') and not other.startswith('"'):
+    #             other = f'"{other}"'
+    #     return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))

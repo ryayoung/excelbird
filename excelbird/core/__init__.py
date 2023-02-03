@@ -12,6 +12,7 @@ from excelbird.core.merged import *
 
 """
 TODO:
+- Func needs to have id and header
 - DUDE!!!! Make Func use a unique syntax to declare an Expr inside.
   The enclosure, @[], represents an Expr. So @[<stuff>] will be interpreted
   EXACTLY as Expr("<stuff>"). AND since Expr can take a single reference without

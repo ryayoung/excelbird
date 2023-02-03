@@ -159,7 +159,7 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
 
         move_remaining_kwargs_to_dict(kwargs, cell_style)
 
-        self.loc = None
+        self._loc = None
         self.id = id
         self.background_color = background_color
         # Attrs that must be passed to children
@@ -228,11 +228,11 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
             for key, val in self_dict.items():
                 if key == "_header":
                     key = "header"
-                if key not in new_dict and key not in ["_id", "loc"]:
+                if key not in new_dict and key not in ["_id", "_loc"]:
                     new_dict[key] = val
         return type(self)(*new_elements, **new_dict)
 
-    def transpose(self, other: type, **kwargs):
+    def transpose(self, **kwargs):
         """
         Convert to sibling type. Places current children into the returned object,
         without copying or making cell references to them.
@@ -267,12 +267,16 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
 
         """
         elements = list(self)
-        new = other(*elements)
+        new = type(self).sibling_type(*elements)
         for key, val in self.__dict__.items():
-            if key != "_id":
-                setattr(new, key, val)
-        for key, val in kwargs.items():
+            if key == "_id":
+                key = "id"
             setattr(new, key, val)
+        for key, val in kwargs.items():
+            if hasattr(new, key):
+                setattr(new, key, val)
+            elif hasattr(new, 'cell_style'):
+                new.cell_style[key] = val
         return new
 
     def _format_args(self, args: list) -> None:
@@ -430,12 +434,12 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
                 elem._resolve_gaps()
 
     def _set_loc(self, loc: Loc) -> None:
-        self.loc = loc
+        self._loc = loc
 
         offset = self._starting_offset()
         for elem in self:
             elem._set_loc(
-                Loc((self.loc.y + offset.y, self.loc.x + offset.x), self.loc.ws)
+                Loc((self._loc.y + offset.y, self._loc.x + offset.x), self._loc.ws)
             )
             offset = self._inc_offset(offset, elem)
 
@@ -445,7 +449,7 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
             return ListIndexableById.__getitem__(self, key)
 
         new_elements = [self[self._key_to_idx(k)] for k in key]
-        new_dict = {k: v for k, v in self.__dict__.items() if k not in ["_id", "loc"]}
+        new_dict = {k: v for k, v in self.__dict__.items() if k not in ["_id", "_loc"]}
         if "_header" in new_dict:
             new_dict["header"] = new_dict.pop("_header")
 
@@ -512,7 +516,7 @@ class Stack(_Stack):
         return offset
 
     def _starting_offset(self) -> Loc:
-        return Loc((0, 0), self.loc.ws)
+        return Loc((0, 0), self._loc.ws)
 
     @property
     def _gap_size(self) -> int:
@@ -548,7 +552,7 @@ class VStack(_Stack):
         return offset
 
     def _starting_offset(self) -> Loc:
-        return Loc((0, 0), self.loc.ws)
+        return Loc((0, 0), self._loc.ws)
 
     @property
     def _gap_size(self) -> int:

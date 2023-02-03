@@ -194,7 +194,7 @@ class Cell(HasId, HasBorder, CanDoMath):
         _written: bool | None = None,
     ) -> None:
         self._written = False
-        self.loc = None
+        self._loc = None
 
         self.value = value
         self.dropdown = dropdown
@@ -234,7 +234,7 @@ class Cell(HasId, HasBorder, CanDoMath):
             cell = self.value
             self.value = None
             new_dict = {
-                k: v for k, v in cell.__dict__.items() if k not in ["_id", "loc"]
+                k: v for k, v in cell.__dict__.items() if k not in ["_id", "_loc"]
             }
             for key, val in new_dict.items():
                 if getattr(self, key) is None:
@@ -291,7 +291,7 @@ class Cell(HasId, HasBorder, CanDoMath):
         if inherit_style is True:
             self_dict = deepcopy(self.__dict__)
             for key, val in self_dict.items():
-                if key not in kwargs and key not in ["_id", "loc", "expr", "func"]:
+                if key not in kwargs and key not in ["_id", "_loc", "expr", "func"]:
                     kwargs[key] = val
         return Cell(expr=[self], **kwargs)
 
@@ -308,7 +308,7 @@ class Cell(HasId, HasBorder, CanDoMath):
 
     def _write(self) -> None:
 
-        assert self.loc is not None, (
+        assert self._loc is not None, (
             "Excelbird developer error: Somehow, ._write() got called "
             "on a Cell that doesn't have a location. This is a serious issue!"
         )
@@ -324,7 +324,7 @@ class Cell(HasId, HasBorder, CanDoMath):
 
         if self.func is not None:
             self.value = "=" + self._func_value()
-            self.value = self.value.replace(self.loc.title_str, "")
+            self.value = self.value.replace(self._loc.title_str, "")
 
         if self.expr is not None:
             self.value = self._expr_value()
@@ -332,7 +332,7 @@ class Cell(HasId, HasBorder, CanDoMath):
                 return
             if "UNKNOWN" not in str(self.value):
                 self.value = "=" + str(self.value)
-            self.value = self.value.replace(self.loc.title_str, "")
+            self.value = self.value.replace(self._loc.title_str, "")
 
         if self.value is None:
             return
@@ -344,9 +344,12 @@ class Cell(HasId, HasBorder, CanDoMath):
             # Just making sure pd.isnull doesn't throw, if given a data type it doesn't like
             pass
 
-        y, x = self.loc.y, self.loc.x
-        cell = self.loc.cell
+        y, x = self._loc.y, self._loc.x
+        cell = self._loc.cell
         cell.value = self.value
+
+        # if ":" in str(self.value):
+        #     self._loc.ws.formula_attributes['A5'] = {'t': 'array', 'ref': "A5:A5"}
 
         def get_dropdown() -> DataValidation | None:
             value = self.dropdown
@@ -366,15 +369,15 @@ class Cell(HasId, HasBorder, CanDoMath):
                 formula = None
                 if isinstance(value, (Col, Row)):
                     formula = self._eval_expr(value.range().expr).replace(
-                        self.loc.title_str, ""
+                        self._loc.title_str, ""
                     )
                 else:
-                    if value.loc is None:
+                    if value._loc is None:
                         raise ValueError(
                             "Cell reference in dropdown must be a valid Cell in workbook"
                         )
 
-                    formula = self._eval_expr([value]).replace(self.loc.title_str, "")
+                    formula = self._eval_expr([value]).replace(self._loc.title_str, "")
 
             if formula is None:
                 return None
@@ -385,7 +388,7 @@ class Cell(HasId, HasBorder, CanDoMath):
 
         validation = get_dropdown()
         if validation is not None:
-            self.loc.ws.add_data_validation(validation)
+            self._loc.ws.add_data_validation(validation)
 
         def get_number_format():
             if self.ignore_format is True:
@@ -495,7 +498,7 @@ class Cell(HasId, HasBorder, CanDoMath):
         if self.merge is not None:
             end_row = 1 + y + self.merge[0]
             end_column = 1 + x + self.merge[1]
-            self.loc.ws.merge_cells(
+            self._loc.ws.merge_cells(
                 start_row=y + 1,
                 start_column=x + 1,
                 end_row=end_row,
@@ -503,23 +506,27 @@ class Cell(HasId, HasBorder, CanDoMath):
             )
 
         if self.col_width is not None:
-            self.loc.column_dimensions.width = self.col_width
+            self._loc.column_dimensions.width = self.col_width
 
         if self.autofit is True and self.col_width is None:
-            curr = self.loc.column_dimensions.width
+            curr = self._loc.column_dimensions.width
             new = autofit_algorithm(self.value)
             if new > curr:
-                self.loc.column_dimensions.width = new
+                self._loc.column_dimensions.width = new
 
         if self.row_height is not None:
-            self.loc.row_dimensions.height = self.row_height
+            self._loc.row_dimensions.height = self.row_height
 
         self._written = True
 
     def _set_loc(self, loc: Loc) -> None:
-        self.loc = loc
+        self._loc = loc
 
     def __repr__(self):
+        if self.expr is not None:
+            return type(self).__name__ + "({...})"
+        if self.func is not None:
+            return type(self).__name__ + "(Func(...))"
         return f"{type(self).__name__}({self.value})"
 
     def _eval_func(self, func: list) -> str:
@@ -535,8 +542,8 @@ class Cell(HasId, HasBorder, CanDoMath):
                 evaluated = self._eval_expr(cell_range)
                 return remove_paren_enclosure(evaluated)
 
-            if elem.loc is not None:
-                return elem.loc.full_str
+            if elem._loc is not None:
+                return elem._loc.full_str
 
             if elem.expr is not None:
                 evaluated = self._eval_expr(elem.expr)
@@ -554,8 +561,8 @@ class Cell(HasId, HasBorder, CanDoMath):
             if not isinstance(elem, Cell):
                 return str(elem)
 
-            if elem.loc is not None:
-                return elem.loc.full_str
+            if elem._loc is not None:
+                return elem._loc.full_str
 
             if elem.expr is not None:
                 return self._eval_expr(elem.expr)

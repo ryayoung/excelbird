@@ -2,6 +2,7 @@
 Detailed documentation and code examples coming soon. For now, please use the class
 reference page below:
 """
+from __future__ import annotations
 import re
 from typing import TypeVar
 
@@ -180,6 +181,14 @@ class Expr(CanDoMath):
         self.header_style = Style(**header_style)
         self.table_style = Style(**table_style)
         self.kwargs = kwargs
+
+    def set(self, **kwargs) -> Expr:
+        for k, v in kwargs.items():
+            if hasattr(self, k):
+                setattr(self, k, v)
+            else:
+                self.kwargs[k] = v
+        return self
 
     def _refs_resolved(self) -> bool:
         """

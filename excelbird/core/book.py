@@ -11,6 +11,7 @@ import os
 # Internal main
 from excelbird._utils.util import (
     fill_frames,
+    set_duplicate_objects_to_ref,
 )
 from excelbird._utils.argument_parsing import (
     combine_args_and_children_to_list,
@@ -208,6 +209,8 @@ class Book(ListIndexableById):
         pass_attr_to_children(self, "end_gap")
 
         self._validate_child_types()
+
+        set_duplicate_objects_to_ref(self, [])
 
         for sheet in self:
             fill_frames(sheet)

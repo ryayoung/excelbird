@@ -48,7 +48,7 @@ def init_from_same_dimension_type(instance, args: list) -> list:
     ):
         args = list(first_arg)
         for key, val in first_arg.__dict__.items():
-            if key == "loc":
+            if key == "_loc":
                 continue
             if key == "_id":
                 key = "id"
@@ -93,6 +93,32 @@ def fill_frames(container: list) -> None:
                         series.append(fill_value())
 
 
+def set_duplicate_objects_to_ref(
+    container: list, memory_ids_history: list,
+) -> None:
+    """
+    Duplicated elements need to have .ref() set.
+    """
+    from excelbird.core.stack import _Stack
+    from excelbird.core.frame import _Frame
+    from excelbird.core.series import _Series
+    from excelbird.core.cell import Cell
+    valid_types = (
+        _Stack,
+        _Frame,
+        _Series,
+        Cell,
+    )
+    for i, elem in enumerate(container):
+        if isinstance(elem, valid_types):
+            if id(elem) in memory_ids_history and hasattr(elem, "ref"):
+                container[i] = elem.ref()
+            else:
+                memory_ids_history.append(id(elem))
+                if not isinstance(elem, Cell):
+                    set_duplicate_objects_to_ref(elem, memory_ids_history)
+
+
 def is_notebook() -> bool:
     """
     Thank you very much Gustavo Bezerra on Stackoverflow
@@ -109,6 +135,8 @@ def is_notebook() -> bool:
         return False      # Probably standard Python interpreter
 
 
+
+
 # def mark_all_cells_as_written_recursive(container: list) -> None:
 #     from excelbird.core.cell import Cell
 #     for elem in container:
@@ -116,6 +144,4 @@ def is_notebook() -> bool:
 #             elem._written = True
 #         elif isinstance(elem, list):
 #             mark_all_cells_as_written_recursive(elem)
-
-
 

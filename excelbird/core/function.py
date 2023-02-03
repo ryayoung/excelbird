@@ -2,6 +2,7 @@
 Detailed documentation and code examples coming soon. For now, please use the class
 reference page below:
 """
+from __future__ import annotations
 from excelbird.core.expression import Expr
 from excelbird._base.math import CanDoMath
 
@@ -37,6 +38,7 @@ class Func(CanDoMath):
         self,
         *inner,
         res_type: type | None = None,
+        _is_python_sum: bool = False,
         **kwargs,
     ) -> None:
         """
@@ -70,7 +72,16 @@ class Func(CanDoMath):
 
         self.res_type = res_type
         self.inner = inner
+        self._is_python_sum = _is_python_sum
         self.kwargs = kwargs
+
+    def set(self, **kwargs) -> Func:
+        for k, v in kwargs.items():
+            if hasattr(self, k):
+                setattr(self, k, v)
+            else:
+                self.kwargs[k] = v
+        return self
 
     def _get_function(self, container_type: type | None = None):
         if self.res_type is None:

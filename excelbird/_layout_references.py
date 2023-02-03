@@ -18,14 +18,14 @@ class Globals:
 
         for id, elem in cls.ids.items():
             if hasattr(elem, "loc"):
-                if elem.loc is not None:
-                    if elem.loc.ws.title == sheet_title:
+                if elem._loc is not None:
+                    if elem._loc.ws.title == sheet_title:
                         ids_to_pop.append(id)
 
         for header, elem in cls.headers.items():
-            if hasattr(elem, "loc"):
-                if elem.loc is not None:
-                    if elem.loc.ws.title == sheet_title:
+            if hasattr(elem, "_loc"):
+                if elem._loc is not None:
+                    if elem._loc.ws.title == sheet_title:
                         headers_to_pop.append(header)
 
         for header in headers_to_pop:
