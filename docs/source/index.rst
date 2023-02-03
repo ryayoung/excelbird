@@ -111,4 +111,3 @@ Excelbird Documentation
 
 .. toctree::
    api
-   test
