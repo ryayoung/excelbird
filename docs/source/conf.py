@@ -175,7 +175,7 @@ nbsphinx_prolog = """
         }
 
         div.nboutput table.dataframe {
-            width: auto;
+            width: auto !important;
         }
 
 
