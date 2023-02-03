@@ -166,10 +166,6 @@ nbsphinx_prolog = """
             box-shadow: none !important;
         }
 
-        .container {
-            width: 80% !important;
-        }
-
         div.cell {
             border: none !important;
         }
