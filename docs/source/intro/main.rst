@@ -58,5 +58,6 @@ Getting Started
 
 .. toctree::
 
+   test
    layout
    expression
