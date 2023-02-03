@@ -177,7 +177,7 @@ nbsphinx_prolog = """
         h1, .h1 {
             font-size: 50px;
             font-family: "Trebuchet MS";
-            font-size: 2.5em !important;
+            font-size: 4em !important;
             color: #2a7bbd;
         }
 
