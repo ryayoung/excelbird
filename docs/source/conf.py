@@ -151,10 +151,9 @@ html_theme_options = dict(
     show_toc_level = 2,
     # Add light/dark mode and documentation version switcher:
     # "navbar_end": ["theme-switcher", "version-switcher", "navbar-icon-links"],
+    pygment_light_style="solarized-dark",
+    pygment_dark_style="nord",
 )
-
-
-
 
 
 nbsphinx_prolog = """
@@ -168,11 +167,6 @@ nbsphinx_prolog = """
 
         .input_area {
             border: none !important;
-            border-bottom: 0.5px solid var(--pst-color-info) !important;
-        }
-
-        .highlight-ipython3 .highlight {
-            background-color: #f9f9f9 !important;
         }
 
         div.nbinput.container div.prompt, div.nboutput.container div.prompt {
@@ -189,3 +183,11 @@ nbsphinx_prolog = """
 
 
 
+        # .input_area {
+        #     border: none !important;
+        #     border-bottom: 0.5px solid var(--pst-color-info) !important;
+        # }
+        #
+        # .highlight-ipython3 .highlight {
+        #     background-color: #f9f9f9 !important;
+        # }
