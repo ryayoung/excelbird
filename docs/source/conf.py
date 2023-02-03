@@ -23,7 +23,6 @@ extensions = [
     'numpydoc',
     'sphinx_copybutton',
     'nbsphinx',
-    'ipykernel',
     # 'sphinx_panels',
     'sphinx_toggleprompt',
     'sphinx_design',
