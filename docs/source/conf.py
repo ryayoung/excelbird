@@ -178,6 +178,10 @@ nbsphinx_prolog = """
             width: auto !important;
         }
 
+        .highlight pre {
+            line-height: 120% !important;
+        }
+
 
 
     </style>

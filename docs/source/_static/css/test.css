@@ -138,3 +138,8 @@ html[data-theme=dark] h1 {
 html[data-theme=dark] h3 {
   color: #0a6774;
 }
+
+@media (min-width: 960px)
+.bd-page-width {
+    max-width: 105rem;
+}
