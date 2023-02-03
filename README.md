@@ -11,4 +11,4 @@ Layout and styling is as easy as building an HTML page. You don't have to tell c
 Excelbird objects create and store cell references on their own, and can be used in python arithmetic expressions which will be lazily evaluated to render your expression as an excel formula with real cell references.
 
 
-## [Go to Documentation](https://excelbird.readthedocs.io/en/latest/)
+# [Documentation](https://excelbird.readthedocs.io/en/latest/) <img src="https://github.com/ryayoung/icons/blob/main/svg/arrow.right.blue.svg" height="27"/>
