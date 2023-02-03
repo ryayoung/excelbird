@@ -106,7 +106,7 @@ intersphinx_mapping = {
 toggleprompt_offset_right = 35
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = "sphinx"
+# pygments_style = "sphinx"
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -171,6 +171,10 @@ nbsphinx_prolog = """
 
         div.nbinput.container div.prompt, div.nboutput.container div.prompt {
             display: none;
+        }
+
+        div.nboutput table.dataframe {
+            width: auto;
         }
 
 
