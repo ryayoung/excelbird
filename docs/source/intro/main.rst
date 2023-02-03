@@ -5,6 +5,10 @@ Getting Started
 
 .. grid:: 2
 
+    .. grid-item-card:: Examples
+        :link: test
+        :link-type: doc
+
     .. grid-item-card:: Layout Tree Structure
         :link: layout
         :link-type: doc
