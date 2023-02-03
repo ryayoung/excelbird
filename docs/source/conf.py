@@ -174,7 +174,7 @@ nbsphinx_prolog = """
             display: none;
         }
 
-        div.nboutput table.dataframe {
+        .nboutput .output_area table {
             width: auto !important;
         }
 
