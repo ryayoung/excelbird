@@ -1,0 +1,62 @@
+The functions available in excelbird.fx are generated from the html table
+found at this link called 'Excel Functions (alphabetical)':
+https://support.microsoft.com/en-us/office/excel-functions-alphabetical-b3944572-255d-4efb-bb96-c6d90033e188
+
+To generate them, copy-paste the html code for the main table
+(identify it as <table aria-label class="banded flipColors">)
+into a python file inside Vim.
+
+Then, while inside vim looking at the raw html source for the table,
+run the following search replace commands. Author: Ryan Young
+
+Regex
+=========================================================================
+Copy the following lines one at a time, starting AFTER the beginning colon for each.
+
+Extract table body contents
+:%s/\_.\{-}<tbody>\_.\(\_.\+\)<\/tbody>\_.\+/\1
+
+Match needed info
+:%s/<tr>\_.\{-}<p.*>\_.\{-}cpArticleLink">\(.\+\)<\/a>\_.\{-}ocpRunInHead">\(.\+\)<\/b>\(\(&nbsp;\)*\)\(.\+\)<\/p>\_.\{-}<\/tr>/\1 :: \1 :: **\2** :: \5
+
+Remove starting spaces
+:%s/^\s\+/
+
+Remove 'function'
+:%s/ functions\? :: / :: /g
+
+When there's two functions in one line, remove the second version (Make sure you have a trailing space at the end of this line)
+:%s/ :: [A-Z\.0-9]\+, [A-Z\.0-9]\+ :: / :: 
+
+When there's two functions in one line, separate them onto two lines
+:%s/^\([A-Z\.0-9]\+\), \([A-Z\.0-9]\+\) :: \(.\+\)$/\1 :: \1 :: \3\r\2 :: \2 :: \3
+
+Lowercase first element
+:%s/^\([A-Z\.0-9]\+\)/\L\1
+
+Underscore first element when there's two dot delimiters
+:%s/\([a-z\.0-9]\+\)\(\.\)\([a-z\.0-9]\+\)\(\.\)\([a-z\.0-9]\+\)/\1_\3_\5
+
+Underscore first element when there's one dot delimiter
+:%s/\([a-z\.0-9]\+\)\(\.\)\([a-z\.0-9]\+\)/\1_\3
+
+Replace &nbsp; with empty string when it's inside the bold header where the colon is
+:%s/:&nbsp;\*/:*
+
+Replace each instance of &nbsp; on a line with single space, including surrounding spaces in our match.
+:%s/ \?&nbsp; \?/ /g
+
+Remove trailing space between header ending colon and double asterisk
+:%s/\([a-z]\): \*\*/\1:**
+
+Remove double spaces
+:%s/  / /g
+
+Make sure double colon is always surrounded by single spaces
+:%s/ *:: */ :: /g
+
+NOTE: If you think you might change your mind about how your functions will be formatted,
+save a copy of your current progress before proceeding.
+
+Pattern to format the functions. This is a single line, and should be pasted into vim in its entirety
+:%s/\([a-z_0-9]\+\) :: \([A-Z\.0-9]\+\) :: \(.*\) :: \(.\+\)/def \1(*args: Any, **kwargs: Any) -> Func:\r\t"""\r\t:meth:`\2` - \3 \4\r\r\tReturns\r\t-------\r\t:class:`Func <excelbird.func>`\r\t\tEquivalent to ``Func("\2(", *args, ")", **kwargs)``\r\t"""\r\treturn Func("\2(", *args, ")", **kwargs)\r
