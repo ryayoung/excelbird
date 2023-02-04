@@ -6,5 +6,5 @@ fx
 
 .. _fx_main:
 
-.. automodule:: fx
+.. automodule:: excelbird.fx
    :members:
