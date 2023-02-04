@@ -1,4 +1,4 @@
-excelbird.fx
+fx
 =============
 
 .. role:: html(raw)
@@ -6,5 +6,5 @@ excelbird.fx
 
 .. _fx_main:
 
-.. automodule:: excelbird.fx
+.. automodule:: fx
    :members:
