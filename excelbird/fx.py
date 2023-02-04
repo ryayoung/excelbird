@@ -4,6 +4,7 @@
    :format: html
 
 All ~500 Excel functions can be accessed in Python, from the :mod:`excelbird.fx` module.
+
 Each is documented with the same short summary as provided by `Microsoft's documentation <https://support.microsoft.com/en-us/office/excel-functions-alphabetical-b3944572-255d-4efb-bb96-c6d90033e188>`_.
 
 Allows for autocomplete and documentation preview in your IDE.
@@ -23,13 +24,12 @@ Allows for autocomplete and documentation preview in your IDE.
     .. code-block::
 
         Func("ABS(", some_cell, ")")
-
 """
 from excelbird.core.function import Func
 from typing import Any
 
 
-def ABS(*args: Any, **kwargs: Any) -> Func:
+def ABS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the absolute value of a number
 
@@ -39,9 +39,9 @@ def ABS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ABS(", *args, ")", **kwargs)
+	return Func("ABS(", *inner, ")", res_type=res_type, **kwargs)
 
-def ACCRINT(*args: Any, **kwargs: Any) -> Func:
+def ACCRINT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the accrued interest for a security that pays periodic interest
 
@@ -51,9 +51,9 @@ def ACCRINT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ACCRINT(", *args, ")", **kwargs)
+	return Func("ACCRINT(", *inner, ")", res_type=res_type, **kwargs)
 
-def ACCRINTM(*args: Any, **kwargs: Any) -> Func:
+def ACCRINTM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the accrued interest for a security that pays interest at maturity
 
@@ -63,9 +63,9 @@ def ACCRINTM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ACCRINTM(", *args, ")", **kwargs)
+	return Func("ACCRINTM(", *inner, ")", res_type=res_type, **kwargs)
 
-def ACOS(*args: Any, **kwargs: Any) -> Func:
+def ACOS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the arccosine of a number
 
@@ -75,9 +75,9 @@ def ACOS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ACOS(", *args, ")", **kwargs)
+	return Func("ACOS(", *inner, ")", res_type=res_type, **kwargs)
 
-def ACOSH(*args: Any, **kwargs: Any) -> Func:
+def ACOSH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the inverse hyperbolic cosine of a number
 
@@ -87,9 +87,9 @@ def ACOSH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ACOSH(", *args, ")", **kwargs)
+	return Func("ACOSH(", *inner, ")", res_type=res_type, **kwargs)
 
-def ACOT(*args: Any, **kwargs: Any) -> Func:
+def ACOT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the arccotangent of a number
 
@@ -99,9 +99,9 @@ def ACOT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ACOT(", *args, ")", **kwargs)
+	return Func("ACOT(", *inner, ")", res_type=res_type, **kwargs)
 
-def ACOTH(*args: Any, **kwargs: Any) -> Func:
+def ACOTH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the hyperbolic arccotangent of a number
 
@@ -111,9 +111,9 @@ def ACOTH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ACOTH(", *args, ")", **kwargs)
+	return Func("ACOTH(", *inner, ")", res_type=res_type, **kwargs)
 
-def AGGREGATE(*args: Any, **kwargs: Any) -> Func:
+def AGGREGATE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns an aggregate in a list or database
 
@@ -123,9 +123,9 @@ def AGGREGATE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AGGREGATE(", *args, ")", **kwargs)
+	return Func("AGGREGATE(", *inner, ")", res_type=res_type, **kwargs)
 
-def ADDRESS(*args: Any, **kwargs: Any) -> Func:
+def ADDRESS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns a reference as text to a single cell in a worksheet
 
@@ -135,9 +135,9 @@ def ADDRESS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ADDRESS(", *args, ")", **kwargs)
+	return Func("ADDRESS(", *inner, ")", res_type=res_type, **kwargs)
 
-def AMORDEGRC(*args: Any, **kwargs: Any) -> Func:
+def AMORDEGRC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the depreciation for each accounting period by using a depreciation coefficient
 
@@ -147,9 +147,9 @@ def AMORDEGRC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AMORDEGRC(", *args, ")", **kwargs)
+	return Func("AMORDEGRC(", *inner, ")", res_type=res_type, **kwargs)
 
-def AMORLINC(*args: Any, **kwargs: Any) -> Func:
+def AMORLINC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the depreciation for each accounting period
 
@@ -159,9 +159,9 @@ def AMORLINC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AMORLINC(", *args, ")", **kwargs)
+	return Func("AMORLINC(", *inner, ")", res_type=res_type, **kwargs)
 
-def AND(*args: Any, **kwargs: Any) -> Func:
+def AND(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Returns TRUE if all of its arguments are TRUE
 
@@ -171,9 +171,9 @@ def AND(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AND(", *args, ")", **kwargs)
+	return Func("AND(", *inner, ")", res_type=res_type, **kwargs)
 
-def ARABIC(*args: Any, **kwargs: Any) -> Func:
+def ARABIC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Converts a Roman number to Arabic, as a number
 
@@ -183,9 +183,9 @@ def ARABIC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ARABIC(", *args, ")", **kwargs)
+	return Func("ARABIC(", *inner, ")", res_type=res_type, **kwargs)
 
-def AREAS(*args: Any, **kwargs: Any) -> Func:
+def AREAS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the number of areas in a reference
 
@@ -195,9 +195,9 @@ def AREAS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AREAS(", *args, ")", **kwargs)
+	return Func("AREAS(", *inner, ")", res_type=res_type, **kwargs)
 
-def ARRAYTOTEXT(*args: Any, **kwargs: Any) -> Func:
+def ARRAYTOTEXT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns an array of text values from any specified range
 
@@ -207,9 +207,9 @@ def ARRAYTOTEXT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ARRAYTOTEXT(", *args, ")", **kwargs)
+	return Func("ARRAYTOTEXT(", *inner, ")", res_type=res_type, **kwargs)
 
-def ASC(*args: Any, **kwargs: Any) -> Func:
+def ASC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Changes full-width (double-byte) English letters or katakana within a character string to half-width (single-byte) characters
 
@@ -219,9 +219,9 @@ def ASC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ASC(", *args, ")", **kwargs)
+	return Func("ASC(", *inner, ")", res_type=res_type, **kwargs)
 
-def ASIN(*args: Any, **kwargs: Any) -> Func:
+def ASIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the arcsine of a number
 
@@ -231,9 +231,9 @@ def ASIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ASIN(", *args, ")", **kwargs)
+	return Func("ASIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def ASINH(*args: Any, **kwargs: Any) -> Func:
+def ASINH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the inverse hyperbolic sine of a number
 
@@ -243,9 +243,9 @@ def ASINH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ASINH(", *args, ")", **kwargs)
+	return Func("ASINH(", *inner, ")", res_type=res_type, **kwargs)
 
-def ATAN(*args: Any, **kwargs: Any) -> Func:
+def ATAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the arctangent of a number
 
@@ -255,9 +255,9 @@ def ATAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ATAN(", *args, ")", **kwargs)
+	return Func("ATAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def ATAN2(*args: Any, **kwargs: Any) -> Func:
+def ATAN2(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the arctangent from x- and y-coordinates
 
@@ -267,9 +267,9 @@ def ATAN2(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ATAN2(", *args, ")", **kwargs)
+	return Func("ATAN2(", *inner, ")", res_type=res_type, **kwargs)
 
-def ATANH(*args: Any, **kwargs: Any) -> Func:
+def ATANH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the inverse hyperbolic tangent of a number
 
@@ -279,9 +279,9 @@ def ATANH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ATANH(", *args, ")", **kwargs)
+	return Func("ATANH(", *inner, ")", res_type=res_type, **kwargs)
 
-def AVEDEV(*args: Any, **kwargs: Any) -> Func:
+def AVEDEV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the average of the absolute deviations of data points from their mean
 
@@ -291,9 +291,9 @@ def AVEDEV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AVEDEV(", *args, ")", **kwargs)
+	return Func("AVEDEV(", *inner, ")", res_type=res_type, **kwargs)
 
-def AVERAGE(*args: Any, **kwargs: Any) -> Func:
+def AVERAGE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the average of its arguments
 
@@ -303,9 +303,9 @@ def AVERAGE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AVERAGE(", *args, ")", **kwargs)
+	return Func("AVERAGE(", *inner, ")", res_type=res_type, **kwargs)
 
-def AVERAGEA(*args: Any, **kwargs: Any) -> Func:
+def AVERAGEA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the average of its arguments, including numbers, text, and logical values
 
@@ -315,9 +315,9 @@ def AVERAGEA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AVERAGEA(", *args, ")", **kwargs)
+	return Func("AVERAGEA(", *inner, ")", res_type=res_type, **kwargs)
 
-def AVERAGEIF(*args: Any, **kwargs: Any) -> Func:
+def AVERAGEIF(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the average (arithmetic mean) of all the cells in a range that meet a given criteria
 
@@ -327,9 +327,9 @@ def AVERAGEIF(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AVERAGEIF(", *args, ")", **kwargs)
+	return Func("AVERAGEIF(", *inner, ")", res_type=res_type, **kwargs)
 
-def AVERAGEIFS(*args: Any, **kwargs: Any) -> Func:
+def AVERAGEIFS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the average (arithmetic mean) of all cells that meet multiple criteria.
 
@@ -339,9 +339,9 @@ def AVERAGEIFS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("AVERAGEIFS(", *args, ")", **kwargs)
+	return Func("AVERAGEIFS(", *inner, ")", res_type=res_type, **kwargs)
 
-def BAHTTEXT(*args: Any, **kwargs: Any) -> Func:
+def BAHTTEXT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Converts a number to text, using the ß (baht) currency format
 
@@ -351,9 +351,9 @@ def BAHTTEXT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BAHTTEXT(", *args, ")", **kwargs)
+	return Func("BAHTTEXT(", *inner, ")", res_type=res_type, **kwargs)
 
-def BASE(*args: Any, **kwargs: Any) -> Func:
+def BASE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Converts a number into a text representation with the given radix (base)
 
@@ -363,9 +363,9 @@ def BASE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BASE(", *args, ")", **kwargs)
+	return Func("BASE(", *inner, ")", res_type=res_type, **kwargs)
 
-def BESSELI(*args: Any, **kwargs: Any) -> Func:
+def BESSELI(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the modified Bessel function In(x)
 
@@ -375,9 +375,9 @@ def BESSELI(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BESSELI(", *args, ")", **kwargs)
+	return Func("BESSELI(", *inner, ")", res_type=res_type, **kwargs)
 
-def BESSELJ(*args: Any, **kwargs: Any) -> Func:
+def BESSELJ(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the Bessel function Jn(x)
 
@@ -387,9 +387,9 @@ def BESSELJ(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BESSELJ(", *args, ")", **kwargs)
+	return Func("BESSELJ(", *inner, ")", res_type=res_type, **kwargs)
 
-def BESSELK(*args: Any, **kwargs: Any) -> Func:
+def BESSELK(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the modified Bessel function Kn(x)
 
@@ -399,9 +399,9 @@ def BESSELK(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BESSELK(", *args, ")", **kwargs)
+	return Func("BESSELK(", *inner, ")", res_type=res_type, **kwargs)
 
-def BESSELY(*args: Any, **kwargs: Any) -> Func:
+def BESSELY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the Bessel function Yn(x)
 
@@ -411,9 +411,9 @@ def BESSELY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BESSELY(", *args, ")", **kwargs)
+	return Func("BESSELY(", *inner, ")", res_type=res_type, **kwargs)
 
-def BETADIST(*args: Any, **kwargs: Any) -> Func:
+def BETADIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the beta cumulative distribution function
 
@@ -423,9 +423,9 @@ def BETADIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BETADIST(", *args, ")", **kwargs)
+	return Func("BETADIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def BETA_DIST(*args: Any, **kwargs: Any) -> Func:
+def BETA_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the beta cumulative distribution function
 
@@ -435,9 +435,9 @@ def BETA_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BETA.DIST(", *args, ")", **kwargs)
+	return Func("BETA.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def BETAINV(*args: Any, **kwargs: Any) -> Func:
+def BETAINV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the inverse of the cumulative distribution function for a specified beta distribution
 
@@ -447,9 +447,9 @@ def BETAINV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BETAINV(", *args, ")", **kwargs)
+	return Func("BETAINV(", *inner, ")", res_type=res_type, **kwargs)
 
-def BETA_INV(*args: Any, **kwargs: Any) -> Func:
+def BETA_INV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the cumulative distribution function for a specified beta distribution
 
@@ -459,9 +459,9 @@ def BETA_INV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BETA.INV(", *args, ")", **kwargs)
+	return Func("BETA.INV(", *inner, ")", res_type=res_type, **kwargs)
 
-def BIN2DEC(*args: Any, **kwargs: Any) -> Func:
+def BIN2DEC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a binary number to decimal
 
@@ -471,9 +471,9 @@ def BIN2DEC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BIN2DEC(", *args, ")", **kwargs)
+	return Func("BIN2DEC(", *inner, ")", res_type=res_type, **kwargs)
 
-def BIN2HEX(*args: Any, **kwargs: Any) -> Func:
+def BIN2HEX(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a binary number to hexadecimal
 
@@ -483,9 +483,9 @@ def BIN2HEX(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BIN2HEX(", *args, ")", **kwargs)
+	return Func("BIN2HEX(", *inner, ")", res_type=res_type, **kwargs)
 
-def BIN2OCT(*args: Any, **kwargs: Any) -> Func:
+def BIN2OCT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a binary number to octal
 
@@ -495,9 +495,9 @@ def BIN2OCT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BIN2OCT(", *args, ")", **kwargs)
+	return Func("BIN2OCT(", *inner, ")", res_type=res_type, **kwargs)
 
-def BINOMDIST(*args: Any, **kwargs: Any) -> Func:
+def BINOMDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the individual term binomial distribution probability
 
@@ -507,9 +507,9 @@ def BINOMDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BINOMDIST(", *args, ")", **kwargs)
+	return Func("BINOMDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def BINOM_DIST(*args: Any, **kwargs: Any) -> Func:
+def BINOM_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the individual term binomial distribution probability
 
@@ -519,9 +519,9 @@ def BINOM_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BINOM.DIST(", *args, ")", **kwargs)
+	return Func("BINOM.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def BINOM_DIST_RANGE(*args: Any, **kwargs: Any) -> Func:
+def BINOM_DIST_RANGE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the probability of a trial result using a binomial distribution
 
@@ -531,9 +531,9 @@ def BINOM_DIST_RANGE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BINOM.DIST.RANGE(", *args, ")", **kwargs)
+	return Func("BINOM.DIST.RANGE(", *inner, ")", res_type=res_type, **kwargs)
 
-def BINOM_INV(*args: Any, **kwargs: Any) -> Func:
+def BINOM_INV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the smallest value for which the cumulative binomial distribution is less than or equal to a criterion value
 
@@ -543,9 +543,9 @@ def BINOM_INV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BINOM.INV(", *args, ")", **kwargs)
+	return Func("BINOM.INV(", *inner, ")", res_type=res_type, **kwargs)
 
-def BITAND(*args: Any, **kwargs: Any) -> Func:
+def BITAND(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns a 'Bitwise And' of two numbers
 
@@ -555,9 +555,9 @@ def BITAND(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BITAND(", *args, ")", **kwargs)
+	return Func("BITAND(", *inner, ")", res_type=res_type, **kwargs)
 
-def BITLSHIFT(*args: Any, **kwargs: Any) -> Func:
+def BITLSHIFT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns a value number shifted left by shift_amount bits
 
@@ -567,9 +567,9 @@ def BITLSHIFT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BITLSHIFT(", *args, ")", **kwargs)
+	return Func("BITLSHIFT(", *inner, ")", res_type=res_type, **kwargs)
 
-def BITOR(*args: Any, **kwargs: Any) -> Func:
+def BITOR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns a bitwise OR of 2 numbers
 
@@ -579,9 +579,9 @@ def BITOR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BITOR(", *args, ")", **kwargs)
+	return Func("BITOR(", *inner, ")", res_type=res_type, **kwargs)
 
-def BITRSHIFT(*args: Any, **kwargs: Any) -> Func:
+def BITRSHIFT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns a value number shifted right by shift_amount bits
 
@@ -591,9 +591,9 @@ def BITRSHIFT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BITRSHIFT(", *args, ")", **kwargs)
+	return Func("BITRSHIFT(", *inner, ")", res_type=res_type, **kwargs)
 
-def BITXOR(*args: Any, **kwargs: Any) -> Func:
+def BITXOR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns a bitwise 'Exclusive Or' of two numbers
 
@@ -603,9 +603,9 @@ def BITXOR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BITXOR(", *args, ")", **kwargs)
+	return Func("BITXOR(", *inner, ")", res_type=res_type, **kwargs)
 
-def BYCOL(*args: Any, **kwargs: Any) -> Func:
+def BYCOL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Applies a LAMBDA to each column and returns an array of the results
 
@@ -615,9 +615,9 @@ def BYCOL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BYCOL(", *args, ")", **kwargs)
+	return Func("BYCOL(", *inner, ")", res_type=res_type, **kwargs)
 
-def BYROW(*args: Any, **kwargs: Any) -> Func:
+def BYROW(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Applies a LAMBDA to each row and returns an array of the results
 
@@ -627,9 +627,9 @@ def BYROW(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("BYROW(", *args, ")", **kwargs)
+	return Func("BYROW(", *inner, ")", res_type=res_type, **kwargs)
 
-def CALL(*args: Any, **kwargs: Any) -> Func:
+def CALL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Add-in and Automation:** Calls a procedure in a dynamic link library or code resource
 
@@ -639,9 +639,9 @@ def CALL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CALL(", *args, ")", **kwargs)
+	return Func("CALL(", *inner, ")", res_type=res_type, **kwargs)
 
-def CEILING(*args: Any, **kwargs: Any) -> Func:
+def CEILING(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Rounds a number to the nearest integer or to the nearest multiple of significance
 
@@ -651,9 +651,9 @@ def CEILING(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CEILING(", *args, ")", **kwargs)
+	return Func("CEILING(", *inner, ")", res_type=res_type, **kwargs)
 
-def CEILING_MATH(*args: Any, **kwargs: Any) -> Func:
+def CEILING_MATH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number up, to the nearest integer or to the nearest multiple of significance
 
@@ -663,9 +663,9 @@ def CEILING_MATH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CEILING.MATH(", *args, ")", **kwargs)
+	return Func("CEILING.MATH(", *inner, ")", res_type=res_type, **kwargs)
 
-def CEILING_PRECISE(*args: Any, **kwargs: Any) -> Func:
+def CEILING_PRECISE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded up.
 
@@ -675,9 +675,9 @@ def CEILING_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CEILING.PRECISE(", *args, ")", **kwargs)
+	return Func("CEILING.PRECISE(", *inner, ")", res_type=res_type, **kwargs)
 
-def CELL(*args: Any, **kwargs: Any) -> Func:
+def CELL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns information about the formatting, location, or contents of a cell
 
@@ -687,9 +687,9 @@ def CELL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CELL(", *args, ")", **kwargs)
+	return Func("CELL(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHAR(*args: Any, **kwargs: Any) -> Func:
+def CHAR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns the character specified by the code number
 
@@ -699,9 +699,9 @@ def CHAR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHAR(", *args, ")", **kwargs)
+	return Func("CHAR(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHIDIST(*args: Any, **kwargs: Any) -> Func:
+def CHIDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the one-tailed probability of the chi-squared distribution
 
@@ -711,9 +711,9 @@ def CHIDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHIDIST(", *args, ")", **kwargs)
+	return Func("CHIDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHIINV(*args: Any, **kwargs: Any) -> Func:
+def CHIINV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the inverse of the one-tailed probability of the chi-squared distribution
 
@@ -723,9 +723,9 @@ def CHIINV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHIINV(", *args, ")", **kwargs)
+	return Func("CHIINV(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHITEST(*args: Any, **kwargs: Any) -> Func:
+def CHITEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the test for independence
 
@@ -735,9 +735,9 @@ def CHITEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHITEST(", *args, ")", **kwargs)
+	return Func("CHITEST(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHISQ_DIST(*args: Any, **kwargs: Any) -> Func:
+def CHISQ_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the cumulative beta probability density function
 
@@ -747,9 +747,9 @@ def CHISQ_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHISQ.DIST(", *args, ")", **kwargs)
+	return Func("CHISQ.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHISQ_DIST_RT(*args: Any, **kwargs: Any) -> Func:
+def CHISQ_DIST_RT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the one-tailed probability of the chi-squared distribution
 
@@ -759,9 +759,9 @@ def CHISQ_DIST_RT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHISQ.DIST.RT(", *args, ")", **kwargs)
+	return Func("CHISQ.DIST.RT(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHISQ_INV(*args: Any, **kwargs: Any) -> Func:
+def CHISQ_INV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the cumulative beta probability density function
 
@@ -771,9 +771,9 @@ def CHISQ_INV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHISQ.INV(", *args, ")", **kwargs)
+	return Func("CHISQ.INV(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHISQ_INV_RT(*args: Any, **kwargs: Any) -> Func:
+def CHISQ_INV_RT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the one-tailed probability of the chi-squared distribution
 
@@ -783,9 +783,9 @@ def CHISQ_INV_RT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHISQ.INV.RT(", *args, ")", **kwargs)
+	return Func("CHISQ.INV.RT(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHISQ_TEST(*args: Any, **kwargs: Any) -> Func:
+def CHISQ_TEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the test for independence
 
@@ -795,9 +795,9 @@ def CHISQ_TEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHISQ.TEST(", *args, ")", **kwargs)
+	return Func("CHISQ.TEST(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHOOSE(*args: Any, **kwargs: Any) -> Func:
+def CHOOSE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Chooses a value from a list of values
 
@@ -807,9 +807,9 @@ def CHOOSE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHOOSE(", *args, ")", **kwargs)
+	return Func("CHOOSE(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHOOSECOLS(*args: Any, **kwargs: Any) -> Func:
+def CHOOSECOLS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the specified columns from an array
 
@@ -819,9 +819,9 @@ def CHOOSECOLS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHOOSECOLS(", *args, ")", **kwargs)
+	return Func("CHOOSECOLS(", *inner, ")", res_type=res_type, **kwargs)
 
-def CHOOSEROWS(*args: Any, **kwargs: Any) -> Func:
+def CHOOSEROWS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the specified rows from an array
 
@@ -831,9 +831,9 @@ def CHOOSEROWS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CHOOSEROWS(", *args, ")", **kwargs)
+	return Func("CHOOSEROWS(", *inner, ")", res_type=res_type, **kwargs)
 
-def CLEAN(*args: Any, **kwargs: Any) -> Func:
+def CLEAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Removes all nonprintable characters from text
 
@@ -843,9 +843,9 @@ def CLEAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CLEAN(", *args, ")", **kwargs)
+	return Func("CLEAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def CODE(*args: Any, **kwargs: Any) -> Func:
+def CODE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns a numeric code for the first character in a text string
 
@@ -855,9 +855,9 @@ def CODE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CODE(", *args, ")", **kwargs)
+	return Func("CODE(", *inner, ")", res_type=res_type, **kwargs)
 
-def COLUMN(*args: Any, **kwargs: Any) -> Func:
+def COLUMN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the column number of a reference
 
@@ -867,9 +867,9 @@ def COLUMN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COLUMN(", *args, ")", **kwargs)
+	return Func("COLUMN(", *inner, ")", res_type=res_type, **kwargs)
 
-def COLUMNS(*args: Any, **kwargs: Any) -> Func:
+def COLUMNS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the number of columns in a reference
 
@@ -879,9 +879,9 @@ def COLUMNS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COLUMNS(", *args, ")", **kwargs)
+	return Func("COLUMNS(", *inner, ")", res_type=res_type, **kwargs)
 
-def COMBIN(*args: Any, **kwargs: Any) -> Func:
+def COMBIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the number of combinations for a given number of objects
 
@@ -891,9 +891,9 @@ def COMBIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COMBIN(", *args, ")", **kwargs)
+	return Func("COMBIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def COMBINA(*args: Any, **kwargs: Any) -> Func:
+def COMBINA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts real and imaginary coefficients into a complex number
 
@@ -903,9 +903,9 @@ def COMBINA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COMBINA(", *args, ")", **kwargs)
+	return Func("COMBINA(", *inner, ")", res_type=res_type, **kwargs)
 
-def CONCAT(*args: Any, **kwargs: Any) -> Func:
+def CONCAT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Combines the text from multiple ranges and/or strings, but it doesn't provide the delimiter or IgnoreEmpty arguments.
 
@@ -915,9 +915,9 @@ def CONCAT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CONCAT(", *args, ")", **kwargs)
+	return Func("CONCAT(", *inner, ")", res_type=res_type, **kwargs)
 
-def CONCATENATE(*args: Any, **kwargs: Any) -> Func:
+def CONCATENATE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Joins several text items into one text item
 
@@ -927,9 +927,9 @@ def CONCATENATE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CONCATENATE(", *args, ")", **kwargs)
+	return Func("CONCATENATE(", *inner, ")", res_type=res_type, **kwargs)
 
-def CONFIDENCE(*args: Any, **kwargs: Any) -> Func:
+def CONFIDENCE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the confidence interval for a population mean
 
@@ -939,9 +939,9 @@ def CONFIDENCE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CONFIDENCE(", *args, ")", **kwargs)
+	return Func("CONFIDENCE(", *inner, ")", res_type=res_type, **kwargs)
 
-def CONFIDENCE_NORM(*args: Any, **kwargs: Any) -> Func:
+def CONFIDENCE_NORM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the confidence interval for a population mean
 
@@ -951,9 +951,9 @@ def CONFIDENCE_NORM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CONFIDENCE.NORM(", *args, ")", **kwargs)
+	return Func("CONFIDENCE.NORM(", *inner, ")", res_type=res_type, **kwargs)
 
-def CONFIDENCE_T(*args: Any, **kwargs: Any) -> Func:
+def CONFIDENCE_T(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the confidence interval for a population mean, using a Student's t distribution
 
@@ -963,9 +963,9 @@ def CONFIDENCE_T(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CONFIDENCE.T(", *args, ")", **kwargs)
+	return Func("CONFIDENCE.T(", *inner, ")", res_type=res_type, **kwargs)
 
-def CONVERT(*args: Any, **kwargs: Any) -> Func:
+def CONVERT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a number from one measurement system to another
 
@@ -975,9 +975,9 @@ def CONVERT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CONVERT(", *args, ")", **kwargs)
+	return Func("CONVERT(", *inner, ")", res_type=res_type, **kwargs)
 
-def CORREL(*args: Any, **kwargs: Any) -> Func:
+def CORREL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the correlation coefficient between two data sets
 
@@ -987,9 +987,9 @@ def CORREL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CORREL(", *args, ")", **kwargs)
+	return Func("CORREL(", *inner, ")", res_type=res_type, **kwargs)
 
-def COS(*args: Any, **kwargs: Any) -> Func:
+def COS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the cosine of a number
 
@@ -999,9 +999,9 @@ def COS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COS(", *args, ")", **kwargs)
+	return Func("COS(", *inner, ")", res_type=res_type, **kwargs)
 
-def COSH(*args: Any, **kwargs: Any) -> Func:
+def COSH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the hyperbolic cosine of a number
 
@@ -1011,9 +1011,9 @@ def COSH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COSH(", *args, ")", **kwargs)
+	return Func("COSH(", *inner, ")", res_type=res_type, **kwargs)
 
-def COT(*args: Any, **kwargs: Any) -> Func:
+def COT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the hyperbolic cosine of a number
 
@@ -1023,9 +1023,9 @@ def COT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COT(", *args, ")", **kwargs)
+	return Func("COT(", *inner, ")", res_type=res_type, **kwargs)
 
-def COTH(*args: Any, **kwargs: Any) -> Func:
+def COTH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the cotangent of an angle
 
@@ -1035,9 +1035,9 @@ def COTH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COTH(", *args, ")", **kwargs)
+	return Func("COTH(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUNT(*args: Any, **kwargs: Any) -> Func:
+def COUNT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Counts how many numbers are in the list of arguments
 
@@ -1047,9 +1047,9 @@ def COUNT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUNT(", *args, ")", **kwargs)
+	return Func("COUNT(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUNTA(*args: Any, **kwargs: Any) -> Func:
+def COUNTA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Counts how many values are in the list of arguments
 
@@ -1059,9 +1059,9 @@ def COUNTA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUNTA(", *args, ")", **kwargs)
+	return Func("COUNTA(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUNTBLANK(*args: Any, **kwargs: Any) -> Func:
+def COUNTBLANK(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Counts the number of blank cells within a range
 
@@ -1071,9 +1071,9 @@ def COUNTBLANK(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUNTBLANK(", *args, ")", **kwargs)
+	return Func("COUNTBLANK(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUNTIF(*args: Any, **kwargs: Any) -> Func:
+def COUNTIF(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Counts the number of cells within a range that meet the given criteria
 
@@ -1083,9 +1083,9 @@ def COUNTIF(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUNTIF(", *args, ")", **kwargs)
+	return Func("COUNTIF(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUNTIFS(*args: Any, **kwargs: Any) -> Func:
+def COUNTIFS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Counts the number of cells within a range that meet multiple criteria
 
@@ -1095,9 +1095,9 @@ def COUNTIFS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUNTIFS(", *args, ")", **kwargs)
+	return Func("COUNTIFS(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUPDAYBS(*args: Any, **kwargs: Any) -> Func:
+def COUPDAYBS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the number of days from the beginning of the coupon period to the settlement date
 
@@ -1107,9 +1107,9 @@ def COUPDAYBS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUPDAYBS(", *args, ")", **kwargs)
+	return Func("COUPDAYBS(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUPDAYS(*args: Any, **kwargs: Any) -> Func:
+def COUPDAYS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the number of days in the coupon period that contains the settlement date
 
@@ -1119,9 +1119,9 @@ def COUPDAYS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUPDAYS(", *args, ")", **kwargs)
+	return Func("COUPDAYS(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUPDAYSNC(*args: Any, **kwargs: Any) -> Func:
+def COUPDAYSNC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the number of days from the settlement date to the next coupon date
 
@@ -1131,9 +1131,9 @@ def COUPDAYSNC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUPDAYSNC(", *args, ")", **kwargs)
+	return Func("COUPDAYSNC(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUPNCD(*args: Any, **kwargs: Any) -> Func:
+def COUPNCD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the next coupon date after the settlement date
 
@@ -1143,9 +1143,9 @@ def COUPNCD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUPNCD(", *args, ")", **kwargs)
+	return Func("COUPNCD(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUPNUM(*args: Any, **kwargs: Any) -> Func:
+def COUPNUM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the number of coupons payable between the settlement date and maturity date
 
@@ -1155,9 +1155,9 @@ def COUPNUM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUPNUM(", *args, ")", **kwargs)
+	return Func("COUPNUM(", *inner, ")", res_type=res_type, **kwargs)
 
-def COUPPCD(*args: Any, **kwargs: Any) -> Func:
+def COUPPCD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the previous coupon date before the settlement date
 
@@ -1167,9 +1167,9 @@ def COUPPCD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COUPPCD(", *args, ")", **kwargs)
+	return Func("COUPPCD(", *inner, ")", res_type=res_type, **kwargs)
 
-def COVAR(*args: Any, **kwargs: Any) -> Func:
+def COVAR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns covariance, the average of the products of paired deviations
 
@@ -1179,9 +1179,9 @@ def COVAR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COVAR(", *args, ")", **kwargs)
+	return Func("COVAR(", *inner, ")", res_type=res_type, **kwargs)
 
-def COVARIANCE_P(*args: Any, **kwargs: Any) -> Func:
+def COVARIANCE_P(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns covariance, the average of the products of paired deviations
 
@@ -1191,9 +1191,9 @@ def COVARIANCE_P(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COVARIANCE.P(", *args, ")", **kwargs)
+	return Func("COVARIANCE.P(", *inner, ")", res_type=res_type, **kwargs)
 
-def COVARIANCE_S(*args: Any, **kwargs: Any) -> Func:
+def COVARIANCE_S(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the sample covariance, the average of the products deviations for each data point pair in two data sets
 
@@ -1203,9 +1203,9 @@ def COVARIANCE_S(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("COVARIANCE.S(", *args, ")", **kwargs)
+	return Func("COVARIANCE.S(", *inner, ")", res_type=res_type, **kwargs)
 
-def CRITBINOM(*args: Any, **kwargs: Any) -> Func:
+def CRITBINOM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the smallest value for which the cumulative binomial distribution is less than or equal to a criterion value
 
@@ -1215,9 +1215,9 @@ def CRITBINOM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CRITBINOM(", *args, ")", **kwargs)
+	return Func("CRITBINOM(", *inner, ")", res_type=res_type, **kwargs)
 
-def CSC(*args: Any, **kwargs: Any) -> Func:
+def CSC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the cosecant of an angle
 
@@ -1227,9 +1227,9 @@ def CSC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CSC(", *args, ")", **kwargs)
+	return Func("CSC(", *inner, ")", res_type=res_type, **kwargs)
 
-def CSCH(*args: Any, **kwargs: Any) -> Func:
+def CSCH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the hyperbolic cosecant of an angle
 
@@ -1239,9 +1239,9 @@ def CSCH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CSCH(", *args, ")", **kwargs)
+	return Func("CSCH(", *inner, ")", res_type=res_type, **kwargs)
 
-def CUBEKPIMEMBER(*args: Any, **kwargs: Any) -> Func:
+def CUBEKPIMEMBER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Cube:** Returns a key performance indicator (KPI) name, property, and measure, and displays the name and property in the cell. A KPI is a quantifiable measurement, such as monthly gross profit or quarterly employee turnover, used to monitor an organization's performance.
 
@@ -1251,9 +1251,9 @@ def CUBEKPIMEMBER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CUBEKPIMEMBER(", *args, ")", **kwargs)
+	return Func("CUBEKPIMEMBER(", *inner, ")", res_type=res_type, **kwargs)
 
-def CUBEMEMBER(*args: Any, **kwargs: Any) -> Func:
+def CUBEMEMBER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Cube:** Returns a member or tuple in a cube hierarchy. Use to validate that the member or tuple exists in the cube.
 
@@ -1263,9 +1263,9 @@ def CUBEMEMBER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CUBEMEMBER(", *args, ")", **kwargs)
+	return Func("CUBEMEMBER(", *inner, ")", res_type=res_type, **kwargs)
 
-def CUBEMEMBERPROPERTY(*args: Any, **kwargs: Any) -> Func:
+def CUBEMEMBERPROPERTY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Cube:** Returns the value of a member property in the cube. Use to validate that a member name exists within the cube and to return the specified property for this member.
 
@@ -1275,9 +1275,9 @@ def CUBEMEMBERPROPERTY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CUBEMEMBERPROPERTY(", *args, ")", **kwargs)
+	return Func("CUBEMEMBERPROPERTY(", *inner, ")", res_type=res_type, **kwargs)
 
-def CUBERANKEDMEMBER(*args: Any, **kwargs: Any) -> Func:
+def CUBERANKEDMEMBER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Cube:** Returns the nth, or ranked, member in a set. Use to return one or more elements in a set, such as the top sales performer or top 10 students.
 
@@ -1287,9 +1287,9 @@ def CUBERANKEDMEMBER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CUBERANKEDMEMBER(", *args, ")", **kwargs)
+	return Func("CUBERANKEDMEMBER(", *inner, ")", res_type=res_type, **kwargs)
 
-def CUBESET(*args: Any, **kwargs: Any) -> Func:
+def CUBESET(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Cube:** Defines a calculated set of members or tuples by sending a set expression to the cube on the server, which creates the set, and then returns that set to Microsoft Office Excel.
 
@@ -1299,9 +1299,9 @@ def CUBESET(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CUBESET(", *args, ")", **kwargs)
+	return Func("CUBESET(", *inner, ")", res_type=res_type, **kwargs)
 
-def CUBESETCOUNT(*args: Any, **kwargs: Any) -> Func:
+def CUBESETCOUNT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Cube:** Returns the number of items in a set.
 
@@ -1311,9 +1311,9 @@ def CUBESETCOUNT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CUBESETCOUNT(", *args, ")", **kwargs)
+	return Func("CUBESETCOUNT(", *inner, ")", res_type=res_type, **kwargs)
 
-def CUBEVALUE(*args: Any, **kwargs: Any) -> Func:
+def CUBEVALUE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Cube:** Returns an aggregated value from a cube.
 
@@ -1323,9 +1323,9 @@ def CUBEVALUE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CUBEVALUE(", *args, ")", **kwargs)
+	return Func("CUBEVALUE(", *inner, ")", res_type=res_type, **kwargs)
 
-def CUMIPMT(*args: Any, **kwargs: Any) -> Func:
+def CUMIPMT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the cumulative interest paid between two periods
 
@@ -1335,9 +1335,9 @@ def CUMIPMT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CUMIPMT(", *args, ")", **kwargs)
+	return Func("CUMIPMT(", *inner, ")", res_type=res_type, **kwargs)
 
-def CUMPRINC(*args: Any, **kwargs: Any) -> Func:
+def CUMPRINC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the cumulative principal paid on a loan between two periods
 
@@ -1347,9 +1347,9 @@ def CUMPRINC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("CUMPRINC(", *args, ")", **kwargs)
+	return Func("CUMPRINC(", *inner, ")", res_type=res_type, **kwargs)
 
-def DATE(*args: Any, **kwargs: Any) -> Func:
+def DATE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the serial number of a particular date
 
@@ -1359,9 +1359,9 @@ def DATE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DATE(", *args, ")", **kwargs)
+	return Func("DATE(", *inner, ")", res_type=res_type, **kwargs)
 
-def DATEDIF(*args: Any, **kwargs: Any) -> Func:
+def DATEDIF(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Calculates the number of days, months, or years between two dates. This function is useful in formulas where you need to calculate an age.
 
@@ -1371,9 +1371,9 @@ def DATEDIF(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DATEDIF(", *args, ")", **kwargs)
+	return Func("DATEDIF(", *inner, ")", res_type=res_type, **kwargs)
 
-def DATEVALUE(*args: Any, **kwargs: Any) -> Func:
+def DATEVALUE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a date in the form of text to a serial number
 
@@ -1383,9 +1383,9 @@ def DATEVALUE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DATEVALUE(", *args, ")", **kwargs)
+	return Func("DATEVALUE(", *inner, ")", res_type=res_type, **kwargs)
 
-def DAVERAGE(*args: Any, **kwargs: Any) -> Func:
+def DAVERAGE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Returns the average of selected database entries
 
@@ -1395,9 +1395,9 @@ def DAVERAGE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DAVERAGE(", *args, ")", **kwargs)
+	return Func("DAVERAGE(", *inner, ")", res_type=res_type, **kwargs)
 
-def DAY(*args: Any, **kwargs: Any) -> Func:
+def DAY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a serial number to a day of the month
 
@@ -1407,9 +1407,9 @@ def DAY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DAY(", *args, ")", **kwargs)
+	return Func("DAY(", *inner, ")", res_type=res_type, **kwargs)
 
-def DAYS(*args: Any, **kwargs: Any) -> Func:
+def DAYS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the number of days between two dates
 
@@ -1419,9 +1419,9 @@ def DAYS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DAYS(", *args, ")", **kwargs)
+	return Func("DAYS(", *inner, ")", res_type=res_type, **kwargs)
 
-def DAYS360(*args: Any, **kwargs: Any) -> Func:
+def DAYS360(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Calculates the number of days between two dates based on a 360-day year
 
@@ -1431,9 +1431,9 @@ def DAYS360(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DAYS360(", *args, ")", **kwargs)
+	return Func("DAYS360(", *inner, ")", res_type=res_type, **kwargs)
 
-def DB(*args: Any, **kwargs: Any) -> Func:
+def DB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the depreciation of an asset for a specified period by using the fixed-declining balance method
 
@@ -1443,9 +1443,9 @@ def DB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DB(", *args, ")", **kwargs)
+	return Func("DB(", *inner, ")", res_type=res_type, **kwargs)
 
-def DBCS(*args: Any, **kwargs: Any) -> Func:
+def DBCS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Changes half-width (single-byte) English letters or katakana within a character string to full-width (double-byte) characters
 
@@ -1455,9 +1455,9 @@ def DBCS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DBCS(", *args, ")", **kwargs)
+	return Func("DBCS(", *inner, ")", res_type=res_type, **kwargs)
 
-def DCOUNT(*args: Any, **kwargs: Any) -> Func:
+def DCOUNT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Counts the cells that contain numbers in a database
 
@@ -1467,9 +1467,9 @@ def DCOUNT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DCOUNT(", *args, ")", **kwargs)
+	return Func("DCOUNT(", *inner, ")", res_type=res_type, **kwargs)
 
-def DCOUNTA(*args: Any, **kwargs: Any) -> Func:
+def DCOUNTA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Counts nonblank cells in a database
 
@@ -1479,9 +1479,9 @@ def DCOUNTA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DCOUNTA(", *args, ")", **kwargs)
+	return Func("DCOUNTA(", *inner, ")", res_type=res_type, **kwargs)
 
-def DDB(*args: Any, **kwargs: Any) -> Func:
+def DDB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the depreciation of an asset for a specified period by using the double-declining balance method or some other method that you specify
 
@@ -1491,9 +1491,9 @@ def DDB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DDB(", *args, ")", **kwargs)
+	return Func("DDB(", *inner, ")", res_type=res_type, **kwargs)
 
-def DEC2BIN(*args: Any, **kwargs: Any) -> Func:
+def DEC2BIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a decimal number to binary
 
@@ -1503,9 +1503,9 @@ def DEC2BIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DEC2BIN(", *args, ")", **kwargs)
+	return Func("DEC2BIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def DEC2HEX(*args: Any, **kwargs: Any) -> Func:
+def DEC2HEX(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a decimal number to hexadecimal
 
@@ -1515,9 +1515,9 @@ def DEC2HEX(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DEC2HEX(", *args, ")", **kwargs)
+	return Func("DEC2HEX(", *inner, ")", res_type=res_type, **kwargs)
 
-def DEC2OCT(*args: Any, **kwargs: Any) -> Func:
+def DEC2OCT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a decimal number to octal
 
@@ -1527,9 +1527,9 @@ def DEC2OCT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DEC2OCT(", *args, ")", **kwargs)
+	return Func("DEC2OCT(", *inner, ")", res_type=res_type, **kwargs)
 
-def DECIMAL(*args: Any, **kwargs: Any) -> Func:
+def DECIMAL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Converts a text representation of a number in a given base into a decimal number
 
@@ -1539,9 +1539,9 @@ def DECIMAL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DECIMAL(", *args, ")", **kwargs)
+	return Func("DECIMAL(", *inner, ")", res_type=res_type, **kwargs)
 
-def DEGREES(*args: Any, **kwargs: Any) -> Func:
+def DEGREES(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Converts radians to degrees
 
@@ -1551,9 +1551,9 @@ def DEGREES(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DEGREES(", *args, ")", **kwargs)
+	return Func("DEGREES(", *inner, ")", res_type=res_type, **kwargs)
 
-def DELTA(*args: Any, **kwargs: Any) -> Func:
+def DELTA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Tests whether two values are equal
 
@@ -1563,9 +1563,9 @@ def DELTA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DELTA(", *args, ")", **kwargs)
+	return Func("DELTA(", *inner, ")", res_type=res_type, **kwargs)
 
-def DEVSQ(*args: Any, **kwargs: Any) -> Func:
+def DEVSQ(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the sum of squares of deviations
 
@@ -1575,9 +1575,9 @@ def DEVSQ(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DEVSQ(", *args, ")", **kwargs)
+	return Func("DEVSQ(", *inner, ")", res_type=res_type, **kwargs)
 
-def DGET(*args: Any, **kwargs: Any) -> Func:
+def DGET(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Extracts from a database a single record that matches the specified criteria
 
@@ -1587,9 +1587,9 @@ def DGET(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DGET(", *args, ")", **kwargs)
+	return Func("DGET(", *inner, ")", res_type=res_type, **kwargs)
 
-def DISC(*args: Any, **kwargs: Any) -> Func:
+def DISC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the discount rate for a security
 
@@ -1599,9 +1599,9 @@ def DISC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DISC(", *args, ")", **kwargs)
+	return Func("DISC(", *inner, ")", res_type=res_type, **kwargs)
 
-def DMAX(*args: Any, **kwargs: Any) -> Func:
+def DMAX(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Returns the maximum value from selected database entries
 
@@ -1611,9 +1611,9 @@ def DMAX(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DMAX(", *args, ")", **kwargs)
+	return Func("DMAX(", *inner, ")", res_type=res_type, **kwargs)
 
-def DMIN(*args: Any, **kwargs: Any) -> Func:
+def DMIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Returns the minimum value from selected database entries
 
@@ -1623,9 +1623,9 @@ def DMIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DMIN(", *args, ")", **kwargs)
+	return Func("DMIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def DOLLAR(*args: Any, **kwargs: Any) -> Func:
+def DOLLAR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Converts a number to text, using the $ (dollar) currency format
 
@@ -1635,9 +1635,9 @@ def DOLLAR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DOLLAR(", *args, ")", **kwargs)
+	return Func("DOLLAR(", *inner, ")", res_type=res_type, **kwargs)
 
-def DOLLARDE(*args: Any, **kwargs: Any) -> Func:
+def DOLLARDE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Converts a dollar price, expressed as a fraction, into a dollar price, expressed as a decimal number
 
@@ -1647,9 +1647,9 @@ def DOLLARDE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DOLLARDE(", *args, ")", **kwargs)
+	return Func("DOLLARDE(", *inner, ")", res_type=res_type, **kwargs)
 
-def DOLLARFR(*args: Any, **kwargs: Any) -> Func:
+def DOLLARFR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Converts a dollar price, expressed as a decimal number, into a dollar price, expressed as a fraction
 
@@ -1659,9 +1659,9 @@ def DOLLARFR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DOLLARFR(", *args, ")", **kwargs)
+	return Func("DOLLARFR(", *inner, ")", res_type=res_type, **kwargs)
 
-def DPRODUCT(*args: Any, **kwargs: Any) -> Func:
+def DPRODUCT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Multiplies the values in a particular field of records that match the criteria in a database
 
@@ -1671,9 +1671,9 @@ def DPRODUCT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DPRODUCT(", *args, ")", **kwargs)
+	return Func("DPRODUCT(", *inner, ")", res_type=res_type, **kwargs)
 
-def DROP(*args: Any, **kwargs: Any) -> Func:
+def DROP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Excludes a specified number of rows or columns from the start or end of an array
 
@@ -1683,9 +1683,9 @@ def DROP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DROP(", *args, ")", **kwargs)
+	return Func("DROP(", *inner, ")", res_type=res_type, **kwargs)
 
-def DSTDEV(*args: Any, **kwargs: Any) -> Func:
+def DSTDEV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Estimates the standard deviation based on a sample of selected database entries
 
@@ -1695,9 +1695,9 @@ def DSTDEV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DSTDEV(", *args, ")", **kwargs)
+	return Func("DSTDEV(", *inner, ")", res_type=res_type, **kwargs)
 
-def DSTDEVP(*args: Any, **kwargs: Any) -> Func:
+def DSTDEVP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Calculates the standard deviation based on the entire population of selected database entries
 
@@ -1707,9 +1707,9 @@ def DSTDEVP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DSTDEVP(", *args, ")", **kwargs)
+	return Func("DSTDEVP(", *inner, ")", res_type=res_type, **kwargs)
 
-def DSUM(*args: Any, **kwargs: Any) -> Func:
+def DSUM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Adds the numbers in the field column of records in the database that match the criteria
 
@@ -1719,9 +1719,9 @@ def DSUM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DSUM(", *args, ")", **kwargs)
+	return Func("DSUM(", *inner, ")", res_type=res_type, **kwargs)
 
-def DURATION(*args: Any, **kwargs: Any) -> Func:
+def DURATION(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the annual duration of a security with periodic interest payments
 
@@ -1731,9 +1731,9 @@ def DURATION(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DURATION(", *args, ")", **kwargs)
+	return Func("DURATION(", *inner, ")", res_type=res_type, **kwargs)
 
-def DVAR(*args: Any, **kwargs: Any) -> Func:
+def DVAR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Estimates variance based on a sample from selected database entries
 
@@ -1743,9 +1743,9 @@ def DVAR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DVAR(", *args, ")", **kwargs)
+	return Func("DVAR(", *inner, ")", res_type=res_type, **kwargs)
 
-def DVARP(*args: Any, **kwargs: Any) -> Func:
+def DVARP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Database:** Calculates variance based on the entire population of selected database entries
 
@@ -1755,9 +1755,9 @@ def DVARP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("DVARP(", *args, ")", **kwargs)
+	return Func("DVARP(", *inner, ")", res_type=res_type, **kwargs)
 
-def EDATE(*args: Any, **kwargs: Any) -> Func:
+def EDATE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the serial number of the date that is the indicated number of months before or after the start date
 
@@ -1767,9 +1767,9 @@ def EDATE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EDATE(", *args, ")", **kwargs)
+	return Func("EDATE(", *inner, ")", res_type=res_type, **kwargs)
 
-def EFFECT(*args: Any, **kwargs: Any) -> Func:
+def EFFECT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the effective annual interest rate
 
@@ -1779,9 +1779,9 @@ def EFFECT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EFFECT(", *args, ")", **kwargs)
+	return Func("EFFECT(", *inner, ")", res_type=res_type, **kwargs)
 
-def ENCODEURL(*args: Any, **kwargs: Any) -> Func:
+def ENCODEURL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Web:** Returns a URL-encoded string
 
@@ -1791,9 +1791,9 @@ def ENCODEURL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ENCODEURL(", *args, ")", **kwargs)
+	return Func("ENCODEURL(", *inner, ")", res_type=res_type, **kwargs)
 
-def EOMONTH(*args: Any, **kwargs: Any) -> Func:
+def EOMONTH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the serial number of the last day of the month before or after a specified number of months
 
@@ -1803,9 +1803,9 @@ def EOMONTH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EOMONTH(", *args, ")", **kwargs)
+	return Func("EOMONTH(", *inner, ")", res_type=res_type, **kwargs)
 
-def ERF(*args: Any, **kwargs: Any) -> Func:
+def ERF(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the error function
 
@@ -1815,9 +1815,9 @@ def ERF(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ERF(", *args, ")", **kwargs)
+	return Func("ERF(", *inner, ")", res_type=res_type, **kwargs)
 
-def ERF_PRECISE(*args: Any, **kwargs: Any) -> Func:
+def ERF_PRECISE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the error function
 
@@ -1827,9 +1827,9 @@ def ERF_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ERF.PRECISE(", *args, ")", **kwargs)
+	return Func("ERF.PRECISE(", *inner, ")", res_type=res_type, **kwargs)
 
-def ERFC(*args: Any, **kwargs: Any) -> Func:
+def ERFC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the complementary error function
 
@@ -1839,9 +1839,9 @@ def ERFC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ERFC(", *args, ")", **kwargs)
+	return Func("ERFC(", *inner, ")", res_type=res_type, **kwargs)
 
-def ERFC_PRECISE(*args: Any, **kwargs: Any) -> Func:
+def ERFC_PRECISE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the complementary ERF function integrated between x and infinity
 
@@ -1851,9 +1851,9 @@ def ERFC_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ERFC.PRECISE(", *args, ")", **kwargs)
+	return Func("ERFC.PRECISE(", *inner, ")", res_type=res_type, **kwargs)
 
-def ERROR_TYPE(*args: Any, **kwargs: Any) -> Func:
+def ERROR_TYPE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns a number corresponding to an error type
 
@@ -1863,9 +1863,9 @@ def ERROR_TYPE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ERROR.TYPE(", *args, ")", **kwargs)
+	return Func("ERROR.TYPE(", *inner, ")", res_type=res_type, **kwargs)
 
-def EUROCONVERT(*args: Any, **kwargs: Any) -> Func:
+def EUROCONVERT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Add-in and Automation:** Converts a number to euros, converts a number from euros to a euro member currency, or converts a number from one euro member currency to another by using the euro as an intermediary (triangulation).
 
@@ -1875,9 +1875,9 @@ def EUROCONVERT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EUROCONVERT(", *args, ")", **kwargs)
+	return Func("EUROCONVERT(", *inner, ")", res_type=res_type, **kwargs)
 
-def EVEN(*args: Any, **kwargs: Any) -> Func:
+def EVEN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number up to the nearest even integer
 
@@ -1887,9 +1887,9 @@ def EVEN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EVEN(", *args, ")", **kwargs)
+	return Func("EVEN(", *inner, ")", res_type=res_type, **kwargs)
 
-def EXACT(*args: Any, **kwargs: Any) -> Func:
+def EXACT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Checks to see if two text values are identical
 
@@ -1899,9 +1899,9 @@ def EXACT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EXACT(", *args, ")", **kwargs)
+	return Func("EXACT(", *inner, ")", res_type=res_type, **kwargs)
 
-def EXP(*args: Any, **kwargs: Any) -> Func:
+def EXP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns <i class="ocpItalic">e</i> raised to the power of a given number
 
@@ -1911,9 +1911,9 @@ def EXP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EXP(", *args, ")", **kwargs)
+	return Func("EXP(", *inner, ")", res_type=res_type, **kwargs)
 
-def EXPAND(*args: Any, **kwargs: Any) -> Func:
+def EXPAND(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Expands or pads an array to specified row and column dimensions
 
@@ -1923,9 +1923,9 @@ def EXPAND(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EXPAND(", *args, ")", **kwargs)
+	return Func("EXPAND(", *inner, ")", res_type=res_type, **kwargs)
 
-def EXPON_DIST(*args: Any, **kwargs: Any) -> Func:
+def EXPON_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the exponential distribution
 
@@ -1935,9 +1935,9 @@ def EXPON_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EXPON.DIST(", *args, ")", **kwargs)
+	return Func("EXPON.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def EXPONDIST(*args: Any, **kwargs: Any) -> Func:
+def EXPONDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the exponential distribution
 
@@ -1947,9 +1947,9 @@ def EXPONDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("EXPONDIST(", *args, ")", **kwargs)
+	return Func("EXPONDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def FACT(*args: Any, **kwargs: Any) -> Func:
+def FACT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the factorial of a number
 
@@ -1959,9 +1959,9 @@ def FACT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FACT(", *args, ")", **kwargs)
+	return Func("FACT(", *inner, ")", res_type=res_type, **kwargs)
 
-def FACTDOUBLE(*args: Any, **kwargs: Any) -> Func:
+def FACTDOUBLE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the double factorial of a number
 
@@ -1971,9 +1971,9 @@ def FACTDOUBLE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FACTDOUBLE(", *args, ")", **kwargs)
+	return Func("FACTDOUBLE(", *inner, ")", res_type=res_type, **kwargs)
 
-def FALSE(*args: Any, **kwargs: Any) -> Func:
+def FALSE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Returns the logical value FALSE
 
@@ -1983,9 +1983,9 @@ def FALSE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FALSE(", *args, ")", **kwargs)
+	return Func("FALSE(", *inner, ")", res_type=res_type, **kwargs)
 
-def F_DIST(*args: Any, **kwargs: Any) -> Func:
+def F_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the F probability distribution
 
@@ -1995,9 +1995,9 @@ def F_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("F.DIST(", *args, ")", **kwargs)
+	return Func("F.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def FDIST(*args: Any, **kwargs: Any) -> Func:
+def FDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the F probability distribution
 
@@ -2007,9 +2007,9 @@ def FDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FDIST(", *args, ")", **kwargs)
+	return Func("FDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def F_DIST_RT(*args: Any, **kwargs: Any) -> Func:
+def F_DIST_RT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the F probability distribution
 
@@ -2019,9 +2019,9 @@ def F_DIST_RT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("F.DIST.RT(", *args, ")", **kwargs)
+	return Func("F.DIST.RT(", *inner, ")", res_type=res_type, **kwargs)
 
-def FILTER(*args: Any, **kwargs: Any) -> Func:
+def FILTER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Filters a range of data based on criteria you define
 
@@ -2031,9 +2031,9 @@ def FILTER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FILTER(", *args, ")", **kwargs)
+	return Func("FILTER(", *inner, ")", res_type=res_type, **kwargs)
 
-def FILTERXML(*args: Any, **kwargs: Any) -> Func:
+def FILTERXML(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Web:** Returns specific data from the XML content by using the specified XPath
 
@@ -2043,9 +2043,9 @@ def FILTERXML(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FILTERXML(", *args, ")", **kwargs)
+	return Func("FILTERXML(", *inner, ")", res_type=res_type, **kwargs)
 
-def FIND(*args: Any, **kwargs: Any) -> Func:
+def FIND(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Finds one text value within another (case-sensitive)
 
@@ -2055,9 +2055,9 @@ def FIND(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FIND(", *args, ")", **kwargs)
+	return Func("FIND(", *inner, ")", res_type=res_type, **kwargs)
 
-def FINDB(*args: Any, **kwargs: Any) -> Func:
+def FINDB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Finds one text value within another (case-sensitive)
 
@@ -2067,9 +2067,9 @@ def FINDB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FINDB(", *args, ")", **kwargs)
+	return Func("FINDB(", *inner, ")", res_type=res_type, **kwargs)
 
-def F_INV(*args: Any, **kwargs: Any) -> Func:
+def F_INV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the F probability distribution
 
@@ -2079,9 +2079,9 @@ def F_INV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("F.INV(", *args, ")", **kwargs)
+	return Func("F.INV(", *inner, ")", res_type=res_type, **kwargs)
 
-def F_INV_RT(*args: Any, **kwargs: Any) -> Func:
+def F_INV_RT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the F probability distribution
 
@@ -2091,9 +2091,9 @@ def F_INV_RT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("F.INV.RT(", *args, ")", **kwargs)
+	return Func("F.INV.RT(", *inner, ")", res_type=res_type, **kwargs)
 
-def FINV(*args: Any, **kwargs: Any) -> Func:
+def FINV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the inverse of the F probability distribution
 
@@ -2103,9 +2103,9 @@ def FINV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FINV(", *args, ")", **kwargs)
+	return Func("FINV(", *inner, ")", res_type=res_type, **kwargs)
 
-def FISHER(*args: Any, **kwargs: Any) -> Func:
+def FISHER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the Fisher transformation
 
@@ -2115,9 +2115,9 @@ def FISHER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FISHER(", *args, ")", **kwargs)
+	return Func("FISHER(", *inner, ")", res_type=res_type, **kwargs)
 
-def FISHERINV(*args: Any, **kwargs: Any) -> Func:
+def FISHERINV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the Fisher transformation
 
@@ -2127,9 +2127,9 @@ def FISHERINV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FISHERINV(", *args, ")", **kwargs)
+	return Func("FISHERINV(", *inner, ")", res_type=res_type, **kwargs)
 
-def FIXED(*args: Any, **kwargs: Any) -> Func:
+def FIXED(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Formats a number as text with a fixed number of decimals
 
@@ -2139,9 +2139,9 @@ def FIXED(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FIXED(", *args, ")", **kwargs)
+	return Func("FIXED(", *inner, ")", res_type=res_type, **kwargs)
 
-def FLOOR(*args: Any, **kwargs: Any) -> Func:
+def FLOOR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Rounds a number down, toward zero
 
@@ -2151,9 +2151,9 @@ def FLOOR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FLOOR(", *args, ")", **kwargs)
+	return Func("FLOOR(", *inner, ")", res_type=res_type, **kwargs)
 
-def FLOOR_MATH(*args: Any, **kwargs: Any) -> Func:
+def FLOOR_MATH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number down, to the nearest integer or to the nearest multiple of significance
 
@@ -2163,9 +2163,9 @@ def FLOOR_MATH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FLOOR.MATH(", *args, ")", **kwargs)
+	return Func("FLOOR.MATH(", *inner, ")", res_type=res_type, **kwargs)
 
-def FLOOR_PRECISE(*args: Any, **kwargs: Any) -> Func:
+def FLOOR_PRECISE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded up.
 
@@ -2175,9 +2175,9 @@ def FLOOR_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FLOOR.PRECISE(", *args, ")", **kwargs)
+	return Func("FLOOR.PRECISE(", *inner, ")", res_type=res_type, **kwargs)
 
-def FORECAST(*args: Any, **kwargs: Any) -> Func:
+def FORECAST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns a value along a linear trend
 
@@ -2187,9 +2187,9 @@ def FORECAST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FORECAST(", *args, ")", **kwargs)
+	return Func("FORECAST(", *inner, ")", res_type=res_type, **kwargs)
 
-def FORMULATEXT(*args: Any, **kwargs: Any) -> Func:
+def FORMULATEXT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the formula at the given reference as text
 
@@ -2199,9 +2199,9 @@ def FORMULATEXT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FORMULATEXT(", *args, ")", **kwargs)
+	return Func("FORMULATEXT(", *inner, ")", res_type=res_type, **kwargs)
 
-def FREQUENCY(*args: Any, **kwargs: Any) -> Func:
+def FREQUENCY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns a frequency distribution as a vertical array
 
@@ -2211,9 +2211,9 @@ def FREQUENCY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FREQUENCY(", *args, ")", **kwargs)
+	return Func("FREQUENCY(", *inner, ")", res_type=res_type, **kwargs)
 
-def F_TEST(*args: Any, **kwargs: Any) -> Func:
+def F_TEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the result of an F-test
 
@@ -2223,9 +2223,9 @@ def F_TEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("F.TEST(", *args, ")", **kwargs)
+	return Func("F.TEST(", *inner, ")", res_type=res_type, **kwargs)
 
-def FTEST(*args: Any, **kwargs: Any) -> Func:
+def FTEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the result of an F-test
 
@@ -2235,9 +2235,9 @@ def FTEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FTEST(", *args, ")", **kwargs)
+	return Func("FTEST(", *inner, ")", res_type=res_type, **kwargs)
 
-def FV(*args: Any, **kwargs: Any) -> Func:
+def FV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the future value of an investment
 
@@ -2247,9 +2247,9 @@ def FV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FV(", *args, ")", **kwargs)
+	return Func("FV(", *inner, ")", res_type=res_type, **kwargs)
 
-def FVSCHEDULE(*args: Any, **kwargs: Any) -> Func:
+def FVSCHEDULE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the future value of an initial principal after applying a series of compound interest rates
 
@@ -2259,9 +2259,9 @@ def FVSCHEDULE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("FVSCHEDULE(", *args, ")", **kwargs)
+	return Func("FVSCHEDULE(", *inner, ")", res_type=res_type, **kwargs)
 
-def GAMMA(*args: Any, **kwargs: Any) -> Func:
+def GAMMA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the Gamma function value
 
@@ -2271,9 +2271,9 @@ def GAMMA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GAMMA(", *args, ")", **kwargs)
+	return Func("GAMMA(", *inner, ")", res_type=res_type, **kwargs)
 
-def GAMMA_DIST(*args: Any, **kwargs: Any) -> Func:
+def GAMMA_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the gamma distribution
 
@@ -2283,9 +2283,9 @@ def GAMMA_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GAMMA.DIST(", *args, ")", **kwargs)
+	return Func("GAMMA.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def GAMMADIST(*args: Any, **kwargs: Any) -> Func:
+def GAMMADIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the gamma distribution
 
@@ -2295,9 +2295,9 @@ def GAMMADIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GAMMADIST(", *args, ")", **kwargs)
+	return Func("GAMMADIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def GAMMA_INV(*args: Any, **kwargs: Any) -> Func:
+def GAMMA_INV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the gamma cumulative distribution
 
@@ -2307,9 +2307,9 @@ def GAMMA_INV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GAMMA.INV(", *args, ")", **kwargs)
+	return Func("GAMMA.INV(", *inner, ")", res_type=res_type, **kwargs)
 
-def GAMMAINV(*args: Any, **kwargs: Any) -> Func:
+def GAMMAINV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the inverse of the gamma cumulative distribution
 
@@ -2319,9 +2319,9 @@ def GAMMAINV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GAMMAINV(", *args, ")", **kwargs)
+	return Func("GAMMAINV(", *inner, ")", res_type=res_type, **kwargs)
 
-def GAMMALN(*args: Any, **kwargs: Any) -> Func:
+def GAMMALN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the natural logarithm of the gamma function, Γ(x)
 
@@ -2331,9 +2331,9 @@ def GAMMALN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GAMMALN(", *args, ")", **kwargs)
+	return Func("GAMMALN(", *inner, ")", res_type=res_type, **kwargs)
 
-def GAMMALN_PRECISE(*args: Any, **kwargs: Any) -> Func:
+def GAMMALN_PRECISE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the natural logarithm of the gamma function, Γ(x)
 
@@ -2343,9 +2343,9 @@ def GAMMALN_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GAMMALN.PRECISE(", *args, ")", **kwargs)
+	return Func("GAMMALN.PRECISE(", *inner, ")", res_type=res_type, **kwargs)
 
-def GAUSS(*args: Any, **kwargs: Any) -> Func:
+def GAUSS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns 0.5 less than the standard normal cumulative distribution
 
@@ -2355,9 +2355,9 @@ def GAUSS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GAUSS(", *args, ")", **kwargs)
+	return Func("GAUSS(", *inner, ")", res_type=res_type, **kwargs)
 
-def GCD(*args: Any, **kwargs: Any) -> Func:
+def GCD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the greatest common divisor
 
@@ -2367,9 +2367,9 @@ def GCD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GCD(", *args, ")", **kwargs)
+	return Func("GCD(", *inner, ")", res_type=res_type, **kwargs)
 
-def GEOMEAN(*args: Any, **kwargs: Any) -> Func:
+def GEOMEAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the geometric mean
 
@@ -2379,9 +2379,9 @@ def GEOMEAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GEOMEAN(", *args, ")", **kwargs)
+	return Func("GEOMEAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def GESTEP(*args: Any, **kwargs: Any) -> Func:
+def GESTEP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Tests whether a number is greater than a threshold value
 
@@ -2391,9 +2391,9 @@ def GESTEP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GESTEP(", *args, ")", **kwargs)
+	return Func("GESTEP(", *inner, ")", res_type=res_type, **kwargs)
 
-def GETPIVOTDATA(*args: Any, **kwargs: Any) -> Func:
+def GETPIVOTDATA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns data stored in a PivotTable report
 
@@ -2403,9 +2403,9 @@ def GETPIVOTDATA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GETPIVOTDATA(", *args, ")", **kwargs)
+	return Func("GETPIVOTDATA(", *inner, ")", res_type=res_type, **kwargs)
 
-def GROWTH(*args: Any, **kwargs: Any) -> Func:
+def GROWTH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns values along an exponential trend
 
@@ -2415,9 +2415,9 @@ def GROWTH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("GROWTH(", *args, ")", **kwargs)
+	return Func("GROWTH(", *inner, ")", res_type=res_type, **kwargs)
 
-def HARMEAN(*args: Any, **kwargs: Any) -> Func:
+def HARMEAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the harmonic mean
 
@@ -2427,9 +2427,9 @@ def HARMEAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HARMEAN(", *args, ")", **kwargs)
+	return Func("HARMEAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def HEX2BIN(*args: Any, **kwargs: Any) -> Func:
+def HEX2BIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a hexadecimal number to binary
 
@@ -2439,9 +2439,9 @@ def HEX2BIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HEX2BIN(", *args, ")", **kwargs)
+	return Func("HEX2BIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def HEX2DEC(*args: Any, **kwargs: Any) -> Func:
+def HEX2DEC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a hexadecimal number to decimal
 
@@ -2451,9 +2451,9 @@ def HEX2DEC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HEX2DEC(", *args, ")", **kwargs)
+	return Func("HEX2DEC(", *inner, ")", res_type=res_type, **kwargs)
 
-def HEX2OCT(*args: Any, **kwargs: Any) -> Func:
+def HEX2OCT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts a hexadecimal number to octal
 
@@ -2463,9 +2463,9 @@ def HEX2OCT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HEX2OCT(", *args, ")", **kwargs)
+	return Func("HEX2OCT(", *inner, ")", res_type=res_type, **kwargs)
 
-def HLOOKUP(*args: Any, **kwargs: Any) -> Func:
+def HLOOKUP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Looks in the top row of an array and returns the value of the indicated cell
 
@@ -2475,9 +2475,9 @@ def HLOOKUP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HLOOKUP(", *args, ")", **kwargs)
+	return Func("HLOOKUP(", *inner, ")", res_type=res_type, **kwargs)
 
-def HOUR(*args: Any, **kwargs: Any) -> Func:
+def HOUR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a serial number to an hour
 
@@ -2487,9 +2487,9 @@ def HOUR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HOUR(", *args, ")", **kwargs)
+	return Func("HOUR(", *inner, ")", res_type=res_type, **kwargs)
 
-def HSTACK(*args: Any, **kwargs: Any) -> Func:
+def HSTACK(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Appends arrays horizontally and in sequence to return a larger array
 
@@ -2499,9 +2499,9 @@ def HSTACK(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HSTACK(", *args, ")", **kwargs)
+	return Func("HSTACK(", *inner, ")", res_type=res_type, **kwargs)
 
-def HYPERLINK(*args: Any, **kwargs: Any) -> Func:
+def HYPERLINK(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Creates a shortcut or jump that opens a document stored on a network server, an intranet, or the Internet
 
@@ -2511,9 +2511,9 @@ def HYPERLINK(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HYPERLINK(", *args, ")", **kwargs)
+	return Func("HYPERLINK(", *inner, ")", res_type=res_type, **kwargs)
 
-def HYPGEOM_DIST(*args: Any, **kwargs: Any) -> Func:
+def HYPGEOM_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the hypergeometric distribution
 
@@ -2523,9 +2523,9 @@ def HYPGEOM_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HYPGEOM.DIST(", *args, ")", **kwargs)
+	return Func("HYPGEOM.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def HYPGEOMDIST(*args: Any, **kwargs: Any) -> Func:
+def HYPGEOMDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the hypergeometric distribution
 
@@ -2535,9 +2535,9 @@ def HYPGEOMDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("HYPGEOMDIST(", *args, ")", **kwargs)
+	return Func("HYPGEOMDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def IF(*args: Any, **kwargs: Any) -> Func:
+def IF(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Specifies a logical test to perform
 
@@ -2547,9 +2547,9 @@ def IF(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IF(", *args, ")", **kwargs)
+	return Func("IF(", *inner, ")", res_type=res_type, **kwargs)
 
-def IFERROR(*args: Any, **kwargs: Any) -> Func:
+def IFERROR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Returns a value you specify if a formula evaluates to an error; otherwise, returns the result of the formula
 
@@ -2559,9 +2559,9 @@ def IFERROR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IFERROR(", *args, ")", **kwargs)
+	return Func("IFERROR(", *inner, ")", res_type=res_type, **kwargs)
 
-def IFNA(*args: Any, **kwargs: Any) -> Func:
+def IFNA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Returns the value you specify if the expression resolves to #N/A, otherwise returns the result of the expression
 
@@ -2571,9 +2571,9 @@ def IFNA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IFNA(", *args, ")", **kwargs)
+	return Func("IFNA(", *inner, ")", res_type=res_type, **kwargs)
 
-def IFS(*args: Any, **kwargs: Any) -> Func:
+def IFS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Checks whether one or more conditions are met and returns a value that corresponds to the first TRUE condition.
 
@@ -2583,9 +2583,9 @@ def IFS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IFS(", *args, ")", **kwargs)
+	return Func("IFS(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMABS(*args: Any, **kwargs: Any) -> Func:
+def IMABS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the absolute value (modulus) of a complex number
 
@@ -2595,9 +2595,9 @@ def IMABS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMABS(", *args, ")", **kwargs)
+	return Func("IMABS(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMAGINARY(*args: Any, **kwargs: Any) -> Func:
+def IMAGINARY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the imaginary coefficient of a complex number
 
@@ -2607,9 +2607,9 @@ def IMAGINARY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMAGINARY(", *args, ")", **kwargs)
+	return Func("IMAGINARY(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMARGUMENT(*args: Any, **kwargs: Any) -> Func:
+def IMARGUMENT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the argument theta, an angle expressed in radians
 
@@ -2619,9 +2619,9 @@ def IMARGUMENT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMARGUMENT(", *args, ")", **kwargs)
+	return Func("IMARGUMENT(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMCONJUGATE(*args: Any, **kwargs: Any) -> Func:
+def IMCONJUGATE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the complex conjugate of a complex number
 
@@ -2631,9 +2631,9 @@ def IMCONJUGATE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMCONJUGATE(", *args, ")", **kwargs)
+	return Func("IMCONJUGATE(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMCOS(*args: Any, **kwargs: Any) -> Func:
+def IMCOS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the cosine of a complex number
 
@@ -2643,9 +2643,9 @@ def IMCOS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMCOS(", *args, ")", **kwargs)
+	return Func("IMCOS(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMCOSH(*args: Any, **kwargs: Any) -> Func:
+def IMCOSH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the hyperbolic cosine of a complex number
 
@@ -2655,9 +2655,9 @@ def IMCOSH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMCOSH(", *args, ")", **kwargs)
+	return Func("IMCOSH(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMCOT(*args: Any, **kwargs: Any) -> Func:
+def IMCOT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the cotangent of a complex number
 
@@ -2667,9 +2667,9 @@ def IMCOT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMCOT(", *args, ")", **kwargs)
+	return Func("IMCOT(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMCSC(*args: Any, **kwargs: Any) -> Func:
+def IMCSC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the cosecant of a complex number
 
@@ -2679,9 +2679,9 @@ def IMCSC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMCSC(", *args, ")", **kwargs)
+	return Func("IMCSC(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMCSCH(*args: Any, **kwargs: Any) -> Func:
+def IMCSCH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the hyperbolic cosecant of a complex number
 
@@ -2691,9 +2691,9 @@ def IMCSCH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMCSCH(", *args, ")", **kwargs)
+	return Func("IMCSCH(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMDIV(*args: Any, **kwargs: Any) -> Func:
+def IMDIV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the quotient of two complex numbers
 
@@ -2703,9 +2703,9 @@ def IMDIV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMDIV(", *args, ")", **kwargs)
+	return Func("IMDIV(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMEXP(*args: Any, **kwargs: Any) -> Func:
+def IMEXP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the exponential of a complex number
 
@@ -2715,9 +2715,9 @@ def IMEXP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMEXP(", *args, ")", **kwargs)
+	return Func("IMEXP(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMLN(*args: Any, **kwargs: Any) -> Func:
+def IMLN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the natural logarithm of a complex number
 
@@ -2727,9 +2727,9 @@ def IMLN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMLN(", *args, ")", **kwargs)
+	return Func("IMLN(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMLOG10(*args: Any, **kwargs: Any) -> Func:
+def IMLOG10(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the base-10 logarithm of a complex number
 
@@ -2739,9 +2739,9 @@ def IMLOG10(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMLOG10(", *args, ")", **kwargs)
+	return Func("IMLOG10(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMLOG2(*args: Any, **kwargs: Any) -> Func:
+def IMLOG2(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the base-2 logarithm of a complex number
 
@@ -2751,9 +2751,9 @@ def IMLOG2(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMLOG2(", *args, ")", **kwargs)
+	return Func("IMLOG2(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMPOWER(*args: Any, **kwargs: Any) -> Func:
+def IMPOWER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns a complex number raised to an integer power
 
@@ -2763,9 +2763,9 @@ def IMPOWER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMPOWER(", *args, ")", **kwargs)
+	return Func("IMPOWER(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMPRODUCT(*args: Any, **kwargs: Any) -> Func:
+def IMPRODUCT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the product of complex numbers
 
@@ -2775,9 +2775,9 @@ def IMPRODUCT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMPRODUCT(", *args, ")", **kwargs)
+	return Func("IMPRODUCT(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMREAL(*args: Any, **kwargs: Any) -> Func:
+def IMREAL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the real coefficient of a complex number
 
@@ -2787,9 +2787,9 @@ def IMREAL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMREAL(", *args, ")", **kwargs)
+	return Func("IMREAL(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMSEC(*args: Any, **kwargs: Any) -> Func:
+def IMSEC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the secant of a complex number
 
@@ -2799,9 +2799,9 @@ def IMSEC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMSEC(", *args, ")", **kwargs)
+	return Func("IMSEC(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMSECH(*args: Any, **kwargs: Any) -> Func:
+def IMSECH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the hyperbolic secant of a complex number
 
@@ -2811,9 +2811,9 @@ def IMSECH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMSECH(", *args, ")", **kwargs)
+	return Func("IMSECH(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMSIN(*args: Any, **kwargs: Any) -> Func:
+def IMSIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the sine of a complex number
 
@@ -2823,9 +2823,9 @@ def IMSIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMSIN(", *args, ")", **kwargs)
+	return Func("IMSIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMSINH(*args: Any, **kwargs: Any) -> Func:
+def IMSINH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the hyperbolic sine of a complex number
 
@@ -2835,9 +2835,9 @@ def IMSINH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMSINH(", *args, ")", **kwargs)
+	return Func("IMSINH(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMSQRT(*args: Any, **kwargs: Any) -> Func:
+def IMSQRT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the square root of a complex number
 
@@ -2847,9 +2847,9 @@ def IMSQRT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMSQRT(", *args, ")", **kwargs)
+	return Func("IMSQRT(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMSUB(*args: Any, **kwargs: Any) -> Func:
+def IMSUB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the difference between two complex numbers
 
@@ -2859,9 +2859,9 @@ def IMSUB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMSUB(", *args, ")", **kwargs)
+	return Func("IMSUB(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMSUM(*args: Any, **kwargs: Any) -> Func:
+def IMSUM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the sum of complex numbers
 
@@ -2871,9 +2871,9 @@ def IMSUM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMSUM(", *args, ")", **kwargs)
+	return Func("IMSUM(", *inner, ")", res_type=res_type, **kwargs)
 
-def IMTAN(*args: Any, **kwargs: Any) -> Func:
+def IMTAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Returns the tangent of a complex number
 
@@ -2883,9 +2883,9 @@ def IMTAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IMTAN(", *args, ")", **kwargs)
+	return Func("IMTAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def INDEX(*args: Any, **kwargs: Any) -> Func:
+def INDEX(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Uses an index to choose a value from a reference or array
 
@@ -2895,9 +2895,9 @@ def INDEX(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("INDEX(", *args, ")", **kwargs)
+	return Func("INDEX(", *inner, ")", res_type=res_type, **kwargs)
 
-def INDIRECT(*args: Any, **kwargs: Any) -> Func:
+def INDIRECT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns a reference indicated by a text value
 
@@ -2907,9 +2907,9 @@ def INDIRECT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("INDIRECT(", *args, ")", **kwargs)
+	return Func("INDIRECT(", *inner, ")", res_type=res_type, **kwargs)
 
-def INFO(*args: Any, **kwargs: Any) -> Func:
+def INFO(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns information about the current operating environment
 
@@ -2919,9 +2919,9 @@ def INFO(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("INFO(", *args, ")", **kwargs)
+	return Func("INFO(", *inner, ")", res_type=res_type, **kwargs)
 
-def INT(*args: Any, **kwargs: Any) -> Func:
+def INT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number down to the nearest integer
 
@@ -2931,9 +2931,9 @@ def INT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("INT(", *args, ")", **kwargs)
+	return Func("INT(", *inner, ")", res_type=res_type, **kwargs)
 
-def INTERCEPT(*args: Any, **kwargs: Any) -> Func:
+def INTERCEPT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the intercept of the linear regression line
 
@@ -2943,9 +2943,9 @@ def INTERCEPT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("INTERCEPT(", *args, ")", **kwargs)
+	return Func("INTERCEPT(", *inner, ")", res_type=res_type, **kwargs)
 
-def INTRATE(*args: Any, **kwargs: Any) -> Func:
+def INTRATE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the interest rate for a fully invested security
 
@@ -2955,9 +2955,9 @@ def INTRATE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("INTRATE(", *args, ")", **kwargs)
+	return Func("INTRATE(", *inner, ")", res_type=res_type, **kwargs)
 
-def IPMT(*args: Any, **kwargs: Any) -> Func:
+def IPMT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the interest payment for an investment for a given period
 
@@ -2967,9 +2967,9 @@ def IPMT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IPMT(", *args, ")", **kwargs)
+	return Func("IPMT(", *inner, ")", res_type=res_type, **kwargs)
 
-def IRR(*args: Any, **kwargs: Any) -> Func:
+def IRR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the internal rate of return for a series of cash flows
 
@@ -2979,9 +2979,9 @@ def IRR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("IRR(", *args, ")", **kwargs)
+	return Func("IRR(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISBLANK(*args: Any, **kwargs: Any) -> Func:
+def ISBLANK(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the value is blank
 
@@ -2991,9 +2991,9 @@ def ISBLANK(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISBLANK(", *args, ")", **kwargs)
+	return Func("ISBLANK(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISERR(*args: Any, **kwargs: Any) -> Func:
+def ISERR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the value is any error value except #N/A
 
@@ -3003,9 +3003,9 @@ def ISERR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISERR(", *args, ")", **kwargs)
+	return Func("ISERR(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISERROR(*args: Any, **kwargs: Any) -> Func:
+def ISERROR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the value is any error value
 
@@ -3015,9 +3015,9 @@ def ISERROR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISERROR(", *args, ")", **kwargs)
+	return Func("ISERROR(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISEVEN(*args: Any, **kwargs: Any) -> Func:
+def ISEVEN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the number is even
 
@@ -3027,9 +3027,9 @@ def ISEVEN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISEVEN(", *args, ")", **kwargs)
+	return Func("ISEVEN(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISFORMULA(*args: Any, **kwargs: Any) -> Func:
+def ISFORMULA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if there is a reference to a cell that contains a formula
 
@@ -3039,9 +3039,9 @@ def ISFORMULA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISFORMULA(", *args, ")", **kwargs)
+	return Func("ISFORMULA(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISLOGICAL(*args: Any, **kwargs: Any) -> Func:
+def ISLOGICAL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the value is a logical value
 
@@ -3051,9 +3051,9 @@ def ISLOGICAL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISLOGICAL(", *args, ")", **kwargs)
+	return Func("ISLOGICAL(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISNA(*args: Any, **kwargs: Any) -> Func:
+def ISNA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the value is the #N/A error value
 
@@ -3063,9 +3063,9 @@ def ISNA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISNA(", *args, ")", **kwargs)
+	return Func("ISNA(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISNONTEXT(*args: Any, **kwargs: Any) -> Func:
+def ISNONTEXT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the value is not text
 
@@ -3075,9 +3075,9 @@ def ISNONTEXT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISNONTEXT(", *args, ")", **kwargs)
+	return Func("ISNONTEXT(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISNUMBER(*args: Any, **kwargs: Any) -> Func:
+def ISNUMBER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the value is a number
 
@@ -3087,9 +3087,9 @@ def ISNUMBER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISNUMBER(", *args, ")", **kwargs)
+	return Func("ISNUMBER(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISODD(*args: Any, **kwargs: Any) -> Func:
+def ISODD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the number is odd
 
@@ -3099,9 +3099,9 @@ def ISODD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISODD(", *args, ")", **kwargs)
+	return Func("ISODD(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISOMITTED(*args: Any, **kwargs: Any) -> Func:
+def ISOMITTED(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Checks whether the value in a LAMBDA is missing and returns TRUE or FALSE
 
@@ -3111,9 +3111,9 @@ def ISOMITTED(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISOMITTED(", *args, ")", **kwargs)
+	return Func("ISOMITTED(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISREF(*args: Any, **kwargs: Any) -> Func:
+def ISREF(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the value is a reference
 
@@ -3123,9 +3123,9 @@ def ISREF(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISREF(", *args, ")", **kwargs)
+	return Func("ISREF(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISTEXT(*args: Any, **kwargs: Any) -> Func:
+def ISTEXT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns TRUE if the value is text
 
@@ -3135,9 +3135,9 @@ def ISTEXT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISTEXT(", *args, ")", **kwargs)
+	return Func("ISTEXT(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISO_CEILING(*args: Any, **kwargs: Any) -> Func:
+def ISO_CEILING(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns a number that is rounded up to the nearest integer or to the nearest multiple of significance
 
@@ -3147,9 +3147,9 @@ def ISO_CEILING(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISO.CEILING(", *args, ")", **kwargs)
+	return Func("ISO.CEILING(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISOWEEKNUM(*args: Any, **kwargs: Any) -> Func:
+def ISOWEEKNUM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the number of the ISO week number of the year for a given date
 
@@ -3159,9 +3159,9 @@ def ISOWEEKNUM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISOWEEKNUM(", *args, ")", **kwargs)
+	return Func("ISOWEEKNUM(", *inner, ")", res_type=res_type, **kwargs)
 
-def ISPMT(*args: Any, **kwargs: Any) -> Func:
+def ISPMT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Calculates the interest paid during a specific period of an investment
 
@@ -3171,9 +3171,9 @@ def ISPMT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ISPMT(", *args, ")", **kwargs)
+	return Func("ISPMT(", *inner, ")", res_type=res_type, **kwargs)
 
-def JIS(*args: Any, **kwargs: Any) -> Func:
+def JIS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Changes half-width (single-byte) characters within a string to full-width (double-byte) characters
 
@@ -3183,9 +3183,9 @@ def JIS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("JIS(", *args, ")", **kwargs)
+	return Func("JIS(", *inner, ")", res_type=res_type, **kwargs)
 
-def KURT(*args: Any, **kwargs: Any) -> Func:
+def KURT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the kurtosis of a data set
 
@@ -3195,9 +3195,9 @@ def KURT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("KURT(", *args, ")", **kwargs)
+	return Func("KURT(", *inner, ")", res_type=res_type, **kwargs)
 
-def LAMBDA(*args: Any, **kwargs: Any) -> Func:
+def LAMBDA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Create custom, reusable functions and call them by a friendly name
 
@@ -3207,9 +3207,9 @@ def LAMBDA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LAMBDA(", *args, ")", **kwargs)
+	return Func("LAMBDA(", *inner, ")", res_type=res_type, **kwargs)
 
-def LARGE(*args: Any, **kwargs: Any) -> Func:
+def LARGE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the k-th largest value in a data set
 
@@ -3219,9 +3219,9 @@ def LARGE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LARGE(", *args, ")", **kwargs)
+	return Func("LARGE(", *inner, ")", res_type=res_type, **kwargs)
 
-def LCM(*args: Any, **kwargs: Any) -> Func:
+def LCM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the least common multiple
 
@@ -3231,9 +3231,9 @@ def LCM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LCM(", *args, ")", **kwargs)
+	return Func("LCM(", *inner, ")", res_type=res_type, **kwargs)
 
-def LEFT(*args: Any, **kwargs: Any) -> Func:
+def LEFT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns the leftmost characters from a text value
 
@@ -3243,9 +3243,9 @@ def LEFT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LEFT(", *args, ")", **kwargs)
+	return Func("LEFT(", *inner, ")", res_type=res_type, **kwargs)
 
-def LEFTB(*args: Any, **kwargs: Any) -> Func:
+def LEFTB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns the leftmost characters from a text value
 
@@ -3255,9 +3255,9 @@ def LEFTB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LEFTB(", *args, ")", **kwargs)
+	return Func("LEFTB(", *inner, ")", res_type=res_type, **kwargs)
 
-def LEN(*args: Any, **kwargs: Any) -> Func:
+def LEN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns the number of characters in a text string
 
@@ -3267,9 +3267,9 @@ def LEN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LEN(", *args, ")", **kwargs)
+	return Func("LEN(", *inner, ")", res_type=res_type, **kwargs)
 
-def LENB(*args: Any, **kwargs: Any) -> Func:
+def LENB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns the number of characters in a text string
 
@@ -3279,9 +3279,9 @@ def LENB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LENB(", *args, ")", **kwargs)
+	return Func("LENB(", *inner, ")", res_type=res_type, **kwargs)
 
-def LET(*args: Any, **kwargs: Any) -> Func:
+def LET(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Assigns names to calculation results
 
@@ -3291,9 +3291,9 @@ def LET(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LET(", *args, ")", **kwargs)
+	return Func("LET(", *inner, ")", res_type=res_type, **kwargs)
 
-def LINEST(*args: Any, **kwargs: Any) -> Func:
+def LINEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the parameters of a linear trend
 
@@ -3303,9 +3303,9 @@ def LINEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LINEST(", *args, ")", **kwargs)
+	return Func("LINEST(", *inner, ")", res_type=res_type, **kwargs)
 
-def LN(*args: Any, **kwargs: Any) -> Func:
+def LN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the natural logarithm of a number
 
@@ -3315,9 +3315,9 @@ def LN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LN(", *args, ")", **kwargs)
+	return Func("LN(", *inner, ")", res_type=res_type, **kwargs)
 
-def LOG(*args: Any, **kwargs: Any) -> Func:
+def LOG(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the logarithm of a number to a specified base
 
@@ -3327,9 +3327,9 @@ def LOG(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LOG(", *args, ")", **kwargs)
+	return Func("LOG(", *inner, ")", res_type=res_type, **kwargs)
 
-def LOG10(*args: Any, **kwargs: Any) -> Func:
+def LOG10(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the base-10 logarithm of a number
 
@@ -3339,9 +3339,9 @@ def LOG10(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LOG10(", *args, ")", **kwargs)
+	return Func("LOG10(", *inner, ")", res_type=res_type, **kwargs)
 
-def LOGEST(*args: Any, **kwargs: Any) -> Func:
+def LOGEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the parameters of an exponential trend
 
@@ -3351,9 +3351,9 @@ def LOGEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LOGEST(", *args, ")", **kwargs)
+	return Func("LOGEST(", *inner, ")", res_type=res_type, **kwargs)
 
-def LOGINV(*args: Any, **kwargs: Any) -> Func:
+def LOGINV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the inverse of the lognormal cumulative distribution
 
@@ -3363,9 +3363,9 @@ def LOGINV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LOGINV(", *args, ")", **kwargs)
+	return Func("LOGINV(", *inner, ")", res_type=res_type, **kwargs)
 
-def LOGNORM_DIST(*args: Any, **kwargs: Any) -> Func:
+def LOGNORM_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the cumulative lognormal distribution
 
@@ -3375,9 +3375,9 @@ def LOGNORM_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LOGNORM.DIST(", *args, ")", **kwargs)
+	return Func("LOGNORM.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def LOGNORMDIST(*args: Any, **kwargs: Any) -> Func:
+def LOGNORMDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the cumulative lognormal distribution
 
@@ -3387,9 +3387,9 @@ def LOGNORMDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LOGNORMDIST(", *args, ")", **kwargs)
+	return Func("LOGNORMDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def LOGNORM_INV(*args: Any, **kwargs: Any) -> Func:
+def LOGNORM_INV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the lognormal cumulative distribution
 
@@ -3399,9 +3399,9 @@ def LOGNORM_INV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LOGNORM.INV(", *args, ")", **kwargs)
+	return Func("LOGNORM.INV(", *inner, ")", res_type=res_type, **kwargs)
 
-def LOOKUP(*args: Any, **kwargs: Any) -> Func:
+def LOOKUP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Looks up values in a vector or array
 
@@ -3411,9 +3411,9 @@ def LOOKUP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LOOKUP(", *args, ")", **kwargs)
+	return Func("LOOKUP(", *inner, ")", res_type=res_type, **kwargs)
 
-def LOWER(*args: Any, **kwargs: Any) -> Func:
+def LOWER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Converts text to lowercase
 
@@ -3423,9 +3423,9 @@ def LOWER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("LOWER(", *args, ")", **kwargs)
+	return Func("LOWER(", *inner, ")", res_type=res_type, **kwargs)
 
-def MAKEARRAY(*args: Any, **kwargs: Any) -> Func:
+def MAKEARRAY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Returns a calculated array of a specified row and column size, by applying a LAMBDA
 
@@ -3435,9 +3435,9 @@ def MAKEARRAY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MAKEARRAY(", *args, ")", **kwargs)
+	return Func("MAKEARRAY(", *inner, ")", res_type=res_type, **kwargs)
 
-def MAP(*args: Any, **kwargs: Any) -> Func:
+def MAP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Returns an array formed by mapping each value in the array(s) to a new value by applying a LAMBDA to create a new value
 
@@ -3447,9 +3447,9 @@ def MAP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MAP(", *args, ")", **kwargs)
+	return Func("MAP(", *inner, ")", res_type=res_type, **kwargs)
 
-def MATCH(*args: Any, **kwargs: Any) -> Func:
+def MATCH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Looks up values in a reference or array
 
@@ -3459,9 +3459,9 @@ def MATCH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MATCH(", *args, ")", **kwargs)
+	return Func("MATCH(", *inner, ")", res_type=res_type, **kwargs)
 
-def MAX(*args: Any, **kwargs: Any) -> Func:
+def MAX(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the maximum value in a list of arguments
 
@@ -3471,9 +3471,9 @@ def MAX(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MAX(", *args, ")", **kwargs)
+	return Func("MAX(", *inner, ")", res_type=res_type, **kwargs)
 
-def MAXA(*args: Any, **kwargs: Any) -> Func:
+def MAXA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the maximum value in a list of arguments, including numbers, text, and logical values
 
@@ -3483,9 +3483,9 @@ def MAXA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MAXA(", *args, ")", **kwargs)
+	return Func("MAXA(", *inner, ")", res_type=res_type, **kwargs)
 
-def MAXIFS(*args: Any, **kwargs: Any) -> Func:
+def MAXIFS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the maximum value among cells specified by a given set of conditions or criteria
 
@@ -3495,9 +3495,9 @@ def MAXIFS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MAXIFS(", *args, ")", **kwargs)
+	return Func("MAXIFS(", *inner, ")", res_type=res_type, **kwargs)
 
-def MDETERM(*args: Any, **kwargs: Any) -> Func:
+def MDETERM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the matrix determinant of an array
 
@@ -3507,9 +3507,9 @@ def MDETERM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MDETERM(", *args, ")", **kwargs)
+	return Func("MDETERM(", *inner, ")", res_type=res_type, **kwargs)
 
-def MDURATION(*args: Any, **kwargs: Any) -> Func:
+def MDURATION(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the Macauley modified duration for a security with an assumed par value of $100
 
@@ -3519,9 +3519,9 @@ def MDURATION(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MDURATION(", *args, ")", **kwargs)
+	return Func("MDURATION(", *inner, ")", res_type=res_type, **kwargs)
 
-def MEDIAN(*args: Any, **kwargs: Any) -> Func:
+def MEDIAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the median of the given numbers
 
@@ -3531,9 +3531,9 @@ def MEDIAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MEDIAN(", *args, ")", **kwargs)
+	return Func("MEDIAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def MID(*args: Any, **kwargs: Any) -> Func:
+def MID(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns a specific number of characters from a text string starting at the position you specify
 
@@ -3543,9 +3543,9 @@ def MID(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MID(", *args, ")", **kwargs)
+	return Func("MID(", *inner, ")", res_type=res_type, **kwargs)
 
-def MIDB(*args: Any, **kwargs: Any) -> Func:
+def MIDB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns a specific number of characters from a text string starting at the position you specify
 
@@ -3555,9 +3555,9 @@ def MIDB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MIDB(", *args, ")", **kwargs)
+	return Func("MIDB(", *inner, ")", res_type=res_type, **kwargs)
 
-def MIN(*args: Any, **kwargs: Any) -> Func:
+def MIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the minimum value in a list of arguments
 
@@ -3567,9 +3567,9 @@ def MIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MIN(", *args, ")", **kwargs)
+	return Func("MIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def MINIFS(*args: Any, **kwargs: Any) -> Func:
+def MINIFS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the minimum value among cells specified by a given set of conditions or criteria.
 
@@ -3579,9 +3579,9 @@ def MINIFS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MINIFS(", *args, ")", **kwargs)
+	return Func("MINIFS(", *inner, ")", res_type=res_type, **kwargs)
 
-def MINA(*args: Any, **kwargs: Any) -> Func:
+def MINA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the smallest value in a list of arguments, including numbers, text, and logical values
 
@@ -3591,9 +3591,9 @@ def MINA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MINA(", *args, ")", **kwargs)
+	return Func("MINA(", *inner, ")", res_type=res_type, **kwargs)
 
-def MINUTE(*args: Any, **kwargs: Any) -> Func:
+def MINUTE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a serial number to a minute
 
@@ -3603,9 +3603,9 @@ def MINUTE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MINUTE(", *args, ")", **kwargs)
+	return Func("MINUTE(", *inner, ")", res_type=res_type, **kwargs)
 
-def MINVERSE(*args: Any, **kwargs: Any) -> Func:
+def MINVERSE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the matrix inverse of an array
 
@@ -3615,9 +3615,9 @@ def MINVERSE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MINVERSE(", *args, ")", **kwargs)
+	return Func("MINVERSE(", *inner, ")", res_type=res_type, **kwargs)
 
-def MIRR(*args: Any, **kwargs: Any) -> Func:
+def MIRR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the internal rate of return where positive and negative cash flows are financed at different rates
 
@@ -3627,9 +3627,9 @@ def MIRR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MIRR(", *args, ")", **kwargs)
+	return Func("MIRR(", *inner, ")", res_type=res_type, **kwargs)
 
-def MMULT(*args: Any, **kwargs: Any) -> Func:
+def MMULT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the matrix product of two arrays
 
@@ -3639,9 +3639,9 @@ def MMULT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MMULT(", *args, ")", **kwargs)
+	return Func("MMULT(", *inner, ")", res_type=res_type, **kwargs)
 
-def MOD(*args: Any, **kwargs: Any) -> Func:
+def MOD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the remainder from division
 
@@ -3651,9 +3651,9 @@ def MOD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MOD(", *args, ")", **kwargs)
+	return Func("MOD(", *inner, ")", res_type=res_type, **kwargs)
 
-def MODE(*args: Any, **kwargs: Any) -> Func:
+def MODE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the most common value in a data set
 
@@ -3663,9 +3663,9 @@ def MODE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MODE(", *args, ")", **kwargs)
+	return Func("MODE(", *inner, ")", res_type=res_type, **kwargs)
 
-def MODE_MULT(*args: Any, **kwargs: Any) -> Func:
+def MODE_MULT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns a vertical array of the most frequently occurring, or repetitive values in an array or range of data
 
@@ -3675,9 +3675,9 @@ def MODE_MULT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MODE.MULT(", *args, ")", **kwargs)
+	return Func("MODE.MULT(", *inner, ")", res_type=res_type, **kwargs)
 
-def MODE_SNGL(*args: Any, **kwargs: Any) -> Func:
+def MODE_SNGL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the most common value in a data set
 
@@ -3687,9 +3687,9 @@ def MODE_SNGL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MODE.SNGL(", *args, ")", **kwargs)
+	return Func("MODE.SNGL(", *inner, ")", res_type=res_type, **kwargs)
 
-def MONTH(*args: Any, **kwargs: Any) -> Func:
+def MONTH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a serial number to a month
 
@@ -3699,9 +3699,9 @@ def MONTH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MONTH(", *args, ")", **kwargs)
+	return Func("MONTH(", *inner, ")", res_type=res_type, **kwargs)
 
-def MROUND(*args: Any, **kwargs: Any) -> Func:
+def MROUND(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns a number rounded to the desired multiple
 
@@ -3711,9 +3711,9 @@ def MROUND(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MROUND(", *args, ")", **kwargs)
+	return Func("MROUND(", *inner, ")", res_type=res_type, **kwargs)
 
-def MULTINOMIAL(*args: Any, **kwargs: Any) -> Func:
+def MULTINOMIAL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the multinomial of a set of numbers
 
@@ -3723,9 +3723,9 @@ def MULTINOMIAL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MULTINOMIAL(", *args, ")", **kwargs)
+	return Func("MULTINOMIAL(", *inner, ")", res_type=res_type, **kwargs)
 
-def MUNIT(*args: Any, **kwargs: Any) -> Func:
+def MUNIT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the unit matrix or the specified dimension
 
@@ -3735,9 +3735,9 @@ def MUNIT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("MUNIT(", *args, ")", **kwargs)
+	return Func("MUNIT(", *inner, ")", res_type=res_type, **kwargs)
 
-def N(*args: Any, **kwargs: Any) -> Func:
+def N(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns a value converted to a number
 
@@ -3747,9 +3747,9 @@ def N(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("N(", *args, ")", **kwargs)
+	return Func("N(", *inner, ")", res_type=res_type, **kwargs)
 
-def NA(*args: Any, **kwargs: Any) -> Func:
+def NA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns the error value #N/A
 
@@ -3759,9 +3759,9 @@ def NA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NA(", *args, ")", **kwargs)
+	return Func("NA(", *inner, ")", res_type=res_type, **kwargs)
 
-def NEGBINOM_DIST(*args: Any, **kwargs: Any) -> Func:
+def NEGBINOM_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the negative binomial distribution
 
@@ -3771,9 +3771,9 @@ def NEGBINOM_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NEGBINOM.DIST(", *args, ")", **kwargs)
+	return Func("NEGBINOM.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def NEGBINOMDIST(*args: Any, **kwargs: Any) -> Func:
+def NEGBINOMDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the negative binomial distribution
 
@@ -3783,9 +3783,9 @@ def NEGBINOMDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NEGBINOMDIST(", *args, ")", **kwargs)
+	return Func("NEGBINOMDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def NETWORKDAYS(*args: Any, **kwargs: Any) -> Func:
+def NETWORKDAYS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the number of whole workdays between two dates
 
@@ -3795,9 +3795,9 @@ def NETWORKDAYS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NETWORKDAYS(", *args, ")", **kwargs)
+	return Func("NETWORKDAYS(", *inner, ")", res_type=res_type, **kwargs)
 
-def NETWORKDAYS_INTL(*args: Any, **kwargs: Any) -> Func:
+def NETWORKDAYS_INTL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the number of whole workdays between two dates using parameters to indicate which and how many days are weekend days
 
@@ -3807,9 +3807,9 @@ def NETWORKDAYS_INTL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NETWORKDAYS.INTL(", *args, ")", **kwargs)
+	return Func("NETWORKDAYS.INTL(", *inner, ")", res_type=res_type, **kwargs)
 
-def NOMINAL(*args: Any, **kwargs: Any) -> Func:
+def NOMINAL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the annual nominal interest rate
 
@@ -3819,9 +3819,9 @@ def NOMINAL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NOMINAL(", *args, ")", **kwargs)
+	return Func("NOMINAL(", *inner, ")", res_type=res_type, **kwargs)
 
-def NORM_DIST(*args: Any, **kwargs: Any) -> Func:
+def NORM_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the normal cumulative distribution
 
@@ -3831,9 +3831,9 @@ def NORM_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NORM.DIST(", *args, ")", **kwargs)
+	return Func("NORM.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def NORMDIST(*args: Any, **kwargs: Any) -> Func:
+def NORMDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the normal cumulative distribution
 
@@ -3843,9 +3843,9 @@ def NORMDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NORMDIST(", *args, ")", **kwargs)
+	return Func("NORMDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def NORMINV(*args: Any, **kwargs: Any) -> Func:
+def NORMINV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the normal cumulative distribution
 
@@ -3855,9 +3855,9 @@ def NORMINV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NORMINV(", *args, ")", **kwargs)
+	return Func("NORMINV(", *inner, ")", res_type=res_type, **kwargs)
 
-def NORM_INV(*args: Any, **kwargs: Any) -> Func:
+def NORM_INV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the inverse of the normal cumulative distribution
 
@@ -3867,9 +3867,9 @@ def NORM_INV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NORM.INV(", *args, ")", **kwargs)
+	return Func("NORM.INV(", *inner, ")", res_type=res_type, **kwargs)
 
-def NORM_S_DIST(*args: Any, **kwargs: Any) -> Func:
+def NORM_S_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the standard normal cumulative distribution
 
@@ -3879,9 +3879,9 @@ def NORM_S_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NORM.S.DIST(", *args, ")", **kwargs)
+	return Func("NORM.S.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def NORMSDIST(*args: Any, **kwargs: Any) -> Func:
+def NORMSDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the standard normal cumulative distribution
 
@@ -3891,9 +3891,9 @@ def NORMSDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NORMSDIST(", *args, ")", **kwargs)
+	return Func("NORMSDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def NORM_S_INV(*args: Any, **kwargs: Any) -> Func:
+def NORM_S_INV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the standard normal cumulative distribution
 
@@ -3903,9 +3903,9 @@ def NORM_S_INV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NORM.S.INV(", *args, ")", **kwargs)
+	return Func("NORM.S.INV(", *inner, ")", res_type=res_type, **kwargs)
 
-def NORMSINV(*args: Any, **kwargs: Any) -> Func:
+def NORMSINV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the inverse of the standard normal cumulative distribution
 
@@ -3915,9 +3915,9 @@ def NORMSINV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NORMSINV(", *args, ")", **kwargs)
+	return Func("NORMSINV(", *inner, ")", res_type=res_type, **kwargs)
 
-def NOT(*args: Any, **kwargs: Any) -> Func:
+def NOT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Reverses the logic of its argument
 
@@ -3927,9 +3927,9 @@ def NOT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NOT(", *args, ")", **kwargs)
+	return Func("NOT(", *inner, ")", res_type=res_type, **kwargs)
 
-def NOW(*args: Any, **kwargs: Any) -> Func:
+def NOW(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the serial number of the current date and time
 
@@ -3939,9 +3939,9 @@ def NOW(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NOW(", *args, ")", **kwargs)
+	return Func("NOW(", *inner, ")", res_type=res_type, **kwargs)
 
-def NPER(*args: Any, **kwargs: Any) -> Func:
+def NPER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the number of periods for an investment
 
@@ -3951,9 +3951,9 @@ def NPER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NPER(", *args, ")", **kwargs)
+	return Func("NPER(", *inner, ")", res_type=res_type, **kwargs)
 
-def NPV(*args: Any, **kwargs: Any) -> Func:
+def NPV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the net present value of an investment based on a series of periodic cash flows and a discount rate
 
@@ -3963,9 +3963,9 @@ def NPV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NPV(", *args, ")", **kwargs)
+	return Func("NPV(", *inner, ")", res_type=res_type, **kwargs)
 
-def NUMBERVALUE(*args: Any, **kwargs: Any) -> Func:
+def NUMBERVALUE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Converts text to number in a locale-independent manner
 
@@ -3975,9 +3975,9 @@ def NUMBERVALUE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("NUMBERVALUE(", *args, ")", **kwargs)
+	return Func("NUMBERVALUE(", *inner, ")", res_type=res_type, **kwargs)
 
-def OCT2BIN(*args: Any, **kwargs: Any) -> Func:
+def OCT2BIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts an octal number to binary
 
@@ -3987,9 +3987,9 @@ def OCT2BIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("OCT2BIN(", *args, ")", **kwargs)
+	return Func("OCT2BIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def OCT2DEC(*args: Any, **kwargs: Any) -> Func:
+def OCT2DEC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts an octal number to decimal
 
@@ -3999,9 +3999,9 @@ def OCT2DEC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("OCT2DEC(", *args, ")", **kwargs)
+	return Func("OCT2DEC(", *inner, ")", res_type=res_type, **kwargs)
 
-def OCT2HEX(*args: Any, **kwargs: Any) -> Func:
+def OCT2HEX(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Engineering:** Converts an octal number to hexadecimal
 
@@ -4011,9 +4011,9 @@ def OCT2HEX(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("OCT2HEX(", *args, ")", **kwargs)
+	return Func("OCT2HEX(", *inner, ")", res_type=res_type, **kwargs)
 
-def ODD(*args: Any, **kwargs: Any) -> Func:
+def ODD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number up to the nearest odd integer
 
@@ -4023,9 +4023,9 @@ def ODD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ODD(", *args, ")", **kwargs)
+	return Func("ODD(", *inner, ")", res_type=res_type, **kwargs)
 
-def ODDFPRICE(*args: Any, **kwargs: Any) -> Func:
+def ODDFPRICE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the price per $100 face value of a security with an odd first period
 
@@ -4035,9 +4035,9 @@ def ODDFPRICE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ODDFPRICE(", *args, ")", **kwargs)
+	return Func("ODDFPRICE(", *inner, ")", res_type=res_type, **kwargs)
 
-def ODDFYIELD(*args: Any, **kwargs: Any) -> Func:
+def ODDFYIELD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the yield of a security with an odd first period
 
@@ -4047,9 +4047,9 @@ def ODDFYIELD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ODDFYIELD(", *args, ")", **kwargs)
+	return Func("ODDFYIELD(", *inner, ")", res_type=res_type, **kwargs)
 
-def ODDLPRICE(*args: Any, **kwargs: Any) -> Func:
+def ODDLPRICE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the price per $100 face value of a security with an odd last period
 
@@ -4059,9 +4059,9 @@ def ODDLPRICE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ODDLPRICE(", *args, ")", **kwargs)
+	return Func("ODDLPRICE(", *inner, ")", res_type=res_type, **kwargs)
 
-def ODDLYIELD(*args: Any, **kwargs: Any) -> Func:
+def ODDLYIELD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the yield of a security with an odd last period
 
@@ -4071,9 +4071,9 @@ def ODDLYIELD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ODDLYIELD(", *args, ")", **kwargs)
+	return Func("ODDLYIELD(", *inner, ")", res_type=res_type, **kwargs)
 
-def OFFSET(*args: Any, **kwargs: Any) -> Func:
+def OFFSET(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns a reference offset from a given reference
 
@@ -4083,9 +4083,9 @@ def OFFSET(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("OFFSET(", *args, ")", **kwargs)
+	return Func("OFFSET(", *inner, ")", res_type=res_type, **kwargs)
 
-def OR(*args: Any, **kwargs: Any) -> Func:
+def OR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Returns TRUE if any argument is TRUE
 
@@ -4095,9 +4095,9 @@ def OR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("OR(", *args, ")", **kwargs)
+	return Func("OR(", *inner, ")", res_type=res_type, **kwargs)
 
-def PDURATION(*args: Any, **kwargs: Any) -> Func:
+def PDURATION(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the number of periods required by an investment to reach a specified value
 
@@ -4107,9 +4107,9 @@ def PDURATION(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PDURATION(", *args, ")", **kwargs)
+	return Func("PDURATION(", *inner, ")", res_type=res_type, **kwargs)
 
-def PEARSON(*args: Any, **kwargs: Any) -> Func:
+def PEARSON(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the Pearson product moment correlation coefficient
 
@@ -4119,9 +4119,9 @@ def PEARSON(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PEARSON(", *args, ")", **kwargs)
+	return Func("PEARSON(", *inner, ")", res_type=res_type, **kwargs)
 
-def PERCENTILE_EXC(*args: Any, **kwargs: Any) -> Func:
+def PERCENTILE_EXC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the k-th percentile of values in a range, where k is in the range 0..1, exclusive
 
@@ -4131,9 +4131,9 @@ def PERCENTILE_EXC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PERCENTILE.EXC(", *args, ")", **kwargs)
+	return Func("PERCENTILE.EXC(", *inner, ")", res_type=res_type, **kwargs)
 
-def PERCENTILE_INC(*args: Any, **kwargs: Any) -> Func:
+def PERCENTILE_INC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the k-th percentile of values in a range
 
@@ -4143,9 +4143,9 @@ def PERCENTILE_INC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PERCENTILE.INC(", *args, ")", **kwargs)
+	return Func("PERCENTILE.INC(", *inner, ")", res_type=res_type, **kwargs)
 
-def PERCENTILE(*args: Any, **kwargs: Any) -> Func:
+def PERCENTILE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the k-th percentile of values in a range
 
@@ -4155,9 +4155,9 @@ def PERCENTILE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PERCENTILE(", *args, ")", **kwargs)
+	return Func("PERCENTILE(", *inner, ")", res_type=res_type, **kwargs)
 
-def PERCENTRANK_EXC(*args: Any, **kwargs: Any) -> Func:
+def PERCENTRANK_EXC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the rank of a value in a data set as a percentage (0..1, exclusive) of the data set
 
@@ -4167,9 +4167,9 @@ def PERCENTRANK_EXC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PERCENTRANK.EXC(", *args, ")", **kwargs)
+	return Func("PERCENTRANK.EXC(", *inner, ")", res_type=res_type, **kwargs)
 
-def PERCENTRANK_INC(*args: Any, **kwargs: Any) -> Func:
+def PERCENTRANK_INC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the percentage rank of a value in a data set
 
@@ -4179,9 +4179,9 @@ def PERCENTRANK_INC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PERCENTRANK.INC(", *args, ")", **kwargs)
+	return Func("PERCENTRANK.INC(", *inner, ")", res_type=res_type, **kwargs)
 
-def PERCENTRANK(*args: Any, **kwargs: Any) -> Func:
+def PERCENTRANK(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the percentage rank of a value in a data set
 
@@ -4191,9 +4191,9 @@ def PERCENTRANK(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PERCENTRANK(", *args, ")", **kwargs)
+	return Func("PERCENTRANK(", *inner, ")", res_type=res_type, **kwargs)
 
-def PERMUT(*args: Any, **kwargs: Any) -> Func:
+def PERMUT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the number of permutations for a given number of objects
 
@@ -4203,9 +4203,9 @@ def PERMUT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PERMUT(", *args, ")", **kwargs)
+	return Func("PERMUT(", *inner, ")", res_type=res_type, **kwargs)
 
-def PERMUTATIONA(*args: Any, **kwargs: Any) -> Func:
+def PERMUTATIONA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the number of permutations for a given number of objects (with repetitions) that can be selected from the total objects
 
@@ -4215,9 +4215,9 @@ def PERMUTATIONA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PERMUTATIONA(", *args, ")", **kwargs)
+	return Func("PERMUTATIONA(", *inner, ")", res_type=res_type, **kwargs)
 
-def PHI(*args: Any, **kwargs: Any) -> Func:
+def PHI(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the value of the density function for a standard normal distribution
 
@@ -4227,9 +4227,9 @@ def PHI(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PHI(", *args, ")", **kwargs)
+	return Func("PHI(", *inner, ")", res_type=res_type, **kwargs)
 
-def PHONETIC(*args: Any, **kwargs: Any) -> Func:
+def PHONETIC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Extracts the phonetic (furigana) characters from a text string
 
@@ -4239,9 +4239,9 @@ def PHONETIC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PHONETIC(", *args, ")", **kwargs)
+	return Func("PHONETIC(", *inner, ")", res_type=res_type, **kwargs)
 
-def PI(*args: Any, **kwargs: Any) -> Func:
+def PI(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the value of pi
 
@@ -4251,9 +4251,9 @@ def PI(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PI(", *args, ")", **kwargs)
+	return Func("PI(", *inner, ")", res_type=res_type, **kwargs)
 
-def PMT(*args: Any, **kwargs: Any) -> Func:
+def PMT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the periodic payment for an annuity
 
@@ -4263,9 +4263,9 @@ def PMT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PMT(", *args, ")", **kwargs)
+	return Func("PMT(", *inner, ")", res_type=res_type, **kwargs)
 
-def POISSON_DIST(*args: Any, **kwargs: Any) -> Func:
+def POISSON_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the Poisson distribution
 
@@ -4275,9 +4275,9 @@ def POISSON_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("POISSON.DIST(", *args, ")", **kwargs)
+	return Func("POISSON.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def POISSON(*args: Any, **kwargs: Any) -> Func:
+def POISSON(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the Poisson distribution
 
@@ -4287,9 +4287,9 @@ def POISSON(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("POISSON(", *args, ")", **kwargs)
+	return Func("POISSON(", *inner, ")", res_type=res_type, **kwargs)
 
-def POWER(*args: Any, **kwargs: Any) -> Func:
+def POWER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the result of a number raised to a power
 
@@ -4299,9 +4299,9 @@ def POWER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("POWER(", *args, ")", **kwargs)
+	return Func("POWER(", *inner, ")", res_type=res_type, **kwargs)
 
-def PPMT(*args: Any, **kwargs: Any) -> Func:
+def PPMT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the payment on the principal for an investment for a given period
 
@@ -4311,9 +4311,9 @@ def PPMT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PPMT(", *args, ")", **kwargs)
+	return Func("PPMT(", *inner, ")", res_type=res_type, **kwargs)
 
-def PRICE(*args: Any, **kwargs: Any) -> Func:
+def PRICE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the price per $100 face value of a security that pays periodic interest
 
@@ -4323,9 +4323,9 @@ def PRICE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PRICE(", *args, ")", **kwargs)
+	return Func("PRICE(", *inner, ")", res_type=res_type, **kwargs)
 
-def PRICEDISC(*args: Any, **kwargs: Any) -> Func:
+def PRICEDISC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the price per $100 face value of a discounted security
 
@@ -4335,9 +4335,9 @@ def PRICEDISC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PRICEDISC(", *args, ")", **kwargs)
+	return Func("PRICEDISC(", *inner, ")", res_type=res_type, **kwargs)
 
-def PRICEMAT(*args: Any, **kwargs: Any) -> Func:
+def PRICEMAT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the price per $100 face value of a security that pays interest at maturity
 
@@ -4347,9 +4347,9 @@ def PRICEMAT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PRICEMAT(", *args, ")", **kwargs)
+	return Func("PRICEMAT(", *inner, ")", res_type=res_type, **kwargs)
 
-def PROB(*args: Any, **kwargs: Any) -> Func:
+def PROB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the probability that values in a range are between two limits
 
@@ -4359,9 +4359,9 @@ def PROB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PROB(", *args, ")", **kwargs)
+	return Func("PROB(", *inner, ")", res_type=res_type, **kwargs)
 
-def PRODUCT(*args: Any, **kwargs: Any) -> Func:
+def PRODUCT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Multiplies its arguments
 
@@ -4371,9 +4371,9 @@ def PRODUCT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PRODUCT(", *args, ")", **kwargs)
+	return Func("PRODUCT(", *inner, ")", res_type=res_type, **kwargs)
 
-def PROPER(*args: Any, **kwargs: Any) -> Func:
+def PROPER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Capitalizes the first letter in each word of a text value
 
@@ -4383,9 +4383,9 @@ def PROPER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PROPER(", *args, ")", **kwargs)
+	return Func("PROPER(", *inner, ")", res_type=res_type, **kwargs)
 
-def PV(*args: Any, **kwargs: Any) -> Func:
+def PV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the present value of an investment
 
@@ -4395,9 +4395,9 @@ def PV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("PV(", *args, ")", **kwargs)
+	return Func("PV(", *inner, ")", res_type=res_type, **kwargs)
 
-def QUARTILE(*args: Any, **kwargs: Any) -> Func:
+def QUARTILE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the quartile of a data set
 
@@ -4407,9 +4407,9 @@ def QUARTILE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("QUARTILE(", *args, ")", **kwargs)
+	return Func("QUARTILE(", *inner, ")", res_type=res_type, **kwargs)
 
-def QUARTILE_EXC(*args: Any, **kwargs: Any) -> Func:
+def QUARTILE_EXC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the quartile of the data set, based on percentile values from 0..1, exclusive
 
@@ -4419,9 +4419,9 @@ def QUARTILE_EXC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("QUARTILE.EXC(", *args, ")", **kwargs)
+	return Func("QUARTILE.EXC(", *inner, ")", res_type=res_type, **kwargs)
 
-def QUARTILE_INC(*args: Any, **kwargs: Any) -> Func:
+def QUARTILE_INC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the quartile of a data set
 
@@ -4431,9 +4431,9 @@ def QUARTILE_INC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("QUARTILE.INC(", *args, ")", **kwargs)
+	return Func("QUARTILE.INC(", *inner, ")", res_type=res_type, **kwargs)
 
-def QUOTIENT(*args: Any, **kwargs: Any) -> Func:
+def QUOTIENT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the integer portion of a division
 
@@ -4443,9 +4443,9 @@ def QUOTIENT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("QUOTIENT(", *args, ")", **kwargs)
+	return Func("QUOTIENT(", *inner, ")", res_type=res_type, **kwargs)
 
-def RADIANS(*args: Any, **kwargs: Any) -> Func:
+def RADIANS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Converts degrees to radians
 
@@ -4455,9 +4455,9 @@ def RADIANS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RADIANS(", *args, ")", **kwargs)
+	return Func("RADIANS(", *inner, ")", res_type=res_type, **kwargs)
 
-def RAND(*args: Any, **kwargs: Any) -> Func:
+def RAND(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns a random number between 0 and 1
 
@@ -4467,9 +4467,9 @@ def RAND(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RAND(", *args, ")", **kwargs)
+	return Func("RAND(", *inner, ")", res_type=res_type, **kwargs)
 
-def RANDARRAY(*args: Any, **kwargs: Any) -> Func:
+def RANDARRAY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns an array of random numbers between 0 and 1. However, you can specify the number of rows and columns to fill, minimum and maximum values, and whether to return whole numbers or decimal values.
 
@@ -4479,9 +4479,9 @@ def RANDARRAY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RANDARRAY(", *args, ")", **kwargs)
+	return Func("RANDARRAY(", *inner, ")", res_type=res_type, **kwargs)
 
-def RANDBETWEEN(*args: Any, **kwargs: Any) -> Func:
+def RANDBETWEEN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns a random number between the numbers you specify
 
@@ -4491,9 +4491,9 @@ def RANDBETWEEN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RANDBETWEEN(", *args, ")", **kwargs)
+	return Func("RANDBETWEEN(", *inner, ")", res_type=res_type, **kwargs)
 
-def RANK_AVG(*args: Any, **kwargs: Any) -> Func:
+def RANK_AVG(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the rank of a number in a list of numbers
 
@@ -4503,9 +4503,9 @@ def RANK_AVG(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RANK.AVG(", *args, ")", **kwargs)
+	return Func("RANK.AVG(", *inner, ")", res_type=res_type, **kwargs)
 
-def RANK_EQ(*args: Any, **kwargs: Any) -> Func:
+def RANK_EQ(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the rank of a number in a list of numbers
 
@@ -4515,9 +4515,9 @@ def RANK_EQ(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RANK.EQ(", *args, ")", **kwargs)
+	return Func("RANK.EQ(", *inner, ")", res_type=res_type, **kwargs)
 
-def RANK(*args: Any, **kwargs: Any) -> Func:
+def RANK(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the rank of a number in a list of numbers
 
@@ -4527,9 +4527,9 @@ def RANK(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RANK(", *args, ")", **kwargs)
+	return Func("RANK(", *inner, ")", res_type=res_type, **kwargs)
 
-def RATE(*args: Any, **kwargs: Any) -> Func:
+def RATE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the interest rate per period of an annuity
 
@@ -4539,9 +4539,9 @@ def RATE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RATE(", *args, ")", **kwargs)
+	return Func("RATE(", *inner, ")", res_type=res_type, **kwargs)
 
-def RECEIVED(*args: Any, **kwargs: Any) -> Func:
+def RECEIVED(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the amount received at maturity for a fully invested security
 
@@ -4551,9 +4551,9 @@ def RECEIVED(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RECEIVED(", *args, ")", **kwargs)
+	return Func("RECEIVED(", *inner, ")", res_type=res_type, **kwargs)
 
-def REDUCE(*args: Any, **kwargs: Any) -> Func:
+def REDUCE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Reduces an array to an accumulated value by applying a LAMBDA to each value and returning the total value in the accumulator
 
@@ -4563,9 +4563,9 @@ def REDUCE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("REDUCE(", *args, ")", **kwargs)
+	return Func("REDUCE(", *inner, ")", res_type=res_type, **kwargs)
 
-def REGISTER_ID(*args: Any, **kwargs: Any) -> Func:
+def REGISTER_ID(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Add-in and Automation:** Returns the register ID of the specified dynamic link library (DLL) or code resource that has been previously registered
 
@@ -4575,9 +4575,9 @@ def REGISTER_ID(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("REGISTER.ID(", *args, ")", **kwargs)
+	return Func("REGISTER.ID(", *inner, ")", res_type=res_type, **kwargs)
 
-def REPLACE(*args: Any, **kwargs: Any) -> Func:
+def REPLACE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Replaces characters within text
 
@@ -4587,9 +4587,9 @@ def REPLACE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("REPLACE(", *args, ")", **kwargs)
+	return Func("REPLACE(", *inner, ")", res_type=res_type, **kwargs)
 
-def REPLACEB(*args: Any, **kwargs: Any) -> Func:
+def REPLACEB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Replaces characters within text
 
@@ -4599,9 +4599,9 @@ def REPLACEB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("REPLACEB(", *args, ")", **kwargs)
+	return Func("REPLACEB(", *inner, ")", res_type=res_type, **kwargs)
 
-def REPT(*args: Any, **kwargs: Any) -> Func:
+def REPT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Repeats text a given number of times
 
@@ -4611,9 +4611,9 @@ def REPT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("REPT(", *args, ")", **kwargs)
+	return Func("REPT(", *inner, ")", res_type=res_type, **kwargs)
 
-def RIGHT(*args: Any, **kwargs: Any) -> Func:
+def RIGHT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns the rightmost characters from a text value
 
@@ -4623,9 +4623,9 @@ def RIGHT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RIGHT(", *args, ")", **kwargs)
+	return Func("RIGHT(", *inner, ")", res_type=res_type, **kwargs)
 
-def RIGHTB(*args: Any, **kwargs: Any) -> Func:
+def RIGHTB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns the rightmost characters from a text value
 
@@ -4635,9 +4635,9 @@ def RIGHTB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RIGHTB(", *args, ")", **kwargs)
+	return Func("RIGHTB(", *inner, ")", res_type=res_type, **kwargs)
 
-def ROMAN(*args: Any, **kwargs: Any) -> Func:
+def ROMAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Converts an arabic numeral to roman, as text
 
@@ -4647,9 +4647,9 @@ def ROMAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ROMAN(", *args, ")", **kwargs)
+	return Func("ROMAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def ROUND(*args: Any, **kwargs: Any) -> Func:
+def ROUND(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number to a specified number of digits
 
@@ -4659,9 +4659,9 @@ def ROUND(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ROUND(", *args, ")", **kwargs)
+	return Func("ROUND(", *inner, ")", res_type=res_type, **kwargs)
 
-def ROUNDDOWN(*args: Any, **kwargs: Any) -> Func:
+def ROUNDDOWN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number down, toward zero
 
@@ -4671,9 +4671,9 @@ def ROUNDDOWN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ROUNDDOWN(", *args, ")", **kwargs)
+	return Func("ROUNDDOWN(", *inner, ")", res_type=res_type, **kwargs)
 
-def ROUNDUP(*args: Any, **kwargs: Any) -> Func:
+def ROUNDUP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Rounds a number up, away from zero
 
@@ -4683,9 +4683,9 @@ def ROUNDUP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ROUNDUP(", *args, ")", **kwargs)
+	return Func("ROUNDUP(", *inner, ")", res_type=res_type, **kwargs)
 
-def ROW(*args: Any, **kwargs: Any) -> Func:
+def ROW(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the row number of a reference
 
@@ -4695,9 +4695,9 @@ def ROW(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ROW(", *args, ")", **kwargs)
+	return Func("ROW(", *inner, ")", res_type=res_type, **kwargs)
 
-def ROWS(*args: Any, **kwargs: Any) -> Func:
+def ROWS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the number of rows in a reference
 
@@ -4707,9 +4707,9 @@ def ROWS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ROWS(", *args, ")", **kwargs)
+	return Func("ROWS(", *inner, ")", res_type=res_type, **kwargs)
 
-def RRI(*args: Any, **kwargs: Any) -> Func:
+def RRI(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns an equivalent interest rate for the growth of an investment
 
@@ -4719,9 +4719,9 @@ def RRI(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RRI(", *args, ")", **kwargs)
+	return Func("RRI(", *inner, ")", res_type=res_type, **kwargs)
 
-def RSQ(*args: Any, **kwargs: Any) -> Func:
+def RSQ(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the square of the Pearson product moment correlation coefficient
 
@@ -4731,9 +4731,9 @@ def RSQ(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RSQ(", *args, ")", **kwargs)
+	return Func("RSQ(", *inner, ")", res_type=res_type, **kwargs)
 
-def RTD(*args: Any, **kwargs: Any) -> Func:
+def RTD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Retrieves real-time data from a program that supports COM automation
 
@@ -4743,9 +4743,9 @@ def RTD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("RTD(", *args, ")", **kwargs)
+	return Func("RTD(", *inner, ")", res_type=res_type, **kwargs)
 
-def SCAN(*args: Any, **kwargs: Any) -> Func:
+def SCAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Scans an array by applying a LAMBDA to each value and returns an array that has each intermediate value
 
@@ -4755,9 +4755,9 @@ def SCAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SCAN(", *args, ")", **kwargs)
+	return Func("SCAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def SEARCH(*args: Any, **kwargs: Any) -> Func:
+def SEARCH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Finds one text value within another (not case-sensitive)
 
@@ -4767,9 +4767,9 @@ def SEARCH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SEARCH(", *args, ")", **kwargs)
+	return Func("SEARCH(", *inner, ")", res_type=res_type, **kwargs)
 
-def SEARCHB(*args: Any, **kwargs: Any) -> Func:
+def SEARCHB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Finds one text value within another (not case-sensitive)
 
@@ -4779,9 +4779,9 @@ def SEARCHB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SEARCHB(", *args, ")", **kwargs)
+	return Func("SEARCHB(", *inner, ")", res_type=res_type, **kwargs)
 
-def SEC(*args: Any, **kwargs: Any) -> Func:
+def SEC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the secant of an angle
 
@@ -4791,9 +4791,9 @@ def SEC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SEC(", *args, ")", **kwargs)
+	return Func("SEC(", *inner, ")", res_type=res_type, **kwargs)
 
-def SECH(*args: Any, **kwargs: Any) -> Func:
+def SECH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the hyperbolic secant of an angle
 
@@ -4803,9 +4803,9 @@ def SECH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SECH(", *args, ")", **kwargs)
+	return Func("SECH(", *inner, ")", res_type=res_type, **kwargs)
 
-def SECOND(*args: Any, **kwargs: Any) -> Func:
+def SECOND(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a serial number to a second
 
@@ -4815,9 +4815,9 @@ def SECOND(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SECOND(", *args, ")", **kwargs)
+	return Func("SECOND(", *inner, ")", res_type=res_type, **kwargs)
 
-def SEQUENCE(*args: Any, **kwargs: Any) -> Func:
+def SEQUENCE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Generates a list of sequential numbers in an array, such as 1, 2, 3, 4
 
@@ -4827,9 +4827,9 @@ def SEQUENCE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SEQUENCE(", *args, ")", **kwargs)
+	return Func("SEQUENCE(", *inner, ")", res_type=res_type, **kwargs)
 
-def SERIESSUM(*args: Any, **kwargs: Any) -> Func:
+def SERIESSUM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the sum of a power series based on the formula
 
@@ -4839,9 +4839,9 @@ def SERIESSUM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SERIESSUM(", *args, ")", **kwargs)
+	return Func("SERIESSUM(", *inner, ")", res_type=res_type, **kwargs)
 
-def SHEET(*args: Any, **kwargs: Any) -> Func:
+def SHEET(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns the sheet number of the referenced sheet
 
@@ -4851,9 +4851,9 @@ def SHEET(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SHEET(", *args, ")", **kwargs)
+	return Func("SHEET(", *inner, ")", res_type=res_type, **kwargs)
 
-def SHEETS(*args: Any, **kwargs: Any) -> Func:
+def SHEETS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns the number of sheets in a reference
 
@@ -4863,9 +4863,9 @@ def SHEETS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SHEETS(", *args, ")", **kwargs)
+	return Func("SHEETS(", *inner, ")", res_type=res_type, **kwargs)
 
-def SIGN(*args: Any, **kwargs: Any) -> Func:
+def SIGN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the sign of a number
 
@@ -4875,9 +4875,9 @@ def SIGN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SIGN(", *args, ")", **kwargs)
+	return Func("SIGN(", *inner, ")", res_type=res_type, **kwargs)
 
-def SIN(*args: Any, **kwargs: Any) -> Func:
+def SIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the sine of the given angle
 
@@ -4887,9 +4887,9 @@ def SIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SIN(", *args, ")", **kwargs)
+	return Func("SIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def SINH(*args: Any, **kwargs: Any) -> Func:
+def SINH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the hyperbolic sine of a number
 
@@ -4899,9 +4899,9 @@ def SINH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SINH(", *args, ")", **kwargs)
+	return Func("SINH(", *inner, ")", res_type=res_type, **kwargs)
 
-def SKEW(*args: Any, **kwargs: Any) -> Func:
+def SKEW(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the skewness of a distribution
 
@@ -4911,9 +4911,9 @@ def SKEW(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SKEW(", *args, ")", **kwargs)
+	return Func("SKEW(", *inner, ")", res_type=res_type, **kwargs)
 
-def SKEW_P(*args: Any, **kwargs: Any) -> Func:
+def SKEW_P(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the skewness of a distribution based on a population: a characterization of the degree of asymmetry of a distribution around its mean
 
@@ -4923,9 +4923,9 @@ def SKEW_P(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SKEW.P(", *args, ")", **kwargs)
+	return Func("SKEW.P(", *inner, ")", res_type=res_type, **kwargs)
 
-def SLN(*args: Any, **kwargs: Any) -> Func:
+def SLN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the straight-line depreciation of an asset for one period
 
@@ -4935,9 +4935,9 @@ def SLN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SLN(", *args, ")", **kwargs)
+	return Func("SLN(", *inner, ")", res_type=res_type, **kwargs)
 
-def SLOPE(*args: Any, **kwargs: Any) -> Func:
+def SLOPE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the slope of the linear regression line
 
@@ -4947,9 +4947,9 @@ def SLOPE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SLOPE(", *args, ")", **kwargs)
+	return Func("SLOPE(", *inner, ")", res_type=res_type, **kwargs)
 
-def SMALL(*args: Any, **kwargs: Any) -> Func:
+def SMALL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the k-th smallest value in a data set
 
@@ -4959,9 +4959,9 @@ def SMALL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SMALL(", *args, ")", **kwargs)
+	return Func("SMALL(", *inner, ")", res_type=res_type, **kwargs)
 
-def SORT(*args: Any, **kwargs: Any) -> Func:
+def SORT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Sorts the contents of a range or array
 
@@ -4971,9 +4971,9 @@ def SORT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SORT(", *args, ")", **kwargs)
+	return Func("SORT(", *inner, ")", res_type=res_type, **kwargs)
 
-def SORTBY(*args: Any, **kwargs: Any) -> Func:
+def SORTBY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Sorts the contents of a range or array based on the values in a corresponding range or array
 
@@ -4983,9 +4983,9 @@ def SORTBY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SORTBY(", *args, ")", **kwargs)
+	return Func("SORTBY(", *inner, ")", res_type=res_type, **kwargs)
 
-def SQRT(*args: Any, **kwargs: Any) -> Func:
+def SQRT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns a positive square root
 
@@ -4995,9 +4995,9 @@ def SQRT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SQRT(", *args, ")", **kwargs)
+	return Func("SQRT(", *inner, ")", res_type=res_type, **kwargs)
 
-def SQRTPI(*args: Any, **kwargs: Any) -> Func:
+def SQRTPI(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the square root of (number * pi)
 
@@ -5007,9 +5007,9 @@ def SQRTPI(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SQRTPI(", *args, ")", **kwargs)
+	return Func("SQRTPI(", *inner, ")", res_type=res_type, **kwargs)
 
-def STANDARDIZE(*args: Any, **kwargs: Any) -> Func:
+def STANDARDIZE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns a normalized value
 
@@ -5019,9 +5019,9 @@ def STANDARDIZE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("STANDARDIZE(", *args, ")", **kwargs)
+	return Func("STANDARDIZE(", *inner, ")", res_type=res_type, **kwargs)
 
-def STOCKHISTORY(*args: Any, **kwargs: Any) -> Func:
+def STOCKHISTORY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Retrieves historical data about a financial instrument
 
@@ -5031,9 +5031,9 @@ def STOCKHISTORY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("STOCKHISTORY(", *args, ")", **kwargs)
+	return Func("STOCKHISTORY(", *inner, ")", res_type=res_type, **kwargs)
 
-def STDEV(*args: Any, **kwargs: Any) -> Func:
+def STDEV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Estimates standard deviation based on a sample
 
@@ -5043,9 +5043,9 @@ def STDEV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("STDEV(", *args, ")", **kwargs)
+	return Func("STDEV(", *inner, ")", res_type=res_type, **kwargs)
 
-def STDEV_P(*args: Any, **kwargs: Any) -> Func:
+def STDEV_P(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Calculates standard deviation based on the entire population
 
@@ -5055,9 +5055,9 @@ def STDEV_P(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("STDEV.P(", *args, ")", **kwargs)
+	return Func("STDEV.P(", *inner, ")", res_type=res_type, **kwargs)
 
-def STDEV_S(*args: Any, **kwargs: Any) -> Func:
+def STDEV_S(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Estimates standard deviation based on a sample
 
@@ -5067,9 +5067,9 @@ def STDEV_S(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("STDEV.S(", *args, ")", **kwargs)
+	return Func("STDEV.S(", *inner, ")", res_type=res_type, **kwargs)
 
-def STDEVA(*args: Any, **kwargs: Any) -> Func:
+def STDEVA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Estimates standard deviation based on a sample, including numbers, text, and logical values
 
@@ -5079,9 +5079,9 @@ def STDEVA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("STDEVA(", *args, ")", **kwargs)
+	return Func("STDEVA(", *inner, ")", res_type=res_type, **kwargs)
 
-def STDEVP(*args: Any, **kwargs: Any) -> Func:
+def STDEVP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Calculates standard deviation based on the entire population
 
@@ -5091,9 +5091,9 @@ def STDEVP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("STDEVP(", *args, ")", **kwargs)
+	return Func("STDEVP(", *inner, ")", res_type=res_type, **kwargs)
 
-def STDEVPA(*args: Any, **kwargs: Any) -> Func:
+def STDEVPA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Calculates standard deviation based on the entire population, including numbers, text, and logical values
 
@@ -5103,9 +5103,9 @@ def STDEVPA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("STDEVPA(", *args, ")", **kwargs)
+	return Func("STDEVPA(", *inner, ")", res_type=res_type, **kwargs)
 
-def STEYX(*args: Any, **kwargs: Any) -> Func:
+def STEYX(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the standard error of the predicted y-value for each x in the regression
 
@@ -5115,9 +5115,9 @@ def STEYX(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("STEYX(", *args, ")", **kwargs)
+	return Func("STEYX(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUBSTITUTE(*args: Any, **kwargs: Any) -> Func:
+def SUBSTITUTE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Substitutes new text for old text in a text string
 
@@ -5127,9 +5127,9 @@ def SUBSTITUTE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUBSTITUTE(", *args, ")", **kwargs)
+	return Func("SUBSTITUTE(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUBTOTAL(*args: Any, **kwargs: Any) -> Func:
+def SUBTOTAL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns a subtotal in a list or database
 
@@ -5139,9 +5139,9 @@ def SUBTOTAL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUBTOTAL(", *args, ")", **kwargs)
+	return Func("SUBTOTAL(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUM(*args: Any, **kwargs: Any) -> Func:
+def SUM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Adds its arguments
 
@@ -5151,9 +5151,9 @@ def SUM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUM(", *args, ")", **kwargs)
+	return Func("SUM(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUMIF(*args: Any, **kwargs: Any) -> Func:
+def SUMIF(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Adds the cells specified by a given criteria
 
@@ -5163,9 +5163,9 @@ def SUMIF(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUMIF(", *args, ")", **kwargs)
+	return Func("SUMIF(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUMIFS(*args: Any, **kwargs: Any) -> Func:
+def SUMIFS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Adds the cells in a range that meet multiple criteria
 
@@ -5175,9 +5175,9 @@ def SUMIFS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUMIFS(", *args, ")", **kwargs)
+	return Func("SUMIFS(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUMPRODUCT(*args: Any, **kwargs: Any) -> Func:
+def SUMPRODUCT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the sum of the products of corresponding array components
 
@@ -5187,9 +5187,9 @@ def SUMPRODUCT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUMPRODUCT(", *args, ")", **kwargs)
+	return Func("SUMPRODUCT(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUMSQ(*args: Any, **kwargs: Any) -> Func:
+def SUMSQ(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the sum of the squares of the arguments
 
@@ -5199,9 +5199,9 @@ def SUMSQ(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUMSQ(", *args, ")", **kwargs)
+	return Func("SUMSQ(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUMX2MY2(*args: Any, **kwargs: Any) -> Func:
+def SUMX2MY2(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the sum of the difference of squares of corresponding values in two arrays
 
@@ -5211,9 +5211,9 @@ def SUMX2MY2(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUMX2MY2(", *args, ")", **kwargs)
+	return Func("SUMX2MY2(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUMX2PY2(*args: Any, **kwargs: Any) -> Func:
+def SUMX2PY2(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the sum of the sum of squares of corresponding values in two arrays
 
@@ -5223,9 +5223,9 @@ def SUMX2PY2(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUMX2PY2(", *args, ")", **kwargs)
+	return Func("SUMX2PY2(", *inner, ")", res_type=res_type, **kwargs)
 
-def SUMXMY2(*args: Any, **kwargs: Any) -> Func:
+def SUMXMY2(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the sum of squares of differences of corresponding values in two arrays
 
@@ -5235,9 +5235,9 @@ def SUMXMY2(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SUMXMY2(", *args, ")", **kwargs)
+	return Func("SUMXMY2(", *inner, ")", res_type=res_type, **kwargs)
 
-def SWITCH(*args: Any, **kwargs: Any) -> Func:
+def SWITCH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Evaluates an expression against a list of values and returns the result corresponding to the first matching value. If there is no match, an optional default value may be returned.
 
@@ -5247,9 +5247,9 @@ def SWITCH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SWITCH(", *args, ")", **kwargs)
+	return Func("SWITCH(", *inner, ")", res_type=res_type, **kwargs)
 
-def SYD(*args: Any, **kwargs: Any) -> Func:
+def SYD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the sum-of-years' digits depreciation of an asset for a specified period
 
@@ -5259,9 +5259,9 @@ def SYD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("SYD(", *args, ")", **kwargs)
+	return Func("SYD(", *inner, ")", res_type=res_type, **kwargs)
 
-def T(*args: Any, **kwargs: Any) -> Func:
+def T(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Converts its arguments to text
 
@@ -5271,9 +5271,9 @@ def T(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("T(", *args, ")", **kwargs)
+	return Func("T(", *inner, ")", res_type=res_type, **kwargs)
 
-def TAN(*args: Any, **kwargs: Any) -> Func:
+def TAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the tangent of a number
 
@@ -5283,9 +5283,9 @@ def TAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TAN(", *args, ")", **kwargs)
+	return Func("TAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def TANH(*args: Any, **kwargs: Any) -> Func:
+def TANH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Returns the hyperbolic tangent of a number
 
@@ -5295,9 +5295,9 @@ def TANH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TANH(", *args, ")", **kwargs)
+	return Func("TANH(", *inner, ")", res_type=res_type, **kwargs)
 
-def TAKE(*args: Any, **kwargs: Any) -> Func:
+def TAKE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns a specified number of contiguous rows or columns from the start or end of an array
 
@@ -5307,9 +5307,9 @@ def TAKE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TAKE(", *args, ")", **kwargs)
+	return Func("TAKE(", *inner, ")", res_type=res_type, **kwargs)
 
-def TBILLEQ(*args: Any, **kwargs: Any) -> Func:
+def TBILLEQ(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the bond-equivalent yield for a Treasury bill
 
@@ -5319,9 +5319,9 @@ def TBILLEQ(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TBILLEQ(", *args, ")", **kwargs)
+	return Func("TBILLEQ(", *inner, ")", res_type=res_type, **kwargs)
 
-def TBILLPRICE(*args: Any, **kwargs: Any) -> Func:
+def TBILLPRICE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the price per $100 face value for a Treasury bill
 
@@ -5331,9 +5331,9 @@ def TBILLPRICE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TBILLPRICE(", *args, ")", **kwargs)
+	return Func("TBILLPRICE(", *inner, ")", res_type=res_type, **kwargs)
 
-def TBILLYIELD(*args: Any, **kwargs: Any) -> Func:
+def TBILLYIELD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the yield for a Treasury bill
 
@@ -5343,9 +5343,9 @@ def TBILLYIELD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TBILLYIELD(", *args, ")", **kwargs)
+	return Func("TBILLYIELD(", *inner, ")", res_type=res_type, **kwargs)
 
-def T_DIST(*args: Any, **kwargs: Any) -> Func:
+def T_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the Percentage Points (probability) for the Student t-distribution
 
@@ -5355,9 +5355,9 @@ def T_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("T.DIST(", *args, ")", **kwargs)
+	return Func("T.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def T_DIST_2T(*args: Any, **kwargs: Any) -> Func:
+def T_DIST_2T(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the Percentage Points (probability) for the Student t-distribution
 
@@ -5367,9 +5367,9 @@ def T_DIST_2T(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("T.DIST.2T(", *args, ")", **kwargs)
+	return Func("T.DIST.2T(", *inner, ")", res_type=res_type, **kwargs)
 
-def T_DIST_RT(*args: Any, **kwargs: Any) -> Func:
+def T_DIST_RT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the Student's t-distribution
 
@@ -5379,9 +5379,9 @@ def T_DIST_RT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("T.DIST.RT(", *args, ")", **kwargs)
+	return Func("T.DIST.RT(", *inner, ")", res_type=res_type, **kwargs)
 
-def TDIST(*args: Any, **kwargs: Any) -> Func:
+def TDIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the Student's t-distribution
 
@@ -5391,9 +5391,9 @@ def TDIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TDIST(", *args, ")", **kwargs)
+	return Func("TDIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def TEXT(*args: Any, **kwargs: Any) -> Func:
+def TEXT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Formats a number and converts it to text
 
@@ -5403,9 +5403,9 @@ def TEXT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TEXT(", *args, ")", **kwargs)
+	return Func("TEXT(", *inner, ")", res_type=res_type, **kwargs)
 
-def TEXTAFTER(*args: Any, **kwargs: Any) -> Func:
+def TEXTAFTER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns text that occurs after given character or string
 
@@ -5415,9 +5415,9 @@ def TEXTAFTER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TEXTAFTER(", *args, ")", **kwargs)
+	return Func("TEXTAFTER(", *inner, ")", res_type=res_type, **kwargs)
 
-def TEXTBEFORE(*args: Any, **kwargs: Any) -> Func:
+def TEXTBEFORE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns text that occurs before a given character or string
 
@@ -5427,9 +5427,9 @@ def TEXTBEFORE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TEXTBEFORE(", *args, ")", **kwargs)
+	return Func("TEXTBEFORE(", *inner, ")", res_type=res_type, **kwargs)
 
-def TEXTJOIN(*args: Any, **kwargs: Any) -> Func:
+def TEXTJOIN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Combines the text from multiple ranges and/or strings
 
@@ -5439,9 +5439,9 @@ def TEXTJOIN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TEXTJOIN(", *args, ")", **kwargs)
+	return Func("TEXTJOIN(", *inner, ")", res_type=res_type, **kwargs)
 
-def TEXTSPLIT(*args: Any, **kwargs: Any) -> Func:
+def TEXTSPLIT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Splits text strings by using column and row delimiters
 
@@ -5451,9 +5451,9 @@ def TEXTSPLIT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TEXTSPLIT(", *args, ")", **kwargs)
+	return Func("TEXTSPLIT(", *inner, ")", res_type=res_type, **kwargs)
 
-def TIME(*args: Any, **kwargs: Any) -> Func:
+def TIME(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the serial number of a particular time
 
@@ -5463,9 +5463,9 @@ def TIME(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TIME(", *args, ")", **kwargs)
+	return Func("TIME(", *inner, ")", res_type=res_type, **kwargs)
 
-def TIMEVALUE(*args: Any, **kwargs: Any) -> Func:
+def TIMEVALUE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a time in the form of text to a serial number
 
@@ -5475,9 +5475,9 @@ def TIMEVALUE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TIMEVALUE(", *args, ")", **kwargs)
+	return Func("TIMEVALUE(", *inner, ")", res_type=res_type, **kwargs)
 
-def T_INV(*args: Any, **kwargs: Any) -> Func:
+def T_INV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the t-value of the Student's t-distribution as a function of the probability and the degrees of freedom
 
@@ -5487,9 +5487,9 @@ def T_INV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("T.INV(", *args, ")", **kwargs)
+	return Func("T.INV(", *inner, ")", res_type=res_type, **kwargs)
 
-def T_INV_2T(*args: Any, **kwargs: Any) -> Func:
+def T_INV_2T(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the inverse of the Student's t-distribution
 
@@ -5499,9 +5499,9 @@ def T_INV_2T(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("T.INV.2T(", *args, ")", **kwargs)
+	return Func("T.INV.2T(", *inner, ")", res_type=res_type, **kwargs)
 
-def TINV(*args: Any, **kwargs: Any) -> Func:
+def TINV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the inverse of the Student's t-distribution
 
@@ -5511,9 +5511,9 @@ def TINV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TINV(", *args, ")", **kwargs)
+	return Func("TINV(", *inner, ")", res_type=res_type, **kwargs)
 
-def TOCOL(*args: Any, **kwargs: Any) -> Func:
+def TOCOL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the array in a single column
 
@@ -5523,9 +5523,9 @@ def TOCOL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TOCOL(", *args, ")", **kwargs)
+	return Func("TOCOL(", *inner, ")", res_type=res_type, **kwargs)
 
-def TOROW(*args: Any, **kwargs: Any) -> Func:
+def TOROW(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the array in a single row
 
@@ -5535,9 +5535,9 @@ def TOROW(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TOROW(", *args, ")", **kwargs)
+	return Func("TOROW(", *inner, ")", res_type=res_type, **kwargs)
 
-def TODAY(*args: Any, **kwargs: Any) -> Func:
+def TODAY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the serial number of today's date
 
@@ -5547,9 +5547,9 @@ def TODAY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TODAY(", *args, ")", **kwargs)
+	return Func("TODAY(", *inner, ")", res_type=res_type, **kwargs)
 
-def TRANSPOSE(*args: Any, **kwargs: Any) -> Func:
+def TRANSPOSE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the transpose of an array
 
@@ -5559,9 +5559,9 @@ def TRANSPOSE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TRANSPOSE(", *args, ")", **kwargs)
+	return Func("TRANSPOSE(", *inner, ")", res_type=res_type, **kwargs)
 
-def TREND(*args: Any, **kwargs: Any) -> Func:
+def TREND(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns values along a linear trend
 
@@ -5571,9 +5571,9 @@ def TREND(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TREND(", *args, ")", **kwargs)
+	return Func("TREND(", *inner, ")", res_type=res_type, **kwargs)
 
-def TRIM(*args: Any, **kwargs: Any) -> Func:
+def TRIM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Removes spaces from text
 
@@ -5583,9 +5583,9 @@ def TRIM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TRIM(", *args, ")", **kwargs)
+	return Func("TRIM(", *inner, ")", res_type=res_type, **kwargs)
 
-def TRIMMEAN(*args: Any, **kwargs: Any) -> Func:
+def TRIMMEAN(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the mean of the interior of a data set
 
@@ -5595,9 +5595,9 @@ def TRIMMEAN(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TRIMMEAN(", *args, ")", **kwargs)
+	return Func("TRIMMEAN(", *inner, ")", res_type=res_type, **kwargs)
 
-def TRUE(*args: Any, **kwargs: Any) -> Func:
+def TRUE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Returns the logical value TRUE
 
@@ -5607,9 +5607,9 @@ def TRUE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TRUE(", *args, ")", **kwargs)
+	return Func("TRUE(", *inner, ")", res_type=res_type, **kwargs)
 
-def TRUNC(*args: Any, **kwargs: Any) -> Func:
+def TRUNC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Math and trigonometry:** Truncates a number to an integer
 
@@ -5619,9 +5619,9 @@ def TRUNC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TRUNC(", *args, ")", **kwargs)
+	return Func("TRUNC(", *inner, ")", res_type=res_type, **kwargs)
 
-def T_TEST(*args: Any, **kwargs: Any) -> Func:
+def T_TEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the probability associated with a Student's t-test
 
@@ -5631,9 +5631,9 @@ def T_TEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("T.TEST(", *args, ")", **kwargs)
+	return Func("T.TEST(", *inner, ")", res_type=res_type, **kwargs)
 
-def TTEST(*args: Any, **kwargs: Any) -> Func:
+def TTEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the probability associated with a Student's t-test
 
@@ -5643,9 +5643,9 @@ def TTEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TTEST(", *args, ")", **kwargs)
+	return Func("TTEST(", *inner, ")", res_type=res_type, **kwargs)
 
-def TYPE(*args: Any, **kwargs: Any) -> Func:
+def TYPE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Information:** Returns a number indicating the data type of a value
 
@@ -5655,9 +5655,9 @@ def TYPE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("TYPE(", *args, ")", **kwargs)
+	return Func("TYPE(", *inner, ")", res_type=res_type, **kwargs)
 
-def UNICHAR(*args: Any, **kwargs: Any) -> Func:
+def UNICHAR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns the Unicode character that is references by the given numeric value
 
@@ -5667,9 +5667,9 @@ def UNICHAR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("UNICHAR(", *args, ")", **kwargs)
+	return Func("UNICHAR(", *inner, ")", res_type=res_type, **kwargs)
 
-def UNICODE(*args: Any, **kwargs: Any) -> Func:
+def UNICODE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns the number (code point) that corresponds to the first character of the text
 
@@ -5679,9 +5679,9 @@ def UNICODE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("UNICODE(", *args, ")", **kwargs)
+	return Func("UNICODE(", *inner, ")", res_type=res_type, **kwargs)
 
-def UNIQUE(*args: Any, **kwargs: Any) -> Func:
+def UNIQUE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns a list of unique values in a list or range
 
@@ -5691,9 +5691,9 @@ def UNIQUE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("UNIQUE(", *args, ")", **kwargs)
+	return Func("UNIQUE(", *inner, ")", res_type=res_type, **kwargs)
 
-def UPPER(*args: Any, **kwargs: Any) -> Func:
+def UPPER(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Converts text to uppercase
 
@@ -5703,9 +5703,9 @@ def UPPER(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("UPPER(", *args, ")", **kwargs)
+	return Func("UPPER(", *inner, ")", res_type=res_type, **kwargs)
 
-def VALUE(*args: Any, **kwargs: Any) -> Func:
+def VALUE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Converts a text argument to a number
 
@@ -5715,9 +5715,9 @@ def VALUE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VALUE(", *args, ")", **kwargs)
+	return Func("VALUE(", *inner, ")", res_type=res_type, **kwargs)
 
-def VALUETOTEXT(*args: Any, **kwargs: Any) -> Func:
+def VALUETOTEXT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Text:** Returns text from any specified value
 
@@ -5727,9 +5727,9 @@ def VALUETOTEXT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VALUETOTEXT(", *args, ")", **kwargs)
+	return Func("VALUETOTEXT(", *inner, ")", res_type=res_type, **kwargs)
 
-def VAR(*args: Any, **kwargs: Any) -> Func:
+def VAR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Estimates variance based on a sample
 
@@ -5739,9 +5739,9 @@ def VAR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VAR(", *args, ")", **kwargs)
+	return Func("VAR(", *inner, ")", res_type=res_type, **kwargs)
 
-def VAR_P(*args: Any, **kwargs: Any) -> Func:
+def VAR_P(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Calculates variance based on the entire population
 
@@ -5751,9 +5751,9 @@ def VAR_P(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VAR.P(", *args, ")", **kwargs)
+	return Func("VAR.P(", *inner, ")", res_type=res_type, **kwargs)
 
-def VAR_S(*args: Any, **kwargs: Any) -> Func:
+def VAR_S(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Estimates variance based on a sample
 
@@ -5763,9 +5763,9 @@ def VAR_S(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VAR.S(", *args, ")", **kwargs)
+	return Func("VAR.S(", *inner, ")", res_type=res_type, **kwargs)
 
-def VARA(*args: Any, **kwargs: Any) -> Func:
+def VARA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Estimates variance based on a sample, including numbers, text, and logical values
 
@@ -5775,9 +5775,9 @@ def VARA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VARA(", *args, ")", **kwargs)
+	return Func("VARA(", *inner, ")", res_type=res_type, **kwargs)
 
-def VARP(*args: Any, **kwargs: Any) -> Func:
+def VARP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Calculates variance based on the entire population
 
@@ -5787,9 +5787,9 @@ def VARP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VARP(", *args, ")", **kwargs)
+	return Func("VARP(", *inner, ")", res_type=res_type, **kwargs)
 
-def VARPA(*args: Any, **kwargs: Any) -> Func:
+def VARPA(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Calculates variance based on the entire population, including numbers, text, and logical values
 
@@ -5799,9 +5799,9 @@ def VARPA(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VARPA(", *args, ")", **kwargs)
+	return Func("VARPA(", *inner, ")", res_type=res_type, **kwargs)
 
-def VDB(*args: Any, **kwargs: Any) -> Func:
+def VDB(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the depreciation of an asset for a specified or partial period by using a declining balance method
 
@@ -5811,9 +5811,9 @@ def VDB(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VDB(", *args, ")", **kwargs)
+	return Func("VDB(", *inner, ")", res_type=res_type, **kwargs)
 
-def VLOOKUP(*args: Any, **kwargs: Any) -> Func:
+def VLOOKUP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Looks in the first column of an array and moves across the row to return the value of a cell
 
@@ -5823,9 +5823,9 @@ def VLOOKUP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VLOOKUP(", *args, ")", **kwargs)
+	return Func("VLOOKUP(", *inner, ")", res_type=res_type, **kwargs)
 
-def VSTACK(*args: Any, **kwargs: Any) -> Func:
+def VSTACK(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Look and reference:** Appends arrays vertically and in sequence to return a larger array
 
@@ -5835,9 +5835,9 @@ def VSTACK(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("VSTACK(", *args, ")", **kwargs)
+	return Func("VSTACK(", *inner, ")", res_type=res_type, **kwargs)
 
-def WEBSERVICE(*args: Any, **kwargs: Any) -> Func:
+def WEBSERVICE(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Web:** Returns data from a web service.
 
@@ -5847,9 +5847,9 @@ def WEBSERVICE(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("WEBSERVICE(", *args, ")", **kwargs)
+	return Func("WEBSERVICE(", *inner, ")", res_type=res_type, **kwargs)
 
-def WEEKDAY(*args: Any, **kwargs: Any) -> Func:
+def WEEKDAY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a serial number to a day of the week
 
@@ -5859,9 +5859,9 @@ def WEEKDAY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("WEEKDAY(", *args, ")", **kwargs)
+	return Func("WEEKDAY(", *inner, ")", res_type=res_type, **kwargs)
 
-def WEEKNUM(*args: Any, **kwargs: Any) -> Func:
+def WEEKNUM(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a serial number to a number representing where the week falls numerically with a year
 
@@ -5871,9 +5871,9 @@ def WEEKNUM(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("WEEKNUM(", *args, ")", **kwargs)
+	return Func("WEEKNUM(", *inner, ")", res_type=res_type, **kwargs)
 
-def WEIBULL(*args: Any, **kwargs: Any) -> Func:
+def WEIBULL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Calculates variance based on the entire population, including numbers, text, and logical values
 
@@ -5883,9 +5883,9 @@ def WEIBULL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("WEIBULL(", *args, ")", **kwargs)
+	return Func("WEIBULL(", *inner, ")", res_type=res_type, **kwargs)
 
-def WEIBULL_DIST(*args: Any, **kwargs: Any) -> Func:
+def WEIBULL_DIST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the Weibull distribution
 
@@ -5895,9 +5895,9 @@ def WEIBULL_DIST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("WEIBULL.DIST(", *args, ")", **kwargs)
+	return Func("WEIBULL.DIST(", *inner, ")", res_type=res_type, **kwargs)
 
-def WORKDAY(*args: Any, **kwargs: Any) -> Func:
+def WORKDAY(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the serial number of the date before or after a specified number of workdays
 
@@ -5907,9 +5907,9 @@ def WORKDAY(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("WORKDAY(", *args, ")", **kwargs)
+	return Func("WORKDAY(", *inner, ")", res_type=res_type, **kwargs)
 
-def WORKDAY_INTL(*args: Any, **kwargs: Any) -> Func:
+def WORKDAY_INTL(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the serial number of the date before or after a specified number of workdays using parameters to indicate which and how many days are weekend days
 
@@ -5919,9 +5919,9 @@ def WORKDAY_INTL(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("WORKDAY.INTL(", *args, ")", **kwargs)
+	return Func("WORKDAY.INTL(", *inner, ")", res_type=res_type, **kwargs)
 
-def WRAPCOLS(*args: Any, **kwargs: Any) -> Func:
+def WRAPCOLS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Look and reference:** Wraps the provided row or column of values by columns after a specified number of elements
 
@@ -5931,9 +5931,9 @@ def WRAPCOLS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("WRAPCOLS(", *args, ")", **kwargs)
+	return Func("WRAPCOLS(", *inner, ")", res_type=res_type, **kwargs)
 
-def WRAPROWS(*args: Any, **kwargs: Any) -> Func:
+def WRAPROWS(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Look and reference:** Wraps the provided row or column of values by rows after a specified number of elements
 
@@ -5943,9 +5943,9 @@ def WRAPROWS(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("WRAPROWS(", *args, ")", **kwargs)
+	return Func("WRAPROWS(", *inner, ")", res_type=res_type, **kwargs)
 
-def XIRR(*args: Any, **kwargs: Any) -> Func:
+def XIRR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the internal rate of return for a schedule of cash flows that is not necessarily periodic
 
@@ -5955,9 +5955,9 @@ def XIRR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("XIRR(", *args, ")", **kwargs)
+	return Func("XIRR(", *inner, ")", res_type=res_type, **kwargs)
 
-def XLOOKUP(*args: Any, **kwargs: Any) -> Func:
+def XLOOKUP(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Searches a range or an array, and returns an item corresponding to the first match it finds. If a match doesn't exist, then XLOOKUP can return the closest (approximate) match. 
 
@@ -5967,9 +5967,9 @@ def XLOOKUP(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("XLOOKUP(", *args, ")", **kwargs)
+	return Func("XLOOKUP(", *inner, ")", res_type=res_type, **kwargs)
 
-def XMATCH(*args: Any, **kwargs: Any) -> Func:
+def XMATCH(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Lookup and reference:** Returns the relative position of an item in an array or range of cells. 
 
@@ -5979,9 +5979,9 @@ def XMATCH(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("XMATCH(", *args, ")", **kwargs)
+	return Func("XMATCH(", *inner, ")", res_type=res_type, **kwargs)
 
-def XNPV(*args: Any, **kwargs: Any) -> Func:
+def XNPV(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the net present value for a schedule of cash flows that is not necessarily periodic
 
@@ -5991,9 +5991,9 @@ def XNPV(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("XNPV(", *args, ")", **kwargs)
+	return Func("XNPV(", *inner, ")", res_type=res_type, **kwargs)
 
-def XOR(*args: Any, **kwargs: Any) -> Func:
+def XOR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Logical:** Returns a logical exclusive OR of all arguments
 
@@ -6003,9 +6003,9 @@ def XOR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("XOR(", *args, ")", **kwargs)
+	return Func("XOR(", *inner, ")", res_type=res_type, **kwargs)
 
-def YEAR(*args: Any, **kwargs: Any) -> Func:
+def YEAR(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Converts a serial number to a year
 
@@ -6015,9 +6015,9 @@ def YEAR(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("YEAR(", *args, ")", **kwargs)
+	return Func("YEAR(", *inner, ")", res_type=res_type, **kwargs)
 
-def YEARFRAC(*args: Any, **kwargs: Any) -> Func:
+def YEARFRAC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Date and time:** Returns the year fraction representing the number of whole days between start_date and end_date
 
@@ -6027,9 +6027,9 @@ def YEARFRAC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("YEARFRAC(", *args, ")", **kwargs)
+	return Func("YEARFRAC(", *inner, ")", res_type=res_type, **kwargs)
 
-def YIELD(*args: Any, **kwargs: Any) -> Func:
+def YIELD(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the yield on a security that pays periodic interest
 
@@ -6039,9 +6039,9 @@ def YIELD(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("YIELD(", *args, ")", **kwargs)
+	return Func("YIELD(", *inner, ")", res_type=res_type, **kwargs)
 
-def YIELDDISC(*args: Any, **kwargs: Any) -> Func:
+def YIELDDISC(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the annual yield for a discounted security; for example, a Treasury bill
 
@@ -6051,9 +6051,9 @@ def YIELDDISC(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("YIELDDISC(", *args, ")", **kwargs)
+	return Func("YIELDDISC(", *inner, ")", res_type=res_type, **kwargs)
 
-def YIELDMAT(*args: Any, **kwargs: Any) -> Func:
+def YIELDMAT(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Financial:** Returns the annual yield of a security that pays interest at maturity
 
@@ -6063,9 +6063,9 @@ def YIELDMAT(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("YIELDMAT(", *args, ")", **kwargs)
+	return Func("YIELDMAT(", *inner, ")", res_type=res_type, **kwargs)
 
-def Z_TEST(*args: Any, **kwargs: Any) -> Func:
+def Z_TEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Statistical:** Returns the one-tailed probability-value of a z-test
 
@@ -6075,9 +6075,9 @@ def Z_TEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("Z.TEST(", *args, ")", **kwargs)
+	return Func("Z.TEST(", *inner, ")", res_type=res_type, **kwargs)
 
-def ZTEST(*args: Any, **kwargs: Any) -> Func:
+def ZTEST(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:
 	"""
 	**Compatibility:** Returns the one-tailed probability-value of a z-test
 
@@ -6087,6 +6087,6 @@ def ZTEST(*args: Any, **kwargs: Any) -> Func:
 	-------
 	:class:`Func <excelbird.Func>`
 	"""
-	return Func("ZTEST(", *args, ")", **kwargs)
+	return Func("ZTEST(", *inner, ")", res_type=res_type, **kwargs)
 
 
