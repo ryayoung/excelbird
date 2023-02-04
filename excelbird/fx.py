@@ -1,4 +1,6 @@
 """
+excelbird.fx
+============
 
 .. role:: html(raw)
    :format: html
