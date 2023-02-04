@@ -4,7 +4,7 @@
    :format: html
 
 All ~500 Excel functions can be accessed in Python, from the :mod:`excelbird.fx` module.
-Each is documented with the same short summary as provided by Microsoft's documentation.
+Each is documented with the same short summary as provided by `Microsoft's documentation <https://support.microsoft.com/en-us/office/excel-functions-alphabetical-b3944572-255d-4efb-bb96-c6d90033e188>`.
 
 Allows for autocomplete and documentation preview in your IDE.
 
