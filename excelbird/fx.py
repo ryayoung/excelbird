@@ -9,9 +9,9 @@ Each is documented with the same short summary as provided by Microsoft's docume
 
 This let's your IDE autocomplete and preview documentation as you type, just as Excel would.
 
-**Syntax:** Same as Excel, but dots are replaced with underscores, and letters are lowercase.
+**Syntax:** Same as Excel, but dots are replaced with underscores
 
-**Example:** ``T.DIST.2T()`` in Excel is :meth:`t_dist_2t() <excelbird.fx.t_dist_2t>`
+**Example:** ``T.DIST.2T()`` in Excel is :meth:`T_DIST_2T`
 
 :html:`</br>`
 
@@ -22,7 +22,9 @@ from typing import Any
 
 def ABS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ABS`` - **Math and trigonometry:** Returns the absolute value of a number
+	**Math and trigonometry:** Returns the absolute value of a number
+
+	In Excel: ``ABS()``
 
 	Returns
 	-------
@@ -33,7 +35,9 @@ def ABS(*args: Any, **kwargs: Any) -> Func:
 
 def ACCRINT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ACCRINT`` - **Financial:** Returns the accrued interest for a security that pays periodic interest
+	**Financial:** Returns the accrued interest for a security that pays periodic interest
+
+	In Excel: ``ACCRINT()``
 
 	Returns
 	-------
@@ -44,7 +48,9 @@ def ACCRINT(*args: Any, **kwargs: Any) -> Func:
 
 def ACCRINTM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ACCRINTM`` - **Financial:** Returns the accrued interest for a security that pays interest at maturity
+	**Financial:** Returns the accrued interest for a security that pays interest at maturity
+
+	In Excel: ``ACCRINTM()``
 
 	Returns
 	-------
@@ -55,7 +61,9 @@ def ACCRINTM(*args: Any, **kwargs: Any) -> Func:
 
 def ACOS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ACOS`` - **Math and trigonometry:** Returns the arccosine of a number
+	**Math and trigonometry:** Returns the arccosine of a number
+
+	In Excel: ``ACOS()``
 
 	Returns
 	-------
@@ -66,7 +74,9 @@ def ACOS(*args: Any, **kwargs: Any) -> Func:
 
 def ACOSH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ACOSH`` - **Math and trigonometry:** Returns the inverse hyperbolic cosine of a number
+	**Math and trigonometry:** Returns the inverse hyperbolic cosine of a number
+
+	In Excel: ``ACOSH()``
 
 	Returns
 	-------
@@ -77,7 +87,9 @@ def ACOSH(*args: Any, **kwargs: Any) -> Func:
 
 def ACOT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ACOT`` - **Math and trigonometry:** Returns the arccotangent of a number
+	**Math and trigonometry:** Returns the arccotangent of a number
+
+	In Excel: ``ACOT()``
 
 	Returns
 	-------
@@ -88,7 +100,9 @@ def ACOT(*args: Any, **kwargs: Any) -> Func:
 
 def ACOTH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ACOTH`` - **Math and trigonometry:** Returns the hyperbolic arccotangent of a number
+	**Math and trigonometry:** Returns the hyperbolic arccotangent of a number
+
+	In Excel: ``ACOTH()``
 
 	Returns
 	-------
@@ -99,7 +113,9 @@ def ACOTH(*args: Any, **kwargs: Any) -> Func:
 
 def AGGREGATE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AGGREGATE`` - **Math and trigonometry:** Returns an aggregate in a list or database
+	**Math and trigonometry:** Returns an aggregate in a list or database
+
+	In Excel: ``AGGREGATE()``
 
 	Returns
 	-------
@@ -110,7 +126,9 @@ def AGGREGATE(*args: Any, **kwargs: Any) -> Func:
 
 def ADDRESS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ADDRESS`` - **Lookup and reference:** Returns a reference as text to a single cell in a worksheet
+	**Lookup and reference:** Returns a reference as text to a single cell in a worksheet
+
+	In Excel: ``ADDRESS()``
 
 	Returns
 	-------
@@ -121,7 +139,9 @@ def ADDRESS(*args: Any, **kwargs: Any) -> Func:
 
 def AMORDEGRC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AMORDEGRC`` - **Financial:** Returns the depreciation for each accounting period by using a depreciation coefficient
+	**Financial:** Returns the depreciation for each accounting period by using a depreciation coefficient
+
+	In Excel: ``AMORDEGRC()``
 
 	Returns
 	-------
@@ -132,7 +152,9 @@ def AMORDEGRC(*args: Any, **kwargs: Any) -> Func:
 
 def AMORLINC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AMORLINC`` - **Financial:** Returns the depreciation for each accounting period
+	**Financial:** Returns the depreciation for each accounting period
+
+	In Excel: ``AMORLINC()``
 
 	Returns
 	-------
@@ -143,7 +165,9 @@ def AMORLINC(*args: Any, **kwargs: Any) -> Func:
 
 def AND(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AND`` - **Logical:** Returns TRUE if all of its arguments are TRUE
+	**Logical:** Returns TRUE if all of its arguments are TRUE
+
+	In Excel: ``AND()``
 
 	Returns
 	-------
@@ -154,7 +178,9 @@ def AND(*args: Any, **kwargs: Any) -> Func:
 
 def ARABIC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ARABIC`` - **Math and trigonometry:** Converts a Roman number to Arabic, as a number
+	**Math and trigonometry:** Converts a Roman number to Arabic, as a number
+
+	In Excel: ``ARABIC()``
 
 	Returns
 	-------
@@ -165,7 +191,9 @@ def ARABIC(*args: Any, **kwargs: Any) -> Func:
 
 def AREAS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AREAS`` - **Lookup and reference:** Returns the number of areas in a reference
+	**Lookup and reference:** Returns the number of areas in a reference
+
+	In Excel: ``AREAS()``
 
 	Returns
 	-------
@@ -176,7 +204,9 @@ def AREAS(*args: Any, **kwargs: Any) -> Func:
 
 def ARRAYTOTEXT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ARRAYTOTEXT`` - **Text:** Returns an array of text values from any specified range
+	**Text:** Returns an array of text values from any specified range
+
+	In Excel: ``ARRAYTOTEXT()``
 
 	Returns
 	-------
@@ -187,7 +217,9 @@ def ARRAYTOTEXT(*args: Any, **kwargs: Any) -> Func:
 
 def ASC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ASC`` - **Text:** Changes full-width (double-byte) English letters or katakana within a character string to half-width (single-byte) characters
+	**Text:** Changes full-width (double-byte) English letters or katakana within a character string to half-width (single-byte) characters
+
+	In Excel: ``ASC()``
 
 	Returns
 	-------
@@ -198,7 +230,9 @@ def ASC(*args: Any, **kwargs: Any) -> Func:
 
 def ASIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ASIN`` - **Math and trigonometry:** Returns the arcsine of a number
+	**Math and trigonometry:** Returns the arcsine of a number
+
+	In Excel: ``ASIN()``
 
 	Returns
 	-------
@@ -209,7 +243,9 @@ def ASIN(*args: Any, **kwargs: Any) -> Func:
 
 def ASINH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ASINH`` - **Math and trigonometry:** Returns the inverse hyperbolic sine of a number
+	**Math and trigonometry:** Returns the inverse hyperbolic sine of a number
+
+	In Excel: ``ASINH()``
 
 	Returns
 	-------
@@ -220,7 +256,9 @@ def ASINH(*args: Any, **kwargs: Any) -> Func:
 
 def ATAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ATAN`` - **Math and trigonometry:** Returns the arctangent of a number
+	**Math and trigonometry:** Returns the arctangent of a number
+
+	In Excel: ``ATAN()``
 
 	Returns
 	-------
@@ -231,7 +269,9 @@ def ATAN(*args: Any, **kwargs: Any) -> Func:
 
 def ATAN2(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ATAN2`` - **Math and trigonometry:** Returns the arctangent from x- and y-coordinates
+	**Math and trigonometry:** Returns the arctangent from x- and y-coordinates
+
+	In Excel: ``ATAN2()``
 
 	Returns
 	-------
@@ -242,7 +282,9 @@ def ATAN2(*args: Any, **kwargs: Any) -> Func:
 
 def ATANH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ATANH`` - **Math and trigonometry:** Returns the inverse hyperbolic tangent of a number
+	**Math and trigonometry:** Returns the inverse hyperbolic tangent of a number
+
+	In Excel: ``ATANH()``
 
 	Returns
 	-------
@@ -253,7 +295,9 @@ def ATANH(*args: Any, **kwargs: Any) -> Func:
 
 def AVEDEV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AVEDEV`` - **Statistical:** Returns the average of the absolute deviations of data points from their mean
+	**Statistical:** Returns the average of the absolute deviations of data points from their mean
+
+	In Excel: ``AVEDEV()``
 
 	Returns
 	-------
@@ -264,7 +308,9 @@ def AVEDEV(*args: Any, **kwargs: Any) -> Func:
 
 def AVERAGE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AVERAGE`` - **Statistical:** Returns the average of its arguments
+	**Statistical:** Returns the average of its arguments
+
+	In Excel: ``AVERAGE()``
 
 	Returns
 	-------
@@ -275,7 +321,9 @@ def AVERAGE(*args: Any, **kwargs: Any) -> Func:
 
 def AVERAGEA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AVERAGEA`` - **Statistical:** Returns the average of its arguments, including numbers, text, and logical values
+	**Statistical:** Returns the average of its arguments, including numbers, text, and logical values
+
+	In Excel: ``AVERAGEA()``
 
 	Returns
 	-------
@@ -286,7 +334,9 @@ def AVERAGEA(*args: Any, **kwargs: Any) -> Func:
 
 def AVERAGEIF(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AVERAGEIF`` - **Statistical:** Returns the average (arithmetic mean) of all the cells in a range that meet a given criteria
+	**Statistical:** Returns the average (arithmetic mean) of all the cells in a range that meet a given criteria
+
+	In Excel: ``AVERAGEIF()``
 
 	Returns
 	-------
@@ -297,7 +347,9 @@ def AVERAGEIF(*args: Any, **kwargs: Any) -> Func:
 
 def AVERAGEIFS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``AVERAGEIFS`` - **Statistical:** Returns the average (arithmetic mean) of all cells that meet multiple criteria.
+	**Statistical:** Returns the average (arithmetic mean) of all cells that meet multiple criteria.
+
+	In Excel: ``AVERAGEIFS()``
 
 	Returns
 	-------
@@ -308,7 +360,9 @@ def AVERAGEIFS(*args: Any, **kwargs: Any) -> Func:
 
 def BAHTTEXT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BAHTTEXT`` - **Text:** Converts a number to text, using the ß (baht) currency format
+	**Text:** Converts a number to text, using the ß (baht) currency format
+
+	In Excel: ``BAHTTEXT()``
 
 	Returns
 	-------
@@ -319,7 +373,9 @@ def BAHTTEXT(*args: Any, **kwargs: Any) -> Func:
 
 def BASE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BASE`` - **Math and trigonometry:** Converts a number into a text representation with the given radix (base)
+	**Math and trigonometry:** Converts a number into a text representation with the given radix (base)
+
+	In Excel: ``BASE()``
 
 	Returns
 	-------
@@ -330,7 +386,9 @@ def BASE(*args: Any, **kwargs: Any) -> Func:
 
 def BESSELI(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BESSELI`` - **Engineering:** Returns the modified Bessel function In(x)
+	**Engineering:** Returns the modified Bessel function In(x)
+
+	In Excel: ``BESSELI()``
 
 	Returns
 	-------
@@ -341,7 +399,9 @@ def BESSELI(*args: Any, **kwargs: Any) -> Func:
 
 def BESSELJ(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BESSELJ`` - **Engineering:** Returns the Bessel function Jn(x)
+	**Engineering:** Returns the Bessel function Jn(x)
+
+	In Excel: ``BESSELJ()``
 
 	Returns
 	-------
@@ -352,7 +412,9 @@ def BESSELJ(*args: Any, **kwargs: Any) -> Func:
 
 def BESSELK(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BESSELK`` - **Engineering:** Returns the modified Bessel function Kn(x)
+	**Engineering:** Returns the modified Bessel function Kn(x)
+
+	In Excel: ``BESSELK()``
 
 	Returns
 	-------
@@ -363,7 +425,9 @@ def BESSELK(*args: Any, **kwargs: Any) -> Func:
 
 def BESSELY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BESSELY`` - **Engineering:** Returns the Bessel function Yn(x)
+	**Engineering:** Returns the Bessel function Yn(x)
+
+	In Excel: ``BESSELY()``
 
 	Returns
 	-------
@@ -374,7 +438,9 @@ def BESSELY(*args: Any, **kwargs: Any) -> Func:
 
 def BETADIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BETADIST`` - **Compatibility:** Returns the beta cumulative distribution function
+	**Compatibility:** Returns the beta cumulative distribution function
+
+	In Excel: ``BETADIST()``
 
 	Returns
 	-------
@@ -385,7 +451,9 @@ def BETADIST(*args: Any, **kwargs: Any) -> Func:
 
 def BETA_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BETA.DIST`` - **Statistical:** Returns the beta cumulative distribution function
+	**Statistical:** Returns the beta cumulative distribution function
+
+	In Excel: ``BETA.DIST()``
 
 	Returns
 	-------
@@ -396,7 +464,9 @@ def BETA_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def BETAINV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BETAINV`` - **Compatibility:** Returns the inverse of the cumulative distribution function for a specified beta distribution
+	**Compatibility:** Returns the inverse of the cumulative distribution function for a specified beta distribution
+
+	In Excel: ``BETAINV()``
 
 	Returns
 	-------
@@ -407,7 +477,9 @@ def BETAINV(*args: Any, **kwargs: Any) -> Func:
 
 def BETA_INV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BETA.INV`` - **Statistical:** Returns the inverse of the cumulative distribution function for a specified beta distribution
+	**Statistical:** Returns the inverse of the cumulative distribution function for a specified beta distribution
+
+	In Excel: ``BETA.INV()``
 
 	Returns
 	-------
@@ -418,7 +490,9 @@ def BETA_INV(*args: Any, **kwargs: Any) -> Func:
 
 def BIN2DEC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BIN2DEC`` - **Engineering:** Converts a binary number to decimal
+	**Engineering:** Converts a binary number to decimal
+
+	In Excel: ``BIN2DEC()``
 
 	Returns
 	-------
@@ -429,7 +503,9 @@ def BIN2DEC(*args: Any, **kwargs: Any) -> Func:
 
 def BIN2HEX(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BIN2HEX`` - **Engineering:** Converts a binary number to hexadecimal
+	**Engineering:** Converts a binary number to hexadecimal
+
+	In Excel: ``BIN2HEX()``
 
 	Returns
 	-------
@@ -440,7 +516,9 @@ def BIN2HEX(*args: Any, **kwargs: Any) -> Func:
 
 def BIN2OCT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BIN2OCT`` - **Engineering:** Converts a binary number to octal
+	**Engineering:** Converts a binary number to octal
+
+	In Excel: ``BIN2OCT()``
 
 	Returns
 	-------
@@ -451,7 +529,9 @@ def BIN2OCT(*args: Any, **kwargs: Any) -> Func:
 
 def BINOMDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BINOMDIST`` - **Compatibility:** Returns the individual term binomial distribution probability
+	**Compatibility:** Returns the individual term binomial distribution probability
+
+	In Excel: ``BINOMDIST()``
 
 	Returns
 	-------
@@ -462,7 +542,9 @@ def BINOMDIST(*args: Any, **kwargs: Any) -> Func:
 
 def BINOM_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BINOM.DIST`` - **Statistical:** Returns the individual term binomial distribution probability
+	**Statistical:** Returns the individual term binomial distribution probability
+
+	In Excel: ``BINOM.DIST()``
 
 	Returns
 	-------
@@ -473,7 +555,9 @@ def BINOM_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def BINOM_DIST_RANGE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BINOM.DIST.RANGE`` - **Statistical:** Returns the probability of a trial result using a binomial distribution
+	**Statistical:** Returns the probability of a trial result using a binomial distribution
+
+	In Excel: ``BINOM.DIST.RANGE()``
 
 	Returns
 	-------
@@ -484,7 +568,9 @@ def BINOM_DIST_RANGE(*args: Any, **kwargs: Any) -> Func:
 
 def BINOM_INV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BINOM.INV`` - **Statistical:** Returns the smallest value for which the cumulative binomial distribution is less than or equal to a criterion value
+	**Statistical:** Returns the smallest value for which the cumulative binomial distribution is less than or equal to a criterion value
+
+	In Excel: ``BINOM.INV()``
 
 	Returns
 	-------
@@ -495,7 +581,9 @@ def BINOM_INV(*args: Any, **kwargs: Any) -> Func:
 
 def BITAND(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BITAND`` - **Engineering:** Returns a 'Bitwise And' of two numbers
+	**Engineering:** Returns a 'Bitwise And' of two numbers
+
+	In Excel: ``BITAND()``
 
 	Returns
 	-------
@@ -506,7 +594,9 @@ def BITAND(*args: Any, **kwargs: Any) -> Func:
 
 def BITLSHIFT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BITLSHIFT`` - **Engineering:** Returns a value number shifted left by shift_amount bits
+	**Engineering:** Returns a value number shifted left by shift_amount bits
+
+	In Excel: ``BITLSHIFT()``
 
 	Returns
 	-------
@@ -517,7 +607,9 @@ def BITLSHIFT(*args: Any, **kwargs: Any) -> Func:
 
 def BITOR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BITOR`` - **Engineering:** Returns a bitwise OR of 2 numbers
+	**Engineering:** Returns a bitwise OR of 2 numbers
+
+	In Excel: ``BITOR()``
 
 	Returns
 	-------
@@ -528,7 +620,9 @@ def BITOR(*args: Any, **kwargs: Any) -> Func:
 
 def BITRSHIFT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BITRSHIFT`` - **Engineering:** Returns a value number shifted right by shift_amount bits
+	**Engineering:** Returns a value number shifted right by shift_amount bits
+
+	In Excel: ``BITRSHIFT()``
 
 	Returns
 	-------
@@ -539,7 +633,9 @@ def BITRSHIFT(*args: Any, **kwargs: Any) -> Func:
 
 def BITXOR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BITXOR`` - **Engineering:** Returns a bitwise 'Exclusive Or' of two numbers
+	**Engineering:** Returns a bitwise 'Exclusive Or' of two numbers
+
+	In Excel: ``BITXOR()``
 
 	Returns
 	-------
@@ -550,7 +646,9 @@ def BITXOR(*args: Any, **kwargs: Any) -> Func:
 
 def BYCOL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BYCOL`` - **Logical:** Applies a LAMBDA to each column and returns an array of the results
+	**Logical:** Applies a LAMBDA to each column and returns an array of the results
+
+	In Excel: ``BYCOL()``
 
 	Returns
 	-------
@@ -561,7 +659,9 @@ def BYCOL(*args: Any, **kwargs: Any) -> Func:
 
 def BYROW(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``BYROW`` - **Logical:** Applies a LAMBDA to each row and returns an array of the results
+	**Logical:** Applies a LAMBDA to each row and returns an array of the results
+
+	In Excel: ``BYROW()``
 
 	Returns
 	-------
@@ -572,7 +672,9 @@ def BYROW(*args: Any, **kwargs: Any) -> Func:
 
 def CALL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CALL`` - **Add-in and Automation:** Calls a procedure in a dynamic link library or code resource
+	**Add-in and Automation:** Calls a procedure in a dynamic link library or code resource
+
+	In Excel: ``CALL()``
 
 	Returns
 	-------
@@ -583,7 +685,9 @@ def CALL(*args: Any, **kwargs: Any) -> Func:
 
 def CEILING(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CEILING`` - **Compatibility:** Rounds a number to the nearest integer or to the nearest multiple of significance
+	**Compatibility:** Rounds a number to the nearest integer or to the nearest multiple of significance
+
+	In Excel: ``CEILING()``
 
 	Returns
 	-------
@@ -594,7 +698,9 @@ def CEILING(*args: Any, **kwargs: Any) -> Func:
 
 def CEILING_MATH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CEILING.MATH`` - **Math and trigonometry:** Rounds a number up, to the nearest integer or to the nearest multiple of significance
+	**Math and trigonometry:** Rounds a number up, to the nearest integer or to the nearest multiple of significance
+
+	In Excel: ``CEILING.MATH()``
 
 	Returns
 	-------
@@ -605,7 +711,9 @@ def CEILING_MATH(*args: Any, **kwargs: Any) -> Func:
 
 def CEILING_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CEILING.PRECISE`` - **Math and trigonometry:** Rounds a number the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded up.
+	**Math and trigonometry:** Rounds a number the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded up.
+
+	In Excel: ``CEILING.PRECISE()``
 
 	Returns
 	-------
@@ -616,7 +724,9 @@ def CEILING_PRECISE(*args: Any, **kwargs: Any) -> Func:
 
 def CELL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CELL`` - **Information:** Returns information about the formatting, location, or contents of a cell
+	**Information:** Returns information about the formatting, location, or contents of a cell
+
+	In Excel: ``CELL()``
 
 	Returns
 	-------
@@ -627,7 +737,9 @@ def CELL(*args: Any, **kwargs: Any) -> Func:
 
 def CHAR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHAR`` - **Text:** Returns the character specified by the code number
+	**Text:** Returns the character specified by the code number
+
+	In Excel: ``CHAR()``
 
 	Returns
 	-------
@@ -638,7 +750,9 @@ def CHAR(*args: Any, **kwargs: Any) -> Func:
 
 def CHIDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHIDIST`` - **Compatibility:** Returns the one-tailed probability of the chi-squared distribution
+	**Compatibility:** Returns the one-tailed probability of the chi-squared distribution
+
+	In Excel: ``CHIDIST()``
 
 	Returns
 	-------
@@ -649,7 +763,9 @@ def CHIDIST(*args: Any, **kwargs: Any) -> Func:
 
 def CHIINV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHIINV`` - **Compatibility:** Returns the inverse of the one-tailed probability of the chi-squared distribution
+	**Compatibility:** Returns the inverse of the one-tailed probability of the chi-squared distribution
+
+	In Excel: ``CHIINV()``
 
 	Returns
 	-------
@@ -660,7 +776,9 @@ def CHIINV(*args: Any, **kwargs: Any) -> Func:
 
 def CHITEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHITEST`` - **Compatibility:** Returns the test for independence
+	**Compatibility:** Returns the test for independence
+
+	In Excel: ``CHITEST()``
 
 	Returns
 	-------
@@ -671,7 +789,9 @@ def CHITEST(*args: Any, **kwargs: Any) -> Func:
 
 def CHISQ_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHISQ.DIST`` - **Statistical:** Returns the cumulative beta probability density function
+	**Statistical:** Returns the cumulative beta probability density function
+
+	In Excel: ``CHISQ.DIST()``
 
 	Returns
 	-------
@@ -682,7 +802,9 @@ def CHISQ_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def CHISQ_DIST_RT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHISQ.DIST.RT`` - **Statistical:** Returns the one-tailed probability of the chi-squared distribution
+	**Statistical:** Returns the one-tailed probability of the chi-squared distribution
+
+	In Excel: ``CHISQ.DIST.RT()``
 
 	Returns
 	-------
@@ -693,7 +815,9 @@ def CHISQ_DIST_RT(*args: Any, **kwargs: Any) -> Func:
 
 def CHISQ_INV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHISQ.INV`` - **Statistical:** Returns the cumulative beta probability density function
+	**Statistical:** Returns the cumulative beta probability density function
+
+	In Excel: ``CHISQ.INV()``
 
 	Returns
 	-------
@@ -704,7 +828,9 @@ def CHISQ_INV(*args: Any, **kwargs: Any) -> Func:
 
 def CHISQ_INV_RT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHISQ.INV.RT`` - **Statistical:** Returns the inverse of the one-tailed probability of the chi-squared distribution
+	**Statistical:** Returns the inverse of the one-tailed probability of the chi-squared distribution
+
+	In Excel: ``CHISQ.INV.RT()``
 
 	Returns
 	-------
@@ -715,7 +841,9 @@ def CHISQ_INV_RT(*args: Any, **kwargs: Any) -> Func:
 
 def CHISQ_TEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHISQ.TEST`` - **Statistical:** Returns the test for independence
+	**Statistical:** Returns the test for independence
+
+	In Excel: ``CHISQ.TEST()``
 
 	Returns
 	-------
@@ -726,7 +854,9 @@ def CHISQ_TEST(*args: Any, **kwargs: Any) -> Func:
 
 def CHOOSE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHOOSE`` - **Lookup and reference:** Chooses a value from a list of values
+	**Lookup and reference:** Chooses a value from a list of values
+
+	In Excel: ``CHOOSE()``
 
 	Returns
 	-------
@@ -737,7 +867,9 @@ def CHOOSE(*args: Any, **kwargs: Any) -> Func:
 
 def CHOOSECOLS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHOOSECOLS`` - **Lookup and reference:** Returns the specified columns from an array
+	**Lookup and reference:** Returns the specified columns from an array
+
+	In Excel: ``CHOOSECOLS()``
 
 	Returns
 	-------
@@ -748,7 +880,9 @@ def CHOOSECOLS(*args: Any, **kwargs: Any) -> Func:
 
 def CHOOSEROWS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CHOOSEROWS`` - **Lookup and reference:** Returns the specified rows from an array
+	**Lookup and reference:** Returns the specified rows from an array
+
+	In Excel: ``CHOOSEROWS()``
 
 	Returns
 	-------
@@ -759,7 +893,9 @@ def CHOOSEROWS(*args: Any, **kwargs: Any) -> Func:
 
 def CLEAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CLEAN`` - **Text:** Removes all nonprintable characters from text
+	**Text:** Removes all nonprintable characters from text
+
+	In Excel: ``CLEAN()``
 
 	Returns
 	-------
@@ -770,7 +906,9 @@ def CLEAN(*args: Any, **kwargs: Any) -> Func:
 
 def CODE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CODE`` - **Text:** Returns a numeric code for the first character in a text string
+	**Text:** Returns a numeric code for the first character in a text string
+
+	In Excel: ``CODE()``
 
 	Returns
 	-------
@@ -781,7 +919,9 @@ def CODE(*args: Any, **kwargs: Any) -> Func:
 
 def COLUMN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COLUMN`` - **Lookup and reference:** Returns the column number of a reference
+	**Lookup and reference:** Returns the column number of a reference
+
+	In Excel: ``COLUMN()``
 
 	Returns
 	-------
@@ -792,7 +932,9 @@ def COLUMN(*args: Any, **kwargs: Any) -> Func:
 
 def COLUMNS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COLUMNS`` - **Lookup and reference:** Returns the number of columns in a reference
+	**Lookup and reference:** Returns the number of columns in a reference
+
+	In Excel: ``COLUMNS()``
 
 	Returns
 	-------
@@ -803,7 +945,9 @@ def COLUMNS(*args: Any, **kwargs: Any) -> Func:
 
 def COMBIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COMBIN`` - **Math and trigonometry:** Returns the number of combinations for a given number of objects
+	**Math and trigonometry:** Returns the number of combinations for a given number of objects
+
+	In Excel: ``COMBIN()``
 
 	Returns
 	-------
@@ -814,7 +958,9 @@ def COMBIN(*args: Any, **kwargs: Any) -> Func:
 
 def COMBINA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COMBINA`` - **Engineering:** Converts real and imaginary coefficients into a complex number
+	**Engineering:** Converts real and imaginary coefficients into a complex number
+
+	In Excel: ``COMBINA()``
 
 	Returns
 	-------
@@ -825,7 +971,9 @@ def COMBINA(*args: Any, **kwargs: Any) -> Func:
 
 def CONCAT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CONCAT`` - **Text:** Combines the text from multiple ranges and/or strings, but it doesn't provide the delimiter or IgnoreEmpty arguments.
+	**Text:** Combines the text from multiple ranges and/or strings, but it doesn't provide the delimiter or IgnoreEmpty arguments.
+
+	In Excel: ``CONCAT()``
 
 	Returns
 	-------
@@ -836,7 +984,9 @@ def CONCAT(*args: Any, **kwargs: Any) -> Func:
 
 def CONCATENATE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CONCATENATE`` - **Text:** Joins several text items into one text item
+	**Text:** Joins several text items into one text item
+
+	In Excel: ``CONCATENATE()``
 
 	Returns
 	-------
@@ -847,7 +997,9 @@ def CONCATENATE(*args: Any, **kwargs: Any) -> Func:
 
 def CONFIDENCE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CONFIDENCE`` - **Compatibility:** Returns the confidence interval for a population mean
+	**Compatibility:** Returns the confidence interval for a population mean
+
+	In Excel: ``CONFIDENCE()``
 
 	Returns
 	-------
@@ -858,7 +1010,9 @@ def CONFIDENCE(*args: Any, **kwargs: Any) -> Func:
 
 def CONFIDENCE_NORM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CONFIDENCE.NORM`` - **Statistical:** Returns the confidence interval for a population mean
+	**Statistical:** Returns the confidence interval for a population mean
+
+	In Excel: ``CONFIDENCE.NORM()``
 
 	Returns
 	-------
@@ -869,7 +1023,9 @@ def CONFIDENCE_NORM(*args: Any, **kwargs: Any) -> Func:
 
 def CONFIDENCE_T(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CONFIDENCE.T`` - **Statistical:** Returns the confidence interval for a population mean, using a Student's t distribution
+	**Statistical:** Returns the confidence interval for a population mean, using a Student's t distribution
+
+	In Excel: ``CONFIDENCE.T()``
 
 	Returns
 	-------
@@ -880,7 +1036,9 @@ def CONFIDENCE_T(*args: Any, **kwargs: Any) -> Func:
 
 def CONVERT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CONVERT`` - **Engineering:** Converts a number from one measurement system to another
+	**Engineering:** Converts a number from one measurement system to another
+
+	In Excel: ``CONVERT()``
 
 	Returns
 	-------
@@ -891,7 +1049,9 @@ def CONVERT(*args: Any, **kwargs: Any) -> Func:
 
 def CORREL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CORREL`` - **Statistical:** Returns the correlation coefficient between two data sets
+	**Statistical:** Returns the correlation coefficient between two data sets
+
+	In Excel: ``CORREL()``
 
 	Returns
 	-------
@@ -902,7 +1062,9 @@ def CORREL(*args: Any, **kwargs: Any) -> Func:
 
 def COS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COS`` - **Math and trigonometry:** Returns the cosine of a number
+	**Math and trigonometry:** Returns the cosine of a number
+
+	In Excel: ``COS()``
 
 	Returns
 	-------
@@ -913,7 +1075,9 @@ def COS(*args: Any, **kwargs: Any) -> Func:
 
 def COSH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COSH`` - **Math and trigonometry:** Returns the hyperbolic cosine of a number
+	**Math and trigonometry:** Returns the hyperbolic cosine of a number
+
+	In Excel: ``COSH()``
 
 	Returns
 	-------
@@ -924,7 +1088,9 @@ def COSH(*args: Any, **kwargs: Any) -> Func:
 
 def COT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COT`` - **Math and trigonometry:** Returns the hyperbolic cosine of a number
+	**Math and trigonometry:** Returns the hyperbolic cosine of a number
+
+	In Excel: ``COT()``
 
 	Returns
 	-------
@@ -935,7 +1101,9 @@ def COT(*args: Any, **kwargs: Any) -> Func:
 
 def COTH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COTH`` - **Math and trigonometry:** Returns the cotangent of an angle
+	**Math and trigonometry:** Returns the cotangent of an angle
+
+	In Excel: ``COTH()``
 
 	Returns
 	-------
@@ -946,7 +1114,9 @@ def COTH(*args: Any, **kwargs: Any) -> Func:
 
 def COUNT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUNT`` - **Statistical:** Counts how many numbers are in the list of arguments
+	**Statistical:** Counts how many numbers are in the list of arguments
+
+	In Excel: ``COUNT()``
 
 	Returns
 	-------
@@ -957,7 +1127,9 @@ def COUNT(*args: Any, **kwargs: Any) -> Func:
 
 def COUNTA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUNTA`` - **Statistical:** Counts how many values are in the list of arguments
+	**Statistical:** Counts how many values are in the list of arguments
+
+	In Excel: ``COUNTA()``
 
 	Returns
 	-------
@@ -968,7 +1140,9 @@ def COUNTA(*args: Any, **kwargs: Any) -> Func:
 
 def COUNTBLANK(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUNTBLANK`` - **Statistical:** Counts the number of blank cells within a range
+	**Statistical:** Counts the number of blank cells within a range
+
+	In Excel: ``COUNTBLANK()``
 
 	Returns
 	-------
@@ -979,7 +1153,9 @@ def COUNTBLANK(*args: Any, **kwargs: Any) -> Func:
 
 def COUNTIF(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUNTIF`` - **Statistical:** Counts the number of cells within a range that meet the given criteria
+	**Statistical:** Counts the number of cells within a range that meet the given criteria
+
+	In Excel: ``COUNTIF()``
 
 	Returns
 	-------
@@ -990,7 +1166,9 @@ def COUNTIF(*args: Any, **kwargs: Any) -> Func:
 
 def COUNTIFS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUNTIFS`` - **Statistical:** Counts the number of cells within a range that meet multiple criteria
+	**Statistical:** Counts the number of cells within a range that meet multiple criteria
+
+	In Excel: ``COUNTIFS()``
 
 	Returns
 	-------
@@ -1001,7 +1179,9 @@ def COUNTIFS(*args: Any, **kwargs: Any) -> Func:
 
 def COUPDAYBS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUPDAYBS`` - **Financial:** Returns the number of days from the beginning of the coupon period to the settlement date
+	**Financial:** Returns the number of days from the beginning of the coupon period to the settlement date
+
+	In Excel: ``COUPDAYBS()``
 
 	Returns
 	-------
@@ -1012,7 +1192,9 @@ def COUPDAYBS(*args: Any, **kwargs: Any) -> Func:
 
 def COUPDAYS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUPDAYS`` - **Financial:** Returns the number of days in the coupon period that contains the settlement date
+	**Financial:** Returns the number of days in the coupon period that contains the settlement date
+
+	In Excel: ``COUPDAYS()``
 
 	Returns
 	-------
@@ -1023,7 +1205,9 @@ def COUPDAYS(*args: Any, **kwargs: Any) -> Func:
 
 def COUPDAYSNC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUPDAYSNC`` - **Financial:** Returns the number of days from the settlement date to the next coupon date
+	**Financial:** Returns the number of days from the settlement date to the next coupon date
+
+	In Excel: ``COUPDAYSNC()``
 
 	Returns
 	-------
@@ -1034,7 +1218,9 @@ def COUPDAYSNC(*args: Any, **kwargs: Any) -> Func:
 
 def COUPNCD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUPNCD`` - **Financial:** Returns the next coupon date after the settlement date
+	**Financial:** Returns the next coupon date after the settlement date
+
+	In Excel: ``COUPNCD()``
 
 	Returns
 	-------
@@ -1045,7 +1231,9 @@ def COUPNCD(*args: Any, **kwargs: Any) -> Func:
 
 def COUPNUM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUPNUM`` - **Financial:** Returns the number of coupons payable between the settlement date and maturity date
+	**Financial:** Returns the number of coupons payable between the settlement date and maturity date
+
+	In Excel: ``COUPNUM()``
 
 	Returns
 	-------
@@ -1056,7 +1244,9 @@ def COUPNUM(*args: Any, **kwargs: Any) -> Func:
 
 def COUPPCD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COUPPCD`` - **Financial:** Returns the previous coupon date before the settlement date
+	**Financial:** Returns the previous coupon date before the settlement date
+
+	In Excel: ``COUPPCD()``
 
 	Returns
 	-------
@@ -1067,7 +1257,9 @@ def COUPPCD(*args: Any, **kwargs: Any) -> Func:
 
 def COVAR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COVAR`` - **Compatibility:** Returns covariance, the average of the products of paired deviations
+	**Compatibility:** Returns covariance, the average of the products of paired deviations
+
+	In Excel: ``COVAR()``
 
 	Returns
 	-------
@@ -1078,7 +1270,9 @@ def COVAR(*args: Any, **kwargs: Any) -> Func:
 
 def COVARIANCE_P(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COVARIANCE.P`` - **Statistical:** Returns covariance, the average of the products of paired deviations
+	**Statistical:** Returns covariance, the average of the products of paired deviations
+
+	In Excel: ``COVARIANCE.P()``
 
 	Returns
 	-------
@@ -1089,7 +1283,9 @@ def COVARIANCE_P(*args: Any, **kwargs: Any) -> Func:
 
 def COVARIANCE_S(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``COVARIANCE.S`` - **Statistical:** Returns the sample covariance, the average of the products deviations for each data point pair in two data sets
+	**Statistical:** Returns the sample covariance, the average of the products deviations for each data point pair in two data sets
+
+	In Excel: ``COVARIANCE.S()``
 
 	Returns
 	-------
@@ -1100,7 +1296,9 @@ def COVARIANCE_S(*args: Any, **kwargs: Any) -> Func:
 
 def CRITBINOM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CRITBINOM`` - **Compatibility:** Returns the smallest value for which the cumulative binomial distribution is less than or equal to a criterion value
+	**Compatibility:** Returns the smallest value for which the cumulative binomial distribution is less than or equal to a criterion value
+
+	In Excel: ``CRITBINOM()``
 
 	Returns
 	-------
@@ -1111,7 +1309,9 @@ def CRITBINOM(*args: Any, **kwargs: Any) -> Func:
 
 def CSC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CSC`` - **Math and trigonometry:** Returns the cosecant of an angle
+	**Math and trigonometry:** Returns the cosecant of an angle
+
+	In Excel: ``CSC()``
 
 	Returns
 	-------
@@ -1122,7 +1322,9 @@ def CSC(*args: Any, **kwargs: Any) -> Func:
 
 def CSCH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CSCH`` - **Math and trigonometry:** Returns the hyperbolic cosecant of an angle
+	**Math and trigonometry:** Returns the hyperbolic cosecant of an angle
+
+	In Excel: ``CSCH()``
 
 	Returns
 	-------
@@ -1133,7 +1335,9 @@ def CSCH(*args: Any, **kwargs: Any) -> Func:
 
 def CUBEKPIMEMBER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CUBEKPIMEMBER`` - **Cube:** Returns a key performance indicator (KPI) name, property, and measure, and displays the name and property in the cell. A KPI is a quantifiable measurement, such as monthly gross profit or quarterly employee turnover, used to monitor an organization's performance.
+	**Cube:** Returns a key performance indicator (KPI) name, property, and measure, and displays the name and property in the cell. A KPI is a quantifiable measurement, such as monthly gross profit or quarterly employee turnover, used to monitor an organization's performance.
+
+	In Excel: ``CUBEKPIMEMBER()``
 
 	Returns
 	-------
@@ -1144,7 +1348,9 @@ def CUBEKPIMEMBER(*args: Any, **kwargs: Any) -> Func:
 
 def CUBEMEMBER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CUBEMEMBER`` - **Cube:** Returns a member or tuple in a cube hierarchy. Use to validate that the member or tuple exists in the cube.
+	**Cube:** Returns a member or tuple in a cube hierarchy. Use to validate that the member or tuple exists in the cube.
+
+	In Excel: ``CUBEMEMBER()``
 
 	Returns
 	-------
@@ -1155,7 +1361,9 @@ def CUBEMEMBER(*args: Any, **kwargs: Any) -> Func:
 
 def CUBEMEMBERPROPERTY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CUBEMEMBERPROPERTY`` - **Cube:** Returns the value of a member property in the cube. Use to validate that a member name exists within the cube and to return the specified property for this member.
+	**Cube:** Returns the value of a member property in the cube. Use to validate that a member name exists within the cube and to return the specified property for this member.
+
+	In Excel: ``CUBEMEMBERPROPERTY()``
 
 	Returns
 	-------
@@ -1166,7 +1374,9 @@ def CUBEMEMBERPROPERTY(*args: Any, **kwargs: Any) -> Func:
 
 def CUBERANKEDMEMBER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CUBERANKEDMEMBER`` - **Cube:** Returns the nth, or ranked, member in a set. Use to return one or more elements in a set, such as the top sales performer or top 10 students.
+	**Cube:** Returns the nth, or ranked, member in a set. Use to return one or more elements in a set, such as the top sales performer or top 10 students.
+
+	In Excel: ``CUBERANKEDMEMBER()``
 
 	Returns
 	-------
@@ -1177,7 +1387,9 @@ def CUBERANKEDMEMBER(*args: Any, **kwargs: Any) -> Func:
 
 def CUBESET(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CUBESET`` - **Cube:** Defines a calculated set of members or tuples by sending a set expression to the cube on the server, which creates the set, and then returns that set to Microsoft Office Excel.
+	**Cube:** Defines a calculated set of members or tuples by sending a set expression to the cube on the server, which creates the set, and then returns that set to Microsoft Office Excel.
+
+	In Excel: ``CUBESET()``
 
 	Returns
 	-------
@@ -1188,7 +1400,9 @@ def CUBESET(*args: Any, **kwargs: Any) -> Func:
 
 def CUBESETCOUNT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CUBESETCOUNT`` - **Cube:** Returns the number of items in a set.
+	**Cube:** Returns the number of items in a set.
+
+	In Excel: ``CUBESETCOUNT()``
 
 	Returns
 	-------
@@ -1199,7 +1413,9 @@ def CUBESETCOUNT(*args: Any, **kwargs: Any) -> Func:
 
 def CUBEVALUE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CUBEVALUE`` - **Cube:** Returns an aggregated value from a cube.
+	**Cube:** Returns an aggregated value from a cube.
+
+	In Excel: ``CUBEVALUE()``
 
 	Returns
 	-------
@@ -1210,7 +1426,9 @@ def CUBEVALUE(*args: Any, **kwargs: Any) -> Func:
 
 def CUMIPMT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CUMIPMT`` - **Financial:** Returns the cumulative interest paid between two periods
+	**Financial:** Returns the cumulative interest paid between two periods
+
+	In Excel: ``CUMIPMT()``
 
 	Returns
 	-------
@@ -1221,7 +1439,9 @@ def CUMIPMT(*args: Any, **kwargs: Any) -> Func:
 
 def CUMPRINC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``CUMPRINC`` - **Financial:** Returns the cumulative principal paid on a loan between two periods
+	**Financial:** Returns the cumulative principal paid on a loan between two periods
+
+	In Excel: ``CUMPRINC()``
 
 	Returns
 	-------
@@ -1232,7 +1452,9 @@ def CUMPRINC(*args: Any, **kwargs: Any) -> Func:
 
 def DATE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DATE`` - **Date and time:** Returns the serial number of a particular date
+	**Date and time:** Returns the serial number of a particular date
+
+	In Excel: ``DATE()``
 
 	Returns
 	-------
@@ -1243,7 +1465,9 @@ def DATE(*args: Any, **kwargs: Any) -> Func:
 
 def DATEDIF(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DATEDIF`` - **Date and time:** Calculates the number of days, months, or years between two dates. This function is useful in formulas where you need to calculate an age.
+	**Date and time:** Calculates the number of days, months, or years between two dates. This function is useful in formulas where you need to calculate an age.
+
+	In Excel: ``DATEDIF()``
 
 	Returns
 	-------
@@ -1254,7 +1478,9 @@ def DATEDIF(*args: Any, **kwargs: Any) -> Func:
 
 def DATEVALUE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DATEVALUE`` - **Date and time:** Converts a date in the form of text to a serial number
+	**Date and time:** Converts a date in the form of text to a serial number
+
+	In Excel: ``DATEVALUE()``
 
 	Returns
 	-------
@@ -1265,7 +1491,9 @@ def DATEVALUE(*args: Any, **kwargs: Any) -> Func:
 
 def DAVERAGE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DAVERAGE`` - **Database:** Returns the average of selected database entries
+	**Database:** Returns the average of selected database entries
+
+	In Excel: ``DAVERAGE()``
 
 	Returns
 	-------
@@ -1276,7 +1504,9 @@ def DAVERAGE(*args: Any, **kwargs: Any) -> Func:
 
 def DAY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DAY`` - **Date and time:** Converts a serial number to a day of the month
+	**Date and time:** Converts a serial number to a day of the month
+
+	In Excel: ``DAY()``
 
 	Returns
 	-------
@@ -1287,7 +1517,9 @@ def DAY(*args: Any, **kwargs: Any) -> Func:
 
 def DAYS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DAYS`` - **Date and time:** Returns the number of days between two dates
+	**Date and time:** Returns the number of days between two dates
+
+	In Excel: ``DAYS()``
 
 	Returns
 	-------
@@ -1298,7 +1530,9 @@ def DAYS(*args: Any, **kwargs: Any) -> Func:
 
 def DAYS360(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DAYS360`` - **Date and time:** Calculates the number of days between two dates based on a 360-day year
+	**Date and time:** Calculates the number of days between two dates based on a 360-day year
+
+	In Excel: ``DAYS360()``
 
 	Returns
 	-------
@@ -1309,7 +1543,9 @@ def DAYS360(*args: Any, **kwargs: Any) -> Func:
 
 def DB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DB`` - **Financial:** Returns the depreciation of an asset for a specified period by using the fixed-declining balance method
+	**Financial:** Returns the depreciation of an asset for a specified period by using the fixed-declining balance method
+
+	In Excel: ``DB()``
 
 	Returns
 	-------
@@ -1320,7 +1556,9 @@ def DB(*args: Any, **kwargs: Any) -> Func:
 
 def DBCS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DBCS`` - **Text:** Changes half-width (single-byte) English letters or katakana within a character string to full-width (double-byte) characters
+	**Text:** Changes half-width (single-byte) English letters or katakana within a character string to full-width (double-byte) characters
+
+	In Excel: ``DBCS()``
 
 	Returns
 	-------
@@ -1331,7 +1569,9 @@ def DBCS(*args: Any, **kwargs: Any) -> Func:
 
 def DCOUNT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DCOUNT`` - **Database:** Counts the cells that contain numbers in a database
+	**Database:** Counts the cells that contain numbers in a database
+
+	In Excel: ``DCOUNT()``
 
 	Returns
 	-------
@@ -1342,7 +1582,9 @@ def DCOUNT(*args: Any, **kwargs: Any) -> Func:
 
 def DCOUNTA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DCOUNTA`` - **Database:** Counts nonblank cells in a database
+	**Database:** Counts nonblank cells in a database
+
+	In Excel: ``DCOUNTA()``
 
 	Returns
 	-------
@@ -1353,7 +1595,9 @@ def DCOUNTA(*args: Any, **kwargs: Any) -> Func:
 
 def DDB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DDB`` - **Financial:** Returns the depreciation of an asset for a specified period by using the double-declining balance method or some other method that you specify
+	**Financial:** Returns the depreciation of an asset for a specified period by using the double-declining balance method or some other method that you specify
+
+	In Excel: ``DDB()``
 
 	Returns
 	-------
@@ -1364,7 +1608,9 @@ def DDB(*args: Any, **kwargs: Any) -> Func:
 
 def DEC2BIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DEC2BIN`` - **Engineering:** Converts a decimal number to binary
+	**Engineering:** Converts a decimal number to binary
+
+	In Excel: ``DEC2BIN()``
 
 	Returns
 	-------
@@ -1375,7 +1621,9 @@ def DEC2BIN(*args: Any, **kwargs: Any) -> Func:
 
 def DEC2HEX(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DEC2HEX`` - **Engineering:** Converts a decimal number to hexadecimal
+	**Engineering:** Converts a decimal number to hexadecimal
+
+	In Excel: ``DEC2HEX()``
 
 	Returns
 	-------
@@ -1386,7 +1634,9 @@ def DEC2HEX(*args: Any, **kwargs: Any) -> Func:
 
 def DEC2OCT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DEC2OCT`` - **Engineering:** Converts a decimal number to octal
+	**Engineering:** Converts a decimal number to octal
+
+	In Excel: ``DEC2OCT()``
 
 	Returns
 	-------
@@ -1397,7 +1647,9 @@ def DEC2OCT(*args: Any, **kwargs: Any) -> Func:
 
 def DECIMAL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DECIMAL`` - **Math and trigonometry:** Converts a text representation of a number in a given base into a decimal number
+	**Math and trigonometry:** Converts a text representation of a number in a given base into a decimal number
+
+	In Excel: ``DECIMAL()``
 
 	Returns
 	-------
@@ -1408,7 +1660,9 @@ def DECIMAL(*args: Any, **kwargs: Any) -> Func:
 
 def DEGREES(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DEGREES`` - **Math and trigonometry:** Converts radians to degrees
+	**Math and trigonometry:** Converts radians to degrees
+
+	In Excel: ``DEGREES()``
 
 	Returns
 	-------
@@ -1419,7 +1673,9 @@ def DEGREES(*args: Any, **kwargs: Any) -> Func:
 
 def DELTA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DELTA`` - **Engineering:** Tests whether two values are equal
+	**Engineering:** Tests whether two values are equal
+
+	In Excel: ``DELTA()``
 
 	Returns
 	-------
@@ -1430,7 +1686,9 @@ def DELTA(*args: Any, **kwargs: Any) -> Func:
 
 def DEVSQ(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DEVSQ`` - **Statistical:** Returns the sum of squares of deviations
+	**Statistical:** Returns the sum of squares of deviations
+
+	In Excel: ``DEVSQ()``
 
 	Returns
 	-------
@@ -1441,7 +1699,9 @@ def DEVSQ(*args: Any, **kwargs: Any) -> Func:
 
 def DGET(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DGET`` - **Database:** Extracts from a database a single record that matches the specified criteria
+	**Database:** Extracts from a database a single record that matches the specified criteria
+
+	In Excel: ``DGET()``
 
 	Returns
 	-------
@@ -1452,7 +1712,9 @@ def DGET(*args: Any, **kwargs: Any) -> Func:
 
 def DISC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DISC`` - **Financial:** Returns the discount rate for a security
+	**Financial:** Returns the discount rate for a security
+
+	In Excel: ``DISC()``
 
 	Returns
 	-------
@@ -1463,7 +1725,9 @@ def DISC(*args: Any, **kwargs: Any) -> Func:
 
 def DMAX(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DMAX`` - **Database:** Returns the maximum value from selected database entries
+	**Database:** Returns the maximum value from selected database entries
+
+	In Excel: ``DMAX()``
 
 	Returns
 	-------
@@ -1474,7 +1738,9 @@ def DMAX(*args: Any, **kwargs: Any) -> Func:
 
 def DMIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DMIN`` - **Database:** Returns the minimum value from selected database entries
+	**Database:** Returns the minimum value from selected database entries
+
+	In Excel: ``DMIN()``
 
 	Returns
 	-------
@@ -1485,7 +1751,9 @@ def DMIN(*args: Any, **kwargs: Any) -> Func:
 
 def DOLLAR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DOLLAR`` - **Text:** Converts a number to text, using the $ (dollar) currency format
+	**Text:** Converts a number to text, using the $ (dollar) currency format
+
+	In Excel: ``DOLLAR()``
 
 	Returns
 	-------
@@ -1496,7 +1764,9 @@ def DOLLAR(*args: Any, **kwargs: Any) -> Func:
 
 def DOLLARDE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DOLLARDE`` - **Financial:** Converts a dollar price, expressed as a fraction, into a dollar price, expressed as a decimal number
+	**Financial:** Converts a dollar price, expressed as a fraction, into a dollar price, expressed as a decimal number
+
+	In Excel: ``DOLLARDE()``
 
 	Returns
 	-------
@@ -1507,7 +1777,9 @@ def DOLLARDE(*args: Any, **kwargs: Any) -> Func:
 
 def DOLLARFR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DOLLARFR`` - **Financial:** Converts a dollar price, expressed as a decimal number, into a dollar price, expressed as a fraction
+	**Financial:** Converts a dollar price, expressed as a decimal number, into a dollar price, expressed as a fraction
+
+	In Excel: ``DOLLARFR()``
 
 	Returns
 	-------
@@ -1518,7 +1790,9 @@ def DOLLARFR(*args: Any, **kwargs: Any) -> Func:
 
 def DPRODUCT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DPRODUCT`` - **Database:** Multiplies the values in a particular field of records that match the criteria in a database
+	**Database:** Multiplies the values in a particular field of records that match the criteria in a database
+
+	In Excel: ``DPRODUCT()``
 
 	Returns
 	-------
@@ -1529,7 +1803,9 @@ def DPRODUCT(*args: Any, **kwargs: Any) -> Func:
 
 def DROP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DROP`` - **Lookup and reference:** Excludes a specified number of rows or columns from the start or end of an array
+	**Lookup and reference:** Excludes a specified number of rows or columns from the start or end of an array
+
+	In Excel: ``DROP()``
 
 	Returns
 	-------
@@ -1540,7 +1816,9 @@ def DROP(*args: Any, **kwargs: Any) -> Func:
 
 def DSTDEV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DSTDEV`` - **Database:** Estimates the standard deviation based on a sample of selected database entries
+	**Database:** Estimates the standard deviation based on a sample of selected database entries
+
+	In Excel: ``DSTDEV()``
 
 	Returns
 	-------
@@ -1551,7 +1829,9 @@ def DSTDEV(*args: Any, **kwargs: Any) -> Func:
 
 def DSTDEVP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DSTDEVP`` - **Database:** Calculates the standard deviation based on the entire population of selected database entries
+	**Database:** Calculates the standard deviation based on the entire population of selected database entries
+
+	In Excel: ``DSTDEVP()``
 
 	Returns
 	-------
@@ -1562,7 +1842,9 @@ def DSTDEVP(*args: Any, **kwargs: Any) -> Func:
 
 def DSUM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DSUM`` - **Database:** Adds the numbers in the field column of records in the database that match the criteria
+	**Database:** Adds the numbers in the field column of records in the database that match the criteria
+
+	In Excel: ``DSUM()``
 
 	Returns
 	-------
@@ -1573,7 +1855,9 @@ def DSUM(*args: Any, **kwargs: Any) -> Func:
 
 def DURATION(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DURATION`` - **Financial:** Returns the annual duration of a security with periodic interest payments
+	**Financial:** Returns the annual duration of a security with periodic interest payments
+
+	In Excel: ``DURATION()``
 
 	Returns
 	-------
@@ -1584,7 +1868,9 @@ def DURATION(*args: Any, **kwargs: Any) -> Func:
 
 def DVAR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DVAR`` - **Database:** Estimates variance based on a sample from selected database entries
+	**Database:** Estimates variance based on a sample from selected database entries
+
+	In Excel: ``DVAR()``
 
 	Returns
 	-------
@@ -1595,7 +1881,9 @@ def DVAR(*args: Any, **kwargs: Any) -> Func:
 
 def DVARP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``DVARP`` - **Database:** Calculates variance based on the entire population of selected database entries
+	**Database:** Calculates variance based on the entire population of selected database entries
+
+	In Excel: ``DVARP()``
 
 	Returns
 	-------
@@ -1606,7 +1894,9 @@ def DVARP(*args: Any, **kwargs: Any) -> Func:
 
 def EDATE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EDATE`` - **Date and time:** Returns the serial number of the date that is the indicated number of months before or after the start date
+	**Date and time:** Returns the serial number of the date that is the indicated number of months before or after the start date
+
+	In Excel: ``EDATE()``
 
 	Returns
 	-------
@@ -1617,7 +1907,9 @@ def EDATE(*args: Any, **kwargs: Any) -> Func:
 
 def EFFECT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EFFECT`` - **Financial:** Returns the effective annual interest rate
+	**Financial:** Returns the effective annual interest rate
+
+	In Excel: ``EFFECT()``
 
 	Returns
 	-------
@@ -1628,7 +1920,9 @@ def EFFECT(*args: Any, **kwargs: Any) -> Func:
 
 def ENCODEURL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ENCODEURL`` - **Web:** Returns a URL-encoded string
+	**Web:** Returns a URL-encoded string
+
+	In Excel: ``ENCODEURL()``
 
 	Returns
 	-------
@@ -1639,7 +1933,9 @@ def ENCODEURL(*args: Any, **kwargs: Any) -> Func:
 
 def EOMONTH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EOMONTH`` - **Date and time:** Returns the serial number of the last day of the month before or after a specified number of months
+	**Date and time:** Returns the serial number of the last day of the month before or after a specified number of months
+
+	In Excel: ``EOMONTH()``
 
 	Returns
 	-------
@@ -1650,7 +1946,9 @@ def EOMONTH(*args: Any, **kwargs: Any) -> Func:
 
 def ERF(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ERF`` - **Engineering:** Returns the error function
+	**Engineering:** Returns the error function
+
+	In Excel: ``ERF()``
 
 	Returns
 	-------
@@ -1661,7 +1959,9 @@ def ERF(*args: Any, **kwargs: Any) -> Func:
 
 def ERF_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ERF.PRECISE`` - **Engineering:** Returns the error function
+	**Engineering:** Returns the error function
+
+	In Excel: ``ERF.PRECISE()``
 
 	Returns
 	-------
@@ -1672,7 +1972,9 @@ def ERF_PRECISE(*args: Any, **kwargs: Any) -> Func:
 
 def ERFC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ERFC`` - **Engineering:** Returns the complementary error function
+	**Engineering:** Returns the complementary error function
+
+	In Excel: ``ERFC()``
 
 	Returns
 	-------
@@ -1683,7 +1985,9 @@ def ERFC(*args: Any, **kwargs: Any) -> Func:
 
 def ERFC_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ERFC.PRECISE`` - **Engineering:** Returns the complementary ERF function integrated between x and infinity
+	**Engineering:** Returns the complementary ERF function integrated between x and infinity
+
+	In Excel: ``ERFC.PRECISE()``
 
 	Returns
 	-------
@@ -1694,7 +1998,9 @@ def ERFC_PRECISE(*args: Any, **kwargs: Any) -> Func:
 
 def ERROR_TYPE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ERROR.TYPE`` - **Information:** Returns a number corresponding to an error type
+	**Information:** Returns a number corresponding to an error type
+
+	In Excel: ``ERROR.TYPE()``
 
 	Returns
 	-------
@@ -1705,7 +2011,9 @@ def ERROR_TYPE(*args: Any, **kwargs: Any) -> Func:
 
 def EUROCONVERT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EUROCONVERT`` - **Add-in and Automation:** Converts a number to euros, converts a number from euros to a euro member currency, or converts a number from one euro member currency to another by using the euro as an intermediary (triangulation).
+	**Add-in and Automation:** Converts a number to euros, converts a number from euros to a euro member currency, or converts a number from one euro member currency to another by using the euro as an intermediary (triangulation).
+
+	In Excel: ``EUROCONVERT()``
 
 	Returns
 	-------
@@ -1716,7 +2024,9 @@ def EUROCONVERT(*args: Any, **kwargs: Any) -> Func:
 
 def EVEN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EVEN`` - **Math and trigonometry:** Rounds a number up to the nearest even integer
+	**Math and trigonometry:** Rounds a number up to the nearest even integer
+
+	In Excel: ``EVEN()``
 
 	Returns
 	-------
@@ -1727,7 +2037,9 @@ def EVEN(*args: Any, **kwargs: Any) -> Func:
 
 def EXACT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EXACT`` - **Text:** Checks to see if two text values are identical
+	**Text:** Checks to see if two text values are identical
+
+	In Excel: ``EXACT()``
 
 	Returns
 	-------
@@ -1738,7 +2050,9 @@ def EXACT(*args: Any, **kwargs: Any) -> Func:
 
 def EXP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EXP`` - **Math and trigonometry:** Returns <i class="ocpItalic">e</i> raised to the power of a given number
+	**Math and trigonometry:** Returns <i class="ocpItalic">e</i> raised to the power of a given number
+
+	In Excel: ``EXP()``
 
 	Returns
 	-------
@@ -1749,7 +2063,9 @@ def EXP(*args: Any, **kwargs: Any) -> Func:
 
 def EXPAND(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EXPAND`` - **Lookup and reference:** Expands or pads an array to specified row and column dimensions
+	**Lookup and reference:** Expands or pads an array to specified row and column dimensions
+
+	In Excel: ``EXPAND()``
 
 	Returns
 	-------
@@ -1760,7 +2076,9 @@ def EXPAND(*args: Any, **kwargs: Any) -> Func:
 
 def EXPON_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EXPON.DIST`` - **Statistical:** Returns the exponential distribution
+	**Statistical:** Returns the exponential distribution
+
+	In Excel: ``EXPON.DIST()``
 
 	Returns
 	-------
@@ -1771,7 +2089,9 @@ def EXPON_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def EXPONDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``EXPONDIST`` - **Compatibility:** Returns the exponential distribution
+	**Compatibility:** Returns the exponential distribution
+
+	In Excel: ``EXPONDIST()``
 
 	Returns
 	-------
@@ -1782,7 +2102,9 @@ def EXPONDIST(*args: Any, **kwargs: Any) -> Func:
 
 def FACT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FACT`` - **Math and trigonometry:** Returns the factorial of a number
+	**Math and trigonometry:** Returns the factorial of a number
+
+	In Excel: ``FACT()``
 
 	Returns
 	-------
@@ -1793,7 +2115,9 @@ def FACT(*args: Any, **kwargs: Any) -> Func:
 
 def FACTDOUBLE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FACTDOUBLE`` - **Math and trigonometry:** Returns the double factorial of a number
+	**Math and trigonometry:** Returns the double factorial of a number
+
+	In Excel: ``FACTDOUBLE()``
 
 	Returns
 	-------
@@ -1804,7 +2128,9 @@ def FACTDOUBLE(*args: Any, **kwargs: Any) -> Func:
 
 def FALSE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FALSE`` - **Logical:** Returns the logical value FALSE
+	**Logical:** Returns the logical value FALSE
+
+	In Excel: ``FALSE()``
 
 	Returns
 	-------
@@ -1815,7 +2141,9 @@ def FALSE(*args: Any, **kwargs: Any) -> Func:
 
 def F_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``F.DIST`` - **Statistical:** Returns the F probability distribution
+	**Statistical:** Returns the F probability distribution
+
+	In Excel: ``F.DIST()``
 
 	Returns
 	-------
@@ -1826,7 +2154,9 @@ def F_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def FDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FDIST`` - **Compatibility:** Returns the F probability distribution
+	**Compatibility:** Returns the F probability distribution
+
+	In Excel: ``FDIST()``
 
 	Returns
 	-------
@@ -1837,7 +2167,9 @@ def FDIST(*args: Any, **kwargs: Any) -> Func:
 
 def F_DIST_RT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``F.DIST.RT`` - **Statistical:** Returns the F probability distribution
+	**Statistical:** Returns the F probability distribution
+
+	In Excel: ``F.DIST.RT()``
 
 	Returns
 	-------
@@ -1848,7 +2180,9 @@ def F_DIST_RT(*args: Any, **kwargs: Any) -> Func:
 
 def FILTER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FILTER`` - **Lookup and reference:** Filters a range of data based on criteria you define
+	**Lookup and reference:** Filters a range of data based on criteria you define
+
+	In Excel: ``FILTER()``
 
 	Returns
 	-------
@@ -1859,7 +2193,9 @@ def FILTER(*args: Any, **kwargs: Any) -> Func:
 
 def FILTERXML(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FILTERXML`` - **Web:** Returns specific data from the XML content by using the specified XPath
+	**Web:** Returns specific data from the XML content by using the specified XPath
+
+	In Excel: ``FILTERXML()``
 
 	Returns
 	-------
@@ -1870,7 +2206,9 @@ def FILTERXML(*args: Any, **kwargs: Any) -> Func:
 
 def FIND(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FIND`` - **Text:** Finds one text value within another (case-sensitive)
+	**Text:** Finds one text value within another (case-sensitive)
+
+	In Excel: ``FIND()``
 
 	Returns
 	-------
@@ -1881,7 +2219,9 @@ def FIND(*args: Any, **kwargs: Any) -> Func:
 
 def FINDB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FINDB`` - **Text:** Finds one text value within another (case-sensitive)
+	**Text:** Finds one text value within another (case-sensitive)
+
+	In Excel: ``FINDB()``
 
 	Returns
 	-------
@@ -1892,7 +2232,9 @@ def FINDB(*args: Any, **kwargs: Any) -> Func:
 
 def F_INV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``F.INV`` - **Statistical:** Returns the inverse of the F probability distribution
+	**Statistical:** Returns the inverse of the F probability distribution
+
+	In Excel: ``F.INV()``
 
 	Returns
 	-------
@@ -1903,7 +2245,9 @@ def F_INV(*args: Any, **kwargs: Any) -> Func:
 
 def F_INV_RT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``F.INV.RT`` - **Statistical:** Returns the inverse of the F probability distribution
+	**Statistical:** Returns the inverse of the F probability distribution
+
+	In Excel: ``F.INV.RT()``
 
 	Returns
 	-------
@@ -1914,7 +2258,9 @@ def F_INV_RT(*args: Any, **kwargs: Any) -> Func:
 
 def FINV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FINV`` - **Compatibility:** Returns the inverse of the F probability distribution
+	**Compatibility:** Returns the inverse of the F probability distribution
+
+	In Excel: ``FINV()``
 
 	Returns
 	-------
@@ -1925,7 +2271,9 @@ def FINV(*args: Any, **kwargs: Any) -> Func:
 
 def FISHER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FISHER`` - **Statistical:** Returns the Fisher transformation
+	**Statistical:** Returns the Fisher transformation
+
+	In Excel: ``FISHER()``
 
 	Returns
 	-------
@@ -1936,7 +2284,9 @@ def FISHER(*args: Any, **kwargs: Any) -> Func:
 
 def FISHERINV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FISHERINV`` - **Statistical:** Returns the inverse of the Fisher transformation
+	**Statistical:** Returns the inverse of the Fisher transformation
+
+	In Excel: ``FISHERINV()``
 
 	Returns
 	-------
@@ -1947,7 +2297,9 @@ def FISHERINV(*args: Any, **kwargs: Any) -> Func:
 
 def FIXED(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FIXED`` - **Text:** Formats a number as text with a fixed number of decimals
+	**Text:** Formats a number as text with a fixed number of decimals
+
+	In Excel: ``FIXED()``
 
 	Returns
 	-------
@@ -1958,7 +2310,9 @@ def FIXED(*args: Any, **kwargs: Any) -> Func:
 
 def FLOOR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FLOOR`` - **Compatibility:** Rounds a number down, toward zero
+	**Compatibility:** Rounds a number down, toward zero
+
+	In Excel: ``FLOOR()``
 
 	Returns
 	-------
@@ -1969,7 +2323,9 @@ def FLOOR(*args: Any, **kwargs: Any) -> Func:
 
 def FLOOR_MATH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FLOOR.MATH`` - **Math and trigonometry:** Rounds a number down, to the nearest integer or to the nearest multiple of significance
+	**Math and trigonometry:** Rounds a number down, to the nearest integer or to the nearest multiple of significance
+
+	In Excel: ``FLOOR.MATH()``
 
 	Returns
 	-------
@@ -1980,7 +2336,9 @@ def FLOOR_MATH(*args: Any, **kwargs: Any) -> Func:
 
 def FLOOR_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FLOOR.PRECISE`` - **Math and trigonometry:** Rounds a number the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded up.
+	**Math and trigonometry:** Rounds a number the nearest integer or to the nearest multiple of significance. Regardless of the sign of the number, the number is rounded up.
+
+	In Excel: ``FLOOR.PRECISE()``
 
 	Returns
 	-------
@@ -1991,7 +2349,9 @@ def FLOOR_PRECISE(*args: Any, **kwargs: Any) -> Func:
 
 def FORECAST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FORECAST`` - **Statistical:** Returns a value along a linear trend
+	**Statistical:** Returns a value along a linear trend
+
+	In Excel: ``FORECAST()``
 
 	Returns
 	-------
@@ -2002,7 +2362,9 @@ def FORECAST(*args: Any, **kwargs: Any) -> Func:
 
 def FORMULATEXT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FORMULATEXT`` - **Lookup and reference:** Returns the formula at the given reference as text
+	**Lookup and reference:** Returns the formula at the given reference as text
+
+	In Excel: ``FORMULATEXT()``
 
 	Returns
 	-------
@@ -2013,7 +2375,9 @@ def FORMULATEXT(*args: Any, **kwargs: Any) -> Func:
 
 def FREQUENCY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FREQUENCY`` - **Statistical:** Returns a frequency distribution as a vertical array
+	**Statistical:** Returns a frequency distribution as a vertical array
+
+	In Excel: ``FREQUENCY()``
 
 	Returns
 	-------
@@ -2024,7 +2388,9 @@ def FREQUENCY(*args: Any, **kwargs: Any) -> Func:
 
 def F_TEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``F.TEST`` - **Statistical:** Returns the result of an F-test
+	**Statistical:** Returns the result of an F-test
+
+	In Excel: ``F.TEST()``
 
 	Returns
 	-------
@@ -2035,7 +2401,9 @@ def F_TEST(*args: Any, **kwargs: Any) -> Func:
 
 def FTEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FTEST`` - **Compatibility:** Returns the result of an F-test
+	**Compatibility:** Returns the result of an F-test
+
+	In Excel: ``FTEST()``
 
 	Returns
 	-------
@@ -2046,7 +2414,9 @@ def FTEST(*args: Any, **kwargs: Any) -> Func:
 
 def FV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FV`` - **Financial:** Returns the future value of an investment
+	**Financial:** Returns the future value of an investment
+
+	In Excel: ``FV()``
 
 	Returns
 	-------
@@ -2057,7 +2427,9 @@ def FV(*args: Any, **kwargs: Any) -> Func:
 
 def FVSCHEDULE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``FVSCHEDULE`` - **Financial:** Returns the future value of an initial principal after applying a series of compound interest rates
+	**Financial:** Returns the future value of an initial principal after applying a series of compound interest rates
+
+	In Excel: ``FVSCHEDULE()``
 
 	Returns
 	-------
@@ -2068,7 +2440,9 @@ def FVSCHEDULE(*args: Any, **kwargs: Any) -> Func:
 
 def GAMMA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GAMMA`` - **Statistical:** Returns the Gamma function value
+	**Statistical:** Returns the Gamma function value
+
+	In Excel: ``GAMMA()``
 
 	Returns
 	-------
@@ -2079,7 +2453,9 @@ def GAMMA(*args: Any, **kwargs: Any) -> Func:
 
 def GAMMA_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GAMMA.DIST`` - **Statistical:** Returns the gamma distribution
+	**Statistical:** Returns the gamma distribution
+
+	In Excel: ``GAMMA.DIST()``
 
 	Returns
 	-------
@@ -2090,7 +2466,9 @@ def GAMMA_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def GAMMADIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GAMMADIST`` - **Compatibility:** Returns the gamma distribution
+	**Compatibility:** Returns the gamma distribution
+
+	In Excel: ``GAMMADIST()``
 
 	Returns
 	-------
@@ -2101,7 +2479,9 @@ def GAMMADIST(*args: Any, **kwargs: Any) -> Func:
 
 def GAMMA_INV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GAMMA.INV`` - **Statistical:** Returns the inverse of the gamma cumulative distribution
+	**Statistical:** Returns the inverse of the gamma cumulative distribution
+
+	In Excel: ``GAMMA.INV()``
 
 	Returns
 	-------
@@ -2112,7 +2492,9 @@ def GAMMA_INV(*args: Any, **kwargs: Any) -> Func:
 
 def GAMMAINV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GAMMAINV`` - **Compatibility:** Returns the inverse of the gamma cumulative distribution
+	**Compatibility:** Returns the inverse of the gamma cumulative distribution
+
+	In Excel: ``GAMMAINV()``
 
 	Returns
 	-------
@@ -2123,7 +2505,9 @@ def GAMMAINV(*args: Any, **kwargs: Any) -> Func:
 
 def GAMMALN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GAMMALN`` - **Statistical:** Returns the natural logarithm of the gamma function, Γ(x)
+	**Statistical:** Returns the natural logarithm of the gamma function, Γ(x)
+
+	In Excel: ``GAMMALN()``
 
 	Returns
 	-------
@@ -2134,7 +2518,9 @@ def GAMMALN(*args: Any, **kwargs: Any) -> Func:
 
 def GAMMALN_PRECISE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GAMMALN.PRECISE`` - **Statistical:** Returns the natural logarithm of the gamma function, Γ(x)
+	**Statistical:** Returns the natural logarithm of the gamma function, Γ(x)
+
+	In Excel: ``GAMMALN.PRECISE()``
 
 	Returns
 	-------
@@ -2145,7 +2531,9 @@ def GAMMALN_PRECISE(*args: Any, **kwargs: Any) -> Func:
 
 def GAUSS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GAUSS`` - **Statistical:** Returns 0.5 less than the standard normal cumulative distribution
+	**Statistical:** Returns 0.5 less than the standard normal cumulative distribution
+
+	In Excel: ``GAUSS()``
 
 	Returns
 	-------
@@ -2156,7 +2544,9 @@ def GAUSS(*args: Any, **kwargs: Any) -> Func:
 
 def GCD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GCD`` - **Math and trigonometry:** Returns the greatest common divisor
+	**Math and trigonometry:** Returns the greatest common divisor
+
+	In Excel: ``GCD()``
 
 	Returns
 	-------
@@ -2167,7 +2557,9 @@ def GCD(*args: Any, **kwargs: Any) -> Func:
 
 def GEOMEAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GEOMEAN`` - **Statistical:** Returns the geometric mean
+	**Statistical:** Returns the geometric mean
+
+	In Excel: ``GEOMEAN()``
 
 	Returns
 	-------
@@ -2178,7 +2570,9 @@ def GEOMEAN(*args: Any, **kwargs: Any) -> Func:
 
 def GESTEP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GESTEP`` - **Engineering:** Tests whether a number is greater than a threshold value
+	**Engineering:** Tests whether a number is greater than a threshold value
+
+	In Excel: ``GESTEP()``
 
 	Returns
 	-------
@@ -2189,7 +2583,9 @@ def GESTEP(*args: Any, **kwargs: Any) -> Func:
 
 def GETPIVOTDATA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GETPIVOTDATA`` - **Lookup and reference:** Returns data stored in a PivotTable report
+	**Lookup and reference:** Returns data stored in a PivotTable report
+
+	In Excel: ``GETPIVOTDATA()``
 
 	Returns
 	-------
@@ -2200,7 +2596,9 @@ def GETPIVOTDATA(*args: Any, **kwargs: Any) -> Func:
 
 def GROWTH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``GROWTH`` - **Statistical:** Returns values along an exponential trend
+	**Statistical:** Returns values along an exponential trend
+
+	In Excel: ``GROWTH()``
 
 	Returns
 	-------
@@ -2211,7 +2609,9 @@ def GROWTH(*args: Any, **kwargs: Any) -> Func:
 
 def HARMEAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HARMEAN`` - **Statistical:** Returns the harmonic mean
+	**Statistical:** Returns the harmonic mean
+
+	In Excel: ``HARMEAN()``
 
 	Returns
 	-------
@@ -2222,7 +2622,9 @@ def HARMEAN(*args: Any, **kwargs: Any) -> Func:
 
 def HEX2BIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HEX2BIN`` - **Engineering:** Converts a hexadecimal number to binary
+	**Engineering:** Converts a hexadecimal number to binary
+
+	In Excel: ``HEX2BIN()``
 
 	Returns
 	-------
@@ -2233,7 +2635,9 @@ def HEX2BIN(*args: Any, **kwargs: Any) -> Func:
 
 def HEX2DEC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HEX2DEC`` - **Engineering:** Converts a hexadecimal number to decimal
+	**Engineering:** Converts a hexadecimal number to decimal
+
+	In Excel: ``HEX2DEC()``
 
 	Returns
 	-------
@@ -2244,7 +2648,9 @@ def HEX2DEC(*args: Any, **kwargs: Any) -> Func:
 
 def HEX2OCT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HEX2OCT`` - **Engineering:** Converts a hexadecimal number to octal
+	**Engineering:** Converts a hexadecimal number to octal
+
+	In Excel: ``HEX2OCT()``
 
 	Returns
 	-------
@@ -2255,7 +2661,9 @@ def HEX2OCT(*args: Any, **kwargs: Any) -> Func:
 
 def HLOOKUP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HLOOKUP`` - **Lookup and reference:** Looks in the top row of an array and returns the value of the indicated cell
+	**Lookup and reference:** Looks in the top row of an array and returns the value of the indicated cell
+
+	In Excel: ``HLOOKUP()``
 
 	Returns
 	-------
@@ -2266,7 +2674,9 @@ def HLOOKUP(*args: Any, **kwargs: Any) -> Func:
 
 def HOUR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HOUR`` - **Date and time:** Converts a serial number to an hour
+	**Date and time:** Converts a serial number to an hour
+
+	In Excel: ``HOUR()``
 
 	Returns
 	-------
@@ -2277,7 +2687,9 @@ def HOUR(*args: Any, **kwargs: Any) -> Func:
 
 def HSTACK(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HSTACK`` - **Lookup and reference:** Appends arrays horizontally and in sequence to return a larger array
+	**Lookup and reference:** Appends arrays horizontally and in sequence to return a larger array
+
+	In Excel: ``HSTACK()``
 
 	Returns
 	-------
@@ -2288,7 +2700,9 @@ def HSTACK(*args: Any, **kwargs: Any) -> Func:
 
 def HYPERLINK(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HYPERLINK`` - **Lookup and reference:** Creates a shortcut or jump that opens a document stored on a network server, an intranet, or the Internet
+	**Lookup and reference:** Creates a shortcut or jump that opens a document stored on a network server, an intranet, or the Internet
+
+	In Excel: ``HYPERLINK()``
 
 	Returns
 	-------
@@ -2299,7 +2713,9 @@ def HYPERLINK(*args: Any, **kwargs: Any) -> Func:
 
 def HYPGEOM_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HYPGEOM.DIST`` - **Statistical:** Returns the hypergeometric distribution
+	**Statistical:** Returns the hypergeometric distribution
+
+	In Excel: ``HYPGEOM.DIST()``
 
 	Returns
 	-------
@@ -2310,7 +2726,9 @@ def HYPGEOM_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def HYPGEOMDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``HYPGEOMDIST`` - **Compatibility:** Returns the hypergeometric distribution
+	**Compatibility:** Returns the hypergeometric distribution
+
+	In Excel: ``HYPGEOMDIST()``
 
 	Returns
 	-------
@@ -2321,7 +2739,9 @@ def HYPGEOMDIST(*args: Any, **kwargs: Any) -> Func:
 
 def IF(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IF`` - **Logical:** Specifies a logical test to perform
+	**Logical:** Specifies a logical test to perform
+
+	In Excel: ``IF()``
 
 	Returns
 	-------
@@ -2332,7 +2752,9 @@ def IF(*args: Any, **kwargs: Any) -> Func:
 
 def IFERROR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IFERROR`` - **Logical:** Returns a value you specify if a formula evaluates to an error; otherwise, returns the result of the formula
+	**Logical:** Returns a value you specify if a formula evaluates to an error; otherwise, returns the result of the formula
+
+	In Excel: ``IFERROR()``
 
 	Returns
 	-------
@@ -2343,7 +2765,9 @@ def IFERROR(*args: Any, **kwargs: Any) -> Func:
 
 def IFNA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IFNA`` - **Logical:** Returns the value you specify if the expression resolves to #N/A, otherwise returns the result of the expression
+	**Logical:** Returns the value you specify if the expression resolves to #N/A, otherwise returns the result of the expression
+
+	In Excel: ``IFNA()``
 
 	Returns
 	-------
@@ -2354,7 +2778,9 @@ def IFNA(*args: Any, **kwargs: Any) -> Func:
 
 def IFS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IFS`` - **Logical:** Checks whether one or more conditions are met and returns a value that corresponds to the first TRUE condition.
+	**Logical:** Checks whether one or more conditions are met and returns a value that corresponds to the first TRUE condition.
+
+	In Excel: ``IFS()``
 
 	Returns
 	-------
@@ -2365,7 +2791,9 @@ def IFS(*args: Any, **kwargs: Any) -> Func:
 
 def IMABS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMABS`` - **Engineering:** Returns the absolute value (modulus) of a complex number
+	**Engineering:** Returns the absolute value (modulus) of a complex number
+
+	In Excel: ``IMABS()``
 
 	Returns
 	-------
@@ -2376,7 +2804,9 @@ def IMABS(*args: Any, **kwargs: Any) -> Func:
 
 def IMAGINARY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMAGINARY`` - **Engineering:** Returns the imaginary coefficient of a complex number
+	**Engineering:** Returns the imaginary coefficient of a complex number
+
+	In Excel: ``IMAGINARY()``
 
 	Returns
 	-------
@@ -2387,7 +2817,9 @@ def IMAGINARY(*args: Any, **kwargs: Any) -> Func:
 
 def IMARGUMENT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMARGUMENT`` - **Engineering:** Returns the argument theta, an angle expressed in radians
+	**Engineering:** Returns the argument theta, an angle expressed in radians
+
+	In Excel: ``IMARGUMENT()``
 
 	Returns
 	-------
@@ -2398,7 +2830,9 @@ def IMARGUMENT(*args: Any, **kwargs: Any) -> Func:
 
 def IMCONJUGATE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMCONJUGATE`` - **Engineering:** Returns the complex conjugate of a complex number
+	**Engineering:** Returns the complex conjugate of a complex number
+
+	In Excel: ``IMCONJUGATE()``
 
 	Returns
 	-------
@@ -2409,7 +2843,9 @@ def IMCONJUGATE(*args: Any, **kwargs: Any) -> Func:
 
 def IMCOS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMCOS`` - **Engineering:** Returns the cosine of a complex number
+	**Engineering:** Returns the cosine of a complex number
+
+	In Excel: ``IMCOS()``
 
 	Returns
 	-------
@@ -2420,7 +2856,9 @@ def IMCOS(*args: Any, **kwargs: Any) -> Func:
 
 def IMCOSH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMCOSH`` - **Engineering:** Returns the hyperbolic cosine of a complex number
+	**Engineering:** Returns the hyperbolic cosine of a complex number
+
+	In Excel: ``IMCOSH()``
 
 	Returns
 	-------
@@ -2431,7 +2869,9 @@ def IMCOSH(*args: Any, **kwargs: Any) -> Func:
 
 def IMCOT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMCOT`` - **Engineering:** Returns the cotangent of a complex number
+	**Engineering:** Returns the cotangent of a complex number
+
+	In Excel: ``IMCOT()``
 
 	Returns
 	-------
@@ -2442,7 +2882,9 @@ def IMCOT(*args: Any, **kwargs: Any) -> Func:
 
 def IMCSC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMCSC`` - **Engineering:** Returns the cosecant of a complex number
+	**Engineering:** Returns the cosecant of a complex number
+
+	In Excel: ``IMCSC()``
 
 	Returns
 	-------
@@ -2453,7 +2895,9 @@ def IMCSC(*args: Any, **kwargs: Any) -> Func:
 
 def IMCSCH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMCSCH`` - **Engineering:** Returns the hyperbolic cosecant of a complex number
+	**Engineering:** Returns the hyperbolic cosecant of a complex number
+
+	In Excel: ``IMCSCH()``
 
 	Returns
 	-------
@@ -2464,7 +2908,9 @@ def IMCSCH(*args: Any, **kwargs: Any) -> Func:
 
 def IMDIV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMDIV`` - **Engineering:** Returns the quotient of two complex numbers
+	**Engineering:** Returns the quotient of two complex numbers
+
+	In Excel: ``IMDIV()``
 
 	Returns
 	-------
@@ -2475,7 +2921,9 @@ def IMDIV(*args: Any, **kwargs: Any) -> Func:
 
 def IMEXP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMEXP`` - **Engineering:** Returns the exponential of a complex number
+	**Engineering:** Returns the exponential of a complex number
+
+	In Excel: ``IMEXP()``
 
 	Returns
 	-------
@@ -2486,7 +2934,9 @@ def IMEXP(*args: Any, **kwargs: Any) -> Func:
 
 def IMLN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMLN`` - **Engineering:** Returns the natural logarithm of a complex number
+	**Engineering:** Returns the natural logarithm of a complex number
+
+	In Excel: ``IMLN()``
 
 	Returns
 	-------
@@ -2497,7 +2947,9 @@ def IMLN(*args: Any, **kwargs: Any) -> Func:
 
 def IMLOG10(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMLOG10`` - **Engineering:** Returns the base-10 logarithm of a complex number
+	**Engineering:** Returns the base-10 logarithm of a complex number
+
+	In Excel: ``IMLOG10()``
 
 	Returns
 	-------
@@ -2508,7 +2960,9 @@ def IMLOG10(*args: Any, **kwargs: Any) -> Func:
 
 def IMLOG2(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMLOG2`` - **Engineering:** Returns the base-2 logarithm of a complex number
+	**Engineering:** Returns the base-2 logarithm of a complex number
+
+	In Excel: ``IMLOG2()``
 
 	Returns
 	-------
@@ -2519,7 +2973,9 @@ def IMLOG2(*args: Any, **kwargs: Any) -> Func:
 
 def IMPOWER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMPOWER`` - **Engineering:** Returns a complex number raised to an integer power
+	**Engineering:** Returns a complex number raised to an integer power
+
+	In Excel: ``IMPOWER()``
 
 	Returns
 	-------
@@ -2530,7 +2986,9 @@ def IMPOWER(*args: Any, **kwargs: Any) -> Func:
 
 def IMPRODUCT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMPRODUCT`` - **Engineering:** Returns the product of complex numbers
+	**Engineering:** Returns the product of complex numbers
+
+	In Excel: ``IMPRODUCT()``
 
 	Returns
 	-------
@@ -2541,7 +2999,9 @@ def IMPRODUCT(*args: Any, **kwargs: Any) -> Func:
 
 def IMREAL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMREAL`` - **Engineering:** Returns the real coefficient of a complex number
+	**Engineering:** Returns the real coefficient of a complex number
+
+	In Excel: ``IMREAL()``
 
 	Returns
 	-------
@@ -2552,7 +3012,9 @@ def IMREAL(*args: Any, **kwargs: Any) -> Func:
 
 def IMSEC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMSEC`` - **Engineering:** Returns the secant of a complex number
+	**Engineering:** Returns the secant of a complex number
+
+	In Excel: ``IMSEC()``
 
 	Returns
 	-------
@@ -2563,7 +3025,9 @@ def IMSEC(*args: Any, **kwargs: Any) -> Func:
 
 def IMSECH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMSECH`` - **Engineering:** Returns the hyperbolic secant of a complex number
+	**Engineering:** Returns the hyperbolic secant of a complex number
+
+	In Excel: ``IMSECH()``
 
 	Returns
 	-------
@@ -2574,7 +3038,9 @@ def IMSECH(*args: Any, **kwargs: Any) -> Func:
 
 def IMSIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMSIN`` - **Engineering:** Returns the sine of a complex number
+	**Engineering:** Returns the sine of a complex number
+
+	In Excel: ``IMSIN()``
 
 	Returns
 	-------
@@ -2585,7 +3051,9 @@ def IMSIN(*args: Any, **kwargs: Any) -> Func:
 
 def IMSINH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMSINH`` - **Engineering:** Returns the hyperbolic sine of a complex number
+	**Engineering:** Returns the hyperbolic sine of a complex number
+
+	In Excel: ``IMSINH()``
 
 	Returns
 	-------
@@ -2596,7 +3064,9 @@ def IMSINH(*args: Any, **kwargs: Any) -> Func:
 
 def IMSQRT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMSQRT`` - **Engineering:** Returns the square root of a complex number
+	**Engineering:** Returns the square root of a complex number
+
+	In Excel: ``IMSQRT()``
 
 	Returns
 	-------
@@ -2607,7 +3077,9 @@ def IMSQRT(*args: Any, **kwargs: Any) -> Func:
 
 def IMSUB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMSUB`` - **Engineering:** Returns the difference between two complex numbers
+	**Engineering:** Returns the difference between two complex numbers
+
+	In Excel: ``IMSUB()``
 
 	Returns
 	-------
@@ -2618,7 +3090,9 @@ def IMSUB(*args: Any, **kwargs: Any) -> Func:
 
 def IMSUM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMSUM`` - **Engineering:** Returns the sum of complex numbers
+	**Engineering:** Returns the sum of complex numbers
+
+	In Excel: ``IMSUM()``
 
 	Returns
 	-------
@@ -2629,7 +3103,9 @@ def IMSUM(*args: Any, **kwargs: Any) -> Func:
 
 def IMTAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IMTAN`` - **Engineering:** Returns the tangent of a complex number
+	**Engineering:** Returns the tangent of a complex number
+
+	In Excel: ``IMTAN()``
 
 	Returns
 	-------
@@ -2640,7 +3116,9 @@ def IMTAN(*args: Any, **kwargs: Any) -> Func:
 
 def INDEX(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``INDEX`` - **Lookup and reference:** Uses an index to choose a value from a reference or array
+	**Lookup and reference:** Uses an index to choose a value from a reference or array
+
+	In Excel: ``INDEX()``
 
 	Returns
 	-------
@@ -2651,7 +3129,9 @@ def INDEX(*args: Any, **kwargs: Any) -> Func:
 
 def INDIRECT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``INDIRECT`` - **Lookup and reference:** Returns a reference indicated by a text value
+	**Lookup and reference:** Returns a reference indicated by a text value
+
+	In Excel: ``INDIRECT()``
 
 	Returns
 	-------
@@ -2662,7 +3142,9 @@ def INDIRECT(*args: Any, **kwargs: Any) -> Func:
 
 def INFO(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``INFO`` - **Information:** Returns information about the current operating environment
+	**Information:** Returns information about the current operating environment
+
+	In Excel: ``INFO()``
 
 	Returns
 	-------
@@ -2673,7 +3155,9 @@ def INFO(*args: Any, **kwargs: Any) -> Func:
 
 def INT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``INT`` - **Math and trigonometry:** Rounds a number down to the nearest integer
+	**Math and trigonometry:** Rounds a number down to the nearest integer
+
+	In Excel: ``INT()``
 
 	Returns
 	-------
@@ -2684,7 +3168,9 @@ def INT(*args: Any, **kwargs: Any) -> Func:
 
 def INTERCEPT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``INTERCEPT`` - **Statistical:** Returns the intercept of the linear regression line
+	**Statistical:** Returns the intercept of the linear regression line
+
+	In Excel: ``INTERCEPT()``
 
 	Returns
 	-------
@@ -2695,7 +3181,9 @@ def INTERCEPT(*args: Any, **kwargs: Any) -> Func:
 
 def INTRATE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``INTRATE`` - **Financial:** Returns the interest rate for a fully invested security
+	**Financial:** Returns the interest rate for a fully invested security
+
+	In Excel: ``INTRATE()``
 
 	Returns
 	-------
@@ -2706,7 +3194,9 @@ def INTRATE(*args: Any, **kwargs: Any) -> Func:
 
 def IPMT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IPMT`` - **Financial:** Returns the interest payment for an investment for a given period
+	**Financial:** Returns the interest payment for an investment for a given period
+
+	In Excel: ``IPMT()``
 
 	Returns
 	-------
@@ -2717,7 +3207,9 @@ def IPMT(*args: Any, **kwargs: Any) -> Func:
 
 def IRR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``IRR`` - **Financial:** Returns the internal rate of return for a series of cash flows
+	**Financial:** Returns the internal rate of return for a series of cash flows
+
+	In Excel: ``IRR()``
 
 	Returns
 	-------
@@ -2728,7 +3220,9 @@ def IRR(*args: Any, **kwargs: Any) -> Func:
 
 def ISBLANK(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISBLANK`` - **Information:** Returns TRUE if the value is blank
+	**Information:** Returns TRUE if the value is blank
+
+	In Excel: ``ISBLANK()``
 
 	Returns
 	-------
@@ -2739,7 +3233,9 @@ def ISBLANK(*args: Any, **kwargs: Any) -> Func:
 
 def ISERR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISERR`` - **Information:** Returns TRUE if the value is any error value except #N/A
+	**Information:** Returns TRUE if the value is any error value except #N/A
+
+	In Excel: ``ISERR()``
 
 	Returns
 	-------
@@ -2750,7 +3246,9 @@ def ISERR(*args: Any, **kwargs: Any) -> Func:
 
 def ISERROR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISERROR`` - **Information:** Returns TRUE if the value is any error value
+	**Information:** Returns TRUE if the value is any error value
+
+	In Excel: ``ISERROR()``
 
 	Returns
 	-------
@@ -2761,7 +3259,9 @@ def ISERROR(*args: Any, **kwargs: Any) -> Func:
 
 def ISEVEN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISEVEN`` - **Information:** Returns TRUE if the number is even
+	**Information:** Returns TRUE if the number is even
+
+	In Excel: ``ISEVEN()``
 
 	Returns
 	-------
@@ -2772,7 +3272,9 @@ def ISEVEN(*args: Any, **kwargs: Any) -> Func:
 
 def ISFORMULA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISFORMULA`` - **Information:** Returns TRUE if there is a reference to a cell that contains a formula
+	**Information:** Returns TRUE if there is a reference to a cell that contains a formula
+
+	In Excel: ``ISFORMULA()``
 
 	Returns
 	-------
@@ -2783,7 +3285,9 @@ def ISFORMULA(*args: Any, **kwargs: Any) -> Func:
 
 def ISLOGICAL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISLOGICAL`` - **Information:** Returns TRUE if the value is a logical value
+	**Information:** Returns TRUE if the value is a logical value
+
+	In Excel: ``ISLOGICAL()``
 
 	Returns
 	-------
@@ -2794,7 +3298,9 @@ def ISLOGICAL(*args: Any, **kwargs: Any) -> Func:
 
 def ISNA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISNA`` - **Information:** Returns TRUE if the value is the #N/A error value
+	**Information:** Returns TRUE if the value is the #N/A error value
+
+	In Excel: ``ISNA()``
 
 	Returns
 	-------
@@ -2805,7 +3311,9 @@ def ISNA(*args: Any, **kwargs: Any) -> Func:
 
 def ISNONTEXT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISNONTEXT`` - **Information:** Returns TRUE if the value is not text
+	**Information:** Returns TRUE if the value is not text
+
+	In Excel: ``ISNONTEXT()``
 
 	Returns
 	-------
@@ -2816,7 +3324,9 @@ def ISNONTEXT(*args: Any, **kwargs: Any) -> Func:
 
 def ISNUMBER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISNUMBER`` - **Information:** Returns TRUE if the value is a number
+	**Information:** Returns TRUE if the value is a number
+
+	In Excel: ``ISNUMBER()``
 
 	Returns
 	-------
@@ -2827,7 +3337,9 @@ def ISNUMBER(*args: Any, **kwargs: Any) -> Func:
 
 def ISODD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISODD`` - **Information:** Returns TRUE if the number is odd
+	**Information:** Returns TRUE if the number is odd
+
+	In Excel: ``ISODD()``
 
 	Returns
 	-------
@@ -2838,7 +3350,9 @@ def ISODD(*args: Any, **kwargs: Any) -> Func:
 
 def ISOMITTED(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISOMITTED`` - **Information:** Checks whether the value in a LAMBDA is missing and returns TRUE or FALSE
+	**Information:** Checks whether the value in a LAMBDA is missing and returns TRUE or FALSE
+
+	In Excel: ``ISOMITTED()``
 
 	Returns
 	-------
@@ -2849,7 +3363,9 @@ def ISOMITTED(*args: Any, **kwargs: Any) -> Func:
 
 def ISREF(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISREF`` - **Information:** Returns TRUE if the value is a reference
+	**Information:** Returns TRUE if the value is a reference
+
+	In Excel: ``ISREF()``
 
 	Returns
 	-------
@@ -2860,7 +3376,9 @@ def ISREF(*args: Any, **kwargs: Any) -> Func:
 
 def ISTEXT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISTEXT`` - **Information:** Returns TRUE if the value is text
+	**Information:** Returns TRUE if the value is text
+
+	In Excel: ``ISTEXT()``
 
 	Returns
 	-------
@@ -2871,7 +3389,9 @@ def ISTEXT(*args: Any, **kwargs: Any) -> Func:
 
 def ISO_CEILING(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISO.CEILING`` - **Math and trigonometry:** Returns a number that is rounded up to the nearest integer or to the nearest multiple of significance
+	**Math and trigonometry:** Returns a number that is rounded up to the nearest integer or to the nearest multiple of significance
+
+	In Excel: ``ISO.CEILING()``
 
 	Returns
 	-------
@@ -2882,7 +3402,9 @@ def ISO_CEILING(*args: Any, **kwargs: Any) -> Func:
 
 def ISOWEEKNUM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISOWEEKNUM`` - **Date and time:** Returns the number of the ISO week number of the year for a given date
+	**Date and time:** Returns the number of the ISO week number of the year for a given date
+
+	In Excel: ``ISOWEEKNUM()``
 
 	Returns
 	-------
@@ -2893,7 +3415,9 @@ def ISOWEEKNUM(*args: Any, **kwargs: Any) -> Func:
 
 def ISPMT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ISPMT`` - **Financial:** Calculates the interest paid during a specific period of an investment
+	**Financial:** Calculates the interest paid during a specific period of an investment
+
+	In Excel: ``ISPMT()``
 
 	Returns
 	-------
@@ -2904,7 +3428,9 @@ def ISPMT(*args: Any, **kwargs: Any) -> Func:
 
 def JIS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``JIS`` - **Text:** Changes half-width (single-byte) characters within a string to full-width (double-byte) characters
+	**Text:** Changes half-width (single-byte) characters within a string to full-width (double-byte) characters
+
+	In Excel: ``JIS()``
 
 	Returns
 	-------
@@ -2915,7 +3441,9 @@ def JIS(*args: Any, **kwargs: Any) -> Func:
 
 def KURT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``KURT`` - **Statistical:** Returns the kurtosis of a data set
+	**Statistical:** Returns the kurtosis of a data set
+
+	In Excel: ``KURT()``
 
 	Returns
 	-------
@@ -2926,7 +3454,9 @@ def KURT(*args: Any, **kwargs: Any) -> Func:
 
 def LAMBDA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LAMBDA`` - **Logical:** Create custom, reusable functions and call them by a friendly name
+	**Logical:** Create custom, reusable functions and call them by a friendly name
+
+	In Excel: ``LAMBDA()``
 
 	Returns
 	-------
@@ -2937,7 +3467,9 @@ def LAMBDA(*args: Any, **kwargs: Any) -> Func:
 
 def LARGE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LARGE`` - **Statistical:** Returns the k-th largest value in a data set
+	**Statistical:** Returns the k-th largest value in a data set
+
+	In Excel: ``LARGE()``
 
 	Returns
 	-------
@@ -2948,7 +3480,9 @@ def LARGE(*args: Any, **kwargs: Any) -> Func:
 
 def LCM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LCM`` - **Math and trigonometry:** Returns the least common multiple
+	**Math and trigonometry:** Returns the least common multiple
+
+	In Excel: ``LCM()``
 
 	Returns
 	-------
@@ -2959,7 +3493,9 @@ def LCM(*args: Any, **kwargs: Any) -> Func:
 
 def LEFT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LEFT`` - **Text:** Returns the leftmost characters from a text value
+	**Text:** Returns the leftmost characters from a text value
+
+	In Excel: ``LEFT()``
 
 	Returns
 	-------
@@ -2970,7 +3506,9 @@ def LEFT(*args: Any, **kwargs: Any) -> Func:
 
 def LEFTB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LEFTB`` - **Text:** Returns the leftmost characters from a text value
+	**Text:** Returns the leftmost characters from a text value
+
+	In Excel: ``LEFTB()``
 
 	Returns
 	-------
@@ -2981,7 +3519,9 @@ def LEFTB(*args: Any, **kwargs: Any) -> Func:
 
 def LEN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LEN`` - **Text:** Returns the number of characters in a text string
+	**Text:** Returns the number of characters in a text string
+
+	In Excel: ``LEN()``
 
 	Returns
 	-------
@@ -2992,7 +3532,9 @@ def LEN(*args: Any, **kwargs: Any) -> Func:
 
 def LENB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LENB`` - **Text:** Returns the number of characters in a text string
+	**Text:** Returns the number of characters in a text string
+
+	In Excel: ``LENB()``
 
 	Returns
 	-------
@@ -3003,7 +3545,9 @@ def LENB(*args: Any, **kwargs: Any) -> Func:
 
 def LET(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LET`` - **Logical:** Assigns names to calculation results
+	**Logical:** Assigns names to calculation results
+
+	In Excel: ``LET()``
 
 	Returns
 	-------
@@ -3014,7 +3558,9 @@ def LET(*args: Any, **kwargs: Any) -> Func:
 
 def LINEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LINEST`` - **Statistical:** Returns the parameters of a linear trend
+	**Statistical:** Returns the parameters of a linear trend
+
+	In Excel: ``LINEST()``
 
 	Returns
 	-------
@@ -3025,7 +3571,9 @@ def LINEST(*args: Any, **kwargs: Any) -> Func:
 
 def LN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LN`` - **Math and trigonometry:** Returns the natural logarithm of a number
+	**Math and trigonometry:** Returns the natural logarithm of a number
+
+	In Excel: ``LN()``
 
 	Returns
 	-------
@@ -3036,7 +3584,9 @@ def LN(*args: Any, **kwargs: Any) -> Func:
 
 def LOG(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LOG`` - **Math and trigonometry:** Returns the logarithm of a number to a specified base
+	**Math and trigonometry:** Returns the logarithm of a number to a specified base
+
+	In Excel: ``LOG()``
 
 	Returns
 	-------
@@ -3047,7 +3597,9 @@ def LOG(*args: Any, **kwargs: Any) -> Func:
 
 def LOG10(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LOG10`` - **Math and trigonometry:** Returns the base-10 logarithm of a number
+	**Math and trigonometry:** Returns the base-10 logarithm of a number
+
+	In Excel: ``LOG10()``
 
 	Returns
 	-------
@@ -3058,7 +3610,9 @@ def LOG10(*args: Any, **kwargs: Any) -> Func:
 
 def LOGEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LOGEST`` - **Statistical:** Returns the parameters of an exponential trend
+	**Statistical:** Returns the parameters of an exponential trend
+
+	In Excel: ``LOGEST()``
 
 	Returns
 	-------
@@ -3069,7 +3623,9 @@ def LOGEST(*args: Any, **kwargs: Any) -> Func:
 
 def LOGINV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LOGINV`` - **Compatibility:** Returns the inverse of the lognormal cumulative distribution
+	**Compatibility:** Returns the inverse of the lognormal cumulative distribution
+
+	In Excel: ``LOGINV()``
 
 	Returns
 	-------
@@ -3080,7 +3636,9 @@ def LOGINV(*args: Any, **kwargs: Any) -> Func:
 
 def LOGNORM_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LOGNORM.DIST`` - **Statistical:** Returns the cumulative lognormal distribution
+	**Statistical:** Returns the cumulative lognormal distribution
+
+	In Excel: ``LOGNORM.DIST()``
 
 	Returns
 	-------
@@ -3091,7 +3649,9 @@ def LOGNORM_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def LOGNORMDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LOGNORMDIST`` - **Compatibility:** Returns the cumulative lognormal distribution
+	**Compatibility:** Returns the cumulative lognormal distribution
+
+	In Excel: ``LOGNORMDIST()``
 
 	Returns
 	-------
@@ -3102,7 +3662,9 @@ def LOGNORMDIST(*args: Any, **kwargs: Any) -> Func:
 
 def LOGNORM_INV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LOGNORM.INV`` - **Statistical:** Returns the inverse of the lognormal cumulative distribution
+	**Statistical:** Returns the inverse of the lognormal cumulative distribution
+
+	In Excel: ``LOGNORM.INV()``
 
 	Returns
 	-------
@@ -3113,7 +3675,9 @@ def LOGNORM_INV(*args: Any, **kwargs: Any) -> Func:
 
 def LOOKUP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LOOKUP`` - **Lookup and reference:** Looks up values in a vector or array
+	**Lookup and reference:** Looks up values in a vector or array
+
+	In Excel: ``LOOKUP()``
 
 	Returns
 	-------
@@ -3124,7 +3688,9 @@ def LOOKUP(*args: Any, **kwargs: Any) -> Func:
 
 def LOWER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``LOWER`` - **Text:** Converts text to lowercase
+	**Text:** Converts text to lowercase
+
+	In Excel: ``LOWER()``
 
 	Returns
 	-------
@@ -3135,7 +3701,9 @@ def LOWER(*args: Any, **kwargs: Any) -> Func:
 
 def MAKEARRAY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MAKEARRAY`` - **Logical:** Returns a calculated array of a specified row and column size, by applying a LAMBDA
+	**Logical:** Returns a calculated array of a specified row and column size, by applying a LAMBDA
+
+	In Excel: ``MAKEARRAY()``
 
 	Returns
 	-------
@@ -3146,7 +3714,9 @@ def MAKEARRAY(*args: Any, **kwargs: Any) -> Func:
 
 def MAP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MAP`` - **Logical:** Returns an array formed by mapping each value in the array(s) to a new value by applying a LAMBDA to create a new value
+	**Logical:** Returns an array formed by mapping each value in the array(s) to a new value by applying a LAMBDA to create a new value
+
+	In Excel: ``MAP()``
 
 	Returns
 	-------
@@ -3157,7 +3727,9 @@ def MAP(*args: Any, **kwargs: Any) -> Func:
 
 def MATCH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MATCH`` - **Lookup and reference:** Looks up values in a reference or array
+	**Lookup and reference:** Looks up values in a reference or array
+
+	In Excel: ``MATCH()``
 
 	Returns
 	-------
@@ -3168,7 +3740,9 @@ def MATCH(*args: Any, **kwargs: Any) -> Func:
 
 def MAX(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MAX`` - **Statistical:** Returns the maximum value in a list of arguments
+	**Statistical:** Returns the maximum value in a list of arguments
+
+	In Excel: ``MAX()``
 
 	Returns
 	-------
@@ -3179,7 +3753,9 @@ def MAX(*args: Any, **kwargs: Any) -> Func:
 
 def MAXA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MAXA`` - **Statistical:** Returns the maximum value in a list of arguments, including numbers, text, and logical values
+	**Statistical:** Returns the maximum value in a list of arguments, including numbers, text, and logical values
+
+	In Excel: ``MAXA()``
 
 	Returns
 	-------
@@ -3190,7 +3766,9 @@ def MAXA(*args: Any, **kwargs: Any) -> Func:
 
 def MAXIFS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MAXIFS`` - **Statistical:** Returns the maximum value among cells specified by a given set of conditions or criteria
+	**Statistical:** Returns the maximum value among cells specified by a given set of conditions or criteria
+
+	In Excel: ``MAXIFS()``
 
 	Returns
 	-------
@@ -3201,7 +3779,9 @@ def MAXIFS(*args: Any, **kwargs: Any) -> Func:
 
 def MDETERM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MDETERM`` - **Math and trigonometry:** Returns the matrix determinant of an array
+	**Math and trigonometry:** Returns the matrix determinant of an array
+
+	In Excel: ``MDETERM()``
 
 	Returns
 	-------
@@ -3212,7 +3792,9 @@ def MDETERM(*args: Any, **kwargs: Any) -> Func:
 
 def MDURATION(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MDURATION`` - **Financial:** Returns the Macauley modified duration for a security with an assumed par value of $100
+	**Financial:** Returns the Macauley modified duration for a security with an assumed par value of $100
+
+	In Excel: ``MDURATION()``
 
 	Returns
 	-------
@@ -3223,7 +3805,9 @@ def MDURATION(*args: Any, **kwargs: Any) -> Func:
 
 def MEDIAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MEDIAN`` - **Statistical:** Returns the median of the given numbers
+	**Statistical:** Returns the median of the given numbers
+
+	In Excel: ``MEDIAN()``
 
 	Returns
 	-------
@@ -3234,7 +3818,9 @@ def MEDIAN(*args: Any, **kwargs: Any) -> Func:
 
 def MID(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MID`` - **Text:** Returns a specific number of characters from a text string starting at the position you specify
+	**Text:** Returns a specific number of characters from a text string starting at the position you specify
+
+	In Excel: ``MID()``
 
 	Returns
 	-------
@@ -3245,7 +3831,9 @@ def MID(*args: Any, **kwargs: Any) -> Func:
 
 def MIDB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MIDB`` - **Text:** Returns a specific number of characters from a text string starting at the position you specify
+	**Text:** Returns a specific number of characters from a text string starting at the position you specify
+
+	In Excel: ``MIDB()``
 
 	Returns
 	-------
@@ -3256,7 +3844,9 @@ def MIDB(*args: Any, **kwargs: Any) -> Func:
 
 def MIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MIN`` - **Statistical:** Returns the minimum value in a list of arguments
+	**Statistical:** Returns the minimum value in a list of arguments
+
+	In Excel: ``MIN()``
 
 	Returns
 	-------
@@ -3267,7 +3857,9 @@ def MIN(*args: Any, **kwargs: Any) -> Func:
 
 def MINIFS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MINIFS`` - **Statistical:** Returns the minimum value among cells specified by a given set of conditions or criteria.
+	**Statistical:** Returns the minimum value among cells specified by a given set of conditions or criteria.
+
+	In Excel: ``MINIFS()``
 
 	Returns
 	-------
@@ -3278,7 +3870,9 @@ def MINIFS(*args: Any, **kwargs: Any) -> Func:
 
 def MINA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MINA`` - **Statistical:** Returns the smallest value in a list of arguments, including numbers, text, and logical values
+	**Statistical:** Returns the smallest value in a list of arguments, including numbers, text, and logical values
+
+	In Excel: ``MINA()``
 
 	Returns
 	-------
@@ -3289,7 +3883,9 @@ def MINA(*args: Any, **kwargs: Any) -> Func:
 
 def MINUTE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MINUTE`` - **Date and time:** Converts a serial number to a minute
+	**Date and time:** Converts a serial number to a minute
+
+	In Excel: ``MINUTE()``
 
 	Returns
 	-------
@@ -3300,7 +3896,9 @@ def MINUTE(*args: Any, **kwargs: Any) -> Func:
 
 def MINVERSE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MINVERSE`` - **Math and trigonometry:** Returns the matrix inverse of an array
+	**Math and trigonometry:** Returns the matrix inverse of an array
+
+	In Excel: ``MINVERSE()``
 
 	Returns
 	-------
@@ -3311,7 +3909,9 @@ def MINVERSE(*args: Any, **kwargs: Any) -> Func:
 
 def MIRR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MIRR`` - **Financial:** Returns the internal rate of return where positive and negative cash flows are financed at different rates
+	**Financial:** Returns the internal rate of return where positive and negative cash flows are financed at different rates
+
+	In Excel: ``MIRR()``
 
 	Returns
 	-------
@@ -3322,7 +3922,9 @@ def MIRR(*args: Any, **kwargs: Any) -> Func:
 
 def MMULT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MMULT`` - **Math and trigonometry:** Returns the matrix product of two arrays
+	**Math and trigonometry:** Returns the matrix product of two arrays
+
+	In Excel: ``MMULT()``
 
 	Returns
 	-------
@@ -3333,7 +3935,9 @@ def MMULT(*args: Any, **kwargs: Any) -> Func:
 
 def MOD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MOD`` - **Math and trigonometry:** Returns the remainder from division
+	**Math and trigonometry:** Returns the remainder from division
+
+	In Excel: ``MOD()``
 
 	Returns
 	-------
@@ -3344,7 +3948,9 @@ def MOD(*args: Any, **kwargs: Any) -> Func:
 
 def MODE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MODE`` - **Compatibility:** Returns the most common value in a data set
+	**Compatibility:** Returns the most common value in a data set
+
+	In Excel: ``MODE()``
 
 	Returns
 	-------
@@ -3355,7 +3961,9 @@ def MODE(*args: Any, **kwargs: Any) -> Func:
 
 def MODE_MULT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MODE.MULT`` - **Statistical:** Returns a vertical array of the most frequently occurring, or repetitive values in an array or range of data
+	**Statistical:** Returns a vertical array of the most frequently occurring, or repetitive values in an array or range of data
+
+	In Excel: ``MODE.MULT()``
 
 	Returns
 	-------
@@ -3366,7 +3974,9 @@ def MODE_MULT(*args: Any, **kwargs: Any) -> Func:
 
 def MODE_SNGL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MODE.SNGL`` - **Statistical:** Returns the most common value in a data set
+	**Statistical:** Returns the most common value in a data set
+
+	In Excel: ``MODE.SNGL()``
 
 	Returns
 	-------
@@ -3377,7 +3987,9 @@ def MODE_SNGL(*args: Any, **kwargs: Any) -> Func:
 
 def MONTH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MONTH`` - **Date and time:** Converts a serial number to a month
+	**Date and time:** Converts a serial number to a month
+
+	In Excel: ``MONTH()``
 
 	Returns
 	-------
@@ -3388,7 +4000,9 @@ def MONTH(*args: Any, **kwargs: Any) -> Func:
 
 def MROUND(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MROUND`` - **Math and trigonometry:** Returns a number rounded to the desired multiple
+	**Math and trigonometry:** Returns a number rounded to the desired multiple
+
+	In Excel: ``MROUND()``
 
 	Returns
 	-------
@@ -3399,7 +4013,9 @@ def MROUND(*args: Any, **kwargs: Any) -> Func:
 
 def MULTINOMIAL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MULTINOMIAL`` - **Math and trigonometry:** Returns the multinomial of a set of numbers
+	**Math and trigonometry:** Returns the multinomial of a set of numbers
+
+	In Excel: ``MULTINOMIAL()``
 
 	Returns
 	-------
@@ -3410,7 +4026,9 @@ def MULTINOMIAL(*args: Any, **kwargs: Any) -> Func:
 
 def MUNIT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``MUNIT`` - **Math and trigonometry:** Returns the unit matrix or the specified dimension
+	**Math and trigonometry:** Returns the unit matrix or the specified dimension
+
+	In Excel: ``MUNIT()``
 
 	Returns
 	-------
@@ -3421,7 +4039,9 @@ def MUNIT(*args: Any, **kwargs: Any) -> Func:
 
 def N(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``N`` - **Information:** Returns a value converted to a number
+	**Information:** Returns a value converted to a number
+
+	In Excel: ``N()``
 
 	Returns
 	-------
@@ -3432,7 +4052,9 @@ def N(*args: Any, **kwargs: Any) -> Func:
 
 def NA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NA`` - **Information:** Returns the error value #N/A
+	**Information:** Returns the error value #N/A
+
+	In Excel: ``NA()``
 
 	Returns
 	-------
@@ -3443,7 +4065,9 @@ def NA(*args: Any, **kwargs: Any) -> Func:
 
 def NEGBINOM_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NEGBINOM.DIST`` - **Statistical:** Returns the negative binomial distribution
+	**Statistical:** Returns the negative binomial distribution
+
+	In Excel: ``NEGBINOM.DIST()``
 
 	Returns
 	-------
@@ -3454,7 +4078,9 @@ def NEGBINOM_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def NEGBINOMDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NEGBINOMDIST`` - **Compatibility:** Returns the negative binomial distribution
+	**Compatibility:** Returns the negative binomial distribution
+
+	In Excel: ``NEGBINOMDIST()``
 
 	Returns
 	-------
@@ -3465,7 +4091,9 @@ def NEGBINOMDIST(*args: Any, **kwargs: Any) -> Func:
 
 def NETWORKDAYS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NETWORKDAYS`` - **Date and time:** Returns the number of whole workdays between two dates
+	**Date and time:** Returns the number of whole workdays between two dates
+
+	In Excel: ``NETWORKDAYS()``
 
 	Returns
 	-------
@@ -3476,7 +4104,9 @@ def NETWORKDAYS(*args: Any, **kwargs: Any) -> Func:
 
 def NETWORKDAYS_INTL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NETWORKDAYS.INTL`` - **Date and time:** Returns the number of whole workdays between two dates using parameters to indicate which and how many days are weekend days
+	**Date and time:** Returns the number of whole workdays between two dates using parameters to indicate which and how many days are weekend days
+
+	In Excel: ``NETWORKDAYS.INTL()``
 
 	Returns
 	-------
@@ -3487,7 +4117,9 @@ def NETWORKDAYS_INTL(*args: Any, **kwargs: Any) -> Func:
 
 def NOMINAL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NOMINAL`` - **Financial:** Returns the annual nominal interest rate
+	**Financial:** Returns the annual nominal interest rate
+
+	In Excel: ``NOMINAL()``
 
 	Returns
 	-------
@@ -3498,7 +4130,9 @@ def NOMINAL(*args: Any, **kwargs: Any) -> Func:
 
 def NORM_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NORM.DIST`` - **Statistical:** Returns the normal cumulative distribution
+	**Statistical:** Returns the normal cumulative distribution
+
+	In Excel: ``NORM.DIST()``
 
 	Returns
 	-------
@@ -3509,7 +4143,9 @@ def NORM_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def NORMDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NORMDIST`` - **Compatibility:** Returns the normal cumulative distribution
+	**Compatibility:** Returns the normal cumulative distribution
+
+	In Excel: ``NORMDIST()``
 
 	Returns
 	-------
@@ -3520,7 +4156,9 @@ def NORMDIST(*args: Any, **kwargs: Any) -> Func:
 
 def NORMINV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NORMINV`` - **Statistical:** Returns the inverse of the normal cumulative distribution
+	**Statistical:** Returns the inverse of the normal cumulative distribution
+
+	In Excel: ``NORMINV()``
 
 	Returns
 	-------
@@ -3531,7 +4169,9 @@ def NORMINV(*args: Any, **kwargs: Any) -> Func:
 
 def NORM_INV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NORM.INV`` - **Compatibility:** Returns the inverse of the normal cumulative distribution
+	**Compatibility:** Returns the inverse of the normal cumulative distribution
+
+	In Excel: ``NORM.INV()``
 
 	Returns
 	-------
@@ -3542,7 +4182,9 @@ def NORM_INV(*args: Any, **kwargs: Any) -> Func:
 
 def NORM_S_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NORM.S.DIST`` - **Statistical:** Returns the standard normal cumulative distribution
+	**Statistical:** Returns the standard normal cumulative distribution
+
+	In Excel: ``NORM.S.DIST()``
 
 	Returns
 	-------
@@ -3553,7 +4195,9 @@ def NORM_S_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def NORMSDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NORMSDIST`` - **Compatibility:** Returns the standard normal cumulative distribution
+	**Compatibility:** Returns the standard normal cumulative distribution
+
+	In Excel: ``NORMSDIST()``
 
 	Returns
 	-------
@@ -3564,7 +4208,9 @@ def NORMSDIST(*args: Any, **kwargs: Any) -> Func:
 
 def NORM_S_INV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NORM.S.INV`` - **Statistical:** Returns the inverse of the standard normal cumulative distribution
+	**Statistical:** Returns the inverse of the standard normal cumulative distribution
+
+	In Excel: ``NORM.S.INV()``
 
 	Returns
 	-------
@@ -3575,7 +4221,9 @@ def NORM_S_INV(*args: Any, **kwargs: Any) -> Func:
 
 def NORMSINV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NORMSINV`` - **Compatibility:** Returns the inverse of the standard normal cumulative distribution
+	**Compatibility:** Returns the inverse of the standard normal cumulative distribution
+
+	In Excel: ``NORMSINV()``
 
 	Returns
 	-------
@@ -3586,7 +4234,9 @@ def NORMSINV(*args: Any, **kwargs: Any) -> Func:
 
 def NOT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NOT`` - **Logical:** Reverses the logic of its argument
+	**Logical:** Reverses the logic of its argument
+
+	In Excel: ``NOT()``
 
 	Returns
 	-------
@@ -3597,7 +4247,9 @@ def NOT(*args: Any, **kwargs: Any) -> Func:
 
 def NOW(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NOW`` - **Date and time:** Returns the serial number of the current date and time
+	**Date and time:** Returns the serial number of the current date and time
+
+	In Excel: ``NOW()``
 
 	Returns
 	-------
@@ -3608,7 +4260,9 @@ def NOW(*args: Any, **kwargs: Any) -> Func:
 
 def NPER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NPER`` - **Financial:** Returns the number of periods for an investment
+	**Financial:** Returns the number of periods for an investment
+
+	In Excel: ``NPER()``
 
 	Returns
 	-------
@@ -3619,7 +4273,9 @@ def NPER(*args: Any, **kwargs: Any) -> Func:
 
 def NPV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NPV`` - **Financial:** Returns the net present value of an investment based on a series of periodic cash flows and a discount rate
+	**Financial:** Returns the net present value of an investment based on a series of periodic cash flows and a discount rate
+
+	In Excel: ``NPV()``
 
 	Returns
 	-------
@@ -3630,7 +4286,9 @@ def NPV(*args: Any, **kwargs: Any) -> Func:
 
 def NUMBERVALUE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``NUMBERVALUE`` - **Text:** Converts text to number in a locale-independent manner
+	**Text:** Converts text to number in a locale-independent manner
+
+	In Excel: ``NUMBERVALUE()``
 
 	Returns
 	-------
@@ -3641,7 +4299,9 @@ def NUMBERVALUE(*args: Any, **kwargs: Any) -> Func:
 
 def OCT2BIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``OCT2BIN`` - **Engineering:** Converts an octal number to binary
+	**Engineering:** Converts an octal number to binary
+
+	In Excel: ``OCT2BIN()``
 
 	Returns
 	-------
@@ -3652,7 +4312,9 @@ def OCT2BIN(*args: Any, **kwargs: Any) -> Func:
 
 def OCT2DEC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``OCT2DEC`` - **Engineering:** Converts an octal number to decimal
+	**Engineering:** Converts an octal number to decimal
+
+	In Excel: ``OCT2DEC()``
 
 	Returns
 	-------
@@ -3663,7 +4325,9 @@ def OCT2DEC(*args: Any, **kwargs: Any) -> Func:
 
 def OCT2HEX(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``OCT2HEX`` - **Engineering:** Converts an octal number to hexadecimal
+	**Engineering:** Converts an octal number to hexadecimal
+
+	In Excel: ``OCT2HEX()``
 
 	Returns
 	-------
@@ -3674,7 +4338,9 @@ def OCT2HEX(*args: Any, **kwargs: Any) -> Func:
 
 def ODD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ODD`` - **Math and trigonometry:** Rounds a number up to the nearest odd integer
+	**Math and trigonometry:** Rounds a number up to the nearest odd integer
+
+	In Excel: ``ODD()``
 
 	Returns
 	-------
@@ -3685,7 +4351,9 @@ def ODD(*args: Any, **kwargs: Any) -> Func:
 
 def ODDFPRICE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ODDFPRICE`` - **Financial:** Returns the price per $100 face value of a security with an odd first period
+	**Financial:** Returns the price per $100 face value of a security with an odd first period
+
+	In Excel: ``ODDFPRICE()``
 
 	Returns
 	-------
@@ -3696,7 +4364,9 @@ def ODDFPRICE(*args: Any, **kwargs: Any) -> Func:
 
 def ODDFYIELD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ODDFYIELD`` - **Financial:** Returns the yield of a security with an odd first period
+	**Financial:** Returns the yield of a security with an odd first period
+
+	In Excel: ``ODDFYIELD()``
 
 	Returns
 	-------
@@ -3707,7 +4377,9 @@ def ODDFYIELD(*args: Any, **kwargs: Any) -> Func:
 
 def ODDLPRICE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ODDLPRICE`` - **Financial:** Returns the price per $100 face value of a security with an odd last period
+	**Financial:** Returns the price per $100 face value of a security with an odd last period
+
+	In Excel: ``ODDLPRICE()``
 
 	Returns
 	-------
@@ -3718,7 +4390,9 @@ def ODDLPRICE(*args: Any, **kwargs: Any) -> Func:
 
 def ODDLYIELD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ODDLYIELD`` - **Financial:** Returns the yield of a security with an odd last period
+	**Financial:** Returns the yield of a security with an odd last period
+
+	In Excel: ``ODDLYIELD()``
 
 	Returns
 	-------
@@ -3729,7 +4403,9 @@ def ODDLYIELD(*args: Any, **kwargs: Any) -> Func:
 
 def OFFSET(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``OFFSET`` - **Lookup and reference:** Returns a reference offset from a given reference
+	**Lookup and reference:** Returns a reference offset from a given reference
+
+	In Excel: ``OFFSET()``
 
 	Returns
 	-------
@@ -3740,7 +4416,9 @@ def OFFSET(*args: Any, **kwargs: Any) -> Func:
 
 def OR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``OR`` - **Logical:** Returns TRUE if any argument is TRUE
+	**Logical:** Returns TRUE if any argument is TRUE
+
+	In Excel: ``OR()``
 
 	Returns
 	-------
@@ -3751,7 +4429,9 @@ def OR(*args: Any, **kwargs: Any) -> Func:
 
 def PDURATION(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PDURATION`` - **Financial:** Returns the number of periods required by an investment to reach a specified value
+	**Financial:** Returns the number of periods required by an investment to reach a specified value
+
+	In Excel: ``PDURATION()``
 
 	Returns
 	-------
@@ -3762,7 +4442,9 @@ def PDURATION(*args: Any, **kwargs: Any) -> Func:
 
 def PEARSON(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PEARSON`` - **Statistical:** Returns the Pearson product moment correlation coefficient
+	**Statistical:** Returns the Pearson product moment correlation coefficient
+
+	In Excel: ``PEARSON()``
 
 	Returns
 	-------
@@ -3773,7 +4455,9 @@ def PEARSON(*args: Any, **kwargs: Any) -> Func:
 
 def PERCENTILE_EXC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PERCENTILE.EXC`` - **Statistical:** Returns the k-th percentile of values in a range, where k is in the range 0..1, exclusive
+	**Statistical:** Returns the k-th percentile of values in a range, where k is in the range 0..1, exclusive
+
+	In Excel: ``PERCENTILE.EXC()``
 
 	Returns
 	-------
@@ -3784,7 +4468,9 @@ def PERCENTILE_EXC(*args: Any, **kwargs: Any) -> Func:
 
 def PERCENTILE_INC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PERCENTILE.INC`` - **Statistical:** Returns the k-th percentile of values in a range
+	**Statistical:** Returns the k-th percentile of values in a range
+
+	In Excel: ``PERCENTILE.INC()``
 
 	Returns
 	-------
@@ -3795,7 +4481,9 @@ def PERCENTILE_INC(*args: Any, **kwargs: Any) -> Func:
 
 def PERCENTILE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PERCENTILE`` - **Compatibility:** Returns the k-th percentile of values in a range
+	**Compatibility:** Returns the k-th percentile of values in a range
+
+	In Excel: ``PERCENTILE()``
 
 	Returns
 	-------
@@ -3806,7 +4494,9 @@ def PERCENTILE(*args: Any, **kwargs: Any) -> Func:
 
 def PERCENTRANK_EXC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PERCENTRANK.EXC`` - **Statistical:** Returns the rank of a value in a data set as a percentage (0..1, exclusive) of the data set
+	**Statistical:** Returns the rank of a value in a data set as a percentage (0..1, exclusive) of the data set
+
+	In Excel: ``PERCENTRANK.EXC()``
 
 	Returns
 	-------
@@ -3817,7 +4507,9 @@ def PERCENTRANK_EXC(*args: Any, **kwargs: Any) -> Func:
 
 def PERCENTRANK_INC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PERCENTRANK.INC`` - **Statistical:** Returns the percentage rank of a value in a data set
+	**Statistical:** Returns the percentage rank of a value in a data set
+
+	In Excel: ``PERCENTRANK.INC()``
 
 	Returns
 	-------
@@ -3828,7 +4520,9 @@ def PERCENTRANK_INC(*args: Any, **kwargs: Any) -> Func:
 
 def PERCENTRANK(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PERCENTRANK`` - **Compatibility:** Returns the percentage rank of a value in a data set
+	**Compatibility:** Returns the percentage rank of a value in a data set
+
+	In Excel: ``PERCENTRANK()``
 
 	Returns
 	-------
@@ -3839,7 +4533,9 @@ def PERCENTRANK(*args: Any, **kwargs: Any) -> Func:
 
 def PERMUT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PERMUT`` - **Statistical:** Returns the number of permutations for a given number of objects
+	**Statistical:** Returns the number of permutations for a given number of objects
+
+	In Excel: ``PERMUT()``
 
 	Returns
 	-------
@@ -3850,7 +4546,9 @@ def PERMUT(*args: Any, **kwargs: Any) -> Func:
 
 def PERMUTATIONA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PERMUTATIONA`` - **Statistical:** Returns the number of permutations for a given number of objects (with repetitions) that can be selected from the total objects
+	**Statistical:** Returns the number of permutations for a given number of objects (with repetitions) that can be selected from the total objects
+
+	In Excel: ``PERMUTATIONA()``
 
 	Returns
 	-------
@@ -3861,7 +4559,9 @@ def PERMUTATIONA(*args: Any, **kwargs: Any) -> Func:
 
 def PHI(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PHI`` - **Statistical:** Returns the value of the density function for a standard normal distribution
+	**Statistical:** Returns the value of the density function for a standard normal distribution
+
+	In Excel: ``PHI()``
 
 	Returns
 	-------
@@ -3872,7 +4572,9 @@ def PHI(*args: Any, **kwargs: Any) -> Func:
 
 def PHONETIC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PHONETIC`` - **Text:** Extracts the phonetic (furigana) characters from a text string
+	**Text:** Extracts the phonetic (furigana) characters from a text string
+
+	In Excel: ``PHONETIC()``
 
 	Returns
 	-------
@@ -3883,7 +4585,9 @@ def PHONETIC(*args: Any, **kwargs: Any) -> Func:
 
 def PI(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PI`` - **Math and trigonometry:** Returns the value of pi
+	**Math and trigonometry:** Returns the value of pi
+
+	In Excel: ``PI()``
 
 	Returns
 	-------
@@ -3894,7 +4598,9 @@ def PI(*args: Any, **kwargs: Any) -> Func:
 
 def PMT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PMT`` - **Financial:** Returns the periodic payment for an annuity
+	**Financial:** Returns the periodic payment for an annuity
+
+	In Excel: ``PMT()``
 
 	Returns
 	-------
@@ -3905,7 +4611,9 @@ def PMT(*args: Any, **kwargs: Any) -> Func:
 
 def POISSON_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``POISSON.DIST`` - **Statistical:** Returns the Poisson distribution
+	**Statistical:** Returns the Poisson distribution
+
+	In Excel: ``POISSON.DIST()``
 
 	Returns
 	-------
@@ -3916,7 +4624,9 @@ def POISSON_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def POISSON(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``POISSON`` - **Compatibility:** Returns the Poisson distribution
+	**Compatibility:** Returns the Poisson distribution
+
+	In Excel: ``POISSON()``
 
 	Returns
 	-------
@@ -3927,7 +4637,9 @@ def POISSON(*args: Any, **kwargs: Any) -> Func:
 
 def POWER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``POWER`` - **Math and trigonometry:** Returns the result of a number raised to a power
+	**Math and trigonometry:** Returns the result of a number raised to a power
+
+	In Excel: ``POWER()``
 
 	Returns
 	-------
@@ -3938,7 +4650,9 @@ def POWER(*args: Any, **kwargs: Any) -> Func:
 
 def PPMT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PPMT`` - **Financial:** Returns the payment on the principal for an investment for a given period
+	**Financial:** Returns the payment on the principal for an investment for a given period
+
+	In Excel: ``PPMT()``
 
 	Returns
 	-------
@@ -3949,7 +4663,9 @@ def PPMT(*args: Any, **kwargs: Any) -> Func:
 
 def PRICE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PRICE`` - **Financial:** Returns the price per $100 face value of a security that pays periodic interest
+	**Financial:** Returns the price per $100 face value of a security that pays periodic interest
+
+	In Excel: ``PRICE()``
 
 	Returns
 	-------
@@ -3960,7 +4676,9 @@ def PRICE(*args: Any, **kwargs: Any) -> Func:
 
 def PRICEDISC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PRICEDISC`` - **Financial:** Returns the price per $100 face value of a discounted security
+	**Financial:** Returns the price per $100 face value of a discounted security
+
+	In Excel: ``PRICEDISC()``
 
 	Returns
 	-------
@@ -3971,7 +4689,9 @@ def PRICEDISC(*args: Any, **kwargs: Any) -> Func:
 
 def PRICEMAT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PRICEMAT`` - **Financial:** Returns the price per $100 face value of a security that pays interest at maturity
+	**Financial:** Returns the price per $100 face value of a security that pays interest at maturity
+
+	In Excel: ``PRICEMAT()``
 
 	Returns
 	-------
@@ -3982,7 +4702,9 @@ def PRICEMAT(*args: Any, **kwargs: Any) -> Func:
 
 def PROB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PROB`` - **Statistical:** Returns the probability that values in a range are between two limits
+	**Statistical:** Returns the probability that values in a range are between two limits
+
+	In Excel: ``PROB()``
 
 	Returns
 	-------
@@ -3993,7 +4715,9 @@ def PROB(*args: Any, **kwargs: Any) -> Func:
 
 def PRODUCT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PRODUCT`` - **Math and trigonometry:** Multiplies its arguments
+	**Math and trigonometry:** Multiplies its arguments
+
+	In Excel: ``PRODUCT()``
 
 	Returns
 	-------
@@ -4004,7 +4728,9 @@ def PRODUCT(*args: Any, **kwargs: Any) -> Func:
 
 def PROPER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PROPER`` - **Text:** Capitalizes the first letter in each word of a text value
+	**Text:** Capitalizes the first letter in each word of a text value
+
+	In Excel: ``PROPER()``
 
 	Returns
 	-------
@@ -4015,7 +4741,9 @@ def PROPER(*args: Any, **kwargs: Any) -> Func:
 
 def PV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``PV`` - **Financial:** Returns the present value of an investment
+	**Financial:** Returns the present value of an investment
+
+	In Excel: ``PV()``
 
 	Returns
 	-------
@@ -4026,7 +4754,9 @@ def PV(*args: Any, **kwargs: Any) -> Func:
 
 def QUARTILE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``QUARTILE`` - **Compatibility:** Returns the quartile of a data set
+	**Compatibility:** Returns the quartile of a data set
+
+	In Excel: ``QUARTILE()``
 
 	Returns
 	-------
@@ -4037,7 +4767,9 @@ def QUARTILE(*args: Any, **kwargs: Any) -> Func:
 
 def QUARTILE_EXC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``QUARTILE.EXC`` - **Statistical:** Returns the quartile of the data set, based on percentile values from 0..1, exclusive
+	**Statistical:** Returns the quartile of the data set, based on percentile values from 0..1, exclusive
+
+	In Excel: ``QUARTILE.EXC()``
 
 	Returns
 	-------
@@ -4048,7 +4780,9 @@ def QUARTILE_EXC(*args: Any, **kwargs: Any) -> Func:
 
 def QUARTILE_INC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``QUARTILE.INC`` - **Statistical:** Returns the quartile of a data set
+	**Statistical:** Returns the quartile of a data set
+
+	In Excel: ``QUARTILE.INC()``
 
 	Returns
 	-------
@@ -4059,7 +4793,9 @@ def QUARTILE_INC(*args: Any, **kwargs: Any) -> Func:
 
 def QUOTIENT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``QUOTIENT`` - **Math and trigonometry:** Returns the integer portion of a division
+	**Math and trigonometry:** Returns the integer portion of a division
+
+	In Excel: ``QUOTIENT()``
 
 	Returns
 	-------
@@ -4070,7 +4806,9 @@ def QUOTIENT(*args: Any, **kwargs: Any) -> Func:
 
 def RADIANS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RADIANS`` - **Math and trigonometry:** Converts degrees to radians
+	**Math and trigonometry:** Converts degrees to radians
+
+	In Excel: ``RADIANS()``
 
 	Returns
 	-------
@@ -4081,7 +4819,9 @@ def RADIANS(*args: Any, **kwargs: Any) -> Func:
 
 def RAND(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RAND`` - **Math and trigonometry:** Returns a random number between 0 and 1
+	**Math and trigonometry:** Returns a random number between 0 and 1
+
+	In Excel: ``RAND()``
 
 	Returns
 	-------
@@ -4092,7 +4832,9 @@ def RAND(*args: Any, **kwargs: Any) -> Func:
 
 def RANDARRAY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RANDARRAY`` - **Math and trigonometry:** Returns an array of random numbers between 0 and 1. However, you can specify the number of rows and columns to fill, minimum and maximum values, and whether to return whole numbers or decimal values.
+	**Math and trigonometry:** Returns an array of random numbers between 0 and 1. However, you can specify the number of rows and columns to fill, minimum and maximum values, and whether to return whole numbers or decimal values.
+
+	In Excel: ``RANDARRAY()``
 
 	Returns
 	-------
@@ -4103,7 +4845,9 @@ def RANDARRAY(*args: Any, **kwargs: Any) -> Func:
 
 def RANDBETWEEN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RANDBETWEEN`` - **Math and trigonometry:** Returns a random number between the numbers you specify
+	**Math and trigonometry:** Returns a random number between the numbers you specify
+
+	In Excel: ``RANDBETWEEN()``
 
 	Returns
 	-------
@@ -4114,7 +4858,9 @@ def RANDBETWEEN(*args: Any, **kwargs: Any) -> Func:
 
 def RANK_AVG(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RANK.AVG`` - **Statistical:** Returns the rank of a number in a list of numbers
+	**Statistical:** Returns the rank of a number in a list of numbers
+
+	In Excel: ``RANK.AVG()``
 
 	Returns
 	-------
@@ -4125,7 +4871,9 @@ def RANK_AVG(*args: Any, **kwargs: Any) -> Func:
 
 def RANK_EQ(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RANK.EQ`` - **Statistical:** Returns the rank of a number in a list of numbers
+	**Statistical:** Returns the rank of a number in a list of numbers
+
+	In Excel: ``RANK.EQ()``
 
 	Returns
 	-------
@@ -4136,7 +4884,9 @@ def RANK_EQ(*args: Any, **kwargs: Any) -> Func:
 
 def RANK(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RANK`` - **Compatibility:** Returns the rank of a number in a list of numbers
+	**Compatibility:** Returns the rank of a number in a list of numbers
+
+	In Excel: ``RANK()``
 
 	Returns
 	-------
@@ -4147,7 +4897,9 @@ def RANK(*args: Any, **kwargs: Any) -> Func:
 
 def RATE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RATE`` - **Financial:** Returns the interest rate per period of an annuity
+	**Financial:** Returns the interest rate per period of an annuity
+
+	In Excel: ``RATE()``
 
 	Returns
 	-------
@@ -4158,7 +4910,9 @@ def RATE(*args: Any, **kwargs: Any) -> Func:
 
 def RECEIVED(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RECEIVED`` - **Financial:** Returns the amount received at maturity for a fully invested security
+	**Financial:** Returns the amount received at maturity for a fully invested security
+
+	In Excel: ``RECEIVED()``
 
 	Returns
 	-------
@@ -4169,7 +4923,9 @@ def RECEIVED(*args: Any, **kwargs: Any) -> Func:
 
 def REDUCE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``REDUCE`` - **Logical:** Reduces an array to an accumulated value by applying a LAMBDA to each value and returning the total value in the accumulator
+	**Logical:** Reduces an array to an accumulated value by applying a LAMBDA to each value and returning the total value in the accumulator
+
+	In Excel: ``REDUCE()``
 
 	Returns
 	-------
@@ -4180,7 +4936,9 @@ def REDUCE(*args: Any, **kwargs: Any) -> Func:
 
 def REGISTER_ID(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``REGISTER.ID`` - **Add-in and Automation:** Returns the register ID of the specified dynamic link library (DLL) or code resource that has been previously registered
+	**Add-in and Automation:** Returns the register ID of the specified dynamic link library (DLL) or code resource that has been previously registered
+
+	In Excel: ``REGISTER.ID()``
 
 	Returns
 	-------
@@ -4191,7 +4949,9 @@ def REGISTER_ID(*args: Any, **kwargs: Any) -> Func:
 
 def REPLACE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``REPLACE`` - **Text:** Replaces characters within text
+	**Text:** Replaces characters within text
+
+	In Excel: ``REPLACE()``
 
 	Returns
 	-------
@@ -4202,7 +4962,9 @@ def REPLACE(*args: Any, **kwargs: Any) -> Func:
 
 def REPLACEB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``REPLACEB`` - **Text:** Replaces characters within text
+	**Text:** Replaces characters within text
+
+	In Excel: ``REPLACEB()``
 
 	Returns
 	-------
@@ -4213,7 +4975,9 @@ def REPLACEB(*args: Any, **kwargs: Any) -> Func:
 
 def REPT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``REPT`` - **Text:** Repeats text a given number of times
+	**Text:** Repeats text a given number of times
+
+	In Excel: ``REPT()``
 
 	Returns
 	-------
@@ -4224,7 +4988,9 @@ def REPT(*args: Any, **kwargs: Any) -> Func:
 
 def RIGHT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RIGHT`` - **Text:** Returns the rightmost characters from a text value
+	**Text:** Returns the rightmost characters from a text value
+
+	In Excel: ``RIGHT()``
 
 	Returns
 	-------
@@ -4235,7 +5001,9 @@ def RIGHT(*args: Any, **kwargs: Any) -> Func:
 
 def RIGHTB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RIGHTB`` - **Text:** Returns the rightmost characters from a text value
+	**Text:** Returns the rightmost characters from a text value
+
+	In Excel: ``RIGHTB()``
 
 	Returns
 	-------
@@ -4246,7 +5014,9 @@ def RIGHTB(*args: Any, **kwargs: Any) -> Func:
 
 def ROMAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ROMAN`` - **Math and trigonometry:** Converts an arabic numeral to roman, as text
+	**Math and trigonometry:** Converts an arabic numeral to roman, as text
+
+	In Excel: ``ROMAN()``
 
 	Returns
 	-------
@@ -4257,7 +5027,9 @@ def ROMAN(*args: Any, **kwargs: Any) -> Func:
 
 def ROUND(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ROUND`` - **Math and trigonometry:** Rounds a number to a specified number of digits
+	**Math and trigonometry:** Rounds a number to a specified number of digits
+
+	In Excel: ``ROUND()``
 
 	Returns
 	-------
@@ -4268,7 +5040,9 @@ def ROUND(*args: Any, **kwargs: Any) -> Func:
 
 def ROUNDDOWN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ROUNDDOWN`` - **Math and trigonometry:** Rounds a number down, toward zero
+	**Math and trigonometry:** Rounds a number down, toward zero
+
+	In Excel: ``ROUNDDOWN()``
 
 	Returns
 	-------
@@ -4279,7 +5053,9 @@ def ROUNDDOWN(*args: Any, **kwargs: Any) -> Func:
 
 def ROUNDUP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ROUNDUP`` - **Math and trigonometry:** Rounds a number up, away from zero
+	**Math and trigonometry:** Rounds a number up, away from zero
+
+	In Excel: ``ROUNDUP()``
 
 	Returns
 	-------
@@ -4290,7 +5066,9 @@ def ROUNDUP(*args: Any, **kwargs: Any) -> Func:
 
 def ROW(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ROW`` - **Lookup and reference:** Returns the row number of a reference
+	**Lookup and reference:** Returns the row number of a reference
+
+	In Excel: ``ROW()``
 
 	Returns
 	-------
@@ -4301,7 +5079,9 @@ def ROW(*args: Any, **kwargs: Any) -> Func:
 
 def ROWS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ROWS`` - **Lookup and reference:** Returns the number of rows in a reference
+	**Lookup and reference:** Returns the number of rows in a reference
+
+	In Excel: ``ROWS()``
 
 	Returns
 	-------
@@ -4312,7 +5092,9 @@ def ROWS(*args: Any, **kwargs: Any) -> Func:
 
 def RRI(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RRI`` - **Financial:** Returns an equivalent interest rate for the growth of an investment
+	**Financial:** Returns an equivalent interest rate for the growth of an investment
+
+	In Excel: ``RRI()``
 
 	Returns
 	-------
@@ -4323,7 +5105,9 @@ def RRI(*args: Any, **kwargs: Any) -> Func:
 
 def RSQ(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RSQ`` - **Statistical:** Returns the square of the Pearson product moment correlation coefficient
+	**Statistical:** Returns the square of the Pearson product moment correlation coefficient
+
+	In Excel: ``RSQ()``
 
 	Returns
 	-------
@@ -4334,7 +5118,9 @@ def RSQ(*args: Any, **kwargs: Any) -> Func:
 
 def RTD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``RTD`` - **Lookup and reference:** Retrieves real-time data from a program that supports COM automation
+	**Lookup and reference:** Retrieves real-time data from a program that supports COM automation
+
+	In Excel: ``RTD()``
 
 	Returns
 	-------
@@ -4345,7 +5131,9 @@ def RTD(*args: Any, **kwargs: Any) -> Func:
 
 def SCAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SCAN`` - **Logical:** Scans an array by applying a LAMBDA to each value and returns an array that has each intermediate value
+	**Logical:** Scans an array by applying a LAMBDA to each value and returns an array that has each intermediate value
+
+	In Excel: ``SCAN()``
 
 	Returns
 	-------
@@ -4356,7 +5144,9 @@ def SCAN(*args: Any, **kwargs: Any) -> Func:
 
 def SEARCH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SEARCH`` - **Text:** Finds one text value within another (not case-sensitive)
+	**Text:** Finds one text value within another (not case-sensitive)
+
+	In Excel: ``SEARCH()``
 
 	Returns
 	-------
@@ -4367,7 +5157,9 @@ def SEARCH(*args: Any, **kwargs: Any) -> Func:
 
 def SEARCHB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SEARCHB`` - **Text:** Finds one text value within another (not case-sensitive)
+	**Text:** Finds one text value within another (not case-sensitive)
+
+	In Excel: ``SEARCHB()``
 
 	Returns
 	-------
@@ -4378,7 +5170,9 @@ def SEARCHB(*args: Any, **kwargs: Any) -> Func:
 
 def SEC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SEC`` - **Math and trigonometry:** Returns the secant of an angle
+	**Math and trigonometry:** Returns the secant of an angle
+
+	In Excel: ``SEC()``
 
 	Returns
 	-------
@@ -4389,7 +5183,9 @@ def SEC(*args: Any, **kwargs: Any) -> Func:
 
 def SECH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SECH`` - **Math and trigonometry:** Returns the hyperbolic secant of an angle
+	**Math and trigonometry:** Returns the hyperbolic secant of an angle
+
+	In Excel: ``SECH()``
 
 	Returns
 	-------
@@ -4400,7 +5196,9 @@ def SECH(*args: Any, **kwargs: Any) -> Func:
 
 def SECOND(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SECOND`` - **Date and time:** Converts a serial number to a second
+	**Date and time:** Converts a serial number to a second
+
+	In Excel: ``SECOND()``
 
 	Returns
 	-------
@@ -4411,7 +5209,9 @@ def SECOND(*args: Any, **kwargs: Any) -> Func:
 
 def SEQUENCE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SEQUENCE`` - **Math and trigonometry:** Generates a list of sequential numbers in an array, such as 1, 2, 3, 4
+	**Math and trigonometry:** Generates a list of sequential numbers in an array, such as 1, 2, 3, 4
+
+	In Excel: ``SEQUENCE()``
 
 	Returns
 	-------
@@ -4422,7 +5222,9 @@ def SEQUENCE(*args: Any, **kwargs: Any) -> Func:
 
 def SERIESSUM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SERIESSUM`` - **Math and trigonometry:** Returns the sum of a power series based on the formula
+	**Math and trigonometry:** Returns the sum of a power series based on the formula
+
+	In Excel: ``SERIESSUM()``
 
 	Returns
 	-------
@@ -4433,7 +5235,9 @@ def SERIESSUM(*args: Any, **kwargs: Any) -> Func:
 
 def SHEET(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SHEET`` - **Information:** Returns the sheet number of the referenced sheet
+	**Information:** Returns the sheet number of the referenced sheet
+
+	In Excel: ``SHEET()``
 
 	Returns
 	-------
@@ -4444,7 +5248,9 @@ def SHEET(*args: Any, **kwargs: Any) -> Func:
 
 def SHEETS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SHEETS`` - **Information:** Returns the number of sheets in a reference
+	**Information:** Returns the number of sheets in a reference
+
+	In Excel: ``SHEETS()``
 
 	Returns
 	-------
@@ -4455,7 +5261,9 @@ def SHEETS(*args: Any, **kwargs: Any) -> Func:
 
 def SIGN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SIGN`` - **Math and trigonometry:** Returns the sign of a number
+	**Math and trigonometry:** Returns the sign of a number
+
+	In Excel: ``SIGN()``
 
 	Returns
 	-------
@@ -4466,7 +5274,9 @@ def SIGN(*args: Any, **kwargs: Any) -> Func:
 
 def SIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SIN`` - **Math and trigonometry:** Returns the sine of the given angle
+	**Math and trigonometry:** Returns the sine of the given angle
+
+	In Excel: ``SIN()``
 
 	Returns
 	-------
@@ -4477,7 +5287,9 @@ def SIN(*args: Any, **kwargs: Any) -> Func:
 
 def SINH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SINH`` - **Math and trigonometry:** Returns the hyperbolic sine of a number
+	**Math and trigonometry:** Returns the hyperbolic sine of a number
+
+	In Excel: ``SINH()``
 
 	Returns
 	-------
@@ -4488,7 +5300,9 @@ def SINH(*args: Any, **kwargs: Any) -> Func:
 
 def SKEW(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SKEW`` - **Statistical:** Returns the skewness of a distribution
+	**Statistical:** Returns the skewness of a distribution
+
+	In Excel: ``SKEW()``
 
 	Returns
 	-------
@@ -4499,7 +5313,9 @@ def SKEW(*args: Any, **kwargs: Any) -> Func:
 
 def SKEW_P(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SKEW.P`` - **Statistical:** Returns the skewness of a distribution based on a population: a characterization of the degree of asymmetry of a distribution around its mean
+	**Statistical:** Returns the skewness of a distribution based on a population: a characterization of the degree of asymmetry of a distribution around its mean
+
+	In Excel: ``SKEW.P()``
 
 	Returns
 	-------
@@ -4510,7 +5326,9 @@ def SKEW_P(*args: Any, **kwargs: Any) -> Func:
 
 def SLN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SLN`` - **Financial:** Returns the straight-line depreciation of an asset for one period
+	**Financial:** Returns the straight-line depreciation of an asset for one period
+
+	In Excel: ``SLN()``
 
 	Returns
 	-------
@@ -4521,7 +5339,9 @@ def SLN(*args: Any, **kwargs: Any) -> Func:
 
 def SLOPE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SLOPE`` - **Statistical:** Returns the slope of the linear regression line
+	**Statistical:** Returns the slope of the linear regression line
+
+	In Excel: ``SLOPE()``
 
 	Returns
 	-------
@@ -4532,7 +5352,9 @@ def SLOPE(*args: Any, **kwargs: Any) -> Func:
 
 def SMALL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SMALL`` - **Statistical:** Returns the k-th smallest value in a data set
+	**Statistical:** Returns the k-th smallest value in a data set
+
+	In Excel: ``SMALL()``
 
 	Returns
 	-------
@@ -4543,7 +5365,9 @@ def SMALL(*args: Any, **kwargs: Any) -> Func:
 
 def SORT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SORT`` - **Lookup and reference:** Sorts the contents of a range or array
+	**Lookup and reference:** Sorts the contents of a range or array
+
+	In Excel: ``SORT()``
 
 	Returns
 	-------
@@ -4554,7 +5378,9 @@ def SORT(*args: Any, **kwargs: Any) -> Func:
 
 def SORTBY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SORTBY`` - **Lookup and reference:** Sorts the contents of a range or array based on the values in a corresponding range or array
+	**Lookup and reference:** Sorts the contents of a range or array based on the values in a corresponding range or array
+
+	In Excel: ``SORTBY()``
 
 	Returns
 	-------
@@ -4565,7 +5391,9 @@ def SORTBY(*args: Any, **kwargs: Any) -> Func:
 
 def SQRT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SQRT`` - **Math and trigonometry:** Returns a positive square root
+	**Math and trigonometry:** Returns a positive square root
+
+	In Excel: ``SQRT()``
 
 	Returns
 	-------
@@ -4576,7 +5404,9 @@ def SQRT(*args: Any, **kwargs: Any) -> Func:
 
 def SQRTPI(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SQRTPI`` - **Math and trigonometry:** Returns the square root of (number * pi)
+	**Math and trigonometry:** Returns the square root of (number * pi)
+
+	In Excel: ``SQRTPI()``
 
 	Returns
 	-------
@@ -4587,7 +5417,9 @@ def SQRTPI(*args: Any, **kwargs: Any) -> Func:
 
 def STANDARDIZE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``STANDARDIZE`` - **Statistical:** Returns a normalized value
+	**Statistical:** Returns a normalized value
+
+	In Excel: ``STANDARDIZE()``
 
 	Returns
 	-------
@@ -4598,7 +5430,9 @@ def STANDARDIZE(*args: Any, **kwargs: Any) -> Func:
 
 def STOCKHISTORY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``STOCKHISTORY`` - **Financial:** Retrieves historical data about a financial instrument
+	**Financial:** Retrieves historical data about a financial instrument
+
+	In Excel: ``STOCKHISTORY()``
 
 	Returns
 	-------
@@ -4609,7 +5443,9 @@ def STOCKHISTORY(*args: Any, **kwargs: Any) -> Func:
 
 def STDEV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``STDEV`` - **Compatibility:** Estimates standard deviation based on a sample
+	**Compatibility:** Estimates standard deviation based on a sample
+
+	In Excel: ``STDEV()``
 
 	Returns
 	-------
@@ -4620,7 +5456,9 @@ def STDEV(*args: Any, **kwargs: Any) -> Func:
 
 def STDEV_P(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``STDEV.P`` - **Statistical:** Calculates standard deviation based on the entire population
+	**Statistical:** Calculates standard deviation based on the entire population
+
+	In Excel: ``STDEV.P()``
 
 	Returns
 	-------
@@ -4631,7 +5469,9 @@ def STDEV_P(*args: Any, **kwargs: Any) -> Func:
 
 def STDEV_S(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``STDEV.S`` - **Statistical:** Estimates standard deviation based on a sample
+	**Statistical:** Estimates standard deviation based on a sample
+
+	In Excel: ``STDEV.S()``
 
 	Returns
 	-------
@@ -4642,7 +5482,9 @@ def STDEV_S(*args: Any, **kwargs: Any) -> Func:
 
 def STDEVA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``STDEVA`` - **Statistical:** Estimates standard deviation based on a sample, including numbers, text, and logical values
+	**Statistical:** Estimates standard deviation based on a sample, including numbers, text, and logical values
+
+	In Excel: ``STDEVA()``
 
 	Returns
 	-------
@@ -4653,7 +5495,9 @@ def STDEVA(*args: Any, **kwargs: Any) -> Func:
 
 def STDEVP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``STDEVP`` - **Compatibility:** Calculates standard deviation based on the entire population
+	**Compatibility:** Calculates standard deviation based on the entire population
+
+	In Excel: ``STDEVP()``
 
 	Returns
 	-------
@@ -4664,7 +5508,9 @@ def STDEVP(*args: Any, **kwargs: Any) -> Func:
 
 def STDEVPA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``STDEVPA`` - **Statistical:** Calculates standard deviation based on the entire population, including numbers, text, and logical values
+	**Statistical:** Calculates standard deviation based on the entire population, including numbers, text, and logical values
+
+	In Excel: ``STDEVPA()``
 
 	Returns
 	-------
@@ -4675,7 +5521,9 @@ def STDEVPA(*args: Any, **kwargs: Any) -> Func:
 
 def STEYX(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``STEYX`` - **Statistical:** Returns the standard error of the predicted y-value for each x in the regression
+	**Statistical:** Returns the standard error of the predicted y-value for each x in the regression
+
+	In Excel: ``STEYX()``
 
 	Returns
 	-------
@@ -4686,7 +5534,9 @@ def STEYX(*args: Any, **kwargs: Any) -> Func:
 
 def SUBSTITUTE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUBSTITUTE`` - **Text:** Substitutes new text for old text in a text string
+	**Text:** Substitutes new text for old text in a text string
+
+	In Excel: ``SUBSTITUTE()``
 
 	Returns
 	-------
@@ -4697,7 +5547,9 @@ def SUBSTITUTE(*args: Any, **kwargs: Any) -> Func:
 
 def SUBTOTAL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUBTOTAL`` - **Math and trigonometry:** Returns a subtotal in a list or database
+	**Math and trigonometry:** Returns a subtotal in a list or database
+
+	In Excel: ``SUBTOTAL()``
 
 	Returns
 	-------
@@ -4708,7 +5560,9 @@ def SUBTOTAL(*args: Any, **kwargs: Any) -> Func:
 
 def SUM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUM`` - **Math and trigonometry:** Adds its arguments
+	**Math and trigonometry:** Adds its arguments
+
+	In Excel: ``SUM()``
 
 	Returns
 	-------
@@ -4719,7 +5573,9 @@ def SUM(*args: Any, **kwargs: Any) -> Func:
 
 def SUMIF(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUMIF`` - **Math and trigonometry:** Adds the cells specified by a given criteria
+	**Math and trigonometry:** Adds the cells specified by a given criteria
+
+	In Excel: ``SUMIF()``
 
 	Returns
 	-------
@@ -4730,7 +5586,9 @@ def SUMIF(*args: Any, **kwargs: Any) -> Func:
 
 def SUMIFS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUMIFS`` - **Math and trigonometry:** Adds the cells in a range that meet multiple criteria
+	**Math and trigonometry:** Adds the cells in a range that meet multiple criteria
+
+	In Excel: ``SUMIFS()``
 
 	Returns
 	-------
@@ -4741,7 +5599,9 @@ def SUMIFS(*args: Any, **kwargs: Any) -> Func:
 
 def SUMPRODUCT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUMPRODUCT`` - **Math and trigonometry:** Returns the sum of the products of corresponding array components
+	**Math and trigonometry:** Returns the sum of the products of corresponding array components
+
+	In Excel: ``SUMPRODUCT()``
 
 	Returns
 	-------
@@ -4752,7 +5612,9 @@ def SUMPRODUCT(*args: Any, **kwargs: Any) -> Func:
 
 def SUMSQ(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUMSQ`` - **Math and trigonometry:** Returns the sum of the squares of the arguments
+	**Math and trigonometry:** Returns the sum of the squares of the arguments
+
+	In Excel: ``SUMSQ()``
 
 	Returns
 	-------
@@ -4763,7 +5625,9 @@ def SUMSQ(*args: Any, **kwargs: Any) -> Func:
 
 def SUMX2MY2(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUMX2MY2`` - **Math and trigonometry:** Returns the sum of the difference of squares of corresponding values in two arrays
+	**Math and trigonometry:** Returns the sum of the difference of squares of corresponding values in two arrays
+
+	In Excel: ``SUMX2MY2()``
 
 	Returns
 	-------
@@ -4774,7 +5638,9 @@ def SUMX2MY2(*args: Any, **kwargs: Any) -> Func:
 
 def SUMX2PY2(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUMX2PY2`` - **Math and trigonometry:** Returns the sum of the sum of squares of corresponding values in two arrays
+	**Math and trigonometry:** Returns the sum of the sum of squares of corresponding values in two arrays
+
+	In Excel: ``SUMX2PY2()``
 
 	Returns
 	-------
@@ -4785,7 +5651,9 @@ def SUMX2PY2(*args: Any, **kwargs: Any) -> Func:
 
 def SUMXMY2(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SUMXMY2`` - **Math and trigonometry:** Returns the sum of squares of differences of corresponding values in two arrays
+	**Math and trigonometry:** Returns the sum of squares of differences of corresponding values in two arrays
+
+	In Excel: ``SUMXMY2()``
 
 	Returns
 	-------
@@ -4796,7 +5664,9 @@ def SUMXMY2(*args: Any, **kwargs: Any) -> Func:
 
 def SWITCH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SWITCH`` - **Logical:** Evaluates an expression against a list of values and returns the result corresponding to the first matching value. If there is no match, an optional default value may be returned.
+	**Logical:** Evaluates an expression against a list of values and returns the result corresponding to the first matching value. If there is no match, an optional default value may be returned.
+
+	In Excel: ``SWITCH()``
 
 	Returns
 	-------
@@ -4807,7 +5677,9 @@ def SWITCH(*args: Any, **kwargs: Any) -> Func:
 
 def SYD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``SYD`` - **Financial:** Returns the sum-of-years' digits depreciation of an asset for a specified period
+	**Financial:** Returns the sum-of-years' digits depreciation of an asset for a specified period
+
+	In Excel: ``SYD()``
 
 	Returns
 	-------
@@ -4818,7 +5690,9 @@ def SYD(*args: Any, **kwargs: Any) -> Func:
 
 def T(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``T`` - **Text:** Converts its arguments to text
+	**Text:** Converts its arguments to text
+
+	In Excel: ``T()``
 
 	Returns
 	-------
@@ -4829,7 +5703,9 @@ def T(*args: Any, **kwargs: Any) -> Func:
 
 def TAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TAN`` - **Math and trigonometry:** Returns the tangent of a number
+	**Math and trigonometry:** Returns the tangent of a number
+
+	In Excel: ``TAN()``
 
 	Returns
 	-------
@@ -4840,7 +5716,9 @@ def TAN(*args: Any, **kwargs: Any) -> Func:
 
 def TANH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TANH`` - **Math and trigonometry:** Returns the hyperbolic tangent of a number
+	**Math and trigonometry:** Returns the hyperbolic tangent of a number
+
+	In Excel: ``TANH()``
 
 	Returns
 	-------
@@ -4851,7 +5729,9 @@ def TANH(*args: Any, **kwargs: Any) -> Func:
 
 def TAKE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TAKE`` - **Lookup and reference:** Returns a specified number of contiguous rows or columns from the start or end of an array
+	**Lookup and reference:** Returns a specified number of contiguous rows or columns from the start or end of an array
+
+	In Excel: ``TAKE()``
 
 	Returns
 	-------
@@ -4862,7 +5742,9 @@ def TAKE(*args: Any, **kwargs: Any) -> Func:
 
 def TBILLEQ(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TBILLEQ`` - **Financial:** Returns the bond-equivalent yield for a Treasury bill
+	**Financial:** Returns the bond-equivalent yield for a Treasury bill
+
+	In Excel: ``TBILLEQ()``
 
 	Returns
 	-------
@@ -4873,7 +5755,9 @@ def TBILLEQ(*args: Any, **kwargs: Any) -> Func:
 
 def TBILLPRICE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TBILLPRICE`` - **Financial:** Returns the price per $100 face value for a Treasury bill
+	**Financial:** Returns the price per $100 face value for a Treasury bill
+
+	In Excel: ``TBILLPRICE()``
 
 	Returns
 	-------
@@ -4884,7 +5768,9 @@ def TBILLPRICE(*args: Any, **kwargs: Any) -> Func:
 
 def TBILLYIELD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TBILLYIELD`` - **Financial:** Returns the yield for a Treasury bill
+	**Financial:** Returns the yield for a Treasury bill
+
+	In Excel: ``TBILLYIELD()``
 
 	Returns
 	-------
@@ -4895,7 +5781,9 @@ def TBILLYIELD(*args: Any, **kwargs: Any) -> Func:
 
 def T_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``T.DIST`` - **Statistical:** Returns the Percentage Points (probability) for the Student t-distribution
+	**Statistical:** Returns the Percentage Points (probability) for the Student t-distribution
+
+	In Excel: ``T.DIST()``
 
 	Returns
 	-------
@@ -4906,7 +5794,9 @@ def T_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def T_DIST_2T(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``T.DIST.2T`` - **Statistical:** Returns the Percentage Points (probability) for the Student t-distribution
+	**Statistical:** Returns the Percentage Points (probability) for the Student t-distribution
+
+	In Excel: ``T.DIST.2T()``
 
 	Returns
 	-------
@@ -4917,7 +5807,9 @@ def T_DIST_2T(*args: Any, **kwargs: Any) -> Func:
 
 def T_DIST_RT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``T.DIST.RT`` - **Statistical:** Returns the Student's t-distribution
+	**Statistical:** Returns the Student's t-distribution
+
+	In Excel: ``T.DIST.RT()``
 
 	Returns
 	-------
@@ -4928,7 +5820,9 @@ def T_DIST_RT(*args: Any, **kwargs: Any) -> Func:
 
 def TDIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TDIST`` - **Compatibility:** Returns the Student's t-distribution
+	**Compatibility:** Returns the Student's t-distribution
+
+	In Excel: ``TDIST()``
 
 	Returns
 	-------
@@ -4939,7 +5833,9 @@ def TDIST(*args: Any, **kwargs: Any) -> Func:
 
 def TEXT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TEXT`` - **Text:** Formats a number and converts it to text
+	**Text:** Formats a number and converts it to text
+
+	In Excel: ``TEXT()``
 
 	Returns
 	-------
@@ -4950,7 +5846,9 @@ def TEXT(*args: Any, **kwargs: Any) -> Func:
 
 def TEXTAFTER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TEXTAFTER`` - **Text:** Returns text that occurs after given character or string
+	**Text:** Returns text that occurs after given character or string
+
+	In Excel: ``TEXTAFTER()``
 
 	Returns
 	-------
@@ -4961,7 +5859,9 @@ def TEXTAFTER(*args: Any, **kwargs: Any) -> Func:
 
 def TEXTBEFORE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TEXTBEFORE`` - **Text:** Returns text that occurs before a given character or string
+	**Text:** Returns text that occurs before a given character or string
+
+	In Excel: ``TEXTBEFORE()``
 
 	Returns
 	-------
@@ -4972,7 +5872,9 @@ def TEXTBEFORE(*args: Any, **kwargs: Any) -> Func:
 
 def TEXTJOIN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TEXTJOIN`` - **Text:** Combines the text from multiple ranges and/or strings
+	**Text:** Combines the text from multiple ranges and/or strings
+
+	In Excel: ``TEXTJOIN()``
 
 	Returns
 	-------
@@ -4983,7 +5885,9 @@ def TEXTJOIN(*args: Any, **kwargs: Any) -> Func:
 
 def TEXTSPLIT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TEXTSPLIT`` - **Text:** Splits text strings by using column and row delimiters
+	**Text:** Splits text strings by using column and row delimiters
+
+	In Excel: ``TEXTSPLIT()``
 
 	Returns
 	-------
@@ -4994,7 +5898,9 @@ def TEXTSPLIT(*args: Any, **kwargs: Any) -> Func:
 
 def TIME(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TIME`` - **Date and time:** Returns the serial number of a particular time
+	**Date and time:** Returns the serial number of a particular time
+
+	In Excel: ``TIME()``
 
 	Returns
 	-------
@@ -5005,7 +5911,9 @@ def TIME(*args: Any, **kwargs: Any) -> Func:
 
 def TIMEVALUE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TIMEVALUE`` - **Date and time:** Converts a time in the form of text to a serial number
+	**Date and time:** Converts a time in the form of text to a serial number
+
+	In Excel: ``TIMEVALUE()``
 
 	Returns
 	-------
@@ -5016,7 +5924,9 @@ def TIMEVALUE(*args: Any, **kwargs: Any) -> Func:
 
 def T_INV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``T.INV`` - **Statistical:** Returns the t-value of the Student's t-distribution as a function of the probability and the degrees of freedom
+	**Statistical:** Returns the t-value of the Student's t-distribution as a function of the probability and the degrees of freedom
+
+	In Excel: ``T.INV()``
 
 	Returns
 	-------
@@ -5027,7 +5937,9 @@ def T_INV(*args: Any, **kwargs: Any) -> Func:
 
 def T_INV_2T(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``T.INV.2T`` - **Statistical:** Returns the inverse of the Student's t-distribution
+	**Statistical:** Returns the inverse of the Student's t-distribution
+
+	In Excel: ``T.INV.2T()``
 
 	Returns
 	-------
@@ -5038,7 +5950,9 @@ def T_INV_2T(*args: Any, **kwargs: Any) -> Func:
 
 def TINV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TINV`` - **Compatibility:** Returns the inverse of the Student's t-distribution
+	**Compatibility:** Returns the inverse of the Student's t-distribution
+
+	In Excel: ``TINV()``
 
 	Returns
 	-------
@@ -5049,7 +5963,9 @@ def TINV(*args: Any, **kwargs: Any) -> Func:
 
 def TOCOL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TOCOL`` - **Lookup and reference:** Returns the array in a single column
+	**Lookup and reference:** Returns the array in a single column
+
+	In Excel: ``TOCOL()``
 
 	Returns
 	-------
@@ -5060,7 +5976,9 @@ def TOCOL(*args: Any, **kwargs: Any) -> Func:
 
 def TOROW(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TOROW`` - **Lookup and reference:** Returns the array in a single row
+	**Lookup and reference:** Returns the array in a single row
+
+	In Excel: ``TOROW()``
 
 	Returns
 	-------
@@ -5071,7 +5989,9 @@ def TOROW(*args: Any, **kwargs: Any) -> Func:
 
 def TODAY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TODAY`` - **Date and time:** Returns the serial number of today's date
+	**Date and time:** Returns the serial number of today's date
+
+	In Excel: ``TODAY()``
 
 	Returns
 	-------
@@ -5082,7 +6002,9 @@ def TODAY(*args: Any, **kwargs: Any) -> Func:
 
 def TRANSPOSE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TRANSPOSE`` - **Lookup and reference:** Returns the transpose of an array
+	**Lookup and reference:** Returns the transpose of an array
+
+	In Excel: ``TRANSPOSE()``
 
 	Returns
 	-------
@@ -5093,7 +6015,9 @@ def TRANSPOSE(*args: Any, **kwargs: Any) -> Func:
 
 def TREND(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TREND`` - **Statistical:** Returns values along a linear trend
+	**Statistical:** Returns values along a linear trend
+
+	In Excel: ``TREND()``
 
 	Returns
 	-------
@@ -5104,7 +6028,9 @@ def TREND(*args: Any, **kwargs: Any) -> Func:
 
 def TRIM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TRIM`` - **Text:** Removes spaces from text
+	**Text:** Removes spaces from text
+
+	In Excel: ``TRIM()``
 
 	Returns
 	-------
@@ -5115,7 +6041,9 @@ def TRIM(*args: Any, **kwargs: Any) -> Func:
 
 def TRIMMEAN(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TRIMMEAN`` - **Statistical:** Returns the mean of the interior of a data set
+	**Statistical:** Returns the mean of the interior of a data set
+
+	In Excel: ``TRIMMEAN()``
 
 	Returns
 	-------
@@ -5126,7 +6054,9 @@ def TRIMMEAN(*args: Any, **kwargs: Any) -> Func:
 
 def TRUE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TRUE`` - **Logical:** Returns the logical value TRUE
+	**Logical:** Returns the logical value TRUE
+
+	In Excel: ``TRUE()``
 
 	Returns
 	-------
@@ -5137,7 +6067,9 @@ def TRUE(*args: Any, **kwargs: Any) -> Func:
 
 def TRUNC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TRUNC`` - **Math and trigonometry:** Truncates a number to an integer
+	**Math and trigonometry:** Truncates a number to an integer
+
+	In Excel: ``TRUNC()``
 
 	Returns
 	-------
@@ -5148,7 +6080,9 @@ def TRUNC(*args: Any, **kwargs: Any) -> Func:
 
 def T_TEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``T.TEST`` - **Statistical:** Returns the probability associated with a Student's t-test
+	**Statistical:** Returns the probability associated with a Student's t-test
+
+	In Excel: ``T.TEST()``
 
 	Returns
 	-------
@@ -5159,7 +6093,9 @@ def T_TEST(*args: Any, **kwargs: Any) -> Func:
 
 def TTEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TTEST`` - **Compatibility:** Returns the probability associated with a Student's t-test
+	**Compatibility:** Returns the probability associated with a Student's t-test
+
+	In Excel: ``TTEST()``
 
 	Returns
 	-------
@@ -5170,7 +6106,9 @@ def TTEST(*args: Any, **kwargs: Any) -> Func:
 
 def TYPE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``TYPE`` - **Information:** Returns a number indicating the data type of a value
+	**Information:** Returns a number indicating the data type of a value
+
+	In Excel: ``TYPE()``
 
 	Returns
 	-------
@@ -5181,7 +6119,9 @@ def TYPE(*args: Any, **kwargs: Any) -> Func:
 
 def UNICHAR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``UNICHAR`` - **Text:** Returns the Unicode character that is references by the given numeric value
+	**Text:** Returns the Unicode character that is references by the given numeric value
+
+	In Excel: ``UNICHAR()``
 
 	Returns
 	-------
@@ -5192,7 +6132,9 @@ def UNICHAR(*args: Any, **kwargs: Any) -> Func:
 
 def UNICODE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``UNICODE`` - **Text:** Returns the number (code point) that corresponds to the first character of the text
+	**Text:** Returns the number (code point) that corresponds to the first character of the text
+
+	In Excel: ``UNICODE()``
 
 	Returns
 	-------
@@ -5203,7 +6145,9 @@ def UNICODE(*args: Any, **kwargs: Any) -> Func:
 
 def UNIQUE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``UNIQUE`` - **Lookup and reference:** Returns a list of unique values in a list or range
+	**Lookup and reference:** Returns a list of unique values in a list or range
+
+	In Excel: ``UNIQUE()``
 
 	Returns
 	-------
@@ -5214,7 +6158,9 @@ def UNIQUE(*args: Any, **kwargs: Any) -> Func:
 
 def UPPER(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``UPPER`` - **Text:** Converts text to uppercase
+	**Text:** Converts text to uppercase
+
+	In Excel: ``UPPER()``
 
 	Returns
 	-------
@@ -5225,7 +6171,9 @@ def UPPER(*args: Any, **kwargs: Any) -> Func:
 
 def VALUE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VALUE`` - **Text:** Converts a text argument to a number
+	**Text:** Converts a text argument to a number
+
+	In Excel: ``VALUE()``
 
 	Returns
 	-------
@@ -5236,7 +6184,9 @@ def VALUE(*args: Any, **kwargs: Any) -> Func:
 
 def VALUETOTEXT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VALUETOTEXT`` - **Text:** Returns text from any specified value
+	**Text:** Returns text from any specified value
+
+	In Excel: ``VALUETOTEXT()``
 
 	Returns
 	-------
@@ -5247,7 +6197,9 @@ def VALUETOTEXT(*args: Any, **kwargs: Any) -> Func:
 
 def VAR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VAR`` - **Compatibility:** Estimates variance based on a sample
+	**Compatibility:** Estimates variance based on a sample
+
+	In Excel: ``VAR()``
 
 	Returns
 	-------
@@ -5258,7 +6210,9 @@ def VAR(*args: Any, **kwargs: Any) -> Func:
 
 def VAR_P(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VAR.P`` - **Statistical:** Calculates variance based on the entire population
+	**Statistical:** Calculates variance based on the entire population
+
+	In Excel: ``VAR.P()``
 
 	Returns
 	-------
@@ -5269,7 +6223,9 @@ def VAR_P(*args: Any, **kwargs: Any) -> Func:
 
 def VAR_S(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VAR.S`` - **Statistical:** Estimates variance based on a sample
+	**Statistical:** Estimates variance based on a sample
+
+	In Excel: ``VAR.S()``
 
 	Returns
 	-------
@@ -5280,7 +6236,9 @@ def VAR_S(*args: Any, **kwargs: Any) -> Func:
 
 def VARA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VARA`` - **Statistical:** Estimates variance based on a sample, including numbers, text, and logical values
+	**Statistical:** Estimates variance based on a sample, including numbers, text, and logical values
+
+	In Excel: ``VARA()``
 
 	Returns
 	-------
@@ -5291,7 +6249,9 @@ def VARA(*args: Any, **kwargs: Any) -> Func:
 
 def VARP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VARP`` - **Compatibility:** Calculates variance based on the entire population
+	**Compatibility:** Calculates variance based on the entire population
+
+	In Excel: ``VARP()``
 
 	Returns
 	-------
@@ -5302,7 +6262,9 @@ def VARP(*args: Any, **kwargs: Any) -> Func:
 
 def VARPA(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VARPA`` - **Statistical:** Calculates variance based on the entire population, including numbers, text, and logical values
+	**Statistical:** Calculates variance based on the entire population, including numbers, text, and logical values
+
+	In Excel: ``VARPA()``
 
 	Returns
 	-------
@@ -5313,7 +6275,9 @@ def VARPA(*args: Any, **kwargs: Any) -> Func:
 
 def VDB(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VDB`` - **Financial:** Returns the depreciation of an asset for a specified or partial period by using a declining balance method
+	**Financial:** Returns the depreciation of an asset for a specified or partial period by using a declining balance method
+
+	In Excel: ``VDB()``
 
 	Returns
 	-------
@@ -5324,7 +6288,9 @@ def VDB(*args: Any, **kwargs: Any) -> Func:
 
 def VLOOKUP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VLOOKUP`` - **Lookup and reference:** Looks in the first column of an array and moves across the row to return the value of a cell
+	**Lookup and reference:** Looks in the first column of an array and moves across the row to return the value of a cell
+
+	In Excel: ``VLOOKUP()``
 
 	Returns
 	-------
@@ -5335,7 +6301,9 @@ def VLOOKUP(*args: Any, **kwargs: Any) -> Func:
 
 def VSTACK(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``VSTACK`` - **Look and reference:** Appends arrays vertically and in sequence to return a larger array
+	**Look and reference:** Appends arrays vertically and in sequence to return a larger array
+
+	In Excel: ``VSTACK()``
 
 	Returns
 	-------
@@ -5346,7 +6314,9 @@ def VSTACK(*args: Any, **kwargs: Any) -> Func:
 
 def WEBSERVICE(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``WEBSERVICE`` - **Web:** Returns data from a web service.
+	**Web:** Returns data from a web service.
+
+	In Excel: ``WEBSERVICE()``
 
 	Returns
 	-------
@@ -5357,7 +6327,9 @@ def WEBSERVICE(*args: Any, **kwargs: Any) -> Func:
 
 def WEEKDAY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``WEEKDAY`` - **Date and time:** Converts a serial number to a day of the week
+	**Date and time:** Converts a serial number to a day of the week
+
+	In Excel: ``WEEKDAY()``
 
 	Returns
 	-------
@@ -5368,7 +6340,9 @@ def WEEKDAY(*args: Any, **kwargs: Any) -> Func:
 
 def WEEKNUM(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``WEEKNUM`` - **Date and time:** Converts a serial number to a number representing where the week falls numerically with a year
+	**Date and time:** Converts a serial number to a number representing where the week falls numerically with a year
+
+	In Excel: ``WEEKNUM()``
 
 	Returns
 	-------
@@ -5379,7 +6353,9 @@ def WEEKNUM(*args: Any, **kwargs: Any) -> Func:
 
 def WEIBULL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``WEIBULL`` - **Compatibility:** Calculates variance based on the entire population, including numbers, text, and logical values
+	**Compatibility:** Calculates variance based on the entire population, including numbers, text, and logical values
+
+	In Excel: ``WEIBULL()``
 
 	Returns
 	-------
@@ -5390,7 +6366,9 @@ def WEIBULL(*args: Any, **kwargs: Any) -> Func:
 
 def WEIBULL_DIST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``WEIBULL.DIST`` - **Statistical:** Returns the Weibull distribution
+	**Statistical:** Returns the Weibull distribution
+
+	In Excel: ``WEIBULL.DIST()``
 
 	Returns
 	-------
@@ -5401,7 +6379,9 @@ def WEIBULL_DIST(*args: Any, **kwargs: Any) -> Func:
 
 def WORKDAY(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``WORKDAY`` - **Date and time:** Returns the serial number of the date before or after a specified number of workdays
+	**Date and time:** Returns the serial number of the date before or after a specified number of workdays
+
+	In Excel: ``WORKDAY()``
 
 	Returns
 	-------
@@ -5412,7 +6392,9 @@ def WORKDAY(*args: Any, **kwargs: Any) -> Func:
 
 def WORKDAY_INTL(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``WORKDAY.INTL`` - **Date and time:** Returns the serial number of the date before or after a specified number of workdays using parameters to indicate which and how many days are weekend days
+	**Date and time:** Returns the serial number of the date before or after a specified number of workdays using parameters to indicate which and how many days are weekend days
+
+	In Excel: ``WORKDAY.INTL()``
 
 	Returns
 	-------
@@ -5423,7 +6405,9 @@ def WORKDAY_INTL(*args: Any, **kwargs: Any) -> Func:
 
 def WRAPCOLS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``WRAPCOLS`` - **Look and reference:** Wraps the provided row or column of values by columns after a specified number of elements
+	**Look and reference:** Wraps the provided row or column of values by columns after a specified number of elements
+
+	In Excel: ``WRAPCOLS()``
 
 	Returns
 	-------
@@ -5434,7 +6418,9 @@ def WRAPCOLS(*args: Any, **kwargs: Any) -> Func:
 
 def WRAPROWS(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``WRAPROWS`` - **Look and reference:** Wraps the provided row or column of values by rows after a specified number of elements
+	**Look and reference:** Wraps the provided row or column of values by rows after a specified number of elements
+
+	In Excel: ``WRAPROWS()``
 
 	Returns
 	-------
@@ -5445,7 +6431,9 @@ def WRAPROWS(*args: Any, **kwargs: Any) -> Func:
 
 def XIRR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``XIRR`` - **Financial:** Returns the internal rate of return for a schedule of cash flows that is not necessarily periodic
+	**Financial:** Returns the internal rate of return for a schedule of cash flows that is not necessarily periodic
+
+	In Excel: ``XIRR()``
 
 	Returns
 	-------
@@ -5456,7 +6444,9 @@ def XIRR(*args: Any, **kwargs: Any) -> Func:
 
 def XLOOKUP(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``XLOOKUP`` - **Lookup and reference:** Searches a range or an array, and returns an item corresponding to the first match it finds. If a match doesn't exist, then XLOOKUP can return the closest (approximate) match. 
+	**Lookup and reference:** Searches a range or an array, and returns an item corresponding to the first match it finds. If a match doesn't exist, then XLOOKUP can return the closest (approximate) match. 
+
+	In Excel: ``XLOOKUP()``
 
 	Returns
 	-------
@@ -5467,7 +6457,9 @@ def XLOOKUP(*args: Any, **kwargs: Any) -> Func:
 
 def XMATCH(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``XMATCH`` - **Lookup and reference:** Returns the relative position of an item in an array or range of cells. 
+	**Lookup and reference:** Returns the relative position of an item in an array or range of cells. 
+
+	In Excel: ``XMATCH()``
 
 	Returns
 	-------
@@ -5478,7 +6470,9 @@ def XMATCH(*args: Any, **kwargs: Any) -> Func:
 
 def XNPV(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``XNPV`` - **Financial:** Returns the net present value for a schedule of cash flows that is not necessarily periodic
+	**Financial:** Returns the net present value for a schedule of cash flows that is not necessarily periodic
+
+	In Excel: ``XNPV()``
 
 	Returns
 	-------
@@ -5489,7 +6483,9 @@ def XNPV(*args: Any, **kwargs: Any) -> Func:
 
 def XOR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``XOR`` - **Logical:** Returns a logical exclusive OR of all arguments
+	**Logical:** Returns a logical exclusive OR of all arguments
+
+	In Excel: ``XOR()``
 
 	Returns
 	-------
@@ -5500,7 +6496,9 @@ def XOR(*args: Any, **kwargs: Any) -> Func:
 
 def YEAR(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``YEAR`` - **Date and time:** Converts a serial number to a year
+	**Date and time:** Converts a serial number to a year
+
+	In Excel: ``YEAR()``
 
 	Returns
 	-------
@@ -5511,7 +6509,9 @@ def YEAR(*args: Any, **kwargs: Any) -> Func:
 
 def YEARFRAC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``YEARFRAC`` - **Date and time:** Returns the year fraction representing the number of whole days between start_date and end_date
+	**Date and time:** Returns the year fraction representing the number of whole days between start_date and end_date
+
+	In Excel: ``YEARFRAC()``
 
 	Returns
 	-------
@@ -5522,7 +6522,9 @@ def YEARFRAC(*args: Any, **kwargs: Any) -> Func:
 
 def YIELD(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``YIELD`` - **Financial:** Returns the yield on a security that pays periodic interest
+	**Financial:** Returns the yield on a security that pays periodic interest
+
+	In Excel: ``YIELD()``
 
 	Returns
 	-------
@@ -5533,7 +6535,9 @@ def YIELD(*args: Any, **kwargs: Any) -> Func:
 
 def YIELDDISC(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``YIELDDISC`` - **Financial:** Returns the annual yield for a discounted security; for example, a Treasury bill
+	**Financial:** Returns the annual yield for a discounted security; for example, a Treasury bill
+
+	In Excel: ``YIELDDISC()``
 
 	Returns
 	-------
@@ -5544,7 +6548,9 @@ def YIELDDISC(*args: Any, **kwargs: Any) -> Func:
 
 def YIELDMAT(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``YIELDMAT`` - **Financial:** Returns the annual yield of a security that pays interest at maturity
+	**Financial:** Returns the annual yield of a security that pays interest at maturity
+
+	In Excel: ``YIELDMAT()``
 
 	Returns
 	-------
@@ -5555,7 +6561,9 @@ def YIELDMAT(*args: Any, **kwargs: Any) -> Func:
 
 def Z_TEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``Z.TEST`` - **Statistical:** Returns the one-tailed probability-value of a z-test
+	**Statistical:** Returns the one-tailed probability-value of a z-test
+
+	In Excel: ``Z.TEST()``
 
 	Returns
 	-------
@@ -5566,7 +6574,9 @@ def Z_TEST(*args: Any, **kwargs: Any) -> Func:
 
 def ZTEST(*args: Any, **kwargs: Any) -> Func:
 	"""
-	``ZTEST`` - **Compatibility:** Returns the one-tailed probability-value of a z-test
+	**Compatibility:** Returns the one-tailed probability-value of a z-test
+
+	In Excel: ``ZTEST()``
 
 	Returns
 	-------
