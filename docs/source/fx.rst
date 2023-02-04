@@ -1,4 +1,4 @@
-API Reference
+excelbird.fx
 =============
 
 .. role:: html(raw)

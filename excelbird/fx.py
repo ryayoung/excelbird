@@ -1,6 +1,4 @@
 """
-excelbird.fx
-============
 
 .. role:: html(raw)
    :format: html
@@ -10,18 +8,17 @@ Each is documented with the same short summary as provided by Microsoft's docume
 
 Allows for autocomplete and documentation preview in your IDE.
 
-**Syntax:** Excel's ``T.DIST.2T()`` is :meth:`T_DIST_2T` in `excelbird`.
+**Syntax Example:** Excel's ``T.DIST.2T()`` is :meth:`T_DIST_2T` in `excelbird`.
 
 .. note::
 
-    Each function below is just a shorthand wrapper for creating an
-    :class:`excelbird.Func` - For instance,
+    Each function is shorthand for an :class:`excelbird.Func`
 
     .. code-block::
 
         fx.ABS(some_cell)
 
-    is equivalent to
+    is the same as
 
     .. code-block::
 
