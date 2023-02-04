@@ -58,22 +58,34 @@ save a copy of your current progress before proceeding.
 Pattern to format the functions. This is a single line, and should be pasted into vim in its entirety
 :%s/^\([A-Z_0-9]\+\) :: \([A-Z\.0-9]\+\) :: \(.*\) :: \(.\+\)/def \1(*args: Any, **kwargs: Any) -> Func:\r\t"""\r\t\3 \4\r\r\tIn Excel: ``\2()``\r\r\tReturns\r\t-------\r\t:class:`Func <excelbird.Func>`\r\t\tSame as ``Func("\2(", *args, ")", **kwargs)``\r\t"""\r\treturn Func("\2(", *args, ")", **kwargs)\r
 
-
-
 """
+excelbird.fx
+============
 
 .. role:: html(raw)
    :format: html
 
 All ~500 Excel functions can be accessed in Python, from the :mod:`excelbird.fx` module.
-
 Each is documented with the same short summary as provided by Microsoft's documentation.
 
-This let's your IDE autocomplete and preview documentation as you type, just as Excel would.
+Allows for autocomplete and documentation preview in your IDE.
 
-**Syntax:** Same as Excel, but dots are replaced with underscores, and letters are lowercase.
+**Syntax:** Excel's ``T.DIST.2T()`` is :meth:`T_DIST_2T` in `excelbird`.
 
-**Example:** ``T.DIST.2T()`` in Excel is :meth:`t_dist_2t() <excelbird.fx.t_dist_2t>`
+.. note::
+
+    Each function below is just a shorthand wrapper for creating an
+    :class:`excelbird.Func` - For instance,
+
+    .. code-block::
+
+        fx.ABS(some_cell)
+
+    is equivalent to
+
+    .. code-block::
+
+        Func("ABS(", some_cell, ")")
 
 :html:`</br>`
 
