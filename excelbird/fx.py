@@ -4,14 +4,26 @@
    :format: html
 
 All ~500 Excel functions can be accessed in Python, from the :mod:`excelbird.fx` module.
-
 Each is documented with the same short summary as provided by Microsoft's documentation.
 
-This let's your IDE autocomplete and preview documentation as you type, just as Excel would.
+Allows for autocomplete and documentation preview in your IDE.
 
-**Syntax:** Same as Excel, but dots are replaced with underscores
+**Syntax:** Excel's ``T.DIST.2T()`` is :meth:`T_DIST_2T` in `excelbird`.
 
-**Example:** ``T.DIST.2T()`` in Excel is :meth:`T_DIST_2T`
+.. note::
+
+    Each function below is just a shorthand wrapper for creating an
+    :class:`excelbird.Func` - For instance,
+
+    .. code-block::
+
+        fx.ABS(some_cell)
+
+    is equivalent to
+
+    .. code-block::
+
+        Func("ABS(", some_cell, ")")
 
 :html:`</br>`
 
