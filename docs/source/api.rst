@@ -27,3 +27,11 @@
    func/main
    gap/main
    item
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Excel Functions
+   :hidden:
+   :titlesonly:
+
+   fx
