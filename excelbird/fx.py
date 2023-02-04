@@ -1,3 +1,25 @@
+"""
+
+.. role:: html(raw)
+   :format: html
+
+All ~500 Excel functions can be accessed in Python, from the :mod:`excelbird.fx` module.
+
+Each is documented with the same short summary as provided by Microsoft's documentation.
+
+This let's your IDE autocomplete and preview documentation as you type, just as Excel would.
+
+**Syntax:** Same as Excel, but dots are replaced with underscores, and letters are lowercase.
+
+**Example:** ``T.DIST.2T()`` in Excel is :meth:`t_dist_2t() <excelbird.fx.t_dist_2t>`
+
+:html:`</br>`
+
+"""
+from excelbird.core.function import Func
+from typing import Any
+
+
 def ABS(*args: Any, **kwargs: Any) -> Func:
 	"""
 	``ABS`` - **Math and trigonometry:** Returns the absolute value of a number
