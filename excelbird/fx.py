@@ -13,6 +13,7 @@ from excelbird.core.function import Func
 from typing import Any
 
 
+
 def ABS(*args: Any, **kwargs: Any) -> Func:
 	"""
 	:meth:`ABS` - **Math and trigonometry:** Returns the absolute value of a number
