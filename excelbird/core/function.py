@@ -33,7 +33,7 @@ hardcoding `5` and `4`, reference :class:`Cells <excelbird.Cell>` containing the
 
     five = Cell(5)
     four = Cell(4)
-    better_func = Func("SUM(", five, ", ", four, ", MIN(6, 7))")
+    another_func = Func("SUM(", five, ", ", four, ", MIN(6, 7))")
 
 Notice the comma we had to insert manually between `five` and `four`
 
