@@ -31,7 +31,7 @@ div.highlight pre {
   font-size: 98%;
   line-height: 160%;
   border: none !important;
-  border-left: .15rem solid var(--pst-color-light) !important;
+  border-left: .2rem solid var(--pst-color-light) !important;
   /* border-right: .15rem solid var(--pst-color-info) !important; */
   background-color: transparent !important;
 

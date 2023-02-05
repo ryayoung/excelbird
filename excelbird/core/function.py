@@ -50,7 +50,7 @@ you aren't familiar with them yet.
 
 .. code-block::
 
-    better_func = Func("SUM({{cell_five}}, {{cell_four}}, MIN(6, 7))")
+    better_func = Func(f"SUM({{cell_five}}, {{cell_four}}, MIN(6, 7))")
     five = Cell(5, id="cell_five")  # ^ Exprs can reference stuff that doesn't exist yet.
     four = Cell(4, id="cell_four")
 
@@ -66,7 +66,7 @@ together, instead of listing them. For reference, in **option 1** this would loo
 
 .. code-block::
 
-    Func("SUM({{[cell_five] * [cell_four]}}, MIN(6, 7))")
+    Func(f"SUM({{[cell_five] * [cell_four]}}, MIN(6, 7))")
 
 Which is equivalent to
 
@@ -103,7 +103,7 @@ For instance, in the following example, the parent Frame knows that ``res_type``
 .. code-block::
 
     Frame(
-        Func("MAX({{second}}, {{third}})", header="first"),
+        Func(f"MAX({{second}}, {{third}})", header="first"),
         Col(1, 2, 3, header="second"),
         Col(2, 7, 1, header="third"),
     )
@@ -117,8 +117,8 @@ Or should it return a Cell with the single largest value in either vector? Try b
     Stack(
         Col(1, 2, 3, header="first"),
         Col(2, 7, 1, header="second"),
-        Func("MAX({{first}}, {{second}})", header="third", res_type=Col),
-        Func("MAX({{first}}, {{second}})", res_type=Cell),
+        Func(f"MAX({{first}}, {{second}})", header="third", res_type=Col),
+        Func(f"MAX({{first}}, {{second}})", res_type=Cell),
     )
 
 
@@ -129,7 +129,7 @@ Here is an **impractical** example that demonstrates a variety of syntax at the 
 .. code-block::
 
     my_cell = Cell(69)
-    Func("SUM(", {"foo"}, ", ", my_cell, None, ", ", Expr("bar"), ", SUM({{[one] * [two]}}, {{some_elem}}) + ", 5, ")")
+    Func("SUM(", {"foo"}, ", ", my_cell, None, ", ", Expr("bar"), f", SUM({{[one] * [two]}}, {{some_elem}}) + ", 5, ")")
 
 will build a formula that's arranged like:
 
@@ -141,30 +141,6 @@ where the second `Expr` is the result of ``Expr("[one] * [two]")`` and the
 third `Expr` is the result of ``Expr("some_elem")``. Notice the value of
 ``None`` was ignored, which is a feature shared by all excelbird layout elements
 to allow for conditional placement of elements.
-
-TEST
-====
-
-.. code-block::
-
-    from excelbird import Func
-    lst = [1, 2, 3]
-
-    print("Hello world")
-    print(f"F {lst[:2]}")
-    d = dict(
-        a=5,
-        b=lst,
-    )
-    d2 = {
-        "one": "two",
-    }
-    f = Func(one=1, two=2)
-
-    """"""
-    stuff goes here 
-    """"""
-    s = "SUM({{one + 5}})"
 
 """
 from __future__ import annotations
