@@ -10,6 +10,8 @@
 
 from pygments.plugin import find_plugin_styles
 from pygments.util import ClassNotFound
+from excelbird._pygments.light import *
+# from excelbird._pygments.dark import *
 
 
 #: Maps style names to 'submodule::classname'.
