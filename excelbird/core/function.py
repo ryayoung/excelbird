@@ -15,7 +15,7 @@ For instance, here's how it should look if you were **not** referencing any cell
 
 .. code-block::
 
-    from excelbird import Func, Cell
+    from excelbird import Func, Expr, Cell, Col, Frame, Stack
 
     simple_func = Func("SUM(5, 4, MIN(6, 7))")
 
@@ -54,41 +54,77 @@ you aren't familiar with them yet.
     five = Cell(5, id="cell_five")  # ^ Exprs can reference stuff that doesn't exist yet.
     four = Cell(4, id="cell_four")
 
-`Why` did we use braces ``{{...}}`` instead of square bracktets ``[...]`` like we do with `Expr`?
+`Why` did we use braces ``{{...}}`` instead of square bracktets ``[...]`` as we do inside an `Expr`?
 
 Because we weren't referencing variables. We were inserting Exprs.
 
 **In an Expr, square brackets enclose an id or header. In a Func, curly braces enclose an Expr**
 
-To illustrate this, let's make our Expr execute some python code. We'll add cells five and four
+To illustrate this, let's make our Expr execute some python code. We'll multiply cells five and four
 together, instead of listing them. For reference, in **option 1** this would look like
-``Func("SUM(", five + four, ", MIN(6, 7))")``
+``Func("SUM(", five * four, ", MIN(6, 7))")``
 
 .. code-block::
 
-    Func("SUM({{[cell_five] + [cell_four]}}, MIN(6, 7))")
+    Func("SUM({{[cell_five] * [cell_four]}}, MIN(6, 7))")
 
 Which is equivalent to
 
 .. code-block::
 
-    Func("SUM(", Expr("[cell_five] + [cell_four]"), ", MIN(6, 7))")
+    Func("SUM(", Expr("[cell_five] * [cell_four]"), ", MIN(6, 7))")
 
 **Why are the braces necessary? Why can't I just use square brackets alone?**
 
-Because in an Expr, the entire contents of the string is treated as *valid Python code* and **is executed**.
-This allows for things like ``Expr("[row_header].range() + [col_header].loc[3:]")``. If you
-placed that string inside a Func, we can't know whether the ``.range``, ``.loc``,
-or ``+`` should be executed in Python or included as exact strings inside the Excel formula.
+Because in an Expr, the entire string is treated as *valid Python code* and **is executed**.
+This allows for ``Expr("[row_header].range() + [col_header].loc[3:]")``. If this
+were placed inside a Func, it couldn't be determined whether the ``.range``, ``.loc``,
+or ``+`` should be executed in Python, or placed as exact strings in the Excel formula. Excelbird
+could guess, but if it guessed incorrectly, you'd have a corrupted file.
 
-**Double braces are strongly recommended, but ANY number of curly braces are allowed**. i.e. ``{{{stuff}}}``, ``{{stuff}}``,
-or ``{stuff}`` are each valid. This is a design feature to ensure your code reads and is interpreted the same regardless of whether
-your string is `an f-string <https://www.geeksforgeeks.org/formatted-string-literals-f-strings-python/>`_ as long
-as you've used **at least two** braces.
+.. note::
+
+    **Double braces are strongly recommended**, but **any** number of curly braces are allowed. i.e. ``{{{stuff}}}``, ``{{stuff}}``,
+    or ``{stuff}`` are each valid. This is a design feature to ensure your code will look the same regardless of whether
+    the string is `an f-string <https://www.geeksforgeeks.org/formatted-string-literals-f-strings-python/>`_.
+
+
+Additional Arguments - res_type
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+:attr:`res_type` can be used to specify the type of the returned element.
+This is **not** necessary inside structured parent containers like :class:`Frame <excelbird.Frame>`
+or :class:`Row <excelbird.Row>` which decide automatically. Inside `unstructured` containers
+like :class:`Stack <excelbird.Stack>` or :class:`Sheet <excelbird.Sheet>` it must be specified manually
+
+For instance, in the following example, the parent Frame knows that ``res_type`` **must** be
+:class:`Col <excelbird.Col>`
+
+.. code-block::
+
+    Frame(
+        Func("MAX({{second}}, {{third}})", header="first"),
+        Col(1, 2, 3, header="second"),
+        Col(2, 7, 1, header="third"),
+    )
+
+If those elements were placed in a Stack, we have to decide:
+Should it return a Col with the max of each pair in the other vectors?
+Or should it return a Cell with the single largest value in either vector? Try both:
+
+.. code-block::
+
+    Stack(
+        Col(1, 2, 3, header="first"),
+        Col(2, 7, 1, header="second"),
+        Func("MAX({{first}}, {{second}})", header="third", res_type=Col),
+        Func("MAX({{first}}, {{second}})", res_type=Cell),
+    )
+
 
 ----
 
-Here is an **impractical** example that demonstrates a variety of syntax used together.
+Here is an **impractical** example that demonstrates a variety of syntax at the same time.
 
 .. code-block::
 
@@ -106,39 +142,6 @@ third `Expr` is the result of ``Expr("some_elem")``. Notice the value of
 ``None`` was ignored, which is a feature shared by all excelbird layout elements
 to allow for conditional placement of elements.
 
-Additional Arguments - res_type
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Keyword argument :attr:`res_type` can be used to specify the type of the object returned
-by Func. This is **not** necessary inside structured parent containers like :class:`Frame <excelbird.Frame>`
-or :class:`Row <excelbird.Row>` which will make this decision automatically. However, inside
-unstructured containers like :class:`Stack <excelbird.Stack>` or :class:`Sheet <excelbird.Sheet>` it will
-need to be specified.
-
-For instance, in the following example, the parent Frame will decide that ``res_type`` must be
-:class:`Col <excelbird.Col>` so no user input is needed.
-
-.. code-block::
-
-    Frame(
-        Col(1, 2, 3, header="first"),
-        Col(2, 7, 1, header="second"),
-        Func("MAX({{first}}, {{second}})", header="third"),
-    )
-
-However, if we placed those elements inside a Stack, now we have
-some flexibility and need to make a choice.
-Should the returned element be a Col containing the max of each pair across the other vectors?
-Or do we want the single largest value across the other two columns returned as a Cell? Try both:
-
-.. code-block::
-
-    Stack(
-        Func("MAX({{first}}, {{second}})", res_type=Cell),
-        Col(1, 2, 3, header="first"),
-        Col(2, 7, 1, header="second"),
-        Func("MAX({{first}}, {{second}})", header="third", res_type=Col),
-    )
 
 """
 from __future__ import annotations
