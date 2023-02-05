@@ -152,7 +152,7 @@ html_theme_options = dict(
     # Add light/dark mode and documentation version switcher:
     # "navbar_end": ["theme-switcher", "version-switcher", "navbar-icon-links"],
     pygment_light_style="pastie",
-    pygment_dark_style="stata-dark",
+    pygment_dark_style="material",
     # body_max_width="95%",
 )
 
