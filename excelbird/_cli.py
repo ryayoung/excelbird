@@ -2,9 +2,6 @@ import webbrowser
 import click
 import os
 import shutil
-from subprocess import call
-
-shutil
 
 @click.group()
 def main():
@@ -12,7 +9,8 @@ def main():
 
 @click.command()
 @click.argument('action', required=False)
-def docs(action=None):
+@click.option('--how', '-h', help="What command to use for the build", type=click.Choice(['make', 'sphinx-build']), default='make', show_default=True)
+def docs(action, how):
     here = os.path.abspath(os.path.dirname(__file__))
     path = os.path.join(here, os.pardir, 'docs')
 
@@ -23,7 +21,10 @@ def docs(action=None):
     elif action == "build":
         shutil.rmtree(os.path.join(path, 'build'))
         base_path = os.path.join(path, os.pardir, os.pardir)
-        os.system(f"cd {base_path}; source env/bin/activate; cd excelbird/docs; make html")
+        if how == 'make':
+            os.system(f"cd {base_path}; source env/bin/activate; cd excelbird/docs; make html")
+        elif how == 'sphinx-build':
+            os.system(f"cd {base_path}; source env/bin/activate; cd excelbird/docs; sphinx-build -b html source build/html")
 
 
 

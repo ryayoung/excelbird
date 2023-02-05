@@ -15,10 +15,28 @@
 
 pre, code {
   font-size: 100%;
-  line-height: 155%;
+  line-height: 150%;
   border: none !important;
   background-color: transparent !important;
 }
+
+code .pre {
+  font-size: 102%;
+  line-height: 150%;
+  border: none !important;
+  background-color: transparent !important;
+}
+
+div.highlight pre {
+  font-size: 98%;
+  line-height: 160%;
+  border: none !important;
+  border-left: .15rem solid var(--pst-color-light) !important;
+  /* border-right: .15rem solid var(--pst-color-info) !important; */
+  background-color: transparent !important;
+
+}
+
 
 h1 {
   font-family: "Lato", sans-serif;

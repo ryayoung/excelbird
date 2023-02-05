@@ -14,7 +14,7 @@ sys.path.insert(0, os.path.abspath('../..'))
 project = 'excelbird'
 copyright = '2023, Ryan Young'
 author = 'Ryan Young'
-release = '0.0.5'
+release = '0.0.10'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -139,6 +139,7 @@ html_context = dict(
     doc_path = "docs/source/"
 )
 
+
 # If false, no index is generated.
 # html_use_index = True
 
@@ -151,11 +152,12 @@ html_theme_options = dict(
     show_toc_level = 2,
     # Add light/dark mode and documentation version switcher:
     # "navbar_end": ["theme-switcher", "version-switcher", "navbar-icon-links"],
-    pygment_light_style="pastie",
+    pygment_light_style="light",
     pygment_dark_style="material",
     # body_max_width="95%",
 )
 
+# pygments_style = "light.PastieStyle"
 
 nbsphinx_prolog = """
 .. raw:: html
