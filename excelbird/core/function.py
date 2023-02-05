@@ -1,9 +1,9 @@
 """
-A :class:`Func <excelbird.Func>` is a template that dynamically returns a layout
+A :class:`Func <excelbird.Func>` is a template that dynamically returns an
 element of the appropriate shape/dimensions while applying an Excel formula to its
-cells. It should be used **only when calling builtin Excel functions** in your formula.
+cell(s). It should be used **only when calling builtin Excel functions** in your formula.
 
-As is standard for `excelbird`, a `Func` is designed for use without
+As standard across excelbird, a Func is designed for use without
 specifying any cell coordinates.
 
 Syntax
@@ -15,6 +15,8 @@ For instance, here's how it should look if you were **not** referencing any cell
 
 .. code-block::
 
+    from excelbird import Func, Cell
+
     simple_func = Func("SUM(5, 4, MIN(6, 7))")
 
 To reference other layout elements in your formula, there are two options:
@@ -24,7 +26,7 @@ Referencing Elements - Option 1
 **Break the string, and insert variables directly**. Be warned, this option
 can be clumsy, tedious, and cause mistakes.
 
-Let's rewrite the above example, ``Func("SUM(5, 4, MIN(6, 7))")``, but instead of
+Let's rewrite the above example, but instead of
 hardcoding `5` and `4`, reference :class:`Cells <excelbird.Cell>` containing them.
 
 .. code-block::
