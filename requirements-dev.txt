@@ -1,3 +1,16 @@
+pandas
+openpyxl
+xlwings
+click
+bokeh
+
+pytest
+tox
+flake8
+pytest-cov
+mypy
+build
+
 pydata-sphinx-theme==0.11.0
 numpydoc==1.5.0
 sphinx-design==0.3.0
@@ -5,6 +18,5 @@ sphinx-toggleprompt==0.3.1
 sphinx-copybutton==0.5.1
 nbsphinx
 ipykernel
-pandas
-bokeh
+pandoc
 

@@ -2,6 +2,7 @@ import webbrowser
 import click
 import os
 import shutil
+from subprocess import call
 
 shutil
 
@@ -19,7 +20,11 @@ def docs(action=None):
         docs_index = os.path.join(path, 'build', 'html', 'index.html')
         webbrowser.open_new_tab('file://' + docs_index)
 
-    # elif action == "build":
+    elif action == "build":
+        shutil.rmtree(os.path.join(path, 'build'))
+        base_path = os.path.join(path, os.pardir, os.pardir)
+        os.system(f"cd {base_path}; source env/bin/activate; cd excelbird/docs; make html")
+
 
 
 
