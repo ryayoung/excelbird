@@ -1,0 +1,1126 @@
+
+/* Replace main lines */
+/* :%s/\s\+\([a-z_0-9]\+\) \?= \?"\(.\+\)",\?/  color: \2; \/* \1 *\/ */
+
+/* Replace empty lines */
+/* :%s/\s\+\},\?\n/ */
+
+/* Replace titles */
+/* :%s/^\s*\([a-z A-Z]\+\) \?= \?{\n/  \/* \U\1 *\/\r */
+
+/* Replace decorators */
+/* :%s/^.\+"\(@.\+\)".\+/  \/* \1 *\/ */
+
+/* Remove non-color lines part 1 */
+/* %s/^[^#\*]\+$\n/ */
+
+/* Remove non-color lines part 2 */
+/* :%s/^.\+ [a-zA-Z]\+;.\+\n/ */
+
+body {
+  /* LOCAL COLORS  */
+  color: #24283b; /* bg */
+  color: #1f2335; /* bg_dark */
+  color: #1f2335; /* bg_float */
+  color: #292e42; /* bg_highlight */
+  color: #1f2335; /* bg_popup */
+  color: #3d59a1; /* bg_search */
+  color: #1f2335; /* bg_sidebar */
+  color: #1f2335; /* bg_statusline */
+  color: #364a82; /* bg_visual */
+  color: #1d202f; /* black */
+  color: #7aa2f7; /* blue */
+  color: #3d59a1; /* blue0 */
+  color: #2ac3de; /* blue1 */
+  color: #0db9d7; /* blue2 */
+  color: #89ddff; /* blue5 */
+  color: #b4f9f8; /* blue6 */
+  color: #394b70; /* blue7 */
+  color: #1d202f; /* border */
+  color: #29a4bd; /* border_highlight */
+  color: #565f89; /* comment */
+  color: #7dcfff; /* cyan */
+  color: #545c7e; /* dark3 */
+  color: #737aa2; /* dark5 */
+  /* DIFF  */
+  color: #283b4d; /* add */
+  color: #272d43; /* change */
+  color: #3f2d3d; /* delete */
+  color: #394b70; /* text */
+  color: #db4b4b; /* error */
+  color: #c0caf5; /* fg */
+  color: #a9b1d6; /* fg_dark */
+  color: #c0caf5; /* fg_float */
+  color: #3b4261; /* fg_gutter */
+  color: #a9b1d6; /* fg_sidebar */
+  /* GIT  */
+  color: #4097a3; /* add */
+  color: #506d9b; /* change */
+  color: #c47981; /* delete */
+  color: #545c7e; /* ignore */
+  /* GITSIGNS  */
+  color: #399a96; /* add */
+  color: #6382bd; /* change */
+  color: #c25d64; /* delete */
+  color: #9ece6a; /* green */
+  color: #73daca; /* green1 */
+  color: #41a6b5; /* green2 */
+  color: #1abc9c; /* hint */
+  color: #0db9d7; /* info */
+  color: #bb9af7; /* magenta */
+  color: #ff007c; /* magenta2 */
+  color: #ff9e64; /* orange */
+  color: #9d7cd8; /* purple */
+  color: #f7768e; /* red */
+  color: #db4b4b; /* red1 */
+  color: #1abc9c; /* teal */
+  color: #414868; /* terminal_black */
+  color: #e0af68; /* warning */
+  color: #e0af68; /* yellow */
+
+  /* LOCAL HIGHLIGHTS  */
+  /* @constructor */
+  color: #bb9af7; /* fg */
+  /* @field */
+  color: #73daca; /* fg */
+  /* @keyword */
+  color: #9d7cd8; /* fg */
+  /* STYLE  */
+  /* @keyword.function */
+  color: #bb9af7; /* fg */
+  /* @label */
+  color: #7aa2f7; /* fg */
+  /* @operator */
+  color: #89ddff; /* fg */
+  /* @parameter */
+  color: #e0af68; /* fg */
+  /* @property */
+  color: #73daca; /* fg */
+  /* @punctuation.bracket */
+  color: #a9b1d6; /* fg */
+  /* @punctuation.delimiter */
+  color: #89ddff; /* fg */
+  /* @punctuation.special */
+  color: #89ddff; /* fg */
+  /* @punctuation.special.markdown */
+  color: #ff9e64; /* fg */
+  /* @string.escape */
+  color: #bb9af7; /* fg */
+  /* @string.regex */
+  color: #b4f9f8; /* fg */
+  /* @text.danger */
+  color: #db4b4b; /* bg */
+  color: #24283b; /* fg */
+  /* @text.diff.add */
+  /* @text.diff.delete */
+  /* @text.literal.markdown */
+  /* @text.literal.markdown_inline */
+  color: #414868; /* bg */
+  color: #7aa2f7; /* fg */
+  /* @text.reference */
+  color: #1abc9c; /* fg */
+  /* @text.todo.checked */
+  color: #73daca; /* fg */
+  /* @text.todo.unchecked */
+  color: #7aa2f7; /* fg */
+  /* @text.warning */
+  color: #e0af68; /* bg */
+  color: #24283b; /* fg */
+  /* @variable */
+  /* @variable.builtin */
+  color: #f7768e; /* fg */
+  /* ALEERRORSIGN  */
+  color: #db4b4b; /* fg */
+  /* ALEWARNINGSIGN  */
+  color: #e0af68; /* fg */
+  /* ALPHABUTTONS  */
+  color: #7dcfff; /* fg */
+  /* ALPHAFOOTER  */
+  color: #e0af68; /* fg */
+  /* ALPHAHEADER  */
+  color: #7aa2f7; /* fg */
+  /* ALPHAHEADERLABEL  */
+  color: #ff9e64; /* fg */
+  /* ALPHASHORTCUT  */
+  color: #ff9e64; /* fg */
+  /* BOLD  */
+  /* BUFFERALTERNATE  */
+  color: #3b4261; /* bg */
+  color: #c0caf5; /* fg */
+  /* BUFFERALTERNATEERROR  */
+  color: #3b4261; /* bg */
+  color: #db4b4b; /* fg */
+  /* BUFFERALTERNATEHINT  */
+  color: #3b4261; /* bg */
+  color: #1abc9c; /* fg */
+  /* BUFFERALTERNATEINFO  */
+  color: #3b4261; /* bg */
+  color: #0db9d7; /* fg */
+  /* BUFFERALTERNATEINDEX  */
+  color: #3b4261; /* bg */
+  color: #0db9d7; /* fg */
+  /* BUFFERALTERNATEMOD  */
+  color: #3b4261; /* bg */
+  color: #e0af68; /* fg */
+  /* BUFFERALTERNATESIGN  */
+  color: #3b4261; /* bg */
+  color: #0db9d7; /* fg */
+  /* BUFFERALTERNATETARGET  */
+  color: #3b4261; /* bg */
+  color: #f7768e; /* fg */
+  /* BUFFERALTERNATEWARN  */
+  color: #3b4261; /* bg */
+  color: #e0af68; /* fg */
+  /* BUFFERCURRENT  */
+  color: #3b4261; /* bg */
+  color: #c0caf5; /* fg */
+  /* BUFFERCURRENTERROR  */
+  color: #3b4261; /* bg */
+  color: #db4b4b; /* fg */
+  /* BUFFERCURRENTHINT  */
+  color: #3b4261; /* bg */
+  color: #1abc9c; /* fg */
+  /* BUFFERCURRENTINFO  */
+  color: #3b4261; /* bg */
+  color: #0db9d7; /* fg */
+  /* BUFFERCURRENTINDEX  */
+  color: #3b4261; /* bg */
+  color: #0db9d7; /* fg */
+  /* BUFFERCURRENTMOD  */
+  color: #3b4261; /* bg */
+  color: #e0af68; /* fg */
+  /* BUFFERCURRENTSIGN  */
+  color: #3b4261; /* bg */
+  color: #0db9d7; /* fg */
+  /* BUFFERCURRENTTARGET  */
+  color: #3b4261; /* bg */
+  color: #f7768e; /* fg */
+  /* BUFFERCURRENTWARN  */
+  color: #3b4261; /* bg */
+  color: #e0af68; /* fg */
+  /* BUFFERINACTIVE  */
+  color: #1f2335; /* bg */
+  color: #737aa2; /* fg */
+  /* BUFFERINACTIVEERROR  */
+  color: #1f2335; /* bg */
+  color: #a44146; /* fg */
+  /* BUFFERINACTIVEHINT  */
+  color: #1f2335; /* bg */
+  color: #1d907f; /* fg */
+  /* BUFFERINACTIVEINFO  */
+  color: #1f2335; /* bg */
+  color: #148ea8; /* fg */
+  /* BUFFERINACTIVEINDEX  */
+  color: #1f2335; /* bg */
+  color: #737aa2; /* fg */
+  /* BUFFERINACTIVEMOD  */
+  color: #1f2335; /* bg */
+  color: #a8875b; /* fg */
+  /* BUFFERINACTIVESIGN  */
+  color: #1f2335; /* bg */
+  color: #29a4bd; /* fg */
+  /* BUFFERINACTIVETARGET  */
+  color: #1f2335; /* bg */
+  color: #f7768e; /* fg */
+  /* BUFFERINACTIVEWARN  */
+  color: #1f2335; /* bg */
+  color: #a8875b; /* fg */
+  /* BUFFERLINEINDICATORSELECTED  */
+  color: #506d9b; /* fg */
+  /* BUFFEROFFSET  */
+  color: #1f2335; /* bg */
+  color: #737aa2; /* fg */
+  /* BUFFERTABPAGEFILL  */
+  color: #1f2335; /* bg */
+  color: #737aa2; /* fg */
+  /* BUFFERTABPAGES  */
+  color: #1f2335; /* bg */
+  /* BUFFERVISIBLE  */
+  color: #1f2335; /* bg */
+  color: #c0caf5; /* fg */
+  /* BUFFERVISIBLEERROR  */
+  color: #1f2335; /* bg */
+  color: #db4b4b; /* fg */
+  /* BUFFERVISIBLEHINT  */
+  color: #1f2335; /* bg */
+  color: #1abc9c; /* fg */
+  /* BUFFERVISIBLEINFO  */
+  color: #1f2335; /* bg */
+  color: #0db9d7; /* fg */
+  /* BUFFERVISIBLEINDEX  */
+  color: #1f2335; /* bg */
+  color: #0db9d7; /* fg */
+  /* BUFFERVISIBLEMOD  */
+  color: #1f2335; /* bg */
+  color: #e0af68; /* fg */
+  /* BUFFERVISIBLESIGN  */
+  color: #1f2335; /* bg */
+  color: #0db9d7; /* fg */
+  /* BUFFERVISIBLETARGET  */
+  color: #1f2335; /* bg */
+  color: #f7768e; /* fg */
+  /* BUFFERVISIBLEWARN  */
+  color: #1f2335; /* bg */
+  color: #e0af68; /* fg */
+  /* CHARACTER  */
+  color: #9ece6a; /* fg */
+  /* CMPDOCUMENTATION  */
+  color: #1f2335; /* bg */
+  color: #c0caf5; /* fg */
+  /* CMPDOCUMENTATIONBORDER  */
+  color: #1f2335; /* bg */
+  color: #29a4bd; /* fg */
+  /* CMPITEMABBR  */
+  color: #c0caf5; /* fg */
+  /* CMPITEMABBRDEPRECATED  */
+  color: #3b4261; /* fg */
+  /* CMPITEMABBRMATCH  */
+  color: #2ac3de; /* fg */
+  /* CMPITEMABBRMATCHFUZZY  */
+  color: #2ac3de; /* fg */
+  /* CMPITEMKINDCLASS  */
+  color: #ff9e64; /* fg */
+  /* CMPITEMKINDCONSTANT  */
+  color: #bb9af7; /* fg */
+  /* CMPITEMKINDCONSTRUCTOR  */
+  color: #7aa2f7; /* fg */
+  /* CMPITEMKINDDEFAULT  */
+  color: #a9b1d6; /* fg */
+  /* CMPITEMKINDENUM  */
+  color: #ff9e64; /* fg */
+  /* CMPITEMKINDENUMMEMBER  */
+  color: #73daca; /* fg */
+  /* CMPITEMKINDEVENT  */
+  color: #ff9e64; /* fg */
+  /* CMPITEMKINDFIELD  */
+  color: #73daca; /* fg */
+  /* CMPITEMKINDFUNCTION  */
+  color: #7aa2f7; /* fg */
+  /* CMPITEMKINDINTERFACE  */
+  color: #ff9e64; /* fg */
+  /* CMPITEMKINDKEYWORD  */
+  color: #7dcfff; /* fg */
+  /* CMPITEMKINDMETHOD  */
+  color: #7aa2f7; /* fg */
+  /* CMPITEMKINDMODULE  */
+  color: #e0af68; /* fg */
+  /* CMPITEMKINDOPERATOR  */
+  color: #73daca; /* fg */
+  /* CMPITEMKINDPROPERTY  */
+  color: #73daca; /* fg */
+  /* CMPITEMKINDREFERENCE  */
+  color: #bb9af7; /* fg */
+  /* CMPITEMKINDSNIPPET  */
+  color: #737aa2; /* fg */
+  /* CMPITEMKINDSTRUCT  */
+  color: #ff9e64; /* fg */
+  /* CMPITEMKINDTYPEPARAMETER  */
+  color: #73daca; /* fg */
+  /* CMPITEMKINDUNIT  */
+  color: #ff9e64; /* fg */
+  /* CMPITEMKINDVALUE  */
+  color: #bb9af7; /* fg */
+  /* CMPITEMKINDVARIABLE  */
+  color: #bb9af7; /* fg */
+  /* CMPITEMMENU  */
+  color: #565f89; /* fg */
+  /* COLORCOLUMN  */
+  color: #1d202f; /* bg */
+  /* COMMENT  */
+  color: #565f89; /* fg */
+  /* STYLE  */
+  /* CONCEAL  */
+  color: #737aa2; /* fg */
+  /* CONSTANT  */
+  color: #ff9e64; /* fg */
+  /* CURSEARCH  */
+  /* CURSOR  */
+  color: #c0caf5; /* bg */
+  color: #24283b; /* fg */
+  /* CURSORCOLUMN  */
+  color: #292e42; /* bg */
+  /* CURSORIM  */
+  color: #c0caf5; /* bg */
+  color: #24283b; /* fg */
+  /* CURSORLINE  */
+  color: #292e42; /* bg */
+  /* CURSORLINENR  */
+  color: #737aa2; /* fg */
+  /* DASHBOARDCENTER  */
+  color: #bb9af7; /* fg */
+  /* DASHBOARDFOOTER  */
+  color: #e0af68; /* fg */
+  /* DASHBOARDHEADER  */
+  color: #7aa2f7; /* fg */
+  /* DASHBOARDSHORTCUT  */
+  color: #7dcfff; /* fg */
+  /* DEFINITIONCOUNT  */
+  color: #9d7cd8; /* fg */
+  /* DEFINITIONICON  */
+  color: #7aa2f7; /* fg */
+  /* DIAGNOSTICERROR  */
+  color: #db4b4b; /* fg */
+  /* DIAGNOSTICHINT  */
+  color: #1abc9c; /* fg */
+  /* DIAGNOSTICINFO  */
+  color: #0db9d7; /* fg */
+  /* DIAGNOSTICINFORMATION  */
+  /* DIAGNOSTICUNDERLINEERROR  */
+  color: #db4b4b; /* sp */
+  /* DIAGNOSTICUNDERLINEHINT  */
+  color: #1abc9c; /* sp */
+  /* DIAGNOSTICUNDERLINEINFO  */
+  color: #0db9d7; /* sp */
+  /* DIAGNOSTICUNDERLINEWARN  */
+  color: #e0af68; /* sp */
+  /* DIAGNOSTICVIRTUALTEXTERROR  */
+  color: #362c3d; /* bg */
+  color: #db4b4b; /* fg */
+  /* DIAGNOSTICVIRTUALTEXTHINT  */
+  color: #233745; /* bg */
+  color: #1abc9c; /* fg */
+  /* DIAGNOSTICVIRTUALTEXTINFO  */
+  color: #22374b; /* bg */
+  color: #0db9d7; /* fg */
+  /* DIAGNOSTICVIRTUALTEXTWARN  */
+  color: #373640; /* bg */
+  color: #e0af68; /* fg */
+  /* DIAGNOSTICWARN  */
+  color: #e0af68; /* fg */
+  /* DIAGNOSTICWARNING  */
+  /* DIFFADD  */
+  color: #283b4d; /* bg */
+  /* DIFFCHANGE  */
+  color: #272d43; /* bg */
+  /* DIFFDELETE  */
+  color: #3f2d3d; /* bg */
+  /* DIFFTEXT  */
+  color: #394b70; /* bg */
+  /* DIRECTORY  */
+  color: #7aa2f7; /* fg */
+  /* ENDOFBUFFER  */
+  color: #24283b; /* fg */
+  /* ERROR  */
+  color: #db4b4b; /* fg */
+  /* ERRORMSG  */
+  color: #db4b4b; /* fg */
+  /* FERNBRANCHTEXT  */
+  color: #7aa2f7; /* fg */
+  /* FLOATBORDER  */
+  color: #1f2335; /* bg */
+  color: #29a4bd; /* fg */
+  /* FOLDCOLUMN  */
+  color: #24283b; /* bg */
+  color: #565f89; /* fg */
+  /* FOLDED  */
+  color: #3b4261; /* bg */
+  color: #7aa2f7; /* fg */
+  /* FOO  */
+  color: #ff007c; /* bg */
+  color: #ff007c; /* fg */
+  /* FUNCTION  */
+  color: #7aa2f7; /* fg */
+  /* GITGUTTERADD  */
+  color: #399a96; /* fg */
+  /* GITGUTTERCHANGE  */
+  color: #6382bd; /* fg */
+  /* GITGUTTERDELETE  */
+  color: #c25d64; /* fg */
+  /* GITSIGNSADD  */
+  color: #399a96; /* fg */
+  /* GITSIGNSCHANGE  */
+  color: #6382bd; /* fg */
+  /* GITSIGNSDELETE  */
+  color: #c25d64; /* fg */
+  color: #db4b4b; /* fg */
+  color: #9ece6a; /* fg */
+  color: #e0af68; /* fg */
+  color: #7aa2f7; /* fg */
+  color: #73daca; /* fg */
+  color: #c0caf5; /* fg */
+  color: #f7768e; /* fg */
+  /* HLARGS  */
+  color: #e0af68; /* fg */
+  /* HOPNEXTKEY  */
+  color: #ff007c; /* fg */
+  color: #0db9d7; /* fg */
+  color: #167f99; /* fg */
+  /* HOPUNMATCHED  */
+  color: #545c7e; /* fg */
+  /* IDENTIFIER  */
+  color: #bb9af7; /* fg */
+  /* ILLUMINATEDWORDREAD  */
+  color: #3b4261; /* bg */
+  /* ILLUMINATEDWORDTEXT  */
+  color: #3b4261; /* bg */
+  /* ILLUMINATEDWORDWRITE  */
+  color: #3b4261; /* bg */
+  /* INCSEARCH  */
+  color: #ff9e64; /* bg */
+  color: #1d202f; /* fg */
+  /* INDENTBLANKLINECHAR  */
+  color: #3b4261; /* fg */
+  /* INDENTBLANKLINECONTEXTCHAR  */
+  color: #9d7cd8; /* fg */
+  /* ITALIC  */
+  /* KEYWORD  */
+  color: #7dcfff; /* fg */
+  /* STYLE  */
+  /* LAZYPROGRESSDONE  */
+  color: #ff007c; /* fg */
+  /* LAZYPROGRESSTODO  */
+  color: #3b4261; /* fg */
+  /* LEAPBACKDROP  */
+  color: #545c7e; /* fg */
+  /* LEAPLABELPRIMARY  */
+  color: #ff007c; /* fg */
+  /* LEAPLABELSECONDARY  */
+  color: #73daca; /* fg */
+  /* LEAPMATCH  */
+  color: #ff007c; /* bg */
+  color: #c0caf5; /* fg */
+  /* LIGHTSPEEDGREYWASH  */
+  color: #545c7e; /* fg */
+  /* LIGHTSPEEDLABEL  */
+  color: #ff007c; /* fg */
+  /* LIGHTSPEEDLABELDISTANT  */
+  color: #73daca; /* fg */
+  /* LIGHTSPEEDLABELDISTANTOVERLAPPED  */
+  color: #41a6b5; /* fg */
+  /* LIGHTSPEEDLABELOVERLAPPED  */
+  color: #ff007c; /* fg */
+  /* LIGHTSPEEDMASKEDCHAR  */
+  color: #ff9e64; /* fg */
+  /* LIGHTSPEEDONECHARMATCH  */
+  color: #ff007c; /* bg */
+  color: #c0caf5; /* fg */
+  /* LIGHTSPEEDPENDINGOPAREA  */
+  color: #ff007c; /* bg */
+  color: #c0caf5; /* fg */
+  /* LIGHTSPEEDSHORTCUT  */
+  color: #ff007c; /* bg */
+  color: #c0caf5; /* fg */
+  /* LIGHTSPEEDUNLABELEDMATCH  */
+  color: #0db9d7; /* fg */
+  /* LINENR  */
+  color: #3b4261; /* fg */
+  /* LSPCODELENS  */
+  color: #565f89; /* fg */
+  /* LSPFLOATWINBORDER  */
+  color: #29a4bd; /* fg */
+  /* LSPFLOATWINNORMAL  */
+  color: #1f2335; /* bg */
+  /* LSPINFOBORDER  */
+  color: #1f2335; /* bg */
+  color: #29a4bd; /* fg */
+  /* LSPREFERENCEREAD  */
+  color: #3b4261; /* bg */
+  /* LSPREFERENCETEXT  */
+  color: #3b4261; /* bg */
+  /* LSPREFERENCEWRITE  */
+  color: #3b4261; /* bg */
+  /* LSPSAGABORDERTITLE  */
+  color: #7dcfff; /* fg */
+  /* LSPSAGACODEACTIONBORDER  */
+  color: #7aa2f7; /* fg */
+  /* LSPSAGACODEACTIONCONTENT  */
+  color: #9d7cd8; /* fg */
+  /* LSPSAGACODEACTIONTITLE  */
+  color: #2ac3de; /* fg */
+  /* LSPSAGADEFPREVIEWBORDER  */
+  color: #9ece6a; /* fg */
+  /* LSPSAGAFINDERSELECTION  */
+  color: #364a82; /* fg */
+  /* LSPSAGAHOVERBORDER  */
+  color: #7aa2f7; /* fg */
+  /* LSPSAGARENAMEBORDER  */
+  color: #9ece6a; /* fg */
+  /* LSPSAGASIGNATUREHELPBORDER  */
+  color: #f7768e; /* fg */
+  /* LSPSIGNATUREACTIVEPARAMETER  */
+  color: #2b3657; /* bg */
+  /* MATCHPAREN  */
+  color: #ff9e64; /* fg */
+  /* MINICOMPLETIONACTIVEPARAMETER  */
+  /* MINICURSORWORD  */
+  color: #3b4261; /* bg */
+  /* MINICURSORWORDCURRENT  */
+  color: #3b4261; /* bg */
+  /* MINIINDENTSCOPEPREFIX  */
+  /* MINIINDENTSCOPESYMBOL  */
+  color: #2ac3de; /* fg */
+  /* MINIJUMP  */
+  color: #ff007c; /* bg */
+  color: #ffffff; /* fg */
+  color: #ff007c; /* fg */
+  /* MINISTARTERCURRENT  */
+  /* MINISTARTERFOOTER  */
+  color: #e0af68; /* fg */
+  /* MINISTARTERHEADER  */
+  color: #7aa2f7; /* fg */
+  /* MINISTARTERINACTIVE  */
+  color: #565f89; /* fg */
+  /* STYLE  */
+  /* MINISTARTERITEM  */
+  color: #24283b; /* bg */
+  color: #c0caf5; /* fg */
+  /* MINISTARTERITEMBULLET  */
+  color: #29a4bd; /* fg */
+  /* MINISTARTERITEMPREFIX  */
+  color: #e0af68; /* fg */
+  /* MINISTARTERQUERY  */
+  color: #0db9d7; /* fg */
+  /* MINISTARTERSECTION  */
+  color: #2ac3de; /* fg */
+  /* MINISTATUSLINEDEVINFO  */
+  color: #292e42; /* bg */
+  color: #a9b1d6; /* fg */
+  /* MINISTATUSLINEFILEINFO  */
+  color: #292e42; /* bg */
+  color: #a9b1d6; /* fg */
+  /* MINISTATUSLINEFILENAME  */
+  color: #3b4261; /* bg */
+  color: #a9b1d6; /* fg */
+  /* MINISTATUSLINEINACTIVE  */
+  color: #1f2335; /* bg */
+  color: #7aa2f7; /* fg */
+  /* MINISTATUSLINEMODECOMMAND  */
+  color: #e0af68; /* bg */
+  color: #1d202f; /* fg */
+  /* MINISTATUSLINEMODEINSERT  */
+  color: #9ece6a; /* bg */
+  color: #1d202f; /* fg */
+  /* MINISTATUSLINEMODENORMAL  */
+  color: #7aa2f7; /* bg */
+  color: #1d202f; /* fg */
+  /* MINISTATUSLINEMODEOTHER  */
+  color: #1abc9c; /* bg */
+  color: #1d202f; /* fg */
+  /* MINISTATUSLINEMODEREPLACE  */
+  color: #f7768e; /* bg */
+  color: #1d202f; /* fg */
+  /* MINISTATUSLINEMODEVISUAL  */
+  color: #bb9af7; /* bg */
+  color: #1d202f; /* fg */
+  /* MINISURROUND  */
+  color: #ff9e64; /* bg */
+  color: #1d202f; /* fg */
+  /* MINITABLINECURRENT  */
+  color: #3b4261; /* bg */
+  color: #c0caf5; /* fg */
+  /* MINITABLINEFILL  */
+  color: #1d202f; /* bg */
+  /* MINITABLINEHIDDEN  */
+  color: #1f2335; /* bg */
+  color: #737aa2; /* fg */
+  /* MINITABLINEMODIFIEDCURRENT  */
+  color: #3b4261; /* bg */
+  color: #e0af68; /* fg */
+  /* MINITABLINEMODIFIEDHIDDEN  */
+  color: #1f2335; /* bg */
+  color: #a8875b; /* fg */
+  /* MINITABLINEMODIFIEDVISIBLE  */
+  color: #1f2335; /* bg */
+  color: #e0af68; /* fg */
+  /* MINITABLINETABPAGESECTION  */
+  color: #1f2335; /* bg */
+  /* MINITABLINEVISIBLE  */
+  color: #1f2335; /* bg */
+  color: #c0caf5; /* fg */
+  /* MINITESTEMPHASIS  */
+  /* MINITESTFAIL  */
+  color: #f7768e; /* fg */
+  /* MINITESTPASS  */
+  color: #9ece6a; /* fg */
+  /* MINITRAILSPACE  */
+  color: #f7768e; /* bg */
+  /* MODEMSG  */
+  color: #a9b1d6; /* fg */
+  /* MOREMSG  */
+  color: #7aa2f7; /* fg */
+  /* MSGAREA  */
+  color: #a9b1d6; /* fg */
+  /* NAVICICONSARRAY  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSBOOLEAN  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSCLASS  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSCONSTANT  */
+  color: #bb9af7; /* fg */
+  /* NAVICICONSCONSTRUCTOR  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSENUM  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSENUMMEMBER  */
+  color: #73daca; /* fg */
+  /* NAVICICONSEVENT  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSFIELD  */
+  color: #73daca; /* fg */
+  /* NAVICICONSFILE  */
+  color: #c0caf5; /* fg */
+  /* NAVICICONSFUNCTION  */
+  color: #7aa2f7; /* fg */
+  /* NAVICICONSINTERFACE  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSKEY  */
+  color: #9d7cd8; /* fg */
+  /* NAVICICONSKEYWORD  */
+  color: #9d7cd8; /* fg */
+  /* NAVICICONSMETHOD  */
+  color: #7aa2f7; /* fg */
+  /* NAVICICONSMODULE  */
+  color: #e0af68; /* fg */
+  /* NAVICICONSNAMESPACE  */
+  color: #c0caf5; /* fg */
+  /* NAVICICONSNULL  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSNUMBER  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSOBJECT  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSOPERATOR  */
+  color: #c0caf5; /* fg */
+  /* NAVICICONSPACKAGE  */
+  color: #c0caf5; /* fg */
+  /* NAVICICONSPROPERTY  */
+  color: #73daca; /* fg */
+  /* NAVICICONSSTRING  */
+  color: #9ece6a; /* fg */
+  /* NAVICICONSSTRUCT  */
+  color: #ff9e64; /* fg */
+  /* NAVICICONSTYPEPARAMETER  */
+  color: #73daca; /* fg */
+  /* NAVICICONSVARIABLE  */
+  color: #bb9af7; /* fg */
+  /* NAVICSEPARATOR  */
+  color: #c0caf5; /* fg */
+  /* NAVICTEXT  */
+  color: #c0caf5; /* fg */
+  /* NEOTREENORMAL  */
+  color: #1f2335; /* bg */
+  color: #a9b1d6; /* fg */
+  /* NEOTREENORMALNC  */
+  color: #1f2335; /* bg */
+  color: #a9b1d6; /* fg */
+  /* NEOGITBRANCH  */
+  color: #bb9af7; /* fg */
+  /* NEOGITDIFFADDHIGHLIGHT  */
+  color: #283b4d; /* bg */
+  color: #4097a3; /* fg */
+  /* NEOGITDIFFCONTEXTHIGHLIGHT  */
+  color: #30354e; /* bg */
+  color: #a9b1d6; /* fg */
+  /* NEOGITDIFFDELETEHIGHLIGHT  */
+  color: #3f2d3d; /* bg */
+  color: #c47981; /* fg */
+  /* NEOGITHUNKHEADER  */
+  color: #292e42; /* bg */
+  color: #c0caf5; /* fg */
+  /* NEOGITHUNKHEADERHIGHLIGHT  */
+  color: #3b4261; /* bg */
+  color: #7aa2f7; /* fg */
+  /* NEOGITREMOTE  */
+  color: #9d7cd8; /* fg */
+  /* NEOTESTADAPTERNAME  */
+  color: #9d7cd8; /* fg */
+  /* NEOTESTBORDER  */
+  color: #7aa2f7; /* fg */
+  /* NEOTESTDIR  */
+  color: #7aa2f7; /* fg */
+  /* NEOTESTEXPANDMARKER  */
+  color: #a9b1d6; /* fg */
+  /* NEOTESTFAILED  */
+  color: #f7768e; /* fg */
+  /* NEOTESTFILE  */
+  color: #1abc9c; /* fg */
+  /* NEOTESTFOCUSED  */
+  color: #e0af68; /* fg */
+  /* NEOTESTINDENT  */
+  color: #a9b1d6; /* fg */
+  /* NEOTESTMARKED  */
+  color: #7aa2f7; /* fg */
+  /* NEOTESTNAMESPACE  */
+  color: #41a6b5; /* fg */
+  /* NEOTESTPASSED  */
+  color: #9ece6a; /* fg */
+  /* NEOTESTRUNNING  */
+  color: #e0af68; /* fg */
+  /* NEOTESTSKIPPED  */
+  color: #7aa2f7; /* fg */
+  /* NEOTESTTARGET  */
+  color: #7aa2f7; /* fg */
+  /* NEOTESTTEST  */
+  color: #a9b1d6; /* fg */
+  /* NEOTESTWINSELECT  */
+  color: #7aa2f7; /* fg */
+  /* NOICECOMPLETIONITEMKINDCLASS  */
+  color: #ff9e64; /* fg */
+  /* NOICECOMPLETIONITEMKINDCONSTANT  */
+  color: #bb9af7; /* fg */
+  /* NOICECOMPLETIONITEMKINDCONSTRUCTOR  */
+  color: #7aa2f7; /* fg */
+  /* NOICECOMPLETIONITEMKINDDEFAULT  */
+  color: #a9b1d6; /* fg */
+  /* NOICECOMPLETIONITEMKINDENUM  */
+  color: #ff9e64; /* fg */
+  /* NOICECOMPLETIONITEMKINDENUMMEMBER  */
+  color: #73daca; /* fg */
+  /* NOICECOMPLETIONITEMKINDEVENT  */
+  color: #ff9e64; /* fg */
+  /* NOICECOMPLETIONITEMKINDFIELD  */
+  color: #73daca; /* fg */
+  /* NOICECOMPLETIONITEMKINDFUNCTION  */
+  color: #7aa2f7; /* fg */
+  /* NOICECOMPLETIONITEMKINDINTERFACE  */
+  color: #ff9e64; /* fg */
+  /* NOICECOMPLETIONITEMKINDKEYWORD  */
+  color: #7dcfff; /* fg */
+  /* NOICECOMPLETIONITEMKINDMETHOD  */
+  color: #7aa2f7; /* fg */
+  /* NOICECOMPLETIONITEMKINDMODULE  */
+  color: #e0af68; /* fg */
+  /* NOICECOMPLETIONITEMKINDOPERATOR  */
+  color: #73daca; /* fg */
+  /* NOICECOMPLETIONITEMKINDPROPERTY  */
+  color: #73daca; /* fg */
+  /* NOICECOMPLETIONITEMKINDREFERENCE  */
+  color: #bb9af7; /* fg */
+  /* NOICECOMPLETIONITEMKINDSNIPPET  */
+  color: #737aa2; /* fg */
+  /* NOICECOMPLETIONITEMKINDSTRUCT  */
+  color: #ff9e64; /* fg */
+  /* NOICECOMPLETIONITEMKINDTYPEPARAMETER  */
+  color: #73daca; /* fg */
+  /* NOICECOMPLETIONITEMKINDUNIT  */
+  color: #ff9e64; /* fg */
+  /* NOICECOMPLETIONITEMKINDVALUE  */
+  color: #bb9af7; /* fg */
+  /* NOICECOMPLETIONITEMKINDVARIABLE  */
+  color: #bb9af7; /* fg */
+  /* NONTEXT  */
+  color: #545c7e; /* fg */
+  /* NORMAL  */
+  color: #24283b; /* bg */
+  color: #c0caf5; /* fg */
+  /* NORMALFLOAT  */
+  color: #1f2335; /* bg */
+  color: #c0caf5; /* fg */
+  /* NORMALNC  */
+  color: #24283b; /* bg */
+  color: #c0caf5; /* fg */
+  /* NORMALSB  */
+  color: #1f2335; /* bg */
+  color: #a9b1d6; /* fg */
+  /* NOTIFYDEBUGBODY  */
+  color: #24283b; /* bg */
+  color: #c0caf5; /* fg */
+  /* NOTIFYDEBUGBORDER  */
+  color: #24283b; /* bg */
+  color: #333952; /* fg */
+  /* NOTIFYDEBUGICON  */
+  color: #565f89; /* fg */
+  /* NOTIFYDEBUGTITLE  */
+  color: #565f89; /* fg */
+  /* NOTIFYERRORBODY  */
+  color: #24283b; /* bg */
+  color: #c0caf5; /* fg */
+  /* NOTIFYERRORBORDER  */
+  color: #24283b; /* bg */
+  color: #5b3340; /* fg */
+  /* NOTIFYERRORICON  */
+  color: #db4b4b; /* fg */
+  /* NOTIFYERRORTITLE  */
+  color: #db4b4b; /* fg */
+  /* NOTIFYINFOBODY  */
+  color: #24283b; /* bg */
+  color: #c0caf5; /* fg */
+  /* NOTIFYINFOBORDER  */
+  color: #24283b; /* bg */
+  color: #1d546a; /* fg */
+  /* NOTIFYINFOICON  */
+  color: #0db9d7; /* fg */
+  /* NOTIFYINFOTITLE  */
+  color: #0db9d7; /* fg */
+  /* NOTIFYTRACEBODY  */
+  color: #24283b; /* bg */
+  color: #c0caf5; /* fg */
+  /* NOTIFYTRACEBORDER  */
+  color: #24283b; /* bg */
+  color: #48416a; /* fg */
+  /* NOTIFYTRACEICON  */
+  color: #9d7cd8; /* fg */
+  /* NOTIFYTRACETITLE  */
+  color: #9d7cd8; /* fg */
+  /* NOTIFYWARNBODY  */
+  color: #24283b; /* bg */
+  color: #c0caf5; /* fg */
+  /* NOTIFYWARNBORDER  */
+  color: #24283b; /* bg */
+  color: #5c5149; /* fg */
+  /* NOTIFYWARNICON  */
+  color: #e0af68; /* fg */
+  /* NOTIFYWARNTITLE  */
+  color: #e0af68; /* fg */
+  /* NVIMTREEFOLDERICON  */
+  color: #7aa2f7; /* fg */
+  /* NVIMTREEGITDELETED  */
+  color: #c47981; /* fg */
+  /* NVIMTREEGITDIRTY  */
+  color: #506d9b; /* fg */
+  /* NVIMTREEGITNEW  */
+  color: #4097a3; /* fg */
+  /* NVIMTREEIMAGEFILE  */
+  color: #a9b1d6; /* fg */
+  /* NVIMTREEINDENTMARKER  */
+  color: #3b4261; /* fg */
+  /* NVIMTREENORMAL  */
+  color: #1f2335; /* bg */
+  color: #a9b1d6; /* fg */
+  /* NVIMTREENORMALNC  */
+  color: #1f2335; /* bg */
+  color: #a9b1d6; /* fg */
+  /* NVIMTREEOPENEDFILE  */
+  color: #292e42; /* bg */
+  /* NVIMTREEROOTFOLDER  */
+  color: #7aa2f7; /* fg */
+  /* NVIMTREESPECIALFILE  */
+  color: #9d7cd8; /* fg */
+  /* NVIMTREESYMLINK  */
+  color: #7aa2f7; /* fg */
+  /* NVIMTREEWINSEPARATOR  */
+  color: #1f2335; /* bg */
+  color: #1f2335; /* fg */
+  /* OPERATOR  */
+  color: #89ddff; /* fg */
+  /* PMENU  */
+  color: #1f2335; /* bg */
+  color: #c0caf5; /* fg */
+  /* PMENUSBAR  */
+  color: #2a2e3f; /* bg */
+  /* PMENUSEL  */
+  color: #363d59; /* bg */
+  /* PMENUTHUMB  */
+  color: #3b4261; /* bg */
+  /* PREPROC  */
+  color: #7dcfff; /* fg */
+  /* QUESTION  */
+  color: #7aa2f7; /* fg */
+  /* QUICKFIXLINE  */
+  color: #364a82; /* bg */
+  /* REFERENCESCOUNT  */
+  color: #9d7cd8; /* fg */
+  /* REFERENCESICON  */
+  color: #7aa2f7; /* fg */
+  /* SCROLLBARERROR  */
+  color: #db4b4b; /* fg */
+  /* SCROLLBARERRORHANDLE  */
+  color: #292e42; /* bg */
+  color: #db4b4b; /* fg */
+  /* SCROLLBARHANDLE  */
+  color: #292e42; /* bg */
+  /* SCROLLBARHINT  */
+  color: #1abc9c; /* fg */
+  /* SCROLLBARHINTHANDLE  */
+  color: #292e42; /* bg */
+  color: #1abc9c; /* fg */
+  /* SCROLLBARINFO  */
+  color: #0db9d7; /* fg */
+  /* SCROLLBARINFOHANDLE  */
+  color: #292e42; /* bg */
+  color: #0db9d7; /* fg */
+  /* SCROLLBARMISC  */
+  color: #9d7cd8; /* fg */
+  /* SCROLLBARMISCHANDLE  */
+  color: #292e42; /* bg */
+  color: #9d7cd8; /* fg */
+  /* SCROLLBARSEARCH  */
+  color: #ff9e64; /* fg */
+  /* SCROLLBARSEARCHHANDLE  */
+  color: #292e42; /* bg */
+  color: #ff9e64; /* fg */
+  /* SCROLLBARWARN  */
+  color: #e0af68; /* fg */
+  /* SCROLLBARWARNHANDLE  */
+  color: #292e42; /* bg */
+  color: #e0af68; /* fg */
+  /* SEARCH  */
+  color: #3d59a1; /* bg */
+  color: #c0caf5; /* fg */
+  /* SIGNCOLUMN  */
+  color: #24283b; /* bg */
+  color: #3b4261; /* fg */
+  /* SIGNCOLUMNSB  */
+  color: #1f2335; /* bg */
+  color: #3b4261; /* fg */
+  /* SNEAK  */
+  color: #bb9af7; /* bg */
+  color: #292e42; /* fg */
+  /* SNEAKSCOPE  */
+  color: #364a82; /* bg */
+  /* SPECIAL  */
+  color: #2ac3de; /* fg */
+  /* SPECIALKEY  */
+  color: #545c7e; /* fg */
+  /* SPELLBAD  */
+  color: #db4b4b; /* sp */
+  /* SPELLCAP  */
+  color: #e0af68; /* sp */
+  /* SPELLLOCAL  */
+  color: #0db9d7; /* sp */
+  /* SPELLRARE  */
+  color: #1abc9c; /* sp */
+  /* STATEMENT  */
+  color: #bb9af7; /* fg */
+  /* STATUSLINE  */
+  color: #1f2335; /* bg */
+  color: #a9b1d6; /* fg */
+  /* STATUSLINENC  */
+  color: #1f2335; /* bg */
+  color: #3b4261; /* fg */
+  /* STRING  */
+  color: #9ece6a; /* fg */
+  /* SUBSTITUTE  */
+  color: #f7768e; /* bg */
+  color: #1d202f; /* fg */
+  /* TSNODEKEY  */
+  color: #ff007c; /* fg */
+  /* TSNODEUNMATCHED  */
+  color: #545c7e; /* fg */
+  /* TSNOTE  */
+  color: #0db9d7; /* bg */
+  color: #24283b; /* fg */
+  /* TABLINE  */
+  color: #1f2335; /* bg */
+  color: #3b4261; /* fg */
+  /* TABLINEFILL  */
+  color: #1d202f; /* bg */
+  /* TABLINESEL  */
+  color: #7aa2f7; /* bg */
+  color: #1d202f; /* fg */
+  /* TARGETWORD  */
+  color: #7dcfff; /* fg */
+  /* TELESCOPEBORDER  */
+  color: #1f2335; /* bg */
+  color: #29a4bd; /* fg */
+  /* TELESCOPENORMAL  */
+  color: #1f2335; /* bg */
+  color: #c0caf5; /* fg */
+  /* TITLE  */
+  color: #7aa2f7; /* fg */
+  /* TODO  */
+  color: #e0af68; /* bg */
+  color: #24283b; /* fg */
+  /* TREESITTERCONTEXT  */
+  color: #363d59; /* bg */
+  /* TROUBLECOUNT  */
+  color: #3b4261; /* bg */
+  color: #bb9af7; /* fg */
+  /* TROUBLENORMAL  */
+  color: #1f2335; /* bg */
+  color: #a9b1d6; /* fg */
+  /* TROUBLETEXT  */
+  color: #a9b1d6; /* fg */
+  /* TYPE  */
+  color: #2ac3de; /* fg */
+  /* UNDERLINED  */
+  /* VERTSPLIT  */
+  color: #1d202f; /* fg */
+  /* VISUAL  */
+  color: #364a82; /* bg */
+  /* VISUALNOS  */
+  color: #364a82; /* bg */
+  /* WARNINGMSG  */
+  color: #e0af68; /* fg */
+  /* WHICHKEY  */
+  color: #7dcfff; /* fg */
+  /* WHICHKEYDESC  */
+  color: #bb9af7; /* fg */
+  /* WHICHKEYFLOAT  */
+  color: #1f2335; /* bg */
+  /* WHICHKEYGROUP  */
+  color: #7aa2f7; /* fg */
+  /* WHICHKEYSEPARATOR  */
+  color: #565f89; /* fg */
+  /* WHICHKEYSEPERATOR  */
+  color: #565f89; /* fg */
+  /* WHICHKEYVALUE  */
+  color: #737aa2; /* fg */
+  /* WHITESPACE  */
+  color: #3b4261; /* fg */
+  /* WILDMENU  */
+  color: #364a82; /* bg */
+  /* WINSEPARATOR  */
+  color: #1d202f; /* fg */
+  /* YANKYPUT  */
+  /* YANKYYANKED  */
+  /* DEBUGBREAKPOINT  */
+  color: #22374b; /* bg */
+  color: #0db9d7; /* fg */
+  /* DEBUGPC  */
+  color: #1f2335; /* bg */
+  /* DIFFADDED  */
+  color: #4097a3; /* fg */
+  /* DIFFCHANGED  */
+  color: #506d9b; /* fg */
+  /* DIFFFILE  */
+  color: #7aa2f7; /* fg */
+  /* DIFFINDEXLINE  */
+  color: #bb9af7; /* fg */
+  /* DIFFLINE  */
+  color: #565f89; /* fg */
+  /* DIFFNEWFILE  */
+  color: #ff9e64; /* fg */
+  /* DIFFOLDFILE  */
+  color: #e0af68; /* fg */
+  /* DIFFREMOVED  */
+  color: #c47981; /* fg */
+  /* HEALTHERROR  */
+  color: #db4b4b; /* fg */
+  /* HEALTHSUCCESS  */
+  color: #73daca; /* fg */
+  /* HEALTHWARNING  */
+  color: #e0af68; /* fg */
+  /* HELPCOMMAND  */
+  color: #414868; /* bg */
+  color: #7aa2f7; /* fg */
+  color: #bb9af7; /* fg */
+  color: #7aa2f7; /* fg */
+  /* ILLUMINATEDCURWORD  */
+  color: #3b4261; /* bg */
+  /* ILLUMINATEDWORD  */
+  color: #3b4261; /* bg */
+  /* LCURSOR  */
+  color: #c0caf5; /* bg */
+  color: #24283b; /* fg */
+  /* MARKDOWNCODE  */
+  color: #1abc9c; /* fg */
+  /* MARKDOWNCODEBLOCK  */
+  color: #1abc9c; /* fg */
+  color: #bb9af7; /* fg */
+  color: #7aa2f7; /* fg */
+  /* MARKDOWNHEADINGDELIMITER  */
+  color: #ff9e64; /* fg */
+  /* MARKDOWNLINKTEXT  */
+  color: #7aa2f7; /* fg */
+  /* MKDCODEDELIMITER  */
+  color: #414868; /* bg */
+  color: #c0caf5; /* fg */
+  /* MKDCODEEND  */
+  color: #1abc9c; /* fg */
+  /* MKDCODESTART  */
+  color: #1abc9c; /* fg */
+  /* QFFILENAME  */
+  color: #7aa2f7; /* fg */
+  /* QFLINENR  */
+  color: #737aa2; /* fg */
+  color: #f7768e; /* fg */
+  color: #e0af68; /* fg */
+  color: #9ece6a; /* fg */
+  color: #1abc9c; /* fg */
+  color: #7aa2f7; /* fg */
+  color: #bb9af7; /* fg */
+  color: #9d7cd8; /* fg */
+
+}

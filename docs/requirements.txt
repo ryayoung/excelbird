@@ -5,4 +5,6 @@ sphinx-toggleprompt==0.3.1
 sphinx-copybutton==0.5.1
 nbsphinx
 ipykernel
+pandas
+bokeh
 
