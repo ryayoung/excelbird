@@ -151,7 +151,7 @@ html_theme_options = dict(
     show_toc_level = 2,
     # Add light/dark mode and documentation version switcher:
     # "navbar_end": ["theme-switcher", "version-switcher", "navbar-icon-links"],
-    pygment_light_style="manni",
+    pygment_light_style="xcode",
     pygment_dark_style="stata-dark",
     # body_max_width="95%",
 )
