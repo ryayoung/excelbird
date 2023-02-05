@@ -35,7 +35,7 @@ hardcoding `5` and `4`, reference :class:`Cells <excelbird.Cell>` containing the
 
 Notice the comma we had to insert manually between `five` and `four`
 
-.. info::
+.. note::
 
     The above technique can be clumsy and prone to user-error. Its only
     benefit is improved speed, and that it doesn't require any knowledge
@@ -105,7 +105,7 @@ third `Expr` is the result of ``Expr("some_elem")``. Notice the value of
 to allow for conditional placement of elements.
 
 Additional Arguments - res_type
-^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Keyword argument :attr:`res_type` can be used to specify the type of the object returned
 by Func. This is **not** necessary inside structured parent containers like :class:`Frame <excelbird.Frame>`
