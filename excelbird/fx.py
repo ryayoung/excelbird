@@ -13,7 +13,7 @@ Allows for autocomplete and documentation preview in your IDE.
 
 .. note::
 
-    Each function is shorthand for an :class:`excelbird.Func`
+    Each function is short for an :class:`excelbird.Func`
 
     .. code-block::
 

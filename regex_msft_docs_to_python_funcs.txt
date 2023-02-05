@@ -58,6 +58,21 @@ save a copy of your current progress before proceeding.
 Pattern to format the functions. This is a single line, and should be pasted into vim in its entirety
 :%s/^\([A-Z_0-9]\+\) :: \([A-Z\.0-9]\+\) :: \(.*\) :: \(.\+\)/def \1(*inner: Any, res_type: type | None = None, **kwargs: Any) -> Func:\r\t"""\r\t\3 \4\r\r\tIn Excel: ``\2()``\r\r\tReturns\r\t-------\r\t:class:`Func <excelbird.Func>`\r\t"""\r\treturn Func("\2(", *inner, ")", res_type=res_type, **kwargs)\r
 
+----------------------------------------------------------------------------------------------------------------
+
+Now, create a python set of all function names (excel version) in a new file. Here's how.
+
+Grep the function names to an output file
+:g/``\([A-Z\.0-9]\+\)/.w! >> _formulae.py
+
+Replace text surrounding function names.
+:%s/^.*\`\`\([A-Z\.0-9]\+\)()\`\`/\1
+
+Surround text with quotes and commas
+:%s/\(.\+\)/\t"\1",
+
+Wrap with braces manually to create a set.
+
 
 
 """
@@ -75,7 +90,7 @@ Allows for autocomplete and documentation preview in your IDE.
 
 .. note::
 
-    Each function is shorthand for an :class:`excelbird.Func`
+    Each function is short for an :class:`excelbird.Func`
 
     .. code-block::
 

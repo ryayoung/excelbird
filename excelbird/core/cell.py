@@ -25,7 +25,7 @@ from excelbird._utils.util import (
 from excelbird._utils.cell_util import (
     autofit_algorithm,
     remove_paren_enclosure,
-    prefix_non_formulae_funcs,
+    prefix_formulae_funcs,
 )
 from excelbird._utils.color_algorithms import (
     color_is_light,
@@ -553,7 +553,7 @@ class Cell(HasId, HasBorder, CanDoMath):
                 return str(elem.value)  # Don't put quotes around strings here
 
         res = "".join([format_element(e) for e in func])
-        res = prefix_non_formulae_funcs(res)
+        res = prefix_formulae_funcs(res)
         return res
 
     def _eval_expr(self, expr: list) -> str:
