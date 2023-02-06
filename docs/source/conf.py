@@ -153,7 +153,7 @@ html_theme_options = dict(
     # Add light/dark mode and documentation version switcher:
     # "navbar_end": ["theme-switcher", "version-switcher", "navbar-icon-links"],
     pygment_light_style="light",
-    pygment_dark_style="material",
+    pygment_dark_style="dark",
     # body_max_width="95%",
 )
 
@@ -179,12 +179,6 @@ nbsphinx_prolog = """
         .nboutput .output_area table {
             width: auto !important;
         }
-
-        .highlight pre {
-            line-height: 110% !important;
-        }
-
-
 
     </style>
 """

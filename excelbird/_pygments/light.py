@@ -78,7 +78,7 @@ class LightStyle(Style):
         # String.Delimiter:       GREEN,
         # String.Doc:             GREEN,
         # String.Double:          GREEN,
-        String.Escape:          PINK,
+        String.Escape:          BLUE,
         # String.Heredoc:         GREEN,
         String.Interpol:        BLUE,
         # String.Other:           GREEN,

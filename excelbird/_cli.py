@@ -9,7 +9,7 @@ def main():
 
 @click.command()
 @click.argument('action', required=False)
-@click.option('--how', '-h', help="What command to use for the build", type=click.Choice(['make', 'sphinx-build']), default='make', show_default=True)
+@click.option('--how', '-h', help="What command to use for the build", type=click.Choice(['make', 'sphinx-build', 'fast']), default='make', show_default=True)
 def docs(action, how):
     here = os.path.abspath(os.path.dirname(__file__))
     path = os.path.join(here, os.pardir, 'docs')
@@ -19,8 +19,13 @@ def docs(action, how):
         webbrowser.open_new_tab('file://' + docs_index)
 
     elif action == "build":
-        shutil.rmtree(os.path.join(path, 'build'))
         base_path = os.path.join(path, os.pardir, os.pardir)
+
+        if how == 'fast':
+            os.system(f"cd {base_path}; source env/bin/activate; cd excelbird/docs; make html")
+            return
+
+        shutil.rmtree(os.path.join(path, 'build'))
         if how == 'make':
             os.system(f"cd {base_path}; source env/bin/activate; cd excelbird/docs; make html")
         elif how == 'sphinx-build':

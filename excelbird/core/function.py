@@ -56,8 +56,6 @@ you aren't familiar with them yet.
 
 `Why` did we use braces ``{{...}}`` instead of square bracktets ``[...]`` as we do inside an `Expr`?
 
-Because we weren't referencing variables. We were inserting Exprs.
-
 **In an Expr, square brackets enclose an id or header. In a Func, curly braces enclose an Expr**
 
 To illustrate this, let's make our Expr execute some python code. We'll multiply cells five and four

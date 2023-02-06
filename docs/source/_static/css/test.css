@@ -29,13 +29,28 @@ code .pre {
 
 div.highlight pre {
   font-size: 98%;
-  line-height: 160%;
+  line-height: 160% !important;
   border: none !important;
   border-left: .2rem solid var(--pst-color-light) !important;
   /* border-right: .15rem solid var(--pst-color-info) !important; */
   background-color: transparent !important;
 
 }
+
+details.sd-dropdown summary.sd-card-header .sd-summary-down {
+    top: .25rem;
+}
+details.sd-dropdown summary.sd-card-header .sd-summary-up {
+    top: .25rem;
+}
+
+details.sd-dropdown summary.sd-card-header, details.sd-dropdown summary.sd-card-header+div.sd-summary-content {
+    --pst-sd-dropdown-color: none;
+}
+html[data-theme=dark] details.sd-dropdown summary.sd-card-header, details.sd-dropdown summary.sd-card-header+div.sd-summary-content {
+    color: 
+}
+
 
 
 h1 {
@@ -126,6 +141,10 @@ Nat Methods 8, 441 (2011). https://doi.org/10.1038/nmeth.1618
   text-align: left;
 }
 
+html[data-theme=dark] div.highlight pre {
+    border-left: .2rem solid var(--pst-color-muted-highlight) !important;
+}
+
 /* Dark theme tweaking */
 html[data-theme=dark] .sd-card img[src*='.svg'] {
     filter: invert(0.82) brightness(0.8) contrast(1.2);
@@ -145,6 +164,10 @@ html[data-theme=dark] .sd-card .sd-card-header {
   color: #150458 !important;
 }
 
+html[data-theme=dark] .sd-dropdown.sd-card .sd-card-header {
+  color: #CECECE !important;
+}
+
 html[data-theme=dark] .sd-card .sd-card-footer {
   background-color:var(--pst-color-background);
 }
@@ -156,6 +179,35 @@ html[data-theme=dark] h1 {
 html[data-theme=dark] h3 {
   color: #0a6774;
 }
+
+/* JUPYTER OUTPUT */
+/* html[data-theme=light] div.output_area.rendered_html td { */
+/*     color: #000000 !important; */
+/* } */
+html[data-theme=dark] div.output_area.rendered_html.docutils.container {
+    background-color: var(--pst-color-background);
+}
+html[data-theme=dark] div.output_area.rendered_html.docutils.container th {
+    background-color: var(--pst-color-background);
+}
+html[data-theme=dark] div.output_area.rendered_html.docutils.container thead {
+    border-bottom: 1px solid #C9D1D9;
+}
+html[data-theme=dark] div.output_area.rendered_html.docutils.container th {
+    color: #C9D1D9;
+}
+html[data-theme=dark] div.output_area.rendered_html.docutils.container td {
+    color: #C9D1D9;
+}
+html[data-theme=dark] div.output_area.rendered_html.docutils.container tbody tr:nth-child(odd) {
+    background: var(--pst-color-shadow) !important;
+}
+html[data-theme=dark] div.output_area.rendered_html.docutils.container tbody tr:nth-child(odd) th {
+    background: var(--pst-color-shadow) !important;
+}
+/* html[data-theme=dark] .jp-RenderedHTMLCommon tbody tr:nth-child(odd), html[data-theme=dark] div.rendered_html tbody tr:nth-child(odd) { */
+/*     background: var(--pst-color-shadow); */
+/* } */
 
 @media (min-width: 960px)
 .bd-page-width {
