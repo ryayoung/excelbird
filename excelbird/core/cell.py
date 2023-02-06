@@ -3,6 +3,7 @@ Detailed documentation and code examples coming soon.
 """
 from __future__ import annotations
 # External
+import re
 import pandas as pd
 from typing import Any
 from copy import deepcopy
@@ -26,6 +27,7 @@ from excelbird._utils.cell_util import (
     autofit_algorithm,
     remove_paren_enclosure,
     prefix_formulae_funcs,
+    format_formula,
 )
 from excelbird._utils.color_algorithms import (
     color_is_light,
@@ -325,6 +327,8 @@ class Cell(HasId, HasBorder, CanDoMath):
         if self.func is not None:
             self.value = "=" + self._func_value()
             self.value = self.value.replace(self._loc.title_str, "")
+            self.value = prefix_formulae_funcs(self.value)
+            self.value = format_formula(self.value)
 
         if self.expr is not None:
             self.value = self._expr_value()
@@ -553,7 +557,6 @@ class Cell(HasId, HasBorder, CanDoMath):
                 return str(elem.value)  # Don't put quotes around strings here
 
         res = "".join([format_element(e) for e in func])
-        res = prefix_formulae_funcs(res)
         return res
 
     def _eval_expr(self, expr: list) -> str:
@@ -614,4 +617,3 @@ class Cell(HasId, HasBorder, CanDoMath):
 
                 if check_unset(getattr(self, key, None)):
                     setattr(self, key, val)
-

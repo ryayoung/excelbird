@@ -12,6 +12,7 @@ from excelbird.core.merged import *
 
 """
 TODO:
+- allow a docstring in functions with triple backtick
 - Func needs to have id and header
 - DUDE!!!! Make Func use a unique syntax to declare an Expr inside.
   The enclosure, @[], represents an Expr. So @[<stuff>] will be interpreted

@@ -90,6 +90,8 @@ class Expr(CanDoMath):
     ) -> None:
         if isinstance(expr_str, set):
             expr_str = str(expr_str.pop())
+        
+        expr_str = expr_str.strip()
 
         if "[" not in expr_str and "]" not in expr_str:
             expr_str = "[" + expr_str + "]"

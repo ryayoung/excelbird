@@ -235,11 +235,22 @@ class Func(CanDoMath):
             sub_args = [x for x in chain.from_iterable(zip_longest(splits, matches)) if x]
             return sub_args
 
+        def format_string(s: str) -> str:
+            # Remove comments from end of string
+            s = re.sub(r"#+.*?$", "", s)
+            # Remove comments at the end of lines
+            s = re.sub(r"#+.*?\n", " ", s)
+            # Remove whitespace
+            s = re.sub(r"\s+", " ", s)
+            return s
+
         def is_str_containing_expr(s: Any) -> bool:
             if isinstance(s, str):
                 if "{" in s:
                     return True
             return False
+
+        args = [format_string(i) if isinstance(i, str) else i for i in args]
 
         return list(
             chain.from_iterable(

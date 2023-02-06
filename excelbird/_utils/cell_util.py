@@ -35,6 +35,21 @@ def approximate_arial_string_width(st):
     return size * 6 / 1000.0 # Convert to picas
 
 
+def format_formula(s: str) -> str:
+    """
+    The last step in finalizing a formula. Attempting to correct
+    user mistakes, trailing commas, unwanted spaces, etc. Assume
+    the function is fully built, starts with '=', and all functions
+    are prefixed with '_xlfn.'
+    """
+    s = re.sub(r"\([, ]+", r"(", s)  # comma before opening paren
+    s = re.sub(r"[, ]+\)", r")", s) # trailing comma before closing paren
+    s = re.sub(r"^= +", "=", s)  # leading space
+    s = re.sub(r"[, ]+$", "", s)  # trailing comma
+    s = re.sub(r"= *'(.*?)'", r'="\1"', s)  # using single quotes instead of double
+    return s
+
+
 def prefix_formulae_funcs(func: str) -> str:
     """
     Openpyxl will insert '@' before any function it doesn't think is a valid
@@ -45,12 +60,10 @@ def prefix_formulae_funcs(func: str) -> str:
     or digits, followed by a starting parenthese, check if they are in openpyxl's
     `FORMULAE`, and if not, prefix them with "_xlfn."
     """
-    # First, capture a group at the START of the string, if present.
-    # Add additional matches which do NOT start with a period. This serves two purposes:
-    #   - Avoids capturing when func is already prefixed with _xlfn. (shouldn't happen, but just in case)
-    #   - Avoids capturing midway through a function that has periods in it, like "BINOM.DIST"
-    matches = re.findall(r"^([A-Z\.0-9]+)\(", func) + re.findall(r"[^\.]([A-Za-z\.0-9]+)\(", func)
+
+    matches = re.findall(r"([A-Z\.a-z0-9]+)\(", func)
+    # matches = re.findall(r"^([A-Z\.0-9]+)\(", func) + re.findall(r"(?<![^\.A-Za-z0-9])([A-Za-z\.0-9]+)\(", func)
+    matches = set([match for match in matches if match.upper() in FORMULAE])
     for match in matches:
-        if match.upper() in FORMULAE:
-            func = func.replace(match + "(", "_xlfn." + match + "(")
+        func = func.replace(match + "(", "_xlfn." + match + "(")
     return func
