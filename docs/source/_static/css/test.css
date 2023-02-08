@@ -20,8 +20,8 @@ pre, code {
   background-color: transparent !important;
 }
 
-code .pre {
-  font-size: 102%;
+code span.pre {
+  font-size: 105%;
   line-height: 150%;
   border: none !important;
   background-color: transparent !important;
@@ -36,6 +36,19 @@ div.highlight pre {
   background-color: transparent !important;
 
 }
+
+.code-fmt-link span {
+    font-weight: bold;
+    /* color: var(--pst-color-link); */
+    font-family: var(--pst-font-family-monospace);
+    /* border-bottom: 1px dotted var(--pst-color-primary); */
+}
+
+.classname-card .sd-card-body.docutils {
+    padding-top: 3px;
+    padding-bottom: 0;
+}
+
 
 details.sd-dropdown summary.sd-card-header .sd-summary-down {
     top: .25rem;

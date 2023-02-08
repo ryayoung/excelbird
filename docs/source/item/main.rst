@@ -1,19 +1,21 @@
-Expr
+Item
 =====
 
-.. _expr_main:
-
-.. grid:: 4
-
-    .. grid-item-card:: :class:`xb.Expr <excelbird.Expr>`
-        :link: expr
-        :link-type: doc
-        :class-item: classname-card
-
-.. automodule:: excelbird.core.expression
+.. _item_main:
 
 .. role:: html(raw)
    :format: html
+
+.. grid:: 4
+
+    .. grid-item-card:: :class:`xb.Item <excelbird.Item>`
+        :link: item
+        :link-type: doc
+        :class-item: classname-card
+
+
+.. automodule:: excelbird.core.item
+
 
 :html:`</br>`
 :html:`</br>`
@@ -52,4 +54,4 @@ Expr
 :html:`</br>`
 
 .. toctree::
-   expr
+   item

@@ -1,5 +1,5 @@
-Book
-=====
+xb.Book
+=======
 
 .. role:: html(raw)
    :format: html
@@ -16,3 +16,7 @@ Methods
 :html:`</br>`
 
 .. autofunction:: excelbird.Book.get
+
+:html:`</br>`
+
+.. autofunction:: excelbird.Book.set

@@ -1,13 +1,11 @@
-Col
-===
+xb.Col
+========
 
 .. role:: html(raw)
    :format: html
 
 
 .. autoclass:: excelbird.Col
-
-:html:`</br>`
 
 Methods
 -------
@@ -25,3 +23,7 @@ Methods
 :html:`</br>`
 
 .. autofunction:: excelbird.Col.get
+
+:html:`</br>`
+
+.. autofunction:: excelbird.Col.set

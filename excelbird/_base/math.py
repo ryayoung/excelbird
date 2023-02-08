@@ -1,79 +1,11 @@
-"""
-``__rshift__(a, b)``
-    * ``a >> b`` --> ``=a:b``
-
-``__eq__(a, b)``
-    * ``a == b`` --> ``=a = b``
-
-``__ne__(a, b)``
-    * ``a != b`` --> ``=a <> b``
-
-``__lt__(a, b)`` / ``__gt__(a, b)``
-    * ``a < b`` / ``a > b`` --> ``=a < b`` / ``=a > b``
-
-``__le__(a, b)`` / ``__ge__(a, b)``
-    * ``a <= b`` / ``a >= b` --> ``=a <= b`` / ``=a >= b``
-
-``__add__(a, b)``
-    * ``a + b`` --> ``=a ^ b``
-
-``__and__(a, b)``
-    * ``a & b`` --> ``=a & b``
-    * note - Strings will be surrounded in double quotes
-
-``__sub__(a, b)``
-    * ``a - b`` --> ``=a - b``
-
-``__mul__(a, b)``
-    * ``a * b`` --> ``=a * b``
-
-``__truediv__(a, b)``
-    * ``a / b`` --> ``=a / b``
-
-``__pow__(a, b)``
-    * ``a ** b`` --> ``=a ^ b``
-
-``__xor__(a, b)``
-    * ``a ^ b`` --> ``=a ^ b``
-
-``__or__(a, b)``
-    * ``a | b`` --> ``=OR(a, b)``
-
-``__mod__(a, b)``
-    * ``a % b`` --> ``=MOD(a, b)``
-    * ``a % a`` --> ``=a%``
-    * NOTE: Passing the *same* object on both sides of the expression (i.e. ``my_var % my_var``)
-      will call excel's shorthand percent conversion and return ``=my_var%``
-
-``__round__(a, b)``
-    * ``round(a, b)`` --> ``=ROUND(a, b)``
-
-``__abs__(x)``
-    * ``abs(x)`` --> ``=ABS(x)``
-
-``__invert__(x)``
-    * ``~ x`` -> ``=NOT(x)``
-
-``__trunc__(x)``
-    * ``math.trunc(x)`` -> ``=TRUNC(x)``
-
-``__floor__(x)``
-    * ``math.floor(x)`` -> ``=FLOOR(x, 1)``
-
-``__ceil__(x)``
-    * ``math.ceil(x)`` -> ``=CEILING(x, 1)``
-
-
-
-
-
-"""
+# REFACTOR SO & ACTS NORMAL AGAIN
 from typing import Any
 from pandas import Series, DataFrame
 
 from excelbird._utils.util import get_dimensions
 from excelbird.core.gap import Gap
 from excelbird._layout_references import Globals
+
 
 expr_error = ValueError(
     "You've tried to do math with an Expr that contains unresolved references. This isn't possible "
@@ -159,7 +91,7 @@ def elem_math(a: Any, b: Any, func, sign: str) -> Any:
     )
 
     if a_dim == 0 and b_dim == 0:
-        return Cell(expr=[a, sign, b])
+        return Cell(_expr=[a, sign, b])
 
     if a_dim == b_dim:
         a = [a for a in a if not isinstance(a, Gap)]
@@ -215,7 +147,7 @@ class CanDoMath:
                 raise func_error
 
         if dim == 0:
-            return Cell(expr=["-", res])
+            return Cell(_expr=["-", res])
         
         if dim > 0:
             return cls(*[-elem for elem in res])
@@ -250,7 +182,7 @@ class CanDoMath:
                 raise func_error
 
         if dim == 0:
-            return Cell(expr=[res, "%"])
+            return Cell(_expr=[res, "%"])
         
         if dim > 0:
             return cls(*[elem % elem for elem in res])

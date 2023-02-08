@@ -5,7 +5,7 @@ from __future__ import annotations
 # External
 from pandas import Series, DataFrame, concat
 from numpy import ndarray
-from typing import Any, Iterable
+from typing import Any, Iterable, overload
 from copy import deepcopy
 import re
 
@@ -115,6 +115,41 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
     _dimensions = 2
     elem_type = _Series
 
+    @overload
+    def __new__(cls, fn: str | set, **kwargs) -> Func:
+        ...
+
+    @overload
+    def __new__(cls, func: str | set, **kwargs) -> Func:
+        ...
+
+    @overload
+    def __new__(cls, ex: str | set, **kwargs) -> Expr:
+        ...
+
+    @overload
+    def __new__(cls, expr: str | set, **kwargs) -> Expr:
+        ...
+
+    @overload
+    def __new__(cls, *args, **kwargs) -> _Frame:
+        ...
+
+    def __new__(cls, *args, fn=None, func=None, ex=None, expr=None, **kwargs):
+        fn = fn if fn is not None else func
+        ex = ex if ex is not None else expr
+        if fn is not None:
+            new_func = Func.__new__(Func)
+            new_func.__init__(fn, res_type=cls, **kwargs)
+            return new_func
+
+        if ex is not None:
+            new_expr = Expr.__new__(Expr)
+            new_expr.__init__(ex, res_type=cls, **kwargs)
+            return new_expr
+
+        return super().__new__(cls)
+
     def __init__(
         self,
         *args: Any,
@@ -133,8 +168,16 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
         table_style: Style | dict | bool | None = None,
+        fn: None = None,
+        func: None = None,
+        ex: None = None,
+        expr: None = None,
         **kwargs,
     ) -> None:
+        del fn
+        del func
+        del ex
+        del expr
         children = combine_args_and_children_to_list(args, children)
 
         children = [i for i in children if i is not None]
@@ -218,8 +261,7 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
 
         Returns
         -------
-        :class:`Frame <excelbird.Frame>` or :class:`VFrame <excelbird.VFrame>`
-            Self type
+        :class:`Self`
 
         Notes
         -----
@@ -491,6 +533,11 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
     #     return other[0] >> self[-1]
 
 
+class VFrame(_Frame):
+    ...
+
+
+
 class Frame(_Frame):
 
     _doc_custom_summary = """
@@ -498,7 +545,7 @@ class Frame(_Frame):
     * Child Type: :class:`Col`
     """
 
-    sibling_type = None  # these are set after class declaration
+    sibling_type: type = VFrame  # these are set after class declaration
     elem_type = Col
 
     def transpose(self, **kwargs) -> VFrame:
@@ -663,7 +710,7 @@ class VFrame(_Frame):
     .. note:: Unlike :class:`Frame`, `VFrame` cannot be formatted as a table in Excel. Param ``table_style`` will be ignored.
     """
 
-    sibling_type = None  # these are set after class declaration
+    sibling_type: type = Frame  # these are set after class declaration
     elem_type = Row
 
     def transpose(self, **kwargs) -> Frame:
@@ -719,9 +766,6 @@ class VFrame(_Frame):
             offset.y += 1
         return offset
 
-
-VFrame.sibling_type = Frame
-Frame.sibling_type = VFrame
 
 VFrame.__doc__ = Frame.__doc__
 

@@ -1,4 +1,4 @@
-VStack
+xb.VStack
 =================
 
 .. role:: html(raw)
@@ -20,3 +20,7 @@ Methods
 :html:`</br>`
 
 .. autofunction:: excelbird.VStack.get
+
+:html:`</br>`
+
+.. autofunction:: excelbird.VStack.set

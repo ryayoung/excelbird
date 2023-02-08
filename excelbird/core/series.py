@@ -19,7 +19,7 @@ A Series' :attr:`header <excelbird._Series.header>` attribute is a string which 
 from __future__ import annotations
 from pandas import Series
 from numpy import ndarray
-from typing import Iterable, Any
+from typing import Iterable, Any, overload
 from copy import copy, deepcopy
 
 from excelbird._base.container import ListIndexableById
@@ -112,6 +112,41 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
     _dimensions = 1
     elem_type = Cell
 
+    @overload
+    def __new__(cls, fn: str | set, **kwargs) -> Func:
+        ...
+
+    @overload
+    def __new__(cls, func: str | set, **kwargs) -> Func:
+        ...
+
+    @overload
+    def __new__(cls, ex: str | set, **kwargs) -> Expr:
+        ...
+
+    @overload
+    def __new__(cls, expr: str | set, **kwargs) -> Expr:
+        ...
+
+    @overload
+    def __new__(cls, *args, **kwargs) -> _Series:
+        ...
+
+    def __new__(cls, *args, fn=None, func=None, ex=None, expr=None, **kwargs):
+        fn = fn if fn is not None else func
+        ex = ex if ex is not None else expr
+        if fn is not None:
+            new_func = Func.__new__(Func)
+            new_func.__init__(fn, res_type=cls, **kwargs)
+            return new_func
+
+        if ex is not None:
+            new_expr = Expr.__new__(Expr)
+            new_expr.__init__(ex, res_type=cls, **kwargs)
+            return new_expr
+
+        return super().__new__(cls)
+
     def __init__(
         self,
         *args: Any,
@@ -127,8 +162,16 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         background_color: str | None = None,
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
+        fn: None = None,
+        func: None = None,
+        ex: None = None,
+        expr: None = None,
         **kwargs,
     ) -> None:
+        del fn
+        del func
+        del ex
+        del expr
         children = combine_args_and_children_to_list(args, children)
 
         children = [i for i in children if i is not None]
@@ -235,8 +278,7 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
 
         Returns
         -------
-        :class:`Col <excelbird.Col>` or :class:`Row <excelbird.Row>`
-            Self type
+        :class:`Self`
 
         Notes
         -----
@@ -460,6 +502,12 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         for cell in self:
             cell._write()
 
+    def _starting_offset(self) -> Loc:
+        ...
+
+
+class Row(_Series):
+    ...
 
 
 class Col(_Series):
@@ -468,7 +516,7 @@ class Col(_Series):
     * Child Type: :class:`Cell`
     """
 
-    sibling_type = None  # these are set after class declaration
+    sibling_type: type = Row  # these are set after class declaration
     elem_type = Cell
 
     def transpose(self, **kwargs) -> Row:
@@ -521,8 +569,8 @@ class Row(_Series):
     * Direction: **horizontal**
     * Child Type: :class:`Cell`
     """
+    sibling_type = Col  # these are set after class declaration
     elem_type = Cell
-    sibling_type = None  # these are set after class declaration
 
     def transpose(self, **kwargs) -> Col:
         return super().transpose(**kwargs)
@@ -575,9 +623,6 @@ class Row(_Series):
             offset.x += 1
         return offset
 
-
-Col.sibling_type = Row
-Row.sibling_type = Col
 
 Col.__doc__ = f"""
     {_Series._doc_primary_summary}

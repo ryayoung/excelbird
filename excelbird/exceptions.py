@@ -45,6 +45,18 @@ after that sheet was created.
         super().__init__(self.message)
 
 
+class ExpressionExecutionError(Exception):
+    def __init__(self, original_exception: Exception, expr_string: str):
+        super().__init__(
+            f"An error was encountered when executing an Expr. This is usually a user syntax error. "
+            "Excelbird tried to execute the following string as python code: '" + expr_string + "' "
+            f"and encountered a '{type(original_exception).__name__}' with the description, '" + str(original_exception) + "'"
+        )
+
+class ExpressionTypeError(Exception):
+    pass
+
+
 class CellReferenceError(Exception):
     default_msg = """
 One of the cells in your book is trying to reference a cell that isn't being

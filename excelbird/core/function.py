@@ -300,7 +300,7 @@ class Func(CanDoMath):
             for i, elem in enumerate(self.inner):
                 if get_dimensions(elem) > 0:
                     self.inner[i] = elem.range()
-            return self.res_type(func=self.inner, **self.kwargs)
+            return self.res_type(_func=self.inner, **self.kwargs)
 
         if dimensions == 1:
             res_length = min(len(x) for x in self.inner if get_dimensions(x) == 1)
@@ -313,7 +313,7 @@ class Func(CanDoMath):
                     )
             return self.res_type(
                 *[
-                    elem_type(func=[item[i] if get_dimensions(item) == 1 else item for item in self.inner])
+                    elem_type(_func=[item[i] if get_dimensions(item) == 1 else item for item in self.inner])
                     for i in range(res_length)
                 ],
                 **self.kwargs

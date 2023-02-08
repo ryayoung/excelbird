@@ -1,21 +1,21 @@
+"""
+`Item` exists because most layout elements
+(with the exception of :class:`Stack <excelbird.Stack>` / :class:`VStack <excelbird.VStack>` and :class:`Sheet <excelbird.Sheet>`)
+can only hold **one** child type. In many cases, your code can be simplified, and
+refactoring made easier, by using `Item` instead of the child type.
+
+For instance, if you have a :class:`Frame <excelbird.Frame>` and want to refactor it
+to a :class:`VFrame <excelbird.VFrame>`, you'd need to rename not only the container in question, but also
+each of its children, changing all the :class:`Cols <excelbird.Col>` to :class:`Rows <excelbird.Row>`.
+If `Item` were used instead of `Col`, this code change wouldn't be necessary, as each `Item`
+would be interpreted as `Row` automatically by the new parent container type.
+
+"""
 from typing import Any
 
 class Item:
     """
     Let the parent container decide what type the element should be.
-
-    Its subclass, :class:`I`, serves as a more concise alternative and can be
-    used interchangeably.
-
-    `Item` exists because most layout elements
-    (with the exception of :class:`Stack` / :class:`VStack` and :class:`Sheet`)
-    can only hold one child type. In many cases, your code can be simplified, and
-    refactoring made easier, by using `Item` instead of the actual child type.
-    For instance, if you have a :class:`Frame` full of :class:`Col` and you want to refactor it
-    to a :class:`VFrame`, you'd need to rename not only the container in question, but also
-    each of its children, changing all the `Col` instances to `Row`. If `Item`
-    were used instead of `Col`, this code change wouldn't be necessary, as each `Item`
-    would be interpreted as `Row` automatically by the new parent container type.
 
     .. note::
 

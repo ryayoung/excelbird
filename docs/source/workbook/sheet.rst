@@ -1,5 +1,5 @@
-Sheet
-=====
+xb.Sheet
+========
 
 .. role:: html(raw)
    :format: html
@@ -20,3 +20,7 @@ Methods
 :html:`</br>`
 
 .. autofunction:: excelbird.Sheet.get
+
+:html:`</br>`
+
+.. autofunction:: excelbird.Sheet.set

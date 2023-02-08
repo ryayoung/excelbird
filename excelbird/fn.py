@@ -3,7 +3,7 @@
 .. role:: html(raw)
    :format: html
 
-All ~500 Excel functions can be accessed in Python, from the :mod:`excelbird.fx` module.
+All ~500 Excel functions can be accessed in Python, from the :mod:`excelbird.fn` module.
 
 Each is documented with the same short summary as provided by `Microsoft's documentation <https://support.microsoft.com/en-us/office/excel-functions-alphabetical-b3944572-255d-4efb-bb96-c6d90033e188>`_.
 
@@ -17,7 +17,7 @@ Allows for autocomplete and documentation preview in your IDE.
 
     .. code-block::
 
-        fx.ABS(some_cell)
+        fn.ABS(some_cell)
 
     is the same as
 

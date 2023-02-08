@@ -5,7 +5,7 @@ from __future__ import annotations
 # External
 import re
 import pandas as pd
-from typing import Any
+from typing import Any, overload
 from copy import deepcopy
 from openpyxl.worksheet.datavalidation import DataValidation
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
@@ -148,17 +148,58 @@ class Cell(HasId, HasBorder, CanDoMath):
     cell_style : dict, optional
         A dict that contains attributes to set. Priority is given to existing attributes - An attribute in
         cell_style will only be set if the Cell's attribute is currently None
-    expr : list, optional
-        Stores the binary tree of an expression with Cell references. For internal use only.
-        Ignore unless debugging, or doing something sick.
-    func : list, optional
-        Stores the contents of a formula created by a Func object. For internal use only. Ignore
-        unless debugging, or doing something sick.
 
     """
 
     _dimensions = 0
     elem_type = None
+
+    @overload
+    def __new__(cls, fn: str | set, **kwargs) -> Func:
+        ...
+
+    @overload
+    def __new__(cls, func: str | set, **kwargs) -> Func:
+        ...
+
+    @overload
+    def __new__(cls, ex: str | set, **kwargs) -> Expr:
+        ...
+
+    @overload
+    def __new__(cls, expr: str | set, **kwargs) -> Expr:
+        ...
+
+    @overload
+    def __new__(cls, mul: int, **kwargs) -> list[Cell | Func | Expr]:
+        ...
+
+    @overload
+    def __new__(cls, *args, **kwargs) -> Cell:
+        ...
+
+    def __new__(cls, *args, fn=None, func=None, ex=None, expr=None, mul=None, **kwargs):
+        fn = fn if fn is not None else func
+        ex = ex if ex is not None else expr
+        if mul is not None:
+            elems = [cls.__new__(cls, *args, fn=fn, **kwargs) for _ in range(mul)]
+            if len(elems) > 0:
+                if isinstance(elems[0], cls):
+                    for elem in elems:
+                        elem.__init__(*args, **kwargs)
+            return elems
+
+        if fn is not None:
+            new_func = Func.__new__(Func)
+            new_func.__init__(fn, res_type=cls, **kwargs)
+            return new_func
+
+        if ex is not None:
+            new_expr = Expr.__new__(Expr)
+            new_expr.__init__(ex, res_type=cls, **kwargs)
+            return new_expr
+
+        return super().__new__(cls)
 
     def __init__(
         self,
@@ -187,14 +228,23 @@ class Cell(HasId, HasBorder, CanDoMath):
         border: bool | str | None = None,  # MUST be last border attr set
         col_width: int | None = None,  # finds the cell's column and adjust it
         row_height: int | None = None,  # finds the cell's row and adjusts it
-        merge: tuple[int, int]
-        | None = None,  # (y, x) counts of how many merges. Ex: (0, 1) merges cell with right adjacent
-        expr: list | None = None,
-        func: list | None = None,
+        merge: tuple[int, int] | None = None,  # (y, x) counts of how many merges. Ex: (0, 1) merges cell with right adjacent
+        _expr: list | None = None,
+        _func: list | None = None,
         autofit: bool | None = None,
         cell_style: dict | None = None,
         _written: bool | None = None,
+        fn: None = None,
+        func: None = None,
+        ex: None = None,
+        expr: None = None,
+        mul: None = None,
     ) -> None:
+        del fn
+        del func
+        del ex
+        del expr
+        del mul
         self._written = False
         self._loc = None
 
@@ -218,8 +268,8 @@ class Cell(HasId, HasBorder, CanDoMath):
         self.col_width = col_width
         self.row_height = row_height
         self.merge = merge
-        self.expr = expr
-        self.func = func
+        self._expr = _expr
+        self._func = _func
         self.autofit = autofit
         self.center = center
 
@@ -251,7 +301,7 @@ class Cell(HasId, HasBorder, CanDoMath):
 
     @property
     def is_empty(self) -> bool:
-        return self.value is None and self.func is None and self.expr is None
+        return self.value is None and self._func is None and self._expr is None
 
     @property
     def shape(self) -> tuple:
@@ -293,20 +343,20 @@ class Cell(HasId, HasBorder, CanDoMath):
         if inherit_style is True:
             self_dict = deepcopy(self.__dict__)
             for key, val in self_dict.items():
-                if key not in kwargs and key not in ["_id", "_loc", "expr", "func"]:
+                if key not in kwargs and key not in ["_id", "_loc", "_expr", "_func"]:
                     kwargs[key] = val
-        return Cell(expr=[self], **kwargs)
+        return Cell(_expr=[self], **kwargs)
 
     def _expr_value(self) -> str | None:
-        if self.expr is None:
+        if self._expr is None:
             return None
-        expr = str(self._eval_expr(self.expr))
+        expr = str(self._eval_expr(self._expr))
         return remove_paren_enclosure(expr)
 
     def _func_value(self) -> str | None:
-        if self.func is None:
+        if self._func is None:
             return None
-        return self._eval_func(self.func)
+        return self._eval_func(self._func)
 
     def _write(self) -> None:
 
@@ -324,13 +374,13 @@ class Cell(HasId, HasBorder, CanDoMath):
                 "\nSupport for repeated writes is possible, but hasn't been implemented yet."
             )
 
-        if self.func is not None:
+        if self._func is not None:
             self.value = "=" + self._func_value()
             self.value = self.value.replace(self._loc.title_str, "")
             self.value = prefix_formulae_funcs(self.value)
             self.value = format_formula(self.value)
 
-        if self.expr is not None:
+        if self._expr is not None:
             self.value = self._expr_value()
             if self.value is None:
                 return
@@ -372,7 +422,7 @@ class Cell(HasId, HasBorder, CanDoMath):
 
                 formula = None
                 if isinstance(value, (Col, Row)):
-                    formula = self._eval_expr(value.range().expr).replace(
+                    formula = self._eval_expr(value.range()._expr).replace(
                         self._loc.title_str, ""
                     )
                 else:
@@ -527,9 +577,9 @@ class Cell(HasId, HasBorder, CanDoMath):
         self._loc = loc
 
     def __repr__(self):
-        if self.expr is not None:
+        if self._expr is not None:
             return type(self).__name__ + "({...})"
-        if self.func is not None:
+        if self._func is not None:
             return type(self).__name__ + "(Func(...))"
         return f"{type(self).__name__}({self.value})"
 
@@ -542,15 +592,15 @@ class Cell(HasId, HasBorder, CanDoMath):
                 return str(elem)
 
             if get_dimensions(elem) > 0:
-                cell_range = elem.range().expr
+                cell_range = elem.range()._expr
                 evaluated = self._eval_expr(cell_range)
                 return remove_paren_enclosure(evaluated)
 
             if elem._loc is not None:
                 return elem._loc.full_str
 
-            if elem.expr is not None:
-                evaluated = self._eval_expr(elem.expr)
+            if elem._expr is not None:
+                evaluated = self._eval_expr(elem._expr)
                 return remove_paren_enclosure(evaluated)
 
             if elem.value is not None:
@@ -567,11 +617,11 @@ class Cell(HasId, HasBorder, CanDoMath):
             if elem._loc is not None:
                 return elem._loc.full_str
 
-            if elem.expr is not None:
-                return self._eval_expr(elem.expr)
+            if elem._expr is not None:
+                return self._eval_expr(elem._expr)
 
-            if elem.func is not None:
-                return self._eval_func(elem.func)
+            if elem._func is not None:
+                return self._eval_func(elem._func)
             else:
                 global cell_reference_warning_issued
 

@@ -12,6 +12,12 @@ from excelbird.core.merged import *
 
 """
 TODO:
+- A 'repeat' function which takes three arguments:
+    1. a layout element
+    2. number of times to repeat
+    3. whether to reference
+    4. Whether to inherit styling, if referencing.
+    - Returns a ElementVector object, which the parent container must unpack
 - allow a docstring in functions with triple backtick
 - Func needs to have id and header
 - DUDE!!!! Make Func use a unique syntax to declare an Expr inside.

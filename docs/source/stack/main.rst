@@ -5,13 +5,15 @@ Stack
 
 .. grid:: 4
 
-    .. grid-item-card:: :class:`Stack <excelbird.Stack>`
+    .. grid-item-card:: :class:`xb.Stack <excelbird.Stack>`
         :link: stack
         :link-type: doc
+        :class-item: classname-card
 
-    .. grid-item-card:: :class:`VStack <excelbird.VStack>`
+    .. grid-item-card:: :class:`xb.VStack <excelbird.VStack>`
         :link: vstack
         :link-type: doc
+        :class-item: classname-card
 
 .. automodule:: excelbird.core.stack
 

@@ -1,5 +1,5 @@
-Item
-======
+xb.Item
+========
 
 .. role:: html(raw)
    :format: html

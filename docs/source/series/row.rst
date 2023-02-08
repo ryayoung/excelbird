@@ -1,5 +1,5 @@
-Row
-===
+xb.Row
+========
 
 .. role:: html(raw)
    :format: html
@@ -25,3 +25,7 @@ Methods
 :html:`</br>`
 
 .. autofunction:: excelbird.Row.get
+
+:html:`</br>`
+
+.. autofunction:: excelbird.Row.set

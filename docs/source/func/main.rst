@@ -3,11 +3,12 @@ Func
 
 .. _func_main:
 
-.. grid:: 3
+.. grid:: 4
 
-    .. grid-item-card:: API Reference
+    .. grid-item-card:: :class:`xb.Func <excelbird.Func>`
         :link: func
         :link-type: doc
+        :class-item: classname-card
 
 .. automodule:: excelbird.core.function
 

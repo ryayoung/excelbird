@@ -10,6 +10,7 @@ from excelbird._layout_references import Globals
 from excelbird.styles.styles import default_table_style
 from excelbird._base.dotdict import Style
 from excelbird._base.math import CanDoMath
+from excelbird.exceptions import ExpressionExecutionError, ExpressionTypeError
 
 from excelbird._utils.pass_attributes import (
     pass_attr_without_override,
@@ -86,6 +87,7 @@ class Expr(CanDoMath):
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
         table_style: Style | dict | bool | None = None,
+        res_type: type | None = None,
         **kwargs,
     ) -> None:
         if isinstance(expr_str, set):
@@ -134,19 +136,19 @@ class Expr(CanDoMath):
         r_elem_sing_q = r"\['([^\[\]]+?)'\]"
         cap_not_prefixed = r"(" + not_prefixed + r")"
 
-        expr_str = re.sub(r"^" + r_elem_dub_q, r"[\1]", expr_str)
-        expr_str = re.sub(r"^" + r_elem_sing_q, r"[\1]", expr_str)
-        expr_str = re.sub(cap_not_prefixed + r_elem_dub_q, r"\1[\2]", expr_str)
-        expr_str = re.sub(cap_not_prefixed + r_elem_sing_q, r"\1[\2]", expr_str)
+        new_expr_str = re.sub(r"^" + r_elem_dub_q, r"[\1]", expr_str)
+        new_expr_str = re.sub(r"^" + r_elem_sing_q, r"[\1]", new_expr_str)
+        new_expr_str = re.sub(cap_not_prefixed + r_elem_dub_q, r"\1[\2]", new_expr_str)
+        new_expr_str = re.sub(cap_not_prefixed + r_elem_sing_q, r"\1[\2]", new_expr_str)
 
         # Prepare expr_str to be evaluated with eval()
         # - Replace [ref] with self.refs["""ref"""]
         # - Triple quotes must be used since we don't know what kind of quotes, if any,
         #   are already present in the true content of the ref name. It might have both!
         for str_ref in [k for k in refs.keys() if not isinstance(k, (int, float))]:
-            expr_str = expr_str.replace(f"[{str_ref}]", f'self.refs["""{str_ref}"""]')
+            new_expr_str = new_expr_str.replace(f"[{str_ref}]", f'self.refs["""{str_ref}"""]')
 
-        expr = expr_str
+        expr = new_expr_str
 
         # Check to see if they're just referencing an object without doing
         # calculations on it. If so, we MIGHT want to return that element's
@@ -183,6 +185,7 @@ class Expr(CanDoMath):
         self.header_style = Style(**header_style)
         self.table_style = Style(**table_style)
         self.kwargs = kwargs
+        self.res_type = res_type
 
     def set(self, **kwargs) -> Expr:
         for k, v in kwargs.items():
@@ -209,7 +212,18 @@ class Expr(CanDoMath):
         if self._refs_resolved() is False:
             raise ValueError("All references must be resolved before calling .eval()")
 
-        res = eval(self.expr)
+        try:
+            res = eval(self.expr)
+        except Exception as e:
+            raise ExpressionExecutionError(e, self.expr)
+
+        if self.res_type is not None:
+            if not issubclass(type(res), self.res_type):
+                raise ExpressionTypeError(
+                    f"A '{self.res_type.__name__}' was defined with the following Expr: '{self.expr_str}'. "
+                    f"Evaluation of that Expr returned a '{type(res).__name__}' instead. "
+                    f"Are you sure you want a '{self.res_type.__name__}'?"
+                )
 
         if self._use_ref is True:
             res = res.ref()
@@ -220,7 +234,7 @@ class Expr(CanDoMath):
             res.id = self.id
 
         # If returning _Series, pass down attributes
-        if getattr(type(res), "_dimensions", None) >= 1:
+        if getattr(type(res), "_dimensions", 0) >= 1:
             pass_attr_without_override(self, res, "header")
             pass_attr_without_override(self, res, "id")
 

@@ -1,5 +1,5 @@
-Cell
-=====
+xb.Cell
+=======
 
 .. role:: html(raw)
    :format: html

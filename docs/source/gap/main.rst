@@ -3,11 +3,12 @@ Gap
 
 .. _gap_main:
 
-.. grid:: 3
+.. grid:: 4
 
-    .. grid-item-card:: API Reference
+    .. grid-item-card:: :class:`xb.Gap <excelbird.Gap>`
         :link: gap
         :link-type: doc
+        :class-item: classname-card
 
 .. automodule:: excelbird.core.gap
 

@@ -26,12 +26,20 @@
    expr/main
    func/main
    gap/main
-   item
+   item/main
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Excel Functions
+   :maxdepth: 2
+   :caption: Methods
    :hidden:
    :titlesonly:
 
-   fx
+   fn
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Other
+   :hidden:
+   :titlesonly:
+
+   operators

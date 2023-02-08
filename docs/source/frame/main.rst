@@ -5,13 +5,15 @@ Frame
 
 .. grid:: 4
 
-    .. grid-item-card:: :class:`Frame <excelbird.Frame>`
+    .. grid-item-card:: :class:`xb.Frame <excelbird.Frame>`
         :link: frame
         :link-type: doc
+        :class-item: classname-card
 
-    .. grid-item-card:: :class:`VFrame <excelbird.VFrame>`
+    .. grid-item-card:: :class:`xb.VFrame <excelbird.VFrame>`
         :link: vframe
         :link-type: doc
+        :class-item: classname-card
 
 .. automodule:: excelbird.core.frame
 

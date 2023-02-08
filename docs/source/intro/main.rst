@@ -17,6 +17,16 @@ Getting Started
         :link: expression
         :link-type: doc
 
+    .. grid-item-card:: Lazy References and Expr
+        :link: references
+        :link-type: doc
+
+
+You don't care which letter of the alphabet your column is placed in, and in excelbird,
+your code doesn't either.
+
+
+
 .. role:: html(raw)
    :format: html
 
@@ -61,3 +71,4 @@ Getting Started
    test
    layout
    expression
+   references

@@ -1,5 +1,5 @@
 This is the excel function data, in its final state before converting to python functions
-for the excelbird.fx module.
+for the excelbird.fn module.
 We keep this in case of wanting to refactor the function design.
 ===========================================================================================================
 

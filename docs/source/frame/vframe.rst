@@ -1,5 +1,5 @@
-VFrame
-======
+xb.VFrame
+=========
 
 .. role:: html(raw)
    :format: html
@@ -32,3 +32,7 @@ Methods
 :html:`</br>`
 
 .. autofunction:: excelbird.VFrame.get
+
+:html:`</br>`
+
+.. autofunction:: excelbird.VFrame.set

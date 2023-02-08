@@ -40,6 +40,44 @@ class ListIndexableById(list):
         super().insert(index, new)
 
     def set(self, **kwargs) -> ListIndexableById:
+        """
+        Set attributes inline.
+
+        Useful if defining a complex layout and setting attributes
+        dynamically via either a list comprehension or inline conditionals.
+
+        Parameters
+        ----------
+        **kwargs : Any
+            All keyword arguments will be set as attributes on self, via ``setattr()``
+
+        Returns
+        -------
+        :class:`Self`
+
+        Examples
+        --------
+
+        Instead of having to set an attribute ahead of time, like
+
+        .. code-block::
+
+            if len(elem) > 5:
+                elem.bold = True
+
+            Book(
+                elem,
+            )
+
+        Set the attribute inline!
+
+        .. code-block::
+
+            Book(
+                elem if len(elem) < 5 else elem.set(bold=True)
+            )
+            
+        """
         for k, v in kwargs.items():
             setattr(self, k, v)
         return self

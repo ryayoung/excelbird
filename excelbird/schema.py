@@ -1,3 +1,59 @@
+"""
+xb.Schema
+======
+
+Where traditional dataframe schema classes define what should go *inside*
+a dataframe's columns, `Schema` defines what those columns should be, 'when'
+they should be, and how they got there. It defines a dataframe's 'state' at
+a given point in time. And it provides the tools/methods needed to help you get to
+that state, change it, and move to new states seamlessly.
+
+It's a simple class, designed for ease of use and exceptional readability.
+
+It's a subclass of dictionary.
+    Keys: python-friendly variable names
+    Values: namedtuple: ("Input col name", "Output col name (optional)")
+
+Consider the following:
+
+>>> sch_person = Schema(
+...     first_name=("FName", "First Name"),
+...     last_name=("LName", "Last Name"),
+...     favorite_food=("Fav Food", "Favorite Food"),
+... )
+...
+>>> sch_company = Schema(
+...     comp_name=("Companyname", "Company Name"),
+...     market_cap="Market Capitalization",
+...     favorite_food="Preferred Employee Favorite Food",
+... )
+...
+>>> sch_output = Schema(
+...     sch_person[[
+...         'last_name',
+...         'age',
+...     ]],
+...     sch_company[[
+...         'comp_name',
+...     ]],
+...     is_executive="Person is Executive"
+... )
+
+This should be readability-paradise. Given only the code above,
+the reader should know exactly what's supposed to happen in the script:
+    1. There are two input sources, person and company.
+    2. The script will have to join person and company, and include fields from each.
+    3. The script needs to add a new custom column, `is_executive`
+
+
+Instance methods of this class try to provide as much utility as possible for
+common operations. Here are just a few:
+- `select_inputs()`: Take raw input data, validate our required columns can be
+  found, select them, rename them python-friendly, and order them
+- `select_outputs()`: Do the opposite, and again, validate that all the columns
+  required by our output schema are present.
+- `apply()`: Mid-workflow, safely re-order our columns and remove undesired ones.
+"""
 from __future__ import annotations
 
 from pandas import DataFrame
@@ -7,32 +63,12 @@ from excelbird.exceptions import SchemaError
 from typing import overload
 
 
-# namedtuple is like a tuple, but you can access elements by name. So
-# `Column` is the data structure to be held as dict values by a `Schema`
+# The values held by each key of a Schema.
+# Tuple's immutability helps enforce consistency in user's code
 Column = namedtuple("Column", "input, output")
 
 
 class Schema(dict):
-    """
-    A subclass of dictionary, designed to hold the schema for imported data.
-        Keys: python-friendly variable names
-        Values: tuple: ("Input col name", "Output col name")
-
-    Its purpose is to decouple column naming from the user's workflow.
-    For each variable we want to use in our code, we'll store the following:
-
-    "Input Col Name"   ->   var_name   ->   "Output Col Name"
-                               ^
-                        this never changes
-
-    If we define this info ahead of time, our program only ever needs to reference
-    the `var_name`. Input data and output format can change freely without breaking our code.
-
-    This class has all the tools needed to convert between naming formats.
-    Use `select_inputs()` and/or `read_excel()` when reading input data to `var_name`s.
-    `vars_to_outputs()` returns a dict you can use to refactor columns to their output format.
-    """
-
     def __init__(
         self, *schemas, **kwargs: tuple[str, str] | tuple[str] | list[str] | str
     ) -> None:
@@ -58,11 +94,11 @@ class Schema(dict):
         # since for some reason ChainMap returns the values in opposite order
         super().__init__(**ChainMap(*tuple(reversed(schemas))), **kwargs)
 
-    def __getattr__(self, key: str) -> Column:
-        """Lets you access dict items with dot notation"""
-        if key in self.keys():
-            return self[key]
-        raise KeyError(f"Unknown key, '{key}'")
+    # def __getattr__(self, key: str) -> Column:
+    #     """Lets you access dict items with dot notation"""
+    #     if key in self.keys():
+    #         return self[key]
+    #     raise KeyError(f"Unknown key, '{key}'")
 
     @overload
     def __getitem__(self, key: list) -> Schema:

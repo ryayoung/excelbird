@@ -1,4 +1,4 @@
-Stack
+xb.Stack
 =================
 
 .. role:: html(raw)
@@ -20,3 +20,7 @@ Methods
 :html:`</br>`
 
 .. autofunction:: excelbird.Stack.get
+
+:html:`</br>`
+
+.. autofunction:: excelbird.Stack.set

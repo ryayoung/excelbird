@@ -9,6 +9,16 @@ Excelbird Documentation
 .. role:: html(raw)
     :format: html
 
+
+A markup language, front-end framework, and dataframe library all in one. For Excel.
+
+Excelbird is the tool for *rapid* development of complex, functional Excel workbooks with styling,
+formulas, and cell references, all in **Python**.
+
+Excelbird is **not** a scripting library. There is no such thing as cell ``A1``, and there
+are no grid coordinates. Your layout is *fluid*, like an html page.
+
+
 .. grid:: 2
 
     .. grid-item-card::
@@ -66,7 +76,6 @@ Excelbird Documentation
         :class:`Sheet <excelbird.Sheet>`, :class:`Book <excelbird.Book>`
 
 
-
 :html:`<h4>Dynamic Elements</h4>`
 
 .. grid:: 2
@@ -81,7 +90,7 @@ Excelbird Documentation
         Apply spacing
 
     .. grid-item-card::
-        :link: item
+        :link: /item/main
         :link-type: doc
 
         :class:`Item <excelbird.Item>`

@@ -1,5 +1,5 @@
-Func
-======
+xb.Func
+=======
 
 .. role:: html(raw)
    :format: html

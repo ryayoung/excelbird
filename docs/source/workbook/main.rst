@@ -6,13 +6,15 @@ Workbook
 
 .. grid:: 4
 
-    .. grid-item-card:: :class:`Sheet <excelbird.Sheet>`
+    .. grid-item-card:: :class:`xb.Sheet <excelbird.Sheet>`
         :link: sheet
         :link-type: doc
+        :class-item: classname-card
 
-    .. grid-item-card:: :class:`Book <excelbird.Book>`
+    .. grid-item-card:: :class:`xb.Book <excelbird.Book>`
         :link: book
         :link-type: doc
+        :class-item: classname-card
 
 .. automodule:: excelbird.core.book
 

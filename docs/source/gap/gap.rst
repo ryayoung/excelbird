@@ -1,5 +1,5 @@
-Gap
-======
+xb.Gap
+=======
 
 .. role:: html(raw)
    :format: html

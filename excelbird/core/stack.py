@@ -39,6 +39,7 @@ from excelbird.core.series import (
 from excelbird.core.gap import Gap
 from excelbird.core.frame import _Frame, Frame, VFrame
 from excelbird.core.expression import Expr
+from excelbird.core.function import Func
 
 
 class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
@@ -111,8 +112,8 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
 
     """
 
-    sibling_type = None
-    elem_type = None
+    sibling_type: type = None
+    elem_type: type = None
     _dimensions = -1
 
     def __init__(
@@ -203,8 +204,7 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
 
         Returns
         -------
-        :class:`Stack <excelbird.Stack>` or :class:`VStack <excelbird.VStack>`
-            Self type
+        :class:`Self`
 
         Notes
         -----
@@ -486,14 +486,21 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
         for elem in self:
             elem._write()
 
+    def _starting_offset(self) -> Loc:
+        return Loc((0, 0), self._loc.ws)
+
+
+class VStack(_Stack):
+    ...
+
 
 class Stack(_Stack):
     _doc_custom_summary = """
     * Direction: **horizontal**
     * Child Type: :class:`Stack`, :class:`VStack`, :class:`Frame`, :class:`VFrame`, :class:`Col`, :class:`Row`, :class:`Cell`
     """
-    sibling_type = None  # these are set after class declaration
-    elem_type = Frame
+    sibling_type: type = VStack  # these are set after class declaration
+    elem_type: type = Frame
 
     def transpose(self, **kwargs) -> VStack:
         return super().transpose(**kwargs)
@@ -515,9 +522,6 @@ class Stack(_Stack):
         offset.x += elem.width
         return offset
 
-    def _starting_offset(self) -> Loc:
-        return Loc((0, 0), self._loc.ws)
-
     @property
     def _gap_size(self) -> int:
         return self.height
@@ -528,8 +532,8 @@ class VStack(_Stack):
     * Direction: **vertical**
     * Child Type: :class:`Stack`, :class:`VStack`, :class:`Frame`, :class:`VFrame`, :class:`Col`, :class:`Row`, :class:`Cell`
     """
-    sibling_type = None  # these are set after class declaration
-    elem_type = VFrame
+    sibling_type: type = Stack  # these are set after class declaration
+    elem_type: type = VFrame
 
     def transpose(self, **kwargs) -> Stack:
         return super().transpose(**kwargs)
@@ -551,16 +555,10 @@ class VStack(_Stack):
         offset.y += elem.height
         return offset
 
-    def _starting_offset(self) -> Loc:
-        return Loc((0, 0), self._loc.ws)
-
     @property
     def _gap_size(self) -> int:
         return self.width
 
-
-Stack.sibling_type = VStack
-VStack.sibling_type = Stack
 
 Stack.__doc__ = f"""
     {_Stack._doc_primary_summary}

@@ -1,4 +1,4 @@
-Frame
+xb.Frame
 ================
 
 .. role:: html(raw)
@@ -33,3 +33,7 @@ Methods
 :html:`</br>`
 
 .. autofunction:: excelbird.Frame.get
+
+:html:`</br>`
+
+.. autofunction:: excelbird.Frame.set
