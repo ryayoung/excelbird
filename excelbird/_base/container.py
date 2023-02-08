@@ -120,16 +120,16 @@ class ListIndexableById(list):
         ids = [i.id if hasattr(i, "_id") else None for i in self]
         if key in ids:
             return ids.index(key)
+
+        headers = [
+            i.header if hasattr(i, "_header") else 
+            i.kwargs.get('header', None) if hasattr(i, 'kwargs')
+            else None for i in self
+        ]
+        if key in headers:
+            return headers.index(key)
         else:
-            headers = [
-                i.header if hasattr(i, "_header") else 
-                i.kwargs.get('header', None) if hasattr(i, 'kwargs')
-                else None for i in self
-            ]
-            if key in headers:
-                return headers.index(key)
-            else:
-                raise KeyError(f"Invalid key, {key}")
+            raise KeyError(f"Invalid key, {key}")
 
 
     def __setitem__(self, key, val) -> None:

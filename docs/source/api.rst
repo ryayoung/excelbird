@@ -42,4 +42,5 @@
    :hidden:
    :titlesonly:
 
+   schema
    operators
