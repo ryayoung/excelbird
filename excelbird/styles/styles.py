@@ -1,5 +1,5 @@
 from excelbird._base.dotdict import Style
-from excelbird.styles.colors import conditional
+from excelbird.colors import conditional
 
 """
 Styles

@@ -6,18 +6,25 @@
 Excelbird Documentation
 =======================
 
-.. role:: html(raw)
-    :format: html
 
-
-A markup language, front-end framework, and dataframe library all in one. For Excel.
+  **A markup language, front-end framework, and dataframe library all in one. For Excel.**
 
 Excelbird is the tool for *rapid* development of complex, functional Excel workbooks with styling,
 formulas, and cell references, all in **Python**.
 
-Excelbird is **not** a scripting library. There is no such thing as cell ``A1``, and there
-are no grid coordinates. Your layout is *fluid*, like an html page.
+**Fluid Layout**: Excelbird is **not** a scripting library. There is no concept of "cell ``A1``", and there
+are **no grid coordinates**. Your layout is *fluid*, like an html page.
 
+**Built-in cell reference tracking**: Cell references are **created automatically** (before their locations
+are known) when excelbird objects reference each other in python arithmetic expressions or formula templates,
+and **later** evaluate to real cell locations only once a workbook is written.
+
+.. code-block::
+
+    pip install excelbird
+
+.. role:: html(raw)
+    :format: html
 
 .. grid:: 2
 
@@ -36,9 +43,8 @@ are no grid coordinates. Your layout is *fluid*, like an html page.
         :link: /cell/main
         :link-type: doc
 
-        Value
-        ^^^
         :class:`Cell <excelbird.Cell>`
+        ^^^
 
     .. grid-item-card::
         :link: /series/main

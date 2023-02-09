@@ -3,10 +3,18 @@ Getting Started
 
 .. _intro:
 
+.. admonition:: A brief disclaimer
+    :class: warning
+
+    Excelbird is in **early** development. There are bugs. Changes are being made
+    several times a week. All provided code examples should work, and if errors
+    are encountered, raise an issue on `the project's Github <https://github.com/ryayoung/excelbird/issues>`_
+    or reach out to **dev @ ryayoung.com** for a quicker response.
+
 .. grid:: 2
 
-    .. grid-item-card:: Examples
-        :link: test
+    .. grid-item-card:: Introduction
+        :link: intro
         :link-type: doc
 
     .. grid-item-card:: Layout Tree Structure
@@ -22,8 +30,9 @@ Getting Started
         :link-type: doc
 
 
-You don't care which letter of the alphabet your column is placed in, and in excelbird,
-your code doesn't either.
+
+
+
 
 
 
@@ -68,7 +77,7 @@ your code doesn't either.
 
 .. toctree::
 
-   test
+   intro
    layout
    expression
    references

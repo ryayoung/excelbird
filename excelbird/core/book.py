@@ -28,6 +28,7 @@ from excelbird.exceptions import (
     AutoOpenFileError,
     InvalidSheetName,
     ExpressionResolutionError,
+    UnsavedWorkbookError,
 )
 from excelbird._layout_references import Globals
 from excelbird.styles.styles import default_table_style
@@ -351,9 +352,10 @@ class Book(ListIndexableById):
 
             except xw.XlwingsError as e:
                 raise AutoOpenFileError(
-                    "Couldn't access Excel file. A common cause of this issue is having your "
-                    "file stored in OneDrive, AND it being currently open before executing your code. "
-                    "To fix this, EITHER move the file out of OneDrive, OR close the file before code execution."
+                    "An error was enountered while trying to save and close an already-open version of book, "
+                    f"'{self.path}'. There are two likely causes of this issue: Either the workbook has unsaved changes, "
+                    "or the file is stored in OneDrive, is currently open. To fix this, make sure the file doesn't have unsaved changes. "
+                    "If the error persists, try closing the file first. If that doesn't work, move the file out of OneDrive, or set 'auto_open=False'. "
                     f'\nThis error was triggered by an `XlwingsError` being raised. Its message is:\n"{e}"'
                 )
 

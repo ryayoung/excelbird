@@ -1,5 +1,8 @@
 
 
+class UnsavedWorkbookError(Exception):
+    pass
+
 class SchemaError(Exception):
     pass
 
