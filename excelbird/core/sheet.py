@@ -4,7 +4,7 @@ from typing import Any
 # Internal main
 from excelbird._layout_references import Globals
 from excelbird._base.dotdict import Style
-from excelbird.styles.styles import default_table_style
+from excelbird.styles import default_table_style
 from excelbird._utils.util import (
     get_idx,
 )

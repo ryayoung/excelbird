@@ -30,14 +30,28 @@ code span.pre {
 div.highlight pre {
   font-size: 98%;
   line-height: 160% !important;
+  padding-left: 20px;
   border: none !important;
-  border-left: .2rem solid var(--pst-color-light) !important;
+  border-left: .15rem solid var(--pst-color-light) !important;
   border-top: .5px solid var(--pst-color-light) !important;
   border-right: .5px solid var(--pst-color-light) !important;
   border-bottom: .5px solid var(--pst-color-light) !important;
   /* border-right: .15rem solid var(--pst-color-info) !important; */
   background-color: transparent !important;
+}
 
+.nbinput div.highlight pre {
+    border-top: none !important;
+    border-right: none !important;
+}
+
+.nboutput.docutils.container {
+    margin-bottom: 15px;
+}
+
+.nboutput.docutils.container div.highlight pre {
+    border: none !important;
+    border-right: .15rem solid var(--pst-color-light) !important;
 }
 
 .code-fmt-link span {
@@ -66,6 +80,7 @@ details.sd-dropdown summary.sd-card-header, details.sd-dropdown summary.sd-card-
 html[data-theme=dark] details.sd-dropdown summary.sd-card-header, details.sd-dropdown summary.sd-card-header+div.sd-summary-content {
     color: 
 }
+
 
 
 

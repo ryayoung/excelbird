@@ -31,7 +31,7 @@ from excelbird.exceptions import (
     UnsavedWorkbookError,
 )
 from excelbird._layout_references import Globals
-from excelbird.styles.styles import default_table_style
+from excelbird.styles import default_table_style
 
 from excelbird.core.expression import Expr
 from excelbird.core.function import Func

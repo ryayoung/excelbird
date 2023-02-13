@@ -8,7 +8,7 @@ from typing import Any
 from copy import deepcopy
 
 # Internal main
-from excelbird.styles.styles import default_table_style
+from excelbird.styles import default_table_style
 
 from excelbird._base.container import ListIndexableById
 from excelbird._base.identifier import HasId
@@ -48,7 +48,7 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
     features, like margin and padding, described below.
     """
     _doc_params = """
-    .. note:: Stacks *cannot* be :ref:`used in a python expression <expression_main>`, or included in a :class:`Func`. However, you can still call :meth:`self.ref()` to make an exact reference to its cells.
+    .. note:: Stacks *cannot* be used in a python expression, or included in a :class:`Func`. However, you can still call :meth:`self.ref()` to make an exact reference to its cells.
 
     Parameters
     ----------
@@ -490,16 +490,12 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
         return Loc((0, 0), self._loc.ws)
 
 
-class VStack(_Stack):
-    ...
-
-
 class Stack(_Stack):
     _doc_custom_summary = """
     * Direction: **horizontal**
     * Child Type: :class:`Stack`, :class:`VStack`, :class:`Frame`, :class:`VFrame`, :class:`Col`, :class:`Row`, :class:`Cell`
     """
-    sibling_type: type = VStack  # these are set after class declaration
+    sibling_type: type = None  # these are set after class declaration
     elem_type: type = Frame
 
     def transpose(self, **kwargs) -> VStack:
@@ -559,6 +555,7 @@ class VStack(_Stack):
     def _gap_size(self) -> int:
         return self.width
 
+Stack.sibling_type = VStack
 
 Stack.__doc__ = f"""
     {_Stack._doc_primary_summary}

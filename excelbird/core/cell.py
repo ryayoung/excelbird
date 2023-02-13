@@ -18,7 +18,7 @@ from excelbird._base.styling import HasBorder
 from excelbird._base.dotdict import Style
 from excelbird._base.loc import Loc
 
-from excelbird.styles import formats
+from excelbird.formats import number_formats as num_formats
 
 from excelbird._utils.util import (
     get_dimensions,
@@ -234,10 +234,10 @@ class Cell(HasId, HasBorder, CanDoMath):
         autofit: bool | None = None,
         cell_style: dict | None = None,
         _written: bool | None = None,
-        fn: None = None,
-        func: None = None,
-        ex: None = None,
-        expr: None = None,
+        fn: str | Func | None = None,
+        func: str | Func | None = None,
+        ex: str | Expr | None = None,
+        expr: str | Expr | None = None,
         mul: None = None,
     ) -> None:
         del fn
@@ -456,13 +456,13 @@ class Cell(HasId, HasBorder, CanDoMath):
 
             if isinstance(self.value, float):
                 if self.currency is True:
-                    return formats.number.accounting_float
-                return formats.number.comma_float
+                    return num_formats.accounting_float
+                return num_formats.comma_float
 
             if isinstance(self.value, int):
                 if self.currency is True:
-                    return formats.number.accounting_int
-                return formats.number.comma_int
+                    return num_formats.accounting_int
+                return num_formats.comma_int
 
         number_format = get_number_format()
         if number_format is not None:

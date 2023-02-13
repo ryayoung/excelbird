@@ -55,7 +55,7 @@ from excelbird.core.item import Item
 
 class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
     _doc_primary_summary = """
-    A 1-dimensional vector that can :ref:`be used in a python expression <expression_main>`,
+    A 1-dimensional vector that can be used in a python expression
     and can be prefixed with a :ref:`header <header>`.
     """
     _doc_params = """
@@ -162,10 +162,10 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         background_color: str | None = None,
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
-        fn: None = None,
-        func: None = None,
-        ex: None = None,
-        expr: None = None,
+        fn: str | Func | None = None,
+        func: str | Func | None = None,
+        ex: str | Expr | None = None,
+        expr: str | Expr | None = None,
         **kwargs,
     ) -> None:
         del fn
@@ -506,17 +506,13 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         ...
 
 
-class Row(_Series):
-    ...
-
-
 class Col(_Series):
     _doc_custom_summary = """
     * Direction: **vertical**
     * Child Type: :class:`Cell`
     """
 
-    sibling_type: type = Row  # these are set after class declaration
+    sibling_type: type = None  # these are set after class declaration
     elem_type = Cell
 
     def transpose(self, **kwargs) -> Row:
@@ -623,6 +619,7 @@ class Row(_Series):
             offset.x += 1
         return offset
 
+Col.sibling_type = Row
 
 Col.__doc__ = f"""
     {_Series._doc_primary_summary}

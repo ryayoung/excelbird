@@ -9,7 +9,7 @@ from typing import Any, Iterable, overload
 from copy import deepcopy
 import re
 
-from excelbird.styles.styles import default_table_style
+from excelbird.styles import default_table_style
 from excelbird._base.container import ListIndexableById
 from excelbird._base.identifier import HasId
 from excelbird._base.styling import HasBorder
@@ -50,7 +50,7 @@ from excelbird.core.series import (
 
 class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
     _doc_primary_summary = """
-    A 2-dimensional vector that can :ref:`be used in a python expression <expression_main>`.
+    A 2-dimensional vector that can be used in a python expression
     """
     _doc_params = """
     Parameters
@@ -168,10 +168,10 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
         table_style: Style | dict | bool | None = None,
-        fn: None = None,
-        func: None = None,
-        ex: None = None,
-        expr: None = None,
+        fn: str | Func | None = None,
+        func: str | Func | None = None,
+        ex: str | Expr | None = None,
+        expr: str | Expr | None = None,
         **kwargs,
     ) -> None:
         del fn
@@ -533,11 +533,6 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
     #     return other[0] >> self[-1]
 
 
-class VFrame(_Frame):
-    ...
-
-
-
 class Frame(_Frame):
 
     _doc_custom_summary = """
@@ -545,7 +540,7 @@ class Frame(_Frame):
     * Child Type: :class:`Col`
     """
 
-    sibling_type: type = VFrame  # these are set after class declaration
+    sibling_type: type = None  # these are set after class declaration
     elem_type = Col
 
     def transpose(self, **kwargs) -> VFrame:
@@ -766,6 +761,8 @@ class VFrame(_Frame):
             offset.y += 1
         return offset
 
+
+Frame.sibling_type = VFrame
 
 VFrame.__doc__ = Frame.__doc__
 

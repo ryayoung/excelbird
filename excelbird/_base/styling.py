@@ -282,7 +282,7 @@ class HasBorder:
         elif len(border) == 2:
             border += border
         elif len(border) == 3:
-            border += [False]
+            border += [border[1]]
 
         assert len(border) == 4, "Border must be 4 elements. If you're reading this, an excelbird developer made a mistake"
         return list(border)

@@ -38,6 +38,16 @@
 
 .. toctree::
    :maxdepth: 2
+   :caption: Styling
+   :hidden:
+   :titlesonly:
+
+   styling/colors
+   styling/formats
+   styling/styles
+
+.. toctree::
+   :maxdepth: 2
    :caption: Other
    :hidden:
    :titlesonly:

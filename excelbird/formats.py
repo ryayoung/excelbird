@@ -1,10 +1,37 @@
+"""
+.. note::
+    
+    Source code for this module is displayed at the bottom of this page
+
+
+**number_formats**
+
+* Apply these to a Cell's ``num_fmt`` attribute
+
+  * general
+  * int
+  * float
+  * comma_int
+  * comma_float
+  * percent_int
+  * percent_float
+  * usd_int
+  * usd_float
+  * accounting_int
+  * accounting_flat
+
+Source code
+------------
+
+.. literalinclude:: ../../../excelbird/formats.py
+"""
 from excelbird._base.dotdict import Style
 
 from openpyxl.styles.numbers import (
     BUILTIN_FORMATS as xl_fmt,
 )
 
-number = Style(
+number_formats = Style(
     general='General',
     int='0',
     float='0.00',

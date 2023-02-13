@@ -1,3 +1,72 @@
+"""
+.. note::
+    
+    Source code for this module is displayed at the bottom of this page
+
+**mono**
+
+* Keys : ``white``, ``black``, and 10 colors in between: ``gray0`` (95% white) - ``gray9`` (10% white)
+
+**theme**
+
+* The default colors found in "Theme Colors" section of the color selection panel in Excel.
+* Contains **6 shades** of each of the following
+
+  * light
+  * dark
+  * tan
+  * dark_blue
+  * light_blue
+  * red
+  * green
+  * purple
+  * aqua
+  * orange
+
+* For each of the colors above, the keys for each shade follow the pattern
+
+  * ``<color>`` (primary)
+  * ``<color>1`` (lightest)
+  * ``<color>2``
+  * ``<color>3``
+  * ``<color>4``
+  * ``<color>5`` (darkest)
+
+* Example: ``excelbird.colors.theme.red3``
+
+**theme_groups**
+
+* Stores all 6 shades of each color in ``theme`` as a list, so they can be accessed dynamically.
+* For instance, ``theme.red3`` is the same as ``theme_groups.red[3]``
+
+**standard**
+
+* Default colors found in the "Standard Colors" section of the color selection panel in Excel
+* Colors
+
+  * dark_red
+  * red
+  * orange
+  * yellow
+  * light_green
+  * green
+  * light_blue
+  * blue
+  * dark_blue
+  * purple
+
+**conditional**
+
+* Default colors used by Excel's conditional formatting feature. Consists of a fill-color/font-color combo
+  for 'good' (green), 'bad' (red) and 'neutral' (yellow).
+* Keys : ``light_green`` & ``dark_green``, etc. (same pattern for 'red' and 'yellow')
+
+Source code
+-------------
+
+.. literalinclude:: ../../../excelbird/colors.py
+
+"""
 from excelbird._base.dotdict import Style
 
 conditional = Style(
@@ -97,7 +166,7 @@ theme = Style(
     orange5="974706",
 )
 
-theme["groups"] = Style(
+theme_groups = Style(
     light=[
         theme.light,
         theme.light1,

@@ -15,9 +15,9 @@ formulas, and cell references, all in **Python**.
 **Fluid Layout**: Excelbird is **not** a scripting library. There is no concept of "cell ``A1``", and there
 are **no grid coordinates**. Your layout is *fluid*, like an html page.
 
-**Built-in cell reference tracking**: Cell references are **created automatically** (before their locations
-are known) when excelbird objects reference each other in python arithmetic expressions or formula templates,
-and **later** evaluate to real cell locations only once a workbook is written.
+**Built-in cell reference tracking**: Cell references are *created automatically* (before their locations
+are known) when excelbird objects reference each other in expressions or formulas,
+and **later** fill the references with real cell locations only once a workbook written.
 
 .. code-block::
 

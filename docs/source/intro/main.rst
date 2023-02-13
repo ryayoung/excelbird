@@ -13,26 +13,33 @@ Getting Started
 
 .. grid:: 2
 
-    .. grid-item-card:: Introduction
-        :link: intro
+    .. grid-item-card:: Prerequisite Knowledge
+        :link: for_beginners
         :link-type: doc
 
     .. grid-item-card:: Layout Tree Structure
         :link: layout
         :link-type: doc
 
+    .. grid-item-card:: Your First Book
+        :link: intro
+        :link-type: doc
+
+    .. grid-item-card:: Styling
+        :link: styling
+        :link-type: doc
+
     .. grid-item-card:: Python Expressions
         :link: expression
+        :link-type: doc
+
+    .. grid-item-card:: Gaps and Spacing
+        :link: spacing
         :link-type: doc
 
     .. grid-item-card:: Lazy References and Expr
         :link: references
         :link-type: doc
-
-
-
-
-
 
 
 
@@ -77,8 +84,11 @@ Getting Started
 
 .. toctree::
 
-   intro
+   for_beginners
    layout
+   intro
+   styling
    expression
+   spacing
    references
    schema_tutorial

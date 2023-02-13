@@ -7,7 +7,7 @@ import re
 from typing import TypeVar
 
 from excelbird._layout_references import Globals
-from excelbird.styles.styles import default_table_style
+from excelbird.styles import default_table_style
 from excelbird._base.dotdict import Style
 from excelbird._base.math import CanDoMath
 from excelbird.exceptions import ExpressionExecutionError, ExpressionTypeError
