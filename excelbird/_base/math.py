@@ -216,12 +216,12 @@ class CanDoMath:
         from excelbird.core.function import Func
         return Func("OR(", other, ", ", self, ")")
 
-    def __and__(self, other):
-        return self._to_func("AND", other)
-
-    def __rand__(self, other):
-        from excelbird.core.function import Func
-        return Func("AND(", other, ", ", self, ")")
+    # def __and__(self, other):
+    #     return self._to_func("AND", other)
+    #
+    # def __rand__(self, other):
+    #     from excelbird.core.function import Func
+    #     return Func("AND(", other, ", ", self, ")")
 
     def __eq__(self, other):
         return elem_math(self, other, lambda a,b: a == b, self._space_sign("="))
@@ -312,14 +312,14 @@ class CanDoMath:
         return elem_math(self, other, lambda a,b: a >> b, ":")
 
 
-    # def __and__(self, other):
-    #     if isinstance(other, str):
-    #         if not other.endswith('"') and not other.startswith('"'):
-    #             other = f'"{other}"'
-    #     return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))
-    #
-    # def __rand__(self, other):
-    #     if isinstance(other, str):
-    #         if not other.endswith('"') and not other.startswith('"'):
-    #             other = f'"{other}"'
-    #     return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))
+    def __and__(self, other):
+        if isinstance(other, str):
+            if not other.endswith('"') and not other.startswith('"'):
+                other = f'"{other}"'
+        return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))
+
+    def __rand__(self, other):
+        if isinstance(other, str):
+            if not other.endswith('"') and not other.startswith('"'):
+                other = f'"{other}"'
+        return elem_math(self, other, lambda a,b: a & b, self._space_sign("&"))

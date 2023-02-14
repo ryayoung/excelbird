@@ -33,12 +33,20 @@ Getting Started
         :link: expression
         :link-type: doc
 
+    .. grid-item-card:: Lazy References and Expr
+        :link: references
+        :link-type: doc
+
+    .. grid-item-card:: Builtin Excel Functions
+        :link: functions
+        :link-type: doc
+
     .. grid-item-card:: Gaps and Spacing
         :link: spacing
         :link-type: doc
 
-    .. grid-item-card:: Lazy References and Expr
-        :link: references
+    .. grid-item-card:: Schema: a simple data tool
+        :link: schema_tutorial
         :link-type: doc
 
 
@@ -89,6 +97,7 @@ Getting Started
    intro
    styling
    expression
-   spacing
    references
+   functions
+   spacing
    schema_tutorial

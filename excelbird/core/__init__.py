@@ -12,6 +12,16 @@ from excelbird.core.merged import *
 
 """
 TODO:
+- Allow the "not" operator to work, magically! Only for STRUCTURED containers (i.e. ONE elem_type)
+  - Each container type holds a '_nots: list' class attribute.
+  - Each container type overrides __bool__ to:
+    - Always return True
+    - Insert self to position 0 of type(self)._nots IF self is not already in the list.
+  - Each container type, upon initialization, looks through its children to see if any
+    child arguments are equal to False. If any are, loop through children and for each
+    False, pop the object from the _nots stack of elem_type's class attribute, turn it
+    into a proper "NOT()" excel function, and replace the boolean child with the updated
+    Func object.
 - A 'repeat' function which takes three arguments:
     1. a layout element
     2. number of times to repeat

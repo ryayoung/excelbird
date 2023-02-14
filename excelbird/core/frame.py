@@ -116,19 +116,19 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
     elem_type = _Series
 
     @overload
-    def __new__(cls, fn: str | set, **kwargs) -> Func:
+    def __new__(cls, fn: str | Func, **kwargs) -> Func:
         ...
 
     @overload
-    def __new__(cls, func: str | set, **kwargs) -> Func:
+    def __new__(cls, func: str | Func, **kwargs) -> Func:
         ...
 
     @overload
-    def __new__(cls, ex: str | set, **kwargs) -> Expr:
+    def __new__(cls, ex: str | set | Expr, **kwargs) -> Expr:
         ...
 
     @overload
-    def __new__(cls, expr: str | set, **kwargs) -> Expr:
+    def __new__(cls, expr: str | set | Expr, **kwargs) -> Expr:
         ...
 
     @overload
@@ -138,6 +138,11 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
     def __new__(cls, *args, fn=None, func=None, ex=None, expr=None, **kwargs):
         fn = fn if fn is not None else func
         ex = ex if ex is not None else expr
+        if isinstance(fn, Func):
+            fn = fn.inner
+        if isinstance(ex, Expr):
+            ex = ex.expr_str
+
         if fn is not None:
             new_func = Func.__new__(Func)
             new_func.__init__(fn, res_type=cls, **kwargs)
@@ -170,8 +175,8 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
         table_style: Style | dict | bool | None = None,
         fn: str | Func | None = None,
         func: str | Func | None = None,
-        ex: str | Expr | None = None,
-        expr: str | Expr | None = None,
+        ex: str | set | Expr | None = None,
+        expr: str | set | Expr | None = None,
         **kwargs,
     ) -> None:
         del fn

@@ -155,39 +155,32 @@ class Cell(HasId, HasBorder, CanDoMath):
     elem_type = None
 
     @overload
-    def __new__(cls, fn: str | set, **kwargs) -> Func:
+    def __new__(cls, fn: str | Func, **kwargs) -> Func:
         ...
 
     @overload
-    def __new__(cls, func: str | set, **kwargs) -> Func:
+    def __new__(cls, func: str | Func, **kwargs) -> Func:
         ...
 
     @overload
-    def __new__(cls, ex: str | set, **kwargs) -> Expr:
+    def __new__(cls, ex: str | set | Expr, **kwargs) -> Expr:
         ...
 
     @overload
-    def __new__(cls, expr: str | set, **kwargs) -> Expr:
-        ...
-
-    @overload
-    def __new__(cls, mul: int, **kwargs) -> list[Cell | Func | Expr]:
+    def __new__(cls, expr: str | set | Expr, **kwargs) -> Expr:
         ...
 
     @overload
     def __new__(cls, *args, **kwargs) -> Cell:
         ...
 
-    def __new__(cls, *args, fn=None, func=None, ex=None, expr=None, mul=None, **kwargs):
+    def __new__(cls, *args, fn=None, func=None, ex=None, expr=None, **kwargs):
         fn = fn if fn is not None else func
         ex = ex if ex is not None else expr
-        if mul is not None:
-            elems = [cls.__new__(cls, *args, fn=fn, **kwargs) for _ in range(mul)]
-            if len(elems) > 0:
-                if isinstance(elems[0], cls):
-                    for elem in elems:
-                        elem.__init__(*args, **kwargs)
-            return elems
+        if isinstance(fn, Func):
+            fn = fn.inner
+        if isinstance(ex, Expr):
+            ex = ex.expr_str
 
         if fn is not None:
             new_func = Func.__new__(Func)
@@ -236,15 +229,13 @@ class Cell(HasId, HasBorder, CanDoMath):
         _written: bool | None = None,
         fn: str | Func | None = None,
         func: str | Func | None = None,
-        ex: str | Expr | None = None,
-        expr: str | Expr | None = None,
-        mul: None = None,
+        ex: str | set | Expr | None = None,
+        expr: str | set | Expr | None = None,
     ) -> None:
         del fn
         del func
         del ex
         del expr
-        del mul
         self._written = False
         self._loc = None
 

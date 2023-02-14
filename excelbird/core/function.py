@@ -206,6 +206,17 @@ class Func(CanDoMath):
                 inner = inner[0]
 
         inner = list(inner)
+        # --- MIGHT BREAK ------
+        try:
+            for i, elem in enumerate(inner):
+                if i == 0:
+                    continue
+                if isinstance(elem, (CanDoMath, set)):
+                    if isinstance(inner[i-1], (CanDoMath, set)):
+                        inner.insert(i, ", ")
+        except Exception:
+            pass
+        # --- END MIGHT BREAK ------
 
         inner = self._parse_args(inner)
 

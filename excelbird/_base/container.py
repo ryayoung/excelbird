@@ -33,6 +33,24 @@ class ListIndexableById(list):
 
     @property
     def loc(self) -> Locable:
+        """
+        When subscripted, provides an alternative to the default
+        subscripting behavior. Instead of returning the elements
+        found by the slice, a subscripted ``loc`` will return a *range*
+        from the found elements.
+
+        .. warning::
+
+            Slices of ``loc`` will be **inclusive** of the 'stop'
+            argument, unlike normal slices which exclude it.
+
+        For instance, ``my_frame.loc[2:5]`` is equivalent to
+        ``my_frame[2] >> my_frame[5]``.
+
+        Returns
+        -------
+        :class:`Locable <excelbird.Locable>`
+        """
         return Locable(self)
 
     def insert(self, index, new) -> None:
