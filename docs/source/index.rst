@@ -1,41 +1,85 @@
-.. excelbird documentation master file, created by
-   sphinx-quickstart on Fri Jan 27 16:03:43 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Excelbird Documentation
+Excelbird
 =======================
-
-
-  **A markup language, front-end framework, and dataframe library all in one. For Excel.**
-
-Excelbird is the tool for *rapid* development of complex, functional Excel workbooks with styling,
-formulas, and cell references, all in **Python**.
-
-**Fluid Layout**: Excelbird is **not** a scripting library. There is no concept of "cell ``A1``", and there
-are **no grid coordinates**. Your layout is *fluid*, like an html page.
-
-**Built-in cell reference tracking**: Cell references are *created automatically* (before their locations
-are known) when excelbird objects reference each other in expressions or formulas,
-and **later** fill the references with real cell locations only once a workbook written.
-
-.. code-block::
-
-    pip install excelbird
 
 .. role:: html(raw)
     :format: html
 
-.. grid:: 2
+..
+
+
+  **A markup language, front-end framework, and dataframe library all in one. For Excel.**
+
+
+----
+
+.. admonition:: Dark Mode :fa:`moon`
+   :class: sidebar
+
+   Toggle using the :fa:`sun` on the top right.
+
+
+Excelbird is the tool for rapid development of Excel workbooks in Python.
+
+**Fluid Layout**: Excelbird is **not** a scripting library. There is no concept of "cell ``A1``", and there
+are **no grid coordinates**. Your layout is *fluid*, like an html page.
+
+**Built-in cell references**: Cell references are *created automatically* as excelbird objects reference each other,
+and lazily resolve to real cell locations once a workbook is written.
+
+
+.. grid:: 1
 
     .. grid-item-card::
         :link: /intro/main
         :link-type: doc
 
-        :doc:`Getting Started </intro/main>`
+        :doc:`Documentation </intro/main>` :octicon:`arrow-right;1.3em`
         ^^^
 
-:html:`<h4>Layout Elements</h4>`
+Excel theme color grid, in 1 line of code
+-------------------------------------------------
+
+
+.. dropdown:: :octicon:`chevron-left` :octicon:`chevron-right` :html:`&nbsp;&nbsp;&nbsp;` Code
+
+   :ref:`Click here <Excel Theme Color Grid>` for full explanation
+
+   :html:`<hr>`
+
+   .. code-block::
+
+        from excelbird import Book, Frame, Col, Cell, colors
+
+        Book([
+            Frame([
+                Col(
+                    [Cell(f"{color}{i}", fill_color=shades[i]) for i in range(1, len(shades))],
+                    header=color.upper(),
+                    border=['thick', ('mediumDashed', 'FFFFFF')],
+                    header_style=dict(fill_color=shades[0]),
+                ) for color, shades in colors.theme_groups.items()
+            ])],
+            # Styling passed down to children
+            row_height=18,
+            center=True,
+            col_width=11,
+            auto_shade_font=True,  # based on background color
+            header_style=dict(
+                bold=True,
+                row_height=26,
+                center=True,
+                auto_shade_font=True,
+                border_left=('thick', 'FFFFFF'),
+            ),
+        ).write("test.xlsx")
+
+
+.. image:: assets/theme_colors.png
+   :width: 900
+
+
+Layout Elements
+---------------------------------
 
 .. grid:: 3
 
@@ -82,7 +126,8 @@ and **later** fill the references with real cell locations only once a workbook 
         :class:`Sheet <excelbird.Sheet>`, :class:`Book <excelbird.Book>`
 
 
-:html:`<h4>Dynamic Elements</h4>`
+Dynamic Elements
+-----------------------------------
 
 .. grid:: 2
 
@@ -94,15 +139,6 @@ and **later** fill the references with real cell locations only once a workbook 
         ^^^
 
         Apply spacing
-
-    .. grid-item-card::
-        :link: /item/main
-        :link-type: doc
-
-        :class:`Item <excelbird.Item>`
-        ^^^
-
-        Let the parent container decide
 
     .. grid-item-card::
         :link: /expr/main

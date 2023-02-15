@@ -61,7 +61,7 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
     _doc_params = """
     Parameters
     ----------
-    *args : Union[Cell, Col, Row, str, int, float, list, tuple, pd.Series, np.ndarray, Gap, Item, Expr, Func, set]
+    *args : Union[Cell, Col, Row, str, int, float, list, tuple, pd.Series, np.ndarray, Gap, Item, Expr, Func, set, None]
         Children must be, or resolve to, `Cell`. Iterables will be *exploded* inplace. So, if given
         ``1, pandas.Series([2, 3]), 4``, it will be read as ``1, 2, 3, 4`` before converting the
         ints to `Cell`. If a :class:`pandas.Series` is passed as the *only* argument, its name
@@ -116,20 +116,36 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
     def __new__(cls, fn: str | Func, **kwargs) -> Func:
         ...
 
-    @overload
-    def __new__(cls, func: str | Func, **kwargs) -> Func:
-        ...
+    # @overload
+    # def __new__(cls, func: str | Func, **kwargs) -> Func:
+    #     ...
 
     @overload
     def __new__(cls, ex: str | set | Expr, **kwargs) -> Expr:
         ...
 
-    @overload
-    def __new__(cls, expr: str | set | Expr, **kwargs) -> Expr:
-        ...
+    # @overload
+    # def __new__(cls, expr: str | set | Expr, **kwargs) -> Expr:
+    #     ...
 
     @overload
-    def __new__(cls, *args, **kwargs) -> _Series:
+    def __new__(
+        cls, 
+        *args: Any,
+        children: list | None = None,
+        id: str | None = None,
+        header: str | None = None,
+        sep: Any | None = None,
+        border_left: bool | str | None = None,
+        border_right: bool | str | None = None,
+        border_top: bool | str | None = None,
+        border_bottom: bool | str | None = None,
+        border: bool | str | Iterable | None = None,
+        background_color: str | None = None,
+        cell_style: Style | dict | None = None,
+        header_style: Style | dict | None = None,
+        **kwargs,
+    ) -> _Series:
         ...
 
     def __new__(cls, *args, fn=None, func=None, ex=None, expr=None, **kwargs):
@@ -167,16 +183,8 @@ class _Series(CanDoMath, ListIndexableById, HasId, HasHeader, HasBorder):
         background_color: str | None = None,
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
-        fn: str | Func | None = None,
-        func: str | Func | None = None,
-        ex: str | set | Expr | None = None,
-        expr: str | set | Expr | None = None,
         **kwargs,
     ) -> None:
-        del fn
-        del func
-        del ex
-        del expr
         children = combine_args_and_children_to_list(args, children)
 
         children = [i for i in children if i is not None]

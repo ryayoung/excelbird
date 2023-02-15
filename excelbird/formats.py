@@ -20,8 +20,8 @@
   * accounting_int
   * accounting_flat
 
-Source code
-------------
+xb.formats Source code
+-----------------------
 
 .. literalinclude:: ../../../excelbird/formats.py
 """

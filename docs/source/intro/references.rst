@@ -47,8 +47,8 @@ This solves the problem identified earlier: You can arrange a summary card that 
 in a table that will be arranged later, without creating variables for the summary card or table.
 
 
-xb.Expr
---------
+The 'Expr' Element
+-------------------------
 
 Python has a builtin function :meth:`eval` which takes a string and executes it as code:
 ``eval("1 + my_variable")`` is the same as ``1 + my_variable``.

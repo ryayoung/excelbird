@@ -6,10 +6,8 @@ xb.Sheet
 
 .. autoclass:: excelbird.Sheet
 
-:html:`</br>`
-
-Methods
--------
+xb.Sheet Methods
+------------------
 
 .. autofunction:: excelbird.Sheet.ref
 

@@ -6,10 +6,8 @@ xb.VStack
 
 .. autoclass:: excelbird.VStack
 
-:html:`</br>`
-
-Methods
--------
+xb.VStack Methods
+-----------------
 
 .. autofunction:: excelbird.VStack.ref
 

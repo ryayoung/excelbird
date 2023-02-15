@@ -158,20 +158,53 @@ class Cell(HasId, HasBorder, CanDoMath):
     def __new__(cls, fn: str | Func, **kwargs) -> Func:
         ...
 
-    @overload
-    def __new__(cls, func: str | Func, **kwargs) -> Func:
-        ...
+    # @overload
+    # def __new__(cls, func: str | Func, **kwargs) -> Func:
+    #     ...
 
     @overload
     def __new__(cls, ex: str | set | Expr, **kwargs) -> Expr:
         ...
 
-    @overload
-    def __new__(cls, expr: str | set | Expr, **kwargs) -> Expr:
-        ...
+    # @overload
+    # def __new__(cls, expr: str | set | Expr, **kwargs) -> Expr:
+    #     ...
 
     @overload
-    def __new__(cls, *args, **kwargs) -> Cell:
+    def __new__(
+        cls, 
+        value: Any | None = None,
+        dropdown: list | Any | None = None,  # list of values, Col, Row, or Cell
+        id: str | None = None,
+        align_x: str | None = None,
+        align_y: str | None = None,
+        indent: float | None = None,
+        center: bool | None = None,  # center align horizontal and vertical
+        wrap: bool | None = None,
+        size: int | None = None,  # font size
+        bold: bool | None = None,
+        italic: bool | None = None,
+        color: str | None = None,
+        num_fmt: str | None = None,
+        currency: bool | None = None,
+        ignore_format: bool | None = None,
+        fill_color: str | None = None,
+        auto_color_font: bool | str | None = None,
+        auto_shade_font: bool | float | None = None,
+        border_left: bool | str | None = None,
+        border_right: bool | str | None = None,
+        border_top: bool | str | None = None,
+        border_bottom: bool | str | None = None,
+        border: bool | str | None = None,  # MUST be last border attr set
+        col_width: int | None = None,  # finds the cell's column and adjust it
+        row_height: int | None = None,  # finds the cell's row and adjusts it
+        merge: tuple[int, int] | None = None,  # (y, x) counts of how many merges. Ex: (0, 1) merges cell with right adjacent
+        _expr: list | None = None,
+        _func: list | None = None,
+        autofit: bool | None = None,
+        cell_style: dict | None = None,
+        _written: bool | None = None,
+    ) -> Cell:
         ...
 
     def __new__(cls, *args, fn=None, func=None, ex=None, expr=None, **kwargs):
@@ -227,15 +260,7 @@ class Cell(HasId, HasBorder, CanDoMath):
         autofit: bool | None = None,
         cell_style: dict | None = None,
         _written: bool | None = None,
-        fn: str | Func | None = None,
-        func: str | Func | None = None,
-        ex: str | set | Expr | None = None,
-        expr: str | set | Expr | None = None,
     ) -> None:
-        del fn
-        del func
-        del ex
-        del expr
         self._written = False
         self._loc = None
 

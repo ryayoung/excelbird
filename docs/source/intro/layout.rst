@@ -35,8 +35,8 @@ Layout Tree Structure
         ).write(path)
 
 
-Series
-------
+1D Vector
+-----------
 
 A series :attr:`header <excelbird.Col.header>` attribute is special, and doesn't act like a normal cell.
 :ref:`Read more about headers <header>`
@@ -75,8 +75,8 @@ A series :attr:`header <excelbird.Col.header>` attribute is special, and doesn't
             .. image:: ../assets/row.png
                 :width: 200
 
-Frame
------
+2D Vector
+--------------
 
 .. .. dropdown:: :octicon:`chevron-left` :octicon:`chevron-right`
 ..
@@ -127,8 +127,8 @@ Frame
                 :width: 200
 
 
-Stack
------
+Unstructured Container
+---------------------------
 
 Stacks can hold anything, just like an html ``<div>``, but they can't be used in
 expressions. They offer unique styling features not available to other elements, like
@@ -161,8 +161,8 @@ expressions. They offer unique styling features not available to other elements,
                 :width: 200
 
 
-Sheet
------
+Worksheet
+---------------
 
 Sheets handle children just like :class:`VStack <excelbird.VStack>`.
 

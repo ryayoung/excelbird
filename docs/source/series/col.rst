@@ -7,8 +7,15 @@ xb.Col
 
 .. autoclass:: excelbird.Col
 
-Methods
--------
+
+:html:`<h3>Properties</h3>`
+
+.. autodata:: excelbird.Col.loc
+   :no-value:
+
+
+xb.Col Methods
+-----------------
 
 .. autofunction:: excelbird.Col.range
 

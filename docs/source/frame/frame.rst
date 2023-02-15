@@ -4,21 +4,21 @@ xb.Frame
 .. role:: html(raw)
    :format: html
 
+
 .. autoclass:: excelbird.Frame
 
-----
 
 :html:`<h3>Properties</h3>`
-
 
 .. autodata:: excelbird.Frame.headers
    :no-value:
 
-:html:`</br>`
+.. autodata:: excelbird.Frame.loc
+   :no-value:
 
-Methods
--------
 
+xb.Frame Methods
+------------------
 
 .. autofunction:: excelbird.Frame.range
 

@@ -6,8 +6,8 @@ cell(s). It should be used **only when calling builtin Excel functions** in your
 As standard across excelbird, a Func is designed for use without
 specifying any cell coordinates.
 
-Syntax
-------
+Func Syntax
+-----------------
 To build a :class:`Func <excelbird.Func>`, provide the *exact* formula string,
 with Python objects placed wherever the cell references should appear.
 
@@ -22,7 +22,7 @@ For instance, here's how it should look if you were **not** referencing any cell
 To reference other layout elements in your formula, there are two options:
 
 Referencing Elements - Option 1
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 **Break the string, and insert variables directly**. Be warned, this option
 can be clumsy, tedious, and cause mistakes.
 
@@ -44,7 +44,7 @@ Notice the comma we had to insert manually between `five` and `four`
     of object `ids`, `headers`, and :class:`Expr <excelbird.Expr>`.
 
 Referencing Elements - Option 2
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 **Templated** :class:`Expr <excelbird.Expr>`. Please read the intro to `Expr` if
 you aren't familiar with them yet.
 
@@ -144,8 +144,10 @@ to allow for conditional placement of elements.
 from __future__ import annotations
 import re
 from typing import Any
-from itertools import zip_longest
-from itertools import chain
+from itertools import (
+    zip_longest,
+    chain,
+)
 
 from excelbird.core.expression import Expr
 from excelbird._base.math import CanDoMath

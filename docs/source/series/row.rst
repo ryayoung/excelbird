@@ -4,13 +4,18 @@ xb.Row
 .. role:: html(raw)
    :format: html
 
+
 .. autoclass:: excelbird.Row
 
-:html:`</br>`
 
-Methods
--------
+:html:`<h3>Properties</h3>`
 
+.. autodata:: excelbird.Row.loc
+   :no-value:
+
+
+xb.Row Methods
+------------------
 
 .. autofunction:: excelbird.Row.range
 

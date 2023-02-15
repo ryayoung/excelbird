@@ -25,8 +25,8 @@ example of how that's done
   color as seen in Excel's default conditional formatting styles.
 * Keys : ``good``, ``bad``, ``neutral``
 
-Source code
---------------
+xb.styles Source code
+---------------------------
 
 .. literalinclude:: ../../../excelbird/styles.py
 

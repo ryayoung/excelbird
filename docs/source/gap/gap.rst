@@ -8,7 +8,7 @@ xb.Gap
 
 :html:`</br>`
 
-Methods
--------
+Gap Methods
+-----------------
 
 .. autofunction:: excelbird.Gap.ref

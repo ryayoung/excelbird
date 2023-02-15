@@ -6,10 +6,8 @@ xb.Book
 
 .. autoclass:: excelbird.Book
 
-:html:`</br>`
-
-Methods
--------
+xb.Book Methods
+----------------
 
 .. autofunction:: excelbird.Book.write
 

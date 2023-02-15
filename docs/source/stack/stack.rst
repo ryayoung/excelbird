@@ -6,10 +6,8 @@ xb.Stack
 
 .. autoclass:: excelbird.Stack
 
-:html:`</br>`
-
-Methods
--------
+xb.Stack Methods
+--------------------
 
 .. autofunction:: excelbird.Stack.ref
 

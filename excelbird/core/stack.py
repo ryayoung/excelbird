@@ -52,7 +52,7 @@ class _Stack(ListIndexableById, HasId, HasMargin, HasPadding):
 
     Parameters
     ----------
-    *args : Union[Stack, VStack, Frame, VFrame, Col, Row, Cell, list, tuple, str, int, float, pd.Series, pd.DataFrame, np.ndarray, Gap, Expr, Func, set]
+    *args : Union[Stack, VStack, Frame, VFrame, Col, Row, Cell, list, tuple, str, int, float, pd.Series, pd.DataFrame, np.ndarray, Gap, Expr, Func, set, None]
         Can take any layout element (besides Book or Sheet), or any value that
         can be used to construct a layout element. Stack is the only layout element
         that can store other instances of itself as children

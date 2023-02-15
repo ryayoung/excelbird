@@ -3,6 +3,11 @@ Getting Started
 
 .. _intro:
 
+.. code-block::
+
+    pip install excelbird
+
+
 .. admonition:: A brief disclaimer
     :class: warning
 

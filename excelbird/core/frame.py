@@ -55,7 +55,7 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
     _doc_params = """
     Parameters
     ----------
-    *args : Union[Col, Row, Frame, VFrame, list, tuple, pd.Series, pd.DataFrame, np.ndarray, Gap, Item, Expr, Func, set]
+    *args : Union[Col, Row, Frame, VFrame, list, tuple, pd.Series, pd.DataFrame, np.ndarray, Gap, Item, Expr, Func, set, None]
         Children must be (or resolve to) a series. Frame holds Cols, and VFrame
         holds Rows - `Gap` and `Item` will be interpreted as the respective element. Can also
         take any value that will be resolved to one of the above types, such as a list, tuple,
@@ -119,20 +119,39 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
     def __new__(cls, fn: str | Func, **kwargs) -> Func:
         ...
 
-    @overload
-    def __new__(cls, func: str | Func, **kwargs) -> Func:
-        ...
+    # @overload
+    # def __new__(cls, func: str | Func, **kwargs) -> Func:
+    #     ...
 
     @overload
     def __new__(cls, ex: str | set | Expr, **kwargs) -> Expr:
         ...
 
-    @overload
-    def __new__(cls, expr: str | set | Expr, **kwargs) -> Expr:
-        ...
+    # @overload
+    # def __new__(cls, expr: str | set | Expr, **kwargs) -> Expr:
+    #     ...
 
     @overload
-    def __new__(cls, *args, **kwargs) -> _Frame:
+    def __new__(
+        cls, 
+        *args: Any,
+        children: list | None = None,
+        id: str | int | None = None,
+        schema: None = None,
+        sep: Any | None = None,
+        sizes: list | None = None,
+        border_top: bool | str | None = None,
+        border_right: bool | str | None = None,
+        border_bottom: bool | str | None = None,
+        border_left: bool | str | None = None,
+        border: bool | str | Iterable | None = None,
+        background_color: str | None = None,
+        fill_empty: bool | None = None,
+        cell_style: Style | dict | None = None,
+        header_style: Style | dict | None = None,
+        table_style: Style | dict | bool | None = None,
+        **kwargs,
+    ) -> _Frame:
         ...
 
     def __new__(cls, *args, fn=None, func=None, ex=None, expr=None, **kwargs):
@@ -173,16 +192,8 @@ class _Frame(CanDoMath, ListIndexableById, HasId, HasBorder):
         cell_style: Style | dict | None = None,
         header_style: Style | dict | None = None,
         table_style: Style | dict | bool | None = None,
-        fn: str | Func | None = None,
-        func: str | Func | None = None,
-        ex: str | set | Expr | None = None,
-        expr: str | set | Expr | None = None,
         **kwargs,
     ) -> None:
-        del fn
-        del func
-        del ex
-        del expr
         children = combine_args_and_children_to_list(args, children)
 
         children = [i for i in children if i is not None]

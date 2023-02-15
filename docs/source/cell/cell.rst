@@ -6,7 +6,7 @@ xb.Cell
 
 .. autoclass:: excelbird.Cell
 
-Methods
--------
+xb.Cell Methods
+----------------
 
 .. autofunction:: excelbird.Cell.ref

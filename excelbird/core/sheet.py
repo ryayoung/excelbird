@@ -37,7 +37,7 @@ class Sheet(VStack):
 
     Parameters
     ----------
-    *args : Union[Stack, VStack, Frame, VFrame, Col, Row, Cell, list, tuple, str, int, float, pd.Series, pd.DataFrame, np.ndarray, Gap, Expr, Func, set]
+    *args : Union[Stack, VStack, Frame, VFrame, Col, Row, Cell, list, tuple, str, int, float, pd.Series, pd.DataFrame, np.ndarray, Gap, Expr, Func, set, None]
         Can take any layout element (besides `Book` and `Sheet`) or any value that can
         be used to construct a layout element.
     children : list, optional

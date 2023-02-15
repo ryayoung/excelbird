@@ -59,7 +59,7 @@ class Book(ListIndexableById):
 
     Parameters
     ----------
-    *args : Union[Sheet, Stack, VStack, Frame, VFrame, Col, Row, Cell, list, tuple, str, int, float, pd.Series, pd.DataFrame, np.ndarray, Gap, Expr, Func, set]
+    *args : Union[Sheet, Stack, VStack, Frame, VFrame, Col, Row, Cell, list, tuple, str, int, float, pd.Series, pd.DataFrame, np.ndarray, Gap, Expr, Func, set, None]
         Each element, if not a :class:`Sheet`, will be placed in its own separate `Sheet`.
         Vectors which aren't layout types (like `list`, or `pd.DataFrame`) will be inferred
         as :class:`Col` or :class:`Frame`

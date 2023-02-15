@@ -26,7 +26,6 @@
    expr/main
    func/main
    gap/main
-   item/main
 
 .. toctree::
    :maxdepth: 2

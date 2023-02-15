@@ -9,8 +9,8 @@ xb.Schema
 .. autoclass:: excelbird.schema.Schema
 
 
-Methods
--------
+Schema Methods
+---------------------
 
 .. autofunction:: excelbird.schema.Schema.select_inputs
 

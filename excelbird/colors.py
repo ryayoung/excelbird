@@ -61,8 +61,8 @@
   for 'good' (green), 'bad' (red) and 'neutral' (yellow).
 * Keys : ``light_green`` & ``dark_green``, etc. (same pattern for 'red' and 'yellow')
 
-Source code
--------------
+xb.colors Source code
+----------------------------
 
 .. literalinclude:: ../../../excelbird/colors.py
 
