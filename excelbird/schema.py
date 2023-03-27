@@ -90,7 +90,7 @@ class Schema(dict):
     *schemas : Schema
         Existing schemas to use, to build a composite Schema that shows the reader
         where the columns are coming from.
-    **kwargs : tuple[str, str] | tuple[str] | str
+    **kwargs : tuple[str, str] | tuple[str] | str | Column
         A mapping of python-friendly variable names to their corresponding input column
         names and output column names. If value is a string, or 1-element tuple, it will
         be applied as both the input and output name.
@@ -122,7 +122,7 @@ class Schema(dict):
 
     """
     def __init__(
-        self, *schemas, **kwargs: tuple[str, str] | tuple[str] | list[str] | str
+        self, *schemas, **kwargs: tuple[str, str] | tuple[str] | list[str] | str | Column
     ) -> None:
         if not all(isinstance(s, Schema) for s in schemas):
             raise TypeError("Positional args can only be existing Schemas")
@@ -139,7 +139,7 @@ class Schema(dict):
                 "Values must be a max of length 2. One input col name, and one output col name"
             )
         # Convert to Column
-        kwargs = {k: Column(*v) for k, v in kwargs.items()}
+        kwargs = {k: v if isinstance(v, Column) else Column(*v) for k, v in kwargs.items()}
         # If other schemas were passed in, create those as well
         # ChainMap combines dictionaries. We reverse the input first,
         # since for some reason ChainMap returns the values in opposite order
@@ -159,7 +159,7 @@ class Schema(dict):
     def __getitem__(self, key: str) -> Column:
         ...
 
-    def __getitem__(self, key) -> Column | Schema:
+    def __getitem__(self, key):
         """
         Called when accessing items with ``sch[<key>]`` syntax.
 

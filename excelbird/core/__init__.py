@@ -12,6 +12,64 @@ from excelbird.core.merged import *
 
 """
 TODO:
+- HOW TO RESOLVE EXPRESSIONS WITHOUT POINTLESS ITERATION
+    - Get rid of project-level global ids.
+    - Ids should be regular attributes, meaningless until Book.write(). Don't attempt
+      to ID anything or evaluate/resolve anything until then.
+    - At Book.write():
+        - DEPTH first, traverse the tree. Each container element should store
+          its own dictionary mapping ids to objects for ALL children (not just immediate).
+          Also, exprs/funcs with ids should be treated the same.
+          If a child has an id, add it. If a child has a dictionary with ids, add all of them
+          individually (they'll already be created since we drilled depth first). So at the end
+          of our search, the last call should be for Book, and it should know the ids of all its elements.
+        - If an element contains two or more IMMEDIATE children with matching id and/or header, throw an error
+          immediately.
+        - IMPORTANT: When duplicate ids are used across multiple containers in the SAME sheet,
+          we must then treat them as LOCAL identifiers, whose scope ends at the first tree intersection.
+          - The scope of an identifier can be logically identified by traversing upwards until a matching
+            name is found. If it intersects DIRECTLY with the matching name, then the matching name will
+            'override' it, and live on as a globally available identifier.
+            If it intersects INDIRECTLY, then NEITHER identifier lives on past that point, since it can't
+            be determined which to prioritize. Maybe we should keep track of when this happens, so we can throw
+            a helpful error.
+          - Direct vs. indirect intersections:
+            - Direct: Container A has children X and Y. Child Y nests J
+              somewhere beneath it. If X and J have matching IDs, then a direct intersection occurs inside A.
+              In this case, J is accessible to ANY child of Y, but nobody else. Starting from A upwards, the id
+              in question will reference X only.
+            - Indirect: Container A has children X and Y. Child X nests J somewhere beneath it,
+              and child Y nests K somewhere beneath it. If J and K have matching IDs, an indirect intersection
+              is formed at A between J and K. The id in question will be locally valid from X downwards and
+              Y downwards, respectively. However, from A upwards, the id is invalidated, i.e. forgotten entirely.
+          - In practice, this is easy to implement. First, add all the ids of IMMEDIATE children.
+            When looking at the childrens' pools, an id can be added if and only if: 1.) It does not match any
+            of self's immediate children, and 2.) it's unique across the pool of secondary children.
+            The result is that if an id is duplicated across secondary children, it will be ignored, and it will
+            die from this point onwards. If an immediate child has it (we've already validated immediate child uniqueness)
+            we'll include it, and it lives on.
+        - Now, we can safely evaluate references.
+          - This should also be done depth-first.
+          - A reference may or may not be prefixed with a sheet identifier (figure out syntax for this).
+          - If no sheet identifier is given, start searching for the element from the current location,
+            traversing UP the tree, which will prioritize elements based on proximity. We're able to traverse
+            upwards because each parent element already knows the ids of all its children. If we reach the
+            Book's dictionary and nothing is found, we can throw an error.
+          - If a sheet identifier is given, first make sure it's valid, then start the search from the TOP
+            of the specified sheet, and search for it BREADTH first.
+        - Now, once all references are resolved, we can start evaluating exprs/funcs.
+          - I'm not sure which search pattern is best, but probably depth-first.
+          - Evaluate recursively, so we don't have to iteratively try repeatedly. If a referenced element
+            itself is not yet evaluated, evaluate it first. It will then make the same check, resulting
+            in a depth-first call stack that traces straight down to the element that needs evaluation first, and then
+            moves backward up the stack as dependencies get evaluated.
+
+- Deprecate Expr and Func, in replace of just Formula
+- Style objects should have `.with()` and `.without()` methods that update and return self
+- A series has the option to hide its header. This way its header is kept so others can refer to it,
+  but it won't be visible.
+- IMPORTANT: For all containers, `children` can be a dictionary. If it is, treat each value like an arg
+  (in order) and initialize it with its key as its id (or header, for _Series)
 - Allow the "not" operator to work, magically! Only for STRUCTURED containers (i.e. ONE elem_type)
   - Each container type holds a '_nots: list' class attribute.
   - Each container type overrides __bool__ to:
